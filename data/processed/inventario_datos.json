@@ -1,0 +1,589 @@
+{
+  "raw": {
+    "federal": {
+      "total_zips": 50,
+      "total_bytes": 1157166031,
+      "total_bytes_human": "1.08 GB",
+      "total_internal_files": 793,
+      "years": [
+        1991,
+        1992,
+        1994,
+        1995,
+        1997,
+        2000,
+        2003,
+        2006,
+        2009,
+        2012,
+        2015,
+        2018,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "by_year": {
+        "1991": {
+          "zips": 3,
+          "bytes": 48106473,
+          "files": 41
+        },
+        "1992": {
+          "zips": 1,
+          "bytes": 66050,
+          "files": 6
+        },
+        "1994": {
+          "zips": 4,
+          "bytes": 67719209,
+          "files": 54
+        },
+        "1995": {
+          "zips": 1,
+          "bytes": 120111,
+          "files": 6
+        },
+        "1997": {
+          "zips": 3,
+          "bytes": 50947810,
+          "files": 41
+        },
+        "2000": {
+          "zips": 5,
+          "bytes": 80877420,
+          "files": 67
+        },
+        "2003": {
+          "zips": 3,
+          "bytes": 40333821,
+          "files": 34
+        },
+        "2006": {
+          "zips": 5,
+          "bytes": 101796039,
+          "files": 71
+        },
+        "2009": {
+          "zips": 2,
+          "bytes": 51920354,
+          "files": 36
+        },
+        "2012": {
+          "zips": 5,
+          "bytes": 150895578,
+          "files": 91
+        },
+        "2015": {
+          "zips": 2,
+          "bytes": 61424814,
+          "files": 36
+        },
+        "2018": {
+          "zips": 5,
+          "bytes": 203364931,
+          "files": 91
+        },
+        "2021": {
+          "zips": 4,
+          "bytes": 75786751,
+          "files": 63
+        },
+        "2022": {
+          "zips": 1,
+          "bytes": 1464964,
+          "files": 6
+        },
+        "2023": {
+          "zips": 1,
+          "bytes": 1072371,
+          "files": 21
+        },
+        "2024": {
+          "zips": 5,
+          "bytes": 221269335,
+          "files": 129
+        }
+      }
+    },
+    "local": {
+      "total_zips": 146,
+      "total_bytes": 595384527,
+      "total_bytes_human": "567.80 MB",
+      "total_internal_files": 6199,
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "by_year": {
+        "2015": {
+          "zips": 17,
+          "bytes": 57148885,
+          "files": 702
+        },
+        "2016": {
+          "zips": 15,
+          "bytes": 47269565,
+          "files": 619
+        },
+        "2017": {
+          "zips": 4,
+          "bytes": 15748940,
+          "files": 172
+        },
+        "2018": {
+          "zips": 30,
+          "bytes": 124625448,
+          "files": 1223
+        },
+        "2019": {
+          "zips": 6,
+          "bytes": 10484555,
+          "files": 178
+        },
+        "2020": {
+          "zips": 2,
+          "bytes": 2690122,
+          "files": 42
+        },
+        "2021": {
+          "zips": 32,
+          "bytes": 141353824,
+          "files": 1556
+        },
+        "2022": {
+          "zips": 6,
+          "bytes": 7702253,
+          "files": 179
+        },
+        "2023": {
+          "zips": 2,
+          "bytes": 8012869,
+          "files": 78
+        },
+        "2024": {
+          "zips": 32,
+          "bytes": 180348066,
+          "files": 1450
+        }
+      },
+      "by_state": {
+        "Aguascalientes": {
+          "zips": 6,
+          "years": 6,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Coahuila": {
+          "zips": 6,
+          "years": 6,
+          "first_year": 2017,
+          "last_year": 2024
+        },
+        "Hidalgo": {
+          "zips": 6,
+          "years": 6,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Tamaulipas": {
+          "zips": 6,
+          "years": 6,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Quintana Roo": {
+          "zips": 6,
+          "years": 6,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Durango": {
+          "zips": 6,
+          "years": 6,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Oaxaca": {
+          "zips": 5,
+          "years": 5,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Puebla": {
+          "zips": 5,
+          "years": 5,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Colima": {
+          "zips": 5,
+          "years": 5,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Veracruz": {
+          "zips": 5,
+          "years": 5,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Morelos": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Sinaloa": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Sonora": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "San Luis Potosí": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Tabasco": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Querétaro": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Tlaxcala": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Yucatán": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Nuevo León": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Zacatecas": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Baja California": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Jalisco": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Guerrero": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Guanajuato": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Chihuahua": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2016,
+          "last_year": 2024
+        },
+        "Chiapas": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Campeche": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Baja California Sur": {
+          "zips": 4,
+          "years": 4,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "México": {
+          "zips": 3,
+          "years": 3,
+          "first_year": 2015,
+          "last_year": 2024
+        },
+        "Nayarit": {
+          "zips": 3,
+          "years": 3,
+          "first_year": 2017,
+          "last_year": 2024
+        },
+        "Estado de México": {
+          "zips": 3,
+          "years": 3,
+          "first_year": 2017,
+          "last_year": 2023
+        },
+        "Michoacan": {
+          "zips": 2,
+          "years": 2,
+          "first_year": 2018,
+          "last_year": 2024
+        },
+        "Distrito Federal": {
+          "zips": 2,
+          "years": 2,
+          "first_year": 2015,
+          "last_year": 2016
+        },
+        "Ciudad de México": {
+          "zips": 2,
+          "years": 2,
+          "first_year": 2018,
+          "last_year": 2024
+        },
+        "Michoacán": {
+          "zips": 2,
+          "years": 2,
+          "first_year": 2015,
+          "last_year": 2021
+        },
+        "Ciudad De México": {
+          "zips": 1,
+          "years": 1,
+          "first_year": 2021,
+          "last_year": 2021
+        }
+      }
+    }
+  },
+  "series": {
+    "presidencia": {
+      "filas": 3936,
+      "path": "data/processed/series/serie_presidencia_entidad.csv"
+    },
+    "senado": {
+      "filas": 4992,
+      "path": "data/processed/series/serie_senado_entidad.csv"
+    },
+    "diputados_fed_mr": {
+      "filas": 7392,
+      "path": "data/processed/series/serie_diputados_fed_mr_entidad.csv"
+    },
+    "diputados_fed_rp": {
+      "filas": 1984,
+      "path": "data/processed/series/serie_diputados_fed_rp_entidad.csv"
+    },
+    "estatal_gobernador": {
+      "filas": 1622,
+      "path": "data/processed/series/serie_estatal_gobernador.csv"
+    },
+    "estatal_diputados_local": {
+      "filas": 101902,
+      "path": "data/processed/series/serie_estatal_diputados_local.csv"
+    },
+    "municipal_ayuntamiento": {
+      "filas": 362900,
+      "path": "data/processed/series/serie_municipal_ayuntamiento.csv"
+    },
+    "municipal_otros": {
+      "filas": 15936,
+      "path": "data/processed/series/serie_municipal_otros.csv"
+    },
+    "catalogo_archivos": {
+      "filas": 5879,
+      "path": "data/processed/series/catalogo_archivos.csv"
+    }
+  },
+  "features": {
+    "metadata": {
+      "enco_5componentes": {
+        "source": "INEGI ENCO",
+        "freq": "mensual -> anual",
+        "variables": [
+          "enco_icc_mean",
+          "enco_p3_mean",
+          "enco_p4_mean",
+          "enco_p5_mean",
+          "enco_p6_mean",
+          "enco_p8_mean"
+        ]
+      },
+      "panel_estimacion": {
+        "source": "Proyecto Lo que México cree / INEGI/Banxico/CONASAMI",
+        "freq": "trimestral -> anual",
+        "variables": [
+          "panel_p3_mean",
+          "panel_p4_mean",
+          "panel_p5_mean",
+          "panel_p6_mean",
+          "panel_p8_mean",
+          "panel_icc_mean",
+          "panel_tlp_mean",
+          "panel_ing_inpc_mean",
+          "panel_ing_canasta_mean",
+          "panel_ing_urb_mean",
+          "panel_ing_rur_mean",
+          "panel_covid_mean",
+          "panel_post2019_mean"
+        ]
+      },
+      "desempleo_ocde": {
+        "source": "OECD/FRED",
+        "freq": "mensual -> anual",
+        "variables": [
+          "ocde_desempleo_pct_mean"
+        ]
+      },
+      "inpc_ocde": {
+        "source": "OECD/FRED",
+        "freq": "mensual -> anual",
+        "variables": [
+          "ocde_inpc_indice_mean"
+        ]
+      },
+      "tipo_cambio_fred": {
+        "source": "FRED",
+        "freq": "diario -> anual",
+        "variables": [
+          "fred_tipo_cambio_mxn_usd_mean"
+        ]
+      },
+      "remesas_banxico": {
+        "source": "Banxico SE27803",
+        "freq": "mensual -> anual (suma anual en miles de millones USD)",
+        "variables": [
+          "remesas_total_mdd"
+        ]
+      },
+      "remesas_por_entidad": {
+        "source": "Banxico",
+        "freq": "trimestral -> anual (suma anual)",
+        "variables": [
+          "remesas_total_mdd"
+        ]
+      }
+    },
+    "features_anuales_nacional.csv": {
+      "filas": 58,
+      "columnas": [
+        "anio",
+        "enco_icc_mean",
+        "enco_p3_mean",
+        "enco_p4_mean",
+        "enco_p5_mean",
+        "enco_p6_mean",
+        "enco_p8_mean",
+        "panel_p3_mean",
+        "panel_p4_mean",
+        "panel_p5_mean",
+        "panel_p6_mean",
+        "panel_p8_mean",
+        "panel_icc_mean",
+        "panel_tlp_mean",
+        "panel_ing_inpc_mean",
+        "panel_ing_canasta_mean",
+        "panel_ing_urb_mean",
+        "panel_ing_rur_mean",
+        "panel_covid_mean",
+        "panel_post2019_mean",
+        "ocde_desempleo_pct_mean",
+        "ocde_inpc_indice_mean",
+        "fred_tipo_cambio_mxn_usd_mean",
+        "remesas_total_mdd"
+      ],
+      "path": "data/processed/features/features_anuales_nacional.csv"
+    },
+    "features_anuales_entidad.csv": {
+      "filas": 792,
+      "columnas": [
+        "anio",
+        "entidad",
+        "remesas_total_mdd"
+      ],
+      "path": "data/processed/features/features_anuales_entidad.csv"
+    }
+  },
+  "external": {
+    "lo_que_mexico_cree": [
+      {
+        "name": "desempleo_ocde_mensual_1987_2026.csv",
+        "bytes": 9513,
+        "size": "9.29 KB"
+      },
+      {
+        "name": "remesas_por_entidad_banxico_trim_2003_2026.csv",
+        "bytes": 121656,
+        "size": "118.80 KB"
+      },
+      {
+        "name": "remesas_banxico_CE81_mensual_1995_2026.csv",
+        "bytes": 55916,
+        "size": "54.61 KB"
+      },
+      {
+        "name": "inpc_ocde_mensual_1969_2024.csv",
+        "bytes": 21892,
+        "size": "21.38 KB"
+      },
+      {
+        "name": "PANEL_ESTIMACION.csv",
+        "bytes": 7539,
+        "size": "7.36 KB"
+      },
+      {
+        "name": "tipo_cambio_diario_fred_1993_2026.csv",
+        "bytes": 157971,
+        "size": "154.27 KB"
+      },
+      {
+        "name": "enco_5componentes_MENSUAL_2001_2026.csv",
+        "bytes": 16734,
+        "size": "16.34 KB"
+      }
+    ]
+  },
+  "meta": {
+    "total_raw_zips": 196,
+    "total_raw_bytes": 1752550558,
+    "total_raw_bytes_human": "1.63 GB"
+  }
+}

@@ -35,16 +35,20 @@ log = logging.getLogger("series")
 ID_COLUMNS = {
     "ENT": {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO", "ID_ENTIDAD", "NOMBRE_ENTIDAD", "ENTIDAD",
             "TOTAL_VOTOS", "LISTA_NOMINAL", "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG",
-            "SECCIONES", "CASILLAS"},
+            "NUM_VOTOS_VALIDOS", "SECCIONES", "CASILLAS", "RUTA_ACTA", "OBSERVACIONES", "PARTICIPACION"},
     "DIS": {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO", "ID_DISTRITO", "DISTRITO",
+            "ID_DISTRITO_LOCAL", "DISTRITO_LOCAL", "NOMBRE_DISTRITO",
+            "CABECERA_DISTRITAL_LOCAL", "CABECERA_DISTRITAL",
             "TOTAL_VOTOS", "LISTA_NOMINAL", "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG",
-            "SECCIONES", "CASILLAS"},
+            "NUM_VOTOS_VALIDOS", "SECCIONES", "CASILLAS", "RUTA_ACTA", "OBSERVACIONES", "PARTICIPACION"},
     "MUN": {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO", "ID_MUNICIPIO", "MUNICIPIO",
+            "NOMBRE_MUNICIPIO", "CABECERA_MUNICIPAL",
             "TOTAL_VOTOS", "LISTA_NOMINAL", "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG",
-            "SECCIONES", "CASILLAS"},
+            "NUM_VOTOS_VALIDOS", "SECCIONES", "CASILLAS", "RUTA_ACTA", "OBSERVACIONES", "PARTICIPACION"},
     "SEC": {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO", "ID_DISTRITO", "DISTRITO",
             "ID_MUNICIPIO", "MUNICIPIO", "SECCION", "TOTAL_VOTOS", "LISTA_NOMINAL",
-            "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG", "CASILLAS"},
+            "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG", "NUM_VOTOS_VALIDOS",
+            "CASILLAS", "RUTA_ACTA", "OBSERVACIONES", "PARTICIPACION"},
 }
 
 
@@ -62,7 +66,7 @@ def find_id_level(filename: str) -> str:
 
 
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
-    df.columns = [c.strip().upper() for c in df.columns]
+    df.columns = [c.replace("\ufeff", "").replace("ï»¿", "").strip().upper() for c in df.columns]
     return df
 
 
@@ -83,14 +87,16 @@ def entity_column(df: pd.DataFrame, level: str) -> tuple[str, list[str]]:
     """Detecta la(s) columna(s) de identificación geográfica y la columna de entidad."""
     candidates = {
         "ENT": ["NOMBRE_ENTIDAD", "NOMBRE_ESTADO", "ENTIDAD"],
-        "DIS": ["DISTRITO", "NOMBRE_DISTRITO", "ID_DISTRITO"],
-        "MUN": ["MUNICIPIO", "NOMBRE_MUNICIPIO"],
+        "DIS": ["ID_DISTRITO", "ID_DISTRITO_LOCAL", "DISTRITO", "DISTRITO_LOCAL",
+               "NOMBRE_DISTRITO", "CABECERA_DISTRITAL_LOCAL", "CABECERA_DISTRITAL"],
+        "MUN": ["MUNICIPIO", "NOMBRE_MUNICIPIO", "ID_MUNICIPIO", "CABECERA_MUNICIPAL"],
         "SEC": ["SECCION"],
         "CAS": ["CASILLA", "ID_CASILLA"],
     }
-    for cand in candidates.get(level, []):
-        if cand in df.columns:
-            return cand, [cand]
+    present = [c for c in candidates.get(level, []) if c in df.columns]
+    if present:
+        # Conservar todas las columnas geográficas presentes (id + nombre).
+        return present[0], present
     # Fallback: primera columna de texto que no sea ID_ESTADO
     for c in df.columns:
         if c not in {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO"} and df[c].dtype == object:
@@ -140,6 +146,8 @@ def build_long_for_zip(zip_path: pathlib.Path, pattern: str, folder_tokens: list
                 log.warning("%s -> %s: no legible (%s)", zip_path.name, name, e)
                 continue
             df = normalize_columns(df)
+            # Eliminar filas completamente vacías (pies de página de algunos archivos SICEE).
+            df = df.dropna(how="all")
             level = find_id_level(name)
             ent_col, id_cols = entity_column(df, level)
             partidos = numeric_party_columns(df, level)

@@ -1,0 +1,35 @@
+{
+  "filas": 355176,
+  "columnas": 93,
+  "dup_clave": 0,
+  "entidad_null": 0,
+  "entidades": 32,
+  "geo_key2_null": 0,
+  "votos_null": 0,
+  "grupos": 11739,
+  "flag_consistencia_filas": 13592,
+  "flag_consistencia_grupos": 318,
+  "cobertura_remesas_ent": 0.9891,
+  "cobertura_enco_icc": 0.9891,
+  "rango_anios": [
+    1991,
+    2024
+  ],
+  "cargos": {
+    "AYUNTAMIENTO": 267453,
+    "DIPUTADO_LOCAL_MR": 63804,
+    "OTROS_MUNICIPALES": 5487,
+    "DIPUTADO_LOCAL_RP": 5425,
+    "DIPUTADO_FEDERAL_MR": 4609,
+    "SENADOR_MR": 2599,
+    "PRESIDENTE": 2272,
+    "DIPUTADO_FEDERAL_RP": 1600,
+    "GOBERNADOR": 1319,
+    "SENADOR_RP": 608
+  },
+  "niveles": {
+    "MUNICIPIO": 272940,
+    "DISTRITO": 69229,
+    "ENTIDAD": 13007
+  }
+}

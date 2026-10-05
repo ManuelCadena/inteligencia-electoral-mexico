@@ -1,34 +1,34 @@
 {
   "presidencia": {
-    "filas": 3936,
+    "filas": 3520,
     "path": "data/processed/series/serie_presidencia_entidad.csv"
   },
   "senado": {
-    "filas": 4992,
+    "filas": 4480,
     "path": "data/processed/series/serie_senado_entidad.csv"
   },
   "diputados_fed_mr": {
-    "filas": 7392,
+    "filas": 6752,
     "path": "data/processed/series/serie_diputados_fed_mr_entidad.csv"
   },
   "diputados_fed_rp": {
-    "filas": 1984,
+    "filas": 1600,
     "path": "data/processed/series/serie_diputados_fed_rp_entidad.csv"
   },
   "estatal_gobernador": {
-    "filas": 1622,
+    "filas": 1538,
     "path": "data/processed/series/serie_estatal_gobernador.csv"
   },
   "estatal_diputados_local": {
-    "filas": 101902,
+    "filas": 77077,
     "path": "data/processed/series/serie_estatal_diputados_local.csv"
   },
   "municipal_ayuntamiento": {
-    "filas": 362900,
+    "filas": 354113,
     "path": "data/processed/series/serie_municipal_ayuntamiento.csv"
   },
   "municipal_otros": {
-    "filas": 15936,
+    "filas": 15319,
     "path": "data/processed/series/serie_municipal_otros.csv"
   },
   "catalogo_archivos": {

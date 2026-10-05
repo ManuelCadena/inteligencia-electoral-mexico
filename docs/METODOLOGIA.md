@@ -105,3 +105,43 @@ Para modelos por entidad, la unidad de predicción es (año, entidad) y la venta
 3. Entrenar MLP de línea base y evaluar.
 4. Experimentar con LSTM por entidad y comparar contra ARIMA.
 5. Incorporar features socioeconómicas (INEGI) y espaciales.
+
+## 10. Dataset canónico (`data/processed/canonical/`)
+
+`scripts/build_canonical_dataset.py` consolida las 8 series tidy en dos
+artefactos modelables:
+
+| Archivo | Filas | Contenido |
+|---|---:|---|
+| `canonical_long.csv` | 355,176 | Una fila por elección × geografía × partido/coalición; 93 columnas (outcomes + estructurales + exógenas contemporáneas y _LAG1). |
+| `canonical_wide.csv` | 11,739 | Una fila por elección × geografía; shares de los 20 partidos/coaliciones más votados + `SHARE_OTROS`. |
+| `canonical_metadata.json` | — | Columnas, rangos, cobertura. |
+| `qa_report.json` | — | Métricas de calidad (duplicados, nulos, consistencia). |
+
+Decisiones de normalización aplicadas:
+
+- **Entidad**: `ENTIDAD_CANONICA` toma `NOMBRE_ESTADO` normalizado o la
+  abreviatura del nombre de archivo (`_BCS_MUN.csv` → BAJA CALIFORNIA SUR).
+  `DISTRITO FEDERAL` se fusiona en `CIUDAD DE MEXICO` (id_ine 09). Cobertura:
+  32 entidades, 0 nulos.
+- **Geografía subestatal**: `GEO_KEY_2` = coalesce de `MUNICIPIO`,
+  `ID_MUNICIPIO`, `ID_DISTRITO`, `ID_DISTRITO_LOCAL`, `DISTRITO`,
+  `CABECERA_DISTRITAL_LOCAL`, `SECCION`. 0 nulos en niveles DISTRITO/MUNICIPIO.
+- **Cargos MR/RP separados**: `SENADOR_MR`/`SENADOR_RP`,
+  `DIPUTADO_LOCAL_MR`/`DIPUTADO_LOCAL_RP` según el token `_MR_`/`_RP_` del
+  archivo fuente.
+- **Filas TERRITORIO** (voto en el extranjero vs. nacional): se suman votos y
+  totales dentro de la misma clave elección-geografía-partido.
+- **Codificación**: BOM y mojibake latin-1→utf-8 reparados en columnas y
+  valores.
+- **Consistencia**: `FLAG_CONSISTENCIA=1` marca grupos donde la suma de
+  `SHARE_VALIDO` sale de [0.9, 1.1] (318 de 11,739 grupos, 2.7%): elecciones
+  municipales anuladas (p. ej. Chiapas 2015, todos los votos en 0) o archivos
+  con totales inconsistentes. Se conservan marcadas, no se eliminan.
+- **Anti-explosión de merges**: todos los `merge` usan `validate="m:1"` con
+  aserción de cardinalidad; el ganador/2° lugar se selecciona de forma
+  determinista (`groupby.nth` tras ordenar por votos y sigla) evitando
+  duplicación por empates.
+
+Resultados QA (`qa_report.json`): 0 duplicados en clave, 0 entidades nulas,
+0 votos nulos, cobertura de features exógenas ~98.9%.

@@ -67,6 +67,28 @@ previos).
 | `gt_salud_mean` | Búsquedas de salud | Google Trends |
 | `gt_programas_sociales_mean` | Búsquedas de programas sociales | Google Trends |
 
+## 2.5 Encuestas de aprobación e intención de voto
+
+La aprobación presidencial/esperanza de un partido o candidato suele ser una de
+las variables con mayor poder predictivo sobre el voto. En México no existe una
+única serie pública, estandarizada e ininterrumpida 1991-2024, pero se puede
+construir una serie armohizada combinando encuestadoras y documentando cada
+observación.
+
+| Fuente | Cobertura | Nivel | Frecuencia | Observaciones |
+|---|---|---|---|---|
+| Consulta Mitofsky | Presidencial, gobernadores, presidentes municipales (desde 2000s) | Nacional, estatal, municipal selecto | Periódica/mensual | Serie institucional; datos históricos a veces como gráficas |
+| Reforma | Presidencial y benchmark histórico (1990s-2020s) | Nacional | Periódica | Archivo parcialmente bajo muro de pago |
+| El Financiero | Presidencial reciente (Peña, AMLO) | Nacional | Mensual/cuatrimestral | Histórico comparativo con Reforma |
+| BGC / Parametría / OPR | Evaluaciones presidenciales | Nacional | Periódica | Referenciadas en trabajo académico comparativo |
+| Latinobarómetro | Actitudes democráticas, confianza, evaluación presidencial | Nacional, comparativa latinoamericana | Anual | No es seguimiento mensual de aprobación |
+| Pew Research Center | Confianza en el presidente, satisfacción con democracia | Nacional | Ondas esporádicas | Útil para validación cruzada |
+| Demoscopia Digital | Gobernadores y presidentes municipales | Estatal, municipal selecto | Periódica | Muestras por internet/móvil; documentación variable |
+
+**Campos obligatorios por observación:** encuestadora, fechas de campo, tamaño
+de muestra, modo (teléfono, cara a cara, online), redacción exacta de la pregunta,
+alcance geográfico y si la cifra es contemporánea o retrospectiva.
+
 ## 3. Variables socioeconómicas y territoriales por entidad
 
 | Variable | Descripción | Fuente |
@@ -126,5 +148,10 @@ Siguiendo el marco del proyecto de mañaneras:
 - OECD/FRED: https://fred.stlouisfed.org/
 - CONEVAL: https://www.coneval.org.mx/
 - SESNSP: https://www.gob.mx/sesnsp
+- Consulta Mitofsky: https://www.mitofsky.mx/evaluacion-gobierno
+- El Financiero encuestas: https://www.elfinanciero.com.mx/encuestas-ef/
+- Reforma: https://www.reforma.com/
+- Latinobarómetro: https://www.latinobarometro.org/
+- Pew Research Center: https://www.pewresearch.org/global/
 - Proyecto mañaneras (CSCI E-89b): `final-paper.html` y `master-document.html`
 - Proyecto *Lo que México cree*: `MAESTRO_v14.html`

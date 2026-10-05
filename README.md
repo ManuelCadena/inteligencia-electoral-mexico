@@ -22,6 +22,27 @@ Construir una base de datos reproducible, versionada y lista para modelos neuron
 | **Cómputos Judiciales 2025** | Proceso Extraordinario PJF 2024-2025 | https://www.ine.mx/voto-y-elecciones/resultados-electorales/ |
 | **Lista Nominal** | Padrón/lista nominal por entidad/sección | https://www.ine.mx/credencial/estadisticas-lista-nominal-padron-electoral/ |
 
+## Estado actual de las descargas
+
+En esta sesión se descargaron y verificaron **196 archivos ZIP** del SICEE (INE México):
+
+- **Federal:** 50 archivos (1991-2024), ~1.1 GB.
+- **Local:** 146 archivos (2015-2024), ~650 MB.
+- **Total:** ~1.75 GB, 0 archivos corruptos.
+
+Series procesadas y listas para modelos en `data/processed/series/`:
+
+| Serie | Filas | Nivel |
+|-------|-------|-------|
+| `serie_presidencia_entidad.csv` | 3,936 | Entidad |
+| `serie_senado_entidad.csv` | 4,992 | Entidad |
+| `serie_diputados_fed_mr_entidad.csv` | 7,392 | Entidad |
+| `serie_diputados_fed_rp_entidad.csv` | 1,984 | Entidad |
+| `serie_local_municipio.csv` | 1,185,749 | Municipio |
+| `serie_local_distrito.csv` | 148,604 | Distrito |
+
+> **Nota:** los CSVs generados no se suben a GitHub por tamaño (`serie_local_municipio.csv` pesa >100 MB). Se generan localmente con `scripts/build_series.py`.
+
 ## Estructura del repositorio
 
 ```

@@ -11,6 +11,9 @@ data/raw/**/*.zip
 data/raw/**/*.csv
 data/raw/**/*.xlsx
 data/raw/**/*.xls
+data/external/**/*.csv
+data/external/**/*.xlsx
+data/external/**/*.xls
 data/processed/**/*.zip
 data/processed/**/*.csv
 *.db

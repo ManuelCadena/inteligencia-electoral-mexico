@@ -15,13 +15,21 @@
     "filas": 1984,
     "path": "data/processed/series/serie_diputados_fed_rp_entidad.csv"
   },
-  "local_municipio": {
-    "filas": 1185749,
-    "path": "data/processed/series/serie_local_municipio.csv"
+  "estatal_gobernador": {
+    "filas": 1622,
+    "path": "data/processed/series/serie_estatal_gobernador.csv"
   },
-  "local_distrito": {
-    "filas": 148604,
-    "path": "data/processed/series/serie_local_distrito.csv"
+  "estatal_diputados_local": {
+    "filas": 101902,
+    "path": "data/processed/series/serie_estatal_diputados_local.csv"
+  },
+  "municipal_ayuntamiento": {
+    "filas": 362900,
+    "path": "data/processed/series/serie_municipal_ayuntamiento.csv"
+  },
+  "municipal_otros": {
+    "filas": 15936,
+    "path": "data/processed/series/serie_municipal_otros.csv"
   },
   "catalogo_archivos": {
     "filas": 5879,

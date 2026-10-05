@@ -36,6 +36,9 @@ ID_COLUMNS = {
     "ENT": {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO", "ID_ENTIDAD", "NOMBRE_ENTIDAD", "ENTIDAD",
             "TOTAL_VOTOS", "LISTA_NOMINAL", "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG",
             "SECCIONES", "CASILLAS"},
+    "DIS": {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO", "ID_DISTRITO", "DISTRITO",
+            "TOTAL_VOTOS", "LISTA_NOMINAL", "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG",
+            "SECCIONES", "CASILLAS"},
     "MUN": {"CIRCUNSCRIPCION", "ID_ESTADO", "NOMBRE_ESTADO", "ID_MUNICIPIO", "MUNICIPIO",
             "TOTAL_VOTOS", "LISTA_NOMINAL", "NUM_VOTOS_NULOS", "NUM_VOTOS_CAN_NREG",
             "SECCIONES", "CASILLAS"},
@@ -49,6 +52,8 @@ def find_id_level(filename: str) -> str:
     fu = filename.upper()
     if "_MUN." in fu or "_MUNI." in fu:
         return "MUN"
+    if "_DIS." in fu or "_DIST." in fu:
+        return "DIS"
     if "_SEC." in fu or "_SECC." in fu:
         return "SEC"
     if "_CAS." in fu or "_CASILLA." in fu:
@@ -78,6 +83,7 @@ def entity_column(df: pd.DataFrame, level: str) -> tuple[str, list[str]]:
     """Detecta la(s) columna(s) de identificación geográfica y la columna de entidad."""
     candidates = {
         "ENT": ["NOMBRE_ENTIDAD", "NOMBRE_ESTADO", "ENTIDAD"],
+        "DIS": ["DISTRITO", "NOMBRE_DISTRITO", "ID_DISTRITO"],
         "MUN": ["MUNICIPIO", "NOMBRE_MUNICIPIO"],
         "SEC": ["SECCION"],
         "CAS": ["CASILLA", "ID_CASILLA"],
@@ -117,13 +123,17 @@ def read_csv_from_zip(zf: zipfile.ZipFile, name: str) -> pd.DataFrame:
     raise ValueError(f"No se pudo leer {name} con codificaciones probadas")
 
 
-def build_long_for_zip(zip_path: pathlib.Path, pattern: str) -> pd.DataFrame | None:
+def build_long_for_zip(zip_path: pathlib.Path, pattern: str, folder_tokens: list[str] | None = None) -> pd.DataFrame | None:
     anio = int(re.search(r"(\d{4})", zip_path.name).group(1))
     rows = []
     with zipfile.ZipFile(zip_path) as zf:
         for name in zf.namelist():
             if not name.upper().endswith(pattern.upper() + ".CSV"):
                 continue
+            if folder_tokens:
+                upper_name = name.upper().replace("_", " ")
+                if not any(token.upper() in upper_name for token in folder_tokens):
+                    continue
             try:
                 df = read_csv_from_zip(zf, name)
             except Exception as e:
@@ -188,22 +198,31 @@ def build_series(raw_dir: pathlib.Path, out_dir: pathlib.Path) -> dict:
                 summary[label] = {"filas": len(out), "path": str(path)}
                 log.info("%s: %s filas -> %s", label, f"{len(out):,}", path)
 
-    # Local a nivel municipio y distrito (los zip locales no suelen incluir _ENT.csv)
+    # Local: separar elecciones estatales (gobernador/diputados locales) de municipales
     local_dir = raw_dir / "local"
     if local_dir.exists():
         zips = sorted(local_dir.rglob("*.zip"))
         log.info("Procesando %d zips locales...", len(zips))
-        for pattern, label in [("_MUN", "local_municipio"), ("_DIS", "local_distrito")]:
+        for z in zips:
+            anio = int(re.search(r"(\d{4})", z.name).group(1))
+            try:
+                with zipfile.ZipFile(z) as zf:
+                    catalog_rows.extend(extract_zip_catalog(zf, z, anio))
+            except Exception as e:
+                log.warning("No se pudo abrir %s: %s", z, e)
+
+        scopes = [
+            ("_ENT", ["GUBERNATURA", "JEFATURA GOBIERNO", "JEFATURA DE GOBIERNO", "ASAMB CONST"],
+             "estatal_gobernador", "entidad"),
+            ("_DIS", ["DIPUTACIONES LOC"], "estatal_diputados_local", "distrito"),
+            ("_MUN", ["AYUNTAMIENTOS", "ALCALDIAS"], "municipal_ayuntamiento", "municipio"),
+            ("_MUN", ["JUNTAS MUNICIPALES", "REGIDURIAS", "SINDICATURAS", "PRESIDENCIA DE COMUNIDAD",
+                      "PRESIDENCIAS DE COMUNIDAD"], "municipal_otros", "municipio"),
+        ]
+        for pattern, tokens, label, level_name in scopes:
             parts = []
             for z in zips:
-                anio = int(re.search(r"(\d{4})", z.name).group(1))
-                if pattern == "_MUN":
-                    try:
-                        with zipfile.ZipFile(z) as zf:
-                            catalog_rows.extend(extract_zip_catalog(zf, z, anio))
-                    except Exception as e:
-                        log.warning("No se pudo abrir %s: %s", z, e)
-                df = build_long_for_zip(z, pattern)
+                df = build_long_for_zip(z, pattern, folder_tokens=tokens)
                 if df is not None:
                     parts.append(df)
             if parts:

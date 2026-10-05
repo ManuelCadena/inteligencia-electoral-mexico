@@ -1,0 +1,68 @@
+{
+  "enco_5componentes": {
+    "source": "INEGI ENCO",
+    "freq": "mensual -> anual",
+    "variables": [
+      "enco_icc_mean",
+      "enco_p3_mean",
+      "enco_p4_mean",
+      "enco_p5_mean",
+      "enco_p6_mean",
+      "enco_p8_mean"
+    ]
+  },
+  "panel_estimacion": {
+    "source": "Proyecto Lo que México cree / INEGI/Banxico/CONASAMI",
+    "freq": "trimestral -> anual",
+    "variables": [
+      "panel_p3_mean",
+      "panel_p4_mean",
+      "panel_p5_mean",
+      "panel_p6_mean",
+      "panel_p8_mean",
+      "panel_icc_mean",
+      "panel_tlp_mean",
+      "panel_ing_inpc_mean",
+      "panel_ing_canasta_mean",
+      "panel_ing_urb_mean",
+      "panel_ing_rur_mean",
+      "panel_covid_mean",
+      "panel_post2019_mean"
+    ]
+  },
+  "desempleo_ocde": {
+    "source": "OECD/FRED",
+    "freq": "mensual -> anual",
+    "variables": [
+      "ocde_desempleo_pct_mean"
+    ]
+  },
+  "inpc_ocde": {
+    "source": "OECD/FRED",
+    "freq": "mensual -> anual",
+    "variables": [
+      "ocde_inpc_indice_mean"
+    ]
+  },
+  "tipo_cambio_fred": {
+    "source": "FRED",
+    "freq": "diario -> anual",
+    "variables": [
+      "fred_tipo_cambio_mxn_usd_mean"
+    ]
+  },
+  "remesas_banxico": {
+    "source": "Banxico SE27803",
+    "freq": "mensual -> anual (suma anual en miles de millones USD)",
+    "variables": [
+      "remesas_total_mdd"
+    ]
+  },
+  "remesas_por_entidad": {
+    "source": "Banxico",
+    "freq": "trimestral -> anual (suma anual)",
+    "variables": [
+      "remesas_total_mdd"
+    ]
+  }
+}

@@ -38,10 +38,21 @@ Series procesadas y listas para modelos en `data/processed/series/`:
 | `serie_senado_entidad.csv` | 4,992 | Entidad |
 | `serie_diputados_fed_mr_entidad.csv` | 7,392 | Entidad |
 | `serie_diputados_fed_rp_entidad.csv` | 1,984 | Entidad |
-| `serie_local_municipio.csv` | 1,185,749 | Municipio |
-| `serie_local_distrito.csv` | 148,604 | Distrito |
+| `serie_estatal_gobernador.csv` | 1,622 | Entidad |
+| `serie_estatal_diputados_local.csv` | 101,902 | Distrito |
+| `serie_municipal_ayuntamiento.csv` | 362,900 | Municipio |
+| `serie_municipal_otros.csv` | 15,936 | Municipio |
 
-> **Nota:** los CSVs generados no se suben a GitHub por tamaño (`serie_local_municipio.csv` pesa >100 MB). Se generan localmente con `scripts/build_series.py`.
+> **Nota:** los CSVs generados no se suben a GitHub por tamaño. Se generan
+> localmente con `scripts/build_series.py`.
+
+Variables exógenas ya integradas en `data/processed/features/`:
+
+- `features_anuales_nacional.csv`: confianza del consumidor, desempleo,
+  inflación, tipo de cambio y remesas.
+- `features_anuales_entidad.csv`: remesas por entidad.
+- Ver `docs/VARIABLES_EXOGENAS.md` para el catálogo completo de variables
+candidatas (incluyendo mañaneras, Google Trends, pobreza, violencia, etc.).
 
 ## Estructura del repositorio
 

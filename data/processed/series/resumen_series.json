@@ -1,0 +1,30 @@
+{
+  "presidencia": {
+    "filas": 3936,
+    "path": "data/processed/series/serie_presidencia_entidad.csv"
+  },
+  "senado": {
+    "filas": 4992,
+    "path": "data/processed/series/serie_senado_entidad.csv"
+  },
+  "diputados_fed_mr": {
+    "filas": 7392,
+    "path": "data/processed/series/serie_diputados_fed_mr_entidad.csv"
+  },
+  "diputados_fed_rp": {
+    "filas": 1984,
+    "path": "data/processed/series/serie_diputados_fed_rp_entidad.csv"
+  },
+  "local_municipio": {
+    "filas": 1185749,
+    "path": "data/processed/series/serie_local_municipio.csv"
+  },
+  "local_distrito": {
+    "filas": 148604,
+    "path": "data/processed/series/serie_local_distrito.csv"
+  },
+  "catalogo_archivos": {
+    "filas": 5879,
+    "path": "data/processed/series/catalogo_archivos.csv"
+  }
+}

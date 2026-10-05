@@ -1,0 +1,27 @@
+# Core
+tqdm>=4.66.0
+requests>=2.31.0
+
+# Análisis de datos
+pandas>=2.1.0
+numpy>=1.24.0
+pyarrow>=14.0.0
+
+# Visualización
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.18.0
+
+# Machine Learning / Deep Learning (Google Colab compatible)
+scikit-learn>=1.3.0
+# tensorflow>=2.14.0   # descomenta si usas LSTM/MLP con TensorFlow
+# torch>=2.1.0         # descomenta si usas PyTorch
+# transformers>=4.35.0 # descomenta para modelos de lenguaje (BERT, RoBERTa, BERTin/GPT-es)
+
+# NLP
+# spacy>=3.7.0
+# nltk>=3.8.1
+
+# Entorno de notebooks
+jupyter>=1.0.0
+ipykernel>=6.25.0

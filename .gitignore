@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Datos pesados y temporales
+data/raw/**/*.zip
+data/raw/**/*.csv
+data/raw/**/*.xlsx
+data/raw/**/*.xls
+data/processed/**/*.zip
+data/processed/**/*.csv
+*.db
+*.sqlite
+*.h5
+*.pkl
+*.parquet
+*.npy
+*.npz
+
+# Resultados y modelos
+results/**/*.png
+results/**/*.jpg
+results/**/*.pdf
+results/**/*.pt
+results/**/*.pth
+results/**/*.onnx
+results/**/*.ckpt
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

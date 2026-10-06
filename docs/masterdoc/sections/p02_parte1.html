@@ -113,10 +113,12 @@ formula. <span class="m mK">K</span></p>
 <strong>MC</strong> = Movimiento Ciudadano. A coalition is a <strong>joint candidacy</strong>,
 not a party: summing <code>PAN</code> + <code>PRI</code> + <code>PAN_PRI_PRD</code> rows in the
 same election can double-count when the source reports the coalition and its components
-separately. <span class="m mK">K</span> Analysis rule: choose explicitly whether the coalition is
-treated as a single actor or redistributed under OPLE/INE rules, and state the choice in the
-notebook. The canonical dataset preserves source values; the consistency flag marks groups whose
-share sums fall outside [0.9, 1.1]. <span class="m mD">D</span></p>
+separately. <span class="m mK">K</span> <strong>Decision taken (Sprint 1):</strong> each coalition string is treated as a
+<strong>single actor</strong> exactly as reported by the source — what the voter saw on the ballot —
+with a mandatory sensitivity run redistributing coalition votes to component parties
+(documented in <code>docs/DECISION_COALICIONES.md</code>). The canonical dataset preserves source
+values; the consistency flag marks groups whose share sums fall outside [0.9, 1.1].
+<span class="m mD">D</span></p>
 <p>Critical acronym chronology: recent party extinctions — PANAL (Partido Nueva Alianza), PES
 (Partido Encuentro Social), RSP (Redes Sociales Progresistas), FXM (Fuerza por México), all
 de-registered after 2021 — and the rise of MORENA. A longitudinal model cannot treat the party

@@ -48,3 +48,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Corpus mañaneras migrado (39 MB, fuente externa verificada)
+data/external/mananeras/
+data/external/aprobacion/
+data/external/geo/

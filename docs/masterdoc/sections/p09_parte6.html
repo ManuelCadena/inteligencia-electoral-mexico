@@ -64,13 +64,19 @@ package. Deliverable: manuscript.</li>
 <h3 id="s64"><span class="secnum">VI.4</span>Open gaps</h3>
 <table class="compact">
 <tr><th>ID</th><th>Gap</th><th>Blocks</th><th>Closure plan</th></tr>
-<tr><td>G1</td><td>Mañaneras corpus lives in a companion repo (verified: 1,611 confs · 514,909 interventions · 18.1M words)</td>
-<td>Sprints 3–5 · Part IV · C5</td><td>migrate into this repo + publication-date index</td></tr>
+<tr><td>G1</td><td>Mañaneras corpus</td><td>Sprints 3–5 · Part IV · C5</td>
+<td><strong>CLOSED 2026-10-06</strong>: migrated to <code>data/external/mananeras/</code> —
+re-verified on read: 514,909 interventions · 18,135,177 words + manifest + SHA256 <span class="m mD">D</span></td></tr>
 <tr><td>G2</td><td>Harmonized approval series (catalog in VARIABLES_EXOGENAS §2.5)</td>
-<td>highest-expected-signal feature</td><td>compile Reforma/Mitofsky/EF; per-row mode &amp; sample metadata</td></tr>
-<tr><td>G3</td><td>INEGI municipal adjacency</td><td>C1 GNN</td><td>download INEGI geostatistics; documented k-NN fallback</td></tr>
-<tr><td>G4</td><td>Coalition treatment (single actor vs redistribution)</td><td>all shares</td>
-<td>decision + sensitivity in Sprint 1</td></tr>
+<td>highest-expected-signal feature</td>
+<td>schema + template created at <code>data/external/aprobacion/</code>; compile
+Reforma/Mitofsky/EF with per-row metadata</td></tr>
+<tr><td>G3</td><td>INEGI municipal adjacency</td><td>C1 GNN</td>
+<td><code>scripts/build_municipal_graph.py</code> ready (contiguity via shapefile, or k-NN centroid
+fallback); pending INEGI download</td></tr>
+<tr><td>G4</td><td>Coalition treatment</td><td>all shares</td>
+<td><strong>DECIDED</strong>: single-actor default + mandatory redistribution sensitivity —
+<code>docs/DECISION_COALICIONES.md</code> <span class="m mD">D</span></td></tr>
 <tr><td>G5</td><td>318 FLAG_CONSISTENCIA groups need analytic disposition</td><td>clean train</td>
 <td>excluded from train; studied in C4</td></tr>
 </table>

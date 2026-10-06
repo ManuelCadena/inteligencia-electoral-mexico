@@ -10,6 +10,44 @@ architecture diagram → dataset binding → notebook spec → electoral interpr
 <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
 </div>
 
+<h4>Why each architecture was chosen — model-selection rationale</h4>
+<p>The governing rule is <strong>one model per data structure</strong>: each architecture is
+selected because its inductive bias matches the geometry of a specific slice of the dataset —
+not because it is fashionable. This table is the map; each lecture below derives it in full.</p>
+<table class="compact">
+<tr><th>Data structure in this project</th><th>Model</th><th>Why this one — and not the alternatives</th></tr>
+<tr><td>Tabular rows: election × geography × party with engineered features</td>
+<td><strong>MLP</strong> (Multi-Layer Perceptron)</td>
+<td>No spatial/temporal ordering to exploit → a dense universal approximator is the honest baseline;
+auditable and directly comparable to the rest of the neural stack.</td></tr>
+<tr><td>Ordered cycle sequence per unit (1991→2024)</td>
+<td><strong>LSTM/GRU</strong> (recurrent networks)</td>
+<td>History matters and sequences are short and irregular → gated recurrence preserves memory
+without the O(T²) cost and data hunger of attention at our sample size.</td></tr>
+<tr><td>Same sequence, interpretability required</td>
+<td><strong>Transformer</strong> (self-attention)</td>
+<td>Direct access to any past cycle; attention weights answer "which past election drives the
+prediction" — run as an ablation against LSTM on the identical split.</td></tr>
+<tr><td>Municipalities on a geographic grid</td>
+<td><strong>CNN</strong> (convolutional network)</td>
+<td>Local spatial texture → local kernels with weight sharing; the bias is correct only if the
+input is a true grid (declared when it is merely a year×party tensor).</td></tr>
+<tr><td>Municipalities as adjacency graph</td>
+<td><strong>GNN</strong> (graph network)</td>
+<td>Real geography is a graph, not a grid — borders are irregular; message passing over true
+adjacency is the faithful spatial operator.</td></tr>
+<tr><td>High-dimensional municipality profiles, unknown structure</td>
+<td><strong>AE/VAE</strong> (autoencoders)</td>
+<td>No labels exist for "electoral regions" → an unsupervised bottleneck discovers them; the VAE
+adds a probabilistic latent space usable for counterfactual simulation.</td></tr>
+<tr><td>Short sequences, efficiency check</td>
+<td><strong>SSM</strong> (State-Space Model: Mamba/TSMixer)</td>
+<td>Architectural ablation — O(T) recurrence vs O(T²) attention; the outcome is a design datum,
+not an assumption.</td></tr>
+</table>
+<p class="small">Branches train independently and freeze before the late fusion of Part V — each
+channel must earn its place by beating the ablation without it. <span class="m mP">P</span></p>
+
 <!-- ============ W01 MLP ============ -->
 <div class="lecture" id="dl1">
 <header>

@@ -106,9 +106,13 @@ metadata — pollster, mode, sample, question wording — plus a missingness ind
 <span class="m mP">P</span></p>
 
 <h3 id="s25"><span class="secnum">II.5</span>The mañaneras text corpus — prior analysis integrated</h3>
-<p>The presidential morning conferences ("mañaneras") were previously assembled and verified in a
-companion project (<code>09-nlp-mananeras</code>, Lo que México Cree repo, branch
-<code>feat/nlp-mananeras-dataset-completo</code>, cutoff 2026-09-02). Verified ingest figures:</p>
+<p>The presidential morning conferences ("mañaneras") corpus has been <strong>migrated into this
+repository</strong> at <code>data/external/mananeras/</code> (from the companion project
+<code>09-nlp-mananeras</code>, manifest verified on re-read: 514,909 rows · 18,135,177 words,
+matching the manifest exactly). Each row is one speaker intervention with
+<code>fecha</code> (publication date), <code>sexenio</code>, <code>participante</code>,
+<code>es_presidente</code>, <code>es_prensa</code>, <code>texto</code>, <code>palabras</code>.
+Verified ingest figures:</p>
 <table class="compact">
 <tr><th>Block</th><th>Conferences</th><th>Interventions</th><th>Spoken words</th><th>Source</th></tr>
 <tr><td>AMLO (Andrés Manuel López Obrador)</td><td>1,390</td><td>430,449</td><td>15,568,520</td>

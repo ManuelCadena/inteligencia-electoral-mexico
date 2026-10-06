@@ -11,6 +11,28 @@ textual features with electoral value. Every text-derived variable is timestampe
 is structural. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
 </div>
 
+<h4>Why each text method was chosen — model-selection rationale</h4>
+<table class="compact">
+<tr><th>Textual need</th><th>Method</th><th>Why this one</th></tr>
+<tr><td>Cheapest lexical signal test</td><td><strong>BoW/TF-IDF</strong></td>
+<td>Transparent and interpretable — sets the floor every deep method must beat.</td></tr>
+<tr><td>Lexical order (negation, phrasing)</td><td><strong>Text LSTM</strong></td>
+<td>Captures sequence effects BoW destroys; quantifies whether word order carries signal here.</td></tr>
+<tr><td>Domain morphology</td><td><strong>BPE tokenizer</strong> (Byte-Pair Encoding)</td>
+<td>Political acronyms are atomic units; measuring OOV (out-of-vocabulary) rate against a generic
+tokenizer justifies a domain tokenizer.</td></tr>
+<tr><td>Agenda as covariate</td><td><strong>LDA</strong> (Latent Dirichlet Allocation)</td>
+<td>Produces weekly topic-prevalence series — interpretable, probabilistic, directly mergeable.</td></tr>
+<tr><td>Topics conditioned on context</td><td><strong>STM</strong> (Structural Topic Model)</td>
+<td>Turns topic prevalence into a regression on covariates — yields coefficients, not just clusters.</td></tr>
+<tr><td>Geographic attention</td><td><strong>NER</strong> (Named Entity Recognition)</td>
+<td>Extracts and normalizes entity mentions → the unique "presidential territorial attention" feature.</td></tr>
+<tr><td>Interpretable sequence baseline</td><td><strong>CRF</strong> (Conditional Random Field)</td>
+<td>Its transition matrix is human-readable; the honest baseline a transformer NER must beat.</td></tr>
+<tr><td>Contextual representations for fusion</td><td><strong>BETO</strong> (Spanish BERT)</td>
+<td>Pre-trained encoder produces the 768-d discourse embedding feeding the multimodal model.</td></tr>
+</table>
+
 <!-- NLP W01-02 -->
 <div class="lecture" id="nlp1">
 <header>

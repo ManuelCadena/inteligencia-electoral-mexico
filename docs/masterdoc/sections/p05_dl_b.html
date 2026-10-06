@@ -9,7 +9,7 @@ LLMs, RAG, agents, generative models, and state-space alternatives.</p>
 </div>
 
 <!-- W07 Transformers -->
-<div class="lecture" id="dl7">
+<div class="lecture" id="dl7">dl7
 <header>
 <div class="wk"><span class="w">DL · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.7 Transformers — attention over electoral history</h3>
@@ -22,6 +22,7 @@ cycle directly. For one entity, the question "how much does the 2018 anomaly wei
 1991–2017 regime?" is literally an attention distribution — the mechanism is simultaneously a
 predictor and an <em>interpretability instrument</em>.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp7">Topic 7</a> — Transformers. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>Scaled dot-product self-attention</strong> (Vaswani et al. 2017): each position emits a
 query Q, key K and value V; the output is a weighted sum of values where weights measure
 query–key compatibility, scaled by √d_k to keep softmax gradients stable. <strong>Multi-head
@@ -85,7 +86,7 @@ winning.</p></div>
 </div>
 
 <!-- W08 Speech -->
-<div class="lecture" id="dl8">
+<div class="lecture" id="dl8">dl8
 <header>
 <div class="wk"><span class="w">DL · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.8 Speech processing — the ingestion stage feeding NLP</h3>
@@ -98,6 +99,7 @@ text through ASR (Automatic Speech Recognition — e.g., Whisper). This week is 
 <em>data-ingestion stage</em> of the textual channel: not an electoral model, but the factory
 producing the corpus analyzed in Part IV. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp8">Topic 8</a> — automatic speech recognition. Read that short segment first if any term below feels unfamiliar.</p>
 <p>A waveform is transformed into a <strong>Mel spectrogram</strong> S(t,f): a time–frequency map
 on the perceptually motivated Mel scale. An ASR encoder-decoder maps S to a token distribution
 P(tokens | S); decoding (beam search) yields the transcript, and forced alignment or timestamped
@@ -125,7 +127,7 @@ WER; verify before feeding NER.</p></div>
 </div>
 
 <!-- W09 seq2seq / LSTM -->
-<div class="lecture" id="dl9">
+<div class="lecture" id="dl9">dl9
 <header>
 <div class="wk"><span class="w">DL · Week 09</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.9 Seq2Seq and LSTM/GRU — the memory of the electoral cycle</h3>
@@ -137,6 +139,7 @@ WER; verify before feeding NER.</p></div>
 A recurrent network over each unit's cycle sequence is the honest neural temporal baseline —
 expressive enough for the dynamics, small enough for the available n.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp9">Topic 9</a> — LSTM/GRU and seq2seq. Read that short segment first if any term below feels unfamiliar.</p>
 <p>An <strong>RNN</strong> (Recurrent Neural Network) maintains hidden state
 h_t = f(h_{t−1}, x_t); plain RNNs suffer vanishing gradients over long spans. <strong>LSTM</strong>
 (Long Short-Term Memory, Hochreiter &amp; Schmidhuber 1997) adds a cell state c_t and three gates
@@ -166,7 +169,7 @@ pooling by entity or strong regularization; never invent history.</p></div>
 </div>
 
 <!-- W10-12 -->
-<div class="lecture" id="dl10">
+<div class="lecture" id="dl10">dl10
 <header>
 <div class="wk"><span class="w">DL · Weeks 10–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.10 LLMs · III.11 RAG · III.12 Agents — the knowledge layer</h3>
@@ -180,6 +183,7 @@ reliably: where a district is not comparable, what <code>PAN_PRI_PRD</code> mean
 Oaxaca is not abstention. RAG (Retrieval-Augmented Generation) connects the language model to that
 knowledge; agents orchestrate the analysis reproducibly. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp10">Topic 10</a>, <a href="#tp11">Topic 11</a>, <a href="#tp12">Topic 12</a> — LLMs, RAG and agentic workflows. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>LLM:</strong> a Transformer language model P(next token | prefix) pre-trained at scale;
 its parameters encode statistical regularities but not our private KB. <strong>RAG</strong>
 (Lewis et al. 2020): retrieve the k most relevant document chunks by dense embedding similarity,
@@ -214,7 +218,7 @@ decider — declared scope.</p></div>
 </div>
 
 <!-- W13-14 -->
-<div class="lecture" id="dl11">
+<div class="lecture" id="dl11">dl11
 <header>
 <div class="wk"><span class="w">DL · Weeks 13–14</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.13 Generative models · III.14 Transformer replacements</h3>
@@ -228,6 +232,7 @@ never as findings. <strong>State-Space Models (SSMs)</strong> such as Mamba (Gu 
 TSMixer replace quadratic attention with linear-time recurrence — for our short-T panel the gain
 is efficiency, not capacity; the ablation documents whether the complexity is worth it.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp13">Topic 13</a>, <a href="#tp14">Topic 14</a> — generative and state-space models. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>GAN</strong> (Generative Adversarial Network, Goodfellow et al. 2014): a generator G and
 discriminator D play a minimax game — G synthesizes, D detects; equilibrium yields samples
 approximating p_data. <strong>SSM:</strong> a continuous linear dynamical system

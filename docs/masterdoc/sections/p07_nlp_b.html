@@ -9,7 +9,7 @@ branch feeding the multimodal model.</p>
 </div>
 
 <!-- W07 LDA -->
-<div class="lecture" id="nlp7">
+<div class="lecture" id="nlp7">nlp7
 <header>
 <div class="wk"><span class="w">NLP · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.7 Topic modeling (LDA) — the presidential agenda as a variable</h3>
@@ -22,6 +22,7 @@ branch feeding the multimodal model.</p>
 corpus into K topics and, per day/week, a prevalence distribution: the series
 <code>share_topic_seguridad</code> becomes a structural covariate, not a metadata tag.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp21">Topic 21</a> — LDA topic modeling. Read that short segment first if any term below feels unfamiliar.</p>
 <p>LDA is a generative probabilistic model: each document d draws a topic-mixture θ_d ~ Dir(α);
 each topic k is a word distribution φ_k ~ Dir(β); each observed word picks a topic z then a word
 from φ_z. Inference (variational Bayes or Gibbs sampling) recovers θ and φ; the Dirichlet prior
@@ -44,7 +45,7 @@ date (last N pre-election weeks). Measurable hypothesis: pre-vote prevalence of
 </div>
 
 <!-- W08 STM -->
-<div class="lecture" id="nlp8">
+<div class="lecture" id="nlp8">nlp8
 <header>
 <div class="wk"><span class="w">NLP · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
 <h3>IV.8 Structural Topic Models — topics conditioned on context</h3>
@@ -58,6 +59,7 @@ covariates</em>: sexenio year, pre-electoral quarter, current inflation. Natural
 share of security discourse rise when ENSU perception rises?" — that is a statistical model on
 text, not mere clustering. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp22">Topic 22</a> — structural topic models. Read that short segment first if any term below feels unfamiliar.</p>
 <p>STM generalizes LDA: the topic-prevalence parameter is drawn from a logistic normal whose mean
 is a regression on document covariates Γ·x_d; topic content can also depend on covariates.
 Estimated Γ coefficients are directly interpretable — "one extra inflation point ↔ +Δ topic-economy
@@ -77,7 +79,7 @@ macro_lag at the document's date. The Γ table with confidence intervals is a pa
 </div>
 
 <!-- W09-10 -->
-<div class="lecture" id="nlp9">
+<div class="lecture" id="nlp9">nlp9
 <header>
 <div class="wk"><span class="w">NLP · Weeks 09–10</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.9 Text classification · IV.10 NER — stance and territorial attention</h3>
@@ -91,6 +93,7 @@ territorial attention</strong> — a weighted count of entity/municipality menti
 does the president talk more about states where he loses? That last one is an original political
 covariate only the mañaneras corpus enables. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp23">Topic 23</a>, <a href="#tp24">Topic 24</a> — text classification/stance and NER. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>Sequence labeling with NER</strong> (Named Entity Recognition): assign each token a
 BIO tag (Begin/Inside/Outside of an entity: PER person, ORG organization, LOC location, GPE
 geopolitical entity) maximizing P(y|x) over tag sequences. <strong>Text classification:</strong>
@@ -114,7 +117,7 @@ validation reported. <span class="m mP">P</span></p>
 </div>
 
 <!-- W11-12 -->
-<div class="lecture" id="nlp11">
+<div class="lecture" id="nlp11">nlp11
 <header>
 <div class="wk"><span class="w">NLP · Weeks 11–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.11 Sequential CRF · IV.12 Attention and BETO — from interpretable to encoder</h3>
@@ -130,6 +133,7 @@ Representations from Transformers — trained on Spanish text) is the domain enc
 multimodal fusion (Part V). The CRF-vs-transformer comparison on NER documents the concrete gain
 of deep learning on this task, not in the abstract. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp25">Topic 25</a>, <a href="#tp26">Topic 26</a> — CRFs and BETO/BERT. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>CRF</strong> (Lafferty et al. 2001): a discriminative undirected graphical model —
 P(y|x) ∝ exp(Σ_t [ s(y_t,x,t) + A_{y_{t−1},y_t} ]) — where s scores emission and A is the learned
 transition matrix; decoding by Viterbi. <strong>BERT</strong>: a bidirectional Transformer encoder

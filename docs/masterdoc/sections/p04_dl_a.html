@@ -49,7 +49,7 @@ not an assumption.</td></tr>
 channel must earn its place by beating the ablation without it. <span class="m mP">P</span></p>
 
 <!-- ============ W01 MLP ============ -->
-<div class="lecture" id="dl1">
+<div class="lecture" id="dl1">dl1
 <header>
 <div class="wk"><span class="w">DL · Week 01</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.1 The Multi-Layer Perceptron — the honest tabular baseline</h3>
@@ -61,6 +61,7 @@ channel must earn its place by beating the ablation without it. <span class="m m
 marginalization, incumbency, macroeconomics. Before any exotic architecture we need the baseline
 answering: <em>how much signal lives in the table alone, with no explicit structure?</em></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp1">Topic 1</a> — MLP. Read that short segment first if any term below feels unfamiliar.</p>
 <p>A neuron computes an affine map plus a nonlinearity: <code>y = σ(w·x + b)</code>. The
 <strong>Universal Approximation Theorem</strong> (Cybenko 1989; Hornik 1991) states that a single
 hidden layer with enough units approximates any continuous function on a compact set — the
@@ -140,7 +141,7 @@ weight decay, early stopping on temporal val.
 </div>
 
 <!-- ============ W02 PyTorch ============ -->
-<div class="lecture" id="dl2">
+<div class="lecture" id="dl2">dl2
 <header>
 <div class="wk"><span class="w">DL · Week 02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.2 PyTorch — the reusable experiment harness</h3>
@@ -153,6 +154,7 @@ materializes the canonical key, a <code>DataLoader</code> yielding election-geog
 batches, and a training loop logging metrics per cohort (year × level). A defective harness
 contaminates every downstream experiment.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp2">Topic 2</a> — PyTorch and automatic differentiation. Read that short segment first if any term below feels unfamiliar.</p>
 <p>PyTorch is an <strong>imperative autodiff</strong> engine: operations on tensors record a
 computational graph (tape), and <code>loss.backward()</code> traverses it applying the chain rule
 (reverse-mode automatic differentiation). The optimizer updates parameters by a descent rule —
@@ -181,7 +183,7 @@ years without a temporal embedding.</p></div>
 </div>
 
 <!-- ============ W03 Regularization ============ -->
-<div class="lecture" id="dl3">
+<div class="lecture" id="dl3">dl3
 <header>
 <div class="wk"><span class="w">DL · Week 03</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
 <h3>III.3 Regularization and AI-assisted development</h3>
@@ -194,6 +196,7 @@ the whole panel — regularization <em>is</em> the model. Week 3 translates to: 
 go without overfitting, and how does AI assistance accelerate development without compromising
 integrity.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp3">Topic 3</a> — regularization. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>Bias–variance tradeoff:</strong> expected test error decomposes into bias² + variance +
 irreducible noise; capacity raises variance. Regularization injects a prior penalty on complexity.
 <strong>L2 / weight decay</strong> adds λ‖W‖² to the loss — equivalent (for SGD) to a Gaussian
@@ -223,7 +226,7 @@ cherry-picking inflates the expected out-of-sample result.</p></div>
 </div>
 
 <!-- ============ W04 CNN ============ -->
-<div class="lecture" id="dl4">
+<div class="lecture" id="dl4">dl4
 <header>
 <div class="wk"><span class="w">DL · Week 04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.4 Convolutional Neural Networks — spatial texture in the vote</h3>
@@ -236,6 +239,7 @@ A Convolutional Neural Network (CNN) over a geographic grid learns local pattern
 "neighborhood with growing MORENA penetration", "opposition island" — with shared parameters that
 scale to thousands of municipalities.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp4">Topic 4</a> — CNNs. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>Discrete convolution</strong> slides a kernel f over the input, computing local inner
 products: the same weights apply at every position (weight sharing → translation equivariance),
 each output unit sees only a finite receptive field. Stacking layers grows the effective receptive
@@ -266,7 +270,7 @@ special; on a real map Baja California and Yucatán boundaries need care.</p></d
 </div>
 
 <!-- ============ W05 Transfer ============ -->
-<div class="lecture" id="dl5">
+<div class="lecture" id="dl5">dl5
 <header>
 <div class="wk"><span class="w">DL · Week 05</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.5 Transfer learning — the federal panel teaches the local</h3>
@@ -278,6 +282,7 @@ special; on a real map Baja California and Yucatán boundaries need care.</p></d
 hypothesis: representations learned on the denser federal panel transfer to the sparse panel of
 governorships and local deputies — analogous to ImageNet → medical imaging. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp5">Topic 5</a> — transfer learning. Read that short segment first if any term below feels unfamiliar.</p>
 <p>Transfer learning exploits the idea that early network layers learn general features
 (Gabor-like edges in vision; here, generic "electoral response" filters) that transfer across
 related domains. <strong>Fine-tuning</strong> starts from pre-trained weights and updates them on
@@ -306,7 +311,7 @@ pre-trained embedding.</p></div>
 </div>
 
 <!-- ============ W06 AE/VAE ============ -->
-<div class="lecture" id="dl6">
+<div class="lecture" id="dl6">dl6
 <header>
 <div class="wk"><span class="w">DL · Week 06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.6 Autoencoders and VAEs — the electoral map as a latent manifold</h3>
@@ -320,6 +325,7 @@ electoral profile through a 2–3-dimensional bottleneck; if the manifold exists
 should match (or refute) the literature's typology. The Variational Autoencoder (VAE, Kingma &amp;
 Welling 2013) adds probabilistic structure: soft latent regions instead of hard clusters.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp6">Topic 6</a> — autoencoders and VAEs. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>AE:</strong> encoder z = f(x), decoder x̂ = g(z); trained to minimize reconstruction
 error ‖x−x̂‖², the bottleneck forces a compressed code z capturing the dominant factors of
 variation. <strong>Manifold hypothesis:</strong> high-dimensional data lie near a low-dimensional

@@ -34,7 +34,7 @@ tokenizer justifies a domain tokenizer.</td></tr>
 </table>
 
 <!-- NLP W01-02 -->
-<div class="lecture" id="nlp1">
+<div class="lecture" id="nlp1">nlp1
 <header>
 <div class="wk"><span class="w">NLP · Weeks 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.1 Preprocessing and BoW/TF-IDF — the cheapest textual baseline · IV.2 Text RNN</h3>
@@ -47,6 +47,7 @@ tokenizer justifies a domain tokenizer.</td></tr>
 outcome? Bag-of-Words (BoW) plus TF-IDF is the textual baseline: cheap, transparent, interpretable
 — and hard to beat substantially if the signal is shallow.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp15">Topic 15</a>, <a href="#tp16">Topic 16</a> — BoW/TF-IDF and text RNNs. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>BoW:</strong> a document becomes a vector of token counts — order is discarded.
 <strong>TF-IDF</strong> (Term Frequency–Inverse Document Frequency) reweights by rarity:
 tokens frequent in one document but rare across the corpus get high weight —
@@ -71,7 +72,7 @@ IV.1 quantifies the value of lexical order in this domain. <span class="m mP">P<
 </div>
 
 <!-- NLP W03-04 -->
-<div class="lecture" id="nlp3">
+<div class="lecture" id="nlp3">nlp3
 <header>
 <div class="wk"><span class="w">NLP · Weeks 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.3 Tokenization · IV.4 N-grams — the morphology of political discourse</h3>
@@ -84,6 +85,7 @@ IV.1 quantifies the value of lexical order in this domain. <span class="m mP">P<
 BPE (Byte-Pair Encoding) on the corpus quantifies the problem (out-of-vocabulary rate) and yields
 a domain tokenizer. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp17">Topic 17</a>, <a href="#tp18">Topic 18</a> — BPE tokenization and n-grams. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>BPE</strong> (Gage 1994; Sennrich et al. 2016): start from characters, greedily merge
 the most frequent adjacent pair until the vocabulary reaches size B — frequent words become single
 tokens, rare words decompose into subwords, so OOV (out-of-vocabulary) vanishes by construction.
@@ -107,7 +109,7 @@ model trained on 2018? The sexenio distance in n-gram space is a quantitative pr
 </div>
 
 <!-- NLP W05-06 -->
-<div class="lecture" id="nlp5">
+<div class="lecture" id="nlp5">nlp5
 <header>
 <div class="wk"><span class="w">NLP · Weeks 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.5 Word embeddings · IV.6 Dimensionality reduction and visualization</h3>
@@ -120,6 +122,7 @@ post-2018 <code>MORENA</code> embedding sits closer to pre-2018 <code>PRD</code>
 history, semantic drift is quantifiable. And visualization is the pedagogical layer: a semantic
 map of the political lexicon per era communicates more than a thousand tables.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp19">Topic 19</a>, <a href="#tp20">Topic 20</a> — word embeddings and t-SNE/UMAP. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>Word2Vec</strong> (Mikolov et al. 2013): skip-gram learns vectors by predicting context —
 words sharing contexts land close in R^d; the geometry supports analogies v<sub>rey</sub> −
 v<sub>hombre</sub> + v<sub>mujer</sub> ≈ v<sub>reina</sub>. <strong>GloVe</strong> (Pennington et al.

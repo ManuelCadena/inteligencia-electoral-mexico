@@ -770,7 +770,7 @@ not an assumption.</td></tr>
 channel must earn its place by beating the ablation without it. <span class="m mP">P</span></p>
 
 <!-- ============ W01 MLP ============ -->
-<div class="lecture" id="dl1">
+<div class="lecture" id="dl1">dl1
 <header>
 <div class="wk"><span class="w">DL · Week 01</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.1 The Multi-Layer Perceptron — the honest tabular baseline</h3>
@@ -782,6 +782,7 @@ channel must earn its place by beating the ablation without it. <span class="m m
 marginalization, incumbency, macroeconomics. Before any exotic architecture we need the baseline
 answering: <em>how much signal lives in the table alone, with no explicit structure?</em></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp1">Topic 1</a> — MLP. Read that short segment first if any term below feels unfamiliar.</p>
 <p>A neuron computes an affine map plus a nonlinearity: <code>y = σ(w·x + b)</code>. The
 <strong>Universal Approximation Theorem</strong> (Cybenko 1989; Hornik 1991) states that a single
 hidden layer with enough units approximates any continuous function on a compact set — the
@@ -861,7 +862,7 @@ weight decay, early stopping on temporal val.
 </div>
 
 <!-- ============ W02 PyTorch ============ -->
-<div class="lecture" id="dl2">
+<div class="lecture" id="dl2">dl2
 <header>
 <div class="wk"><span class="w">DL · Week 02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.2 PyTorch — the reusable experiment harness</h3>
@@ -874,6 +875,7 @@ materializes the canonical key, a <code>DataLoader</code> yielding election-geog
 batches, and a training loop logging metrics per cohort (year × level). A defective harness
 contaminates every downstream experiment.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp2">Topic 2</a> — PyTorch and automatic differentiation. Read that short segment first if any term below feels unfamiliar.</p>
 <p>PyTorch is an <strong>imperative autodiff</strong> engine: operations on tensors record a
 computational graph (tape), and <code>loss.backward()</code> traverses it applying the chain rule
 (reverse-mode automatic differentiation). The optimizer updates parameters by a descent rule —
@@ -902,7 +904,7 @@ years without a temporal embedding.</p></div>
 </div>
 
 <!-- ============ W03 Regularization ============ -->
-<div class="lecture" id="dl3">
+<div class="lecture" id="dl3">dl3
 <header>
 <div class="wk"><span class="w">DL · Week 03</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
 <h3>III.3 Regularization and AI-assisted development</h3>
@@ -915,6 +917,7 @@ the whole panel — regularization <em>is</em> the model. Week 3 translates to: 
 go without overfitting, and how does AI assistance accelerate development without compromising
 integrity.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp3">Topic 3</a> — regularization. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>Bias–variance tradeoff:</strong> expected test error decomposes into bias² + variance +
 irreducible noise; capacity raises variance. Regularization injects a prior penalty on complexity.
 <strong>L2 / weight decay</strong> adds λ‖W‖² to the loss — equivalent (for SGD) to a Gaussian
@@ -944,7 +947,7 @@ cherry-picking inflates the expected out-of-sample result.</p></div>
 </div>
 
 <!-- ============ W04 CNN ============ -->
-<div class="lecture" id="dl4">
+<div class="lecture" id="dl4">dl4
 <header>
 <div class="wk"><span class="w">DL · Week 04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.4 Convolutional Neural Networks — spatial texture in the vote</h3>
@@ -957,6 +960,7 @@ A Convolutional Neural Network (CNN) over a geographic grid learns local pattern
 "neighborhood with growing MORENA penetration", "opposition island" — with shared parameters that
 scale to thousands of municipalities.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp4">Topic 4</a> — CNNs. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>Discrete convolution</strong> slides a kernel f over the input, computing local inner
 products: the same weights apply at every position (weight sharing → translation equivariance),
 each output unit sees only a finite receptive field. Stacking layers grows the effective receptive
@@ -987,7 +991,7 @@ special; on a real map Baja California and Yucatán boundaries need care.</p></d
 </div>
 
 <!-- ============ W05 Transfer ============ -->
-<div class="lecture" id="dl5">
+<div class="lecture" id="dl5">dl5
 <header>
 <div class="wk"><span class="w">DL · Week 05</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.5 Transfer learning — the federal panel teaches the local</h3>
@@ -999,6 +1003,7 @@ special; on a real map Baja California and Yucatán boundaries need care.</p></d
 hypothesis: representations learned on the denser federal panel transfer to the sparse panel of
 governorships and local deputies — analogous to ImageNet → medical imaging. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp5">Topic 5</a> — transfer learning. Read that short segment first if any term below feels unfamiliar.</p>
 <p>Transfer learning exploits the idea that early network layers learn general features
 (Gabor-like edges in vision; here, generic "electoral response" filters) that transfer across
 related domains. <strong>Fine-tuning</strong> starts from pre-trained weights and updates them on
@@ -1027,7 +1032,7 @@ pre-trained embedding.</p></div>
 </div>
 
 <!-- ============ W06 AE/VAE ============ -->
-<div class="lecture" id="dl6">
+<div class="lecture" id="dl6">dl6
 <header>
 <div class="wk"><span class="w">DL · Week 06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.6 Autoencoders and VAEs — the electoral map as a latent manifold</h3>
@@ -1041,6 +1046,7 @@ electoral profile through a 2–3-dimensional bottleneck; if the manifold exists
 should match (or refute) the literature's typology. The Variational Autoencoder (VAE, Kingma &amp;
 Welling 2013) adds probabilistic structure: soft latent regions instead of hard clusters.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp6">Topic 6</a> — autoencoders and VAEs. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>AE:</strong> encoder z = f(x), decoder x̂ = g(z); trained to minimize reconstruction
 error ‖x−x̂‖², the bottleneck forces a compressed code z capturing the dominant factors of
 variation. <strong>Manifold hypothesis:</strong> high-dimensional data lie near a low-dimensional
@@ -1085,7 +1091,7 @@ LLMs, RAG, agents, generative models, and state-space alternatives.</p>
 </div>
 
 <!-- W07 Transformers -->
-<div class="lecture" id="dl7">
+<div class="lecture" id="dl7">dl7
 <header>
 <div class="wk"><span class="w">DL · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.7 Transformers — attention over electoral history</h3>
@@ -1098,6 +1104,7 @@ cycle directly. For one entity, the question "how much does the 2018 anomaly wei
 1991–2017 regime?" is literally an attention distribution — the mechanism is simultaneously a
 predictor and an <em>interpretability instrument</em>.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp7">Topic 7</a> — Transformers. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>Scaled dot-product self-attention</strong> (Vaswani et al. 2017): each position emits a
 query Q, key K and value V; the output is a weighted sum of values where weights measure
 query–key compatibility, scaled by √d_k to keep softmax gradients stable. <strong>Multi-head
@@ -1161,7 +1168,7 @@ winning.</p></div>
 </div>
 
 <!-- W08 Speech -->
-<div class="lecture" id="dl8">
+<div class="lecture" id="dl8">dl8
 <header>
 <div class="wk"><span class="w">DL · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.8 Speech processing — the ingestion stage feeding NLP</h3>
@@ -1174,6 +1181,7 @@ text through ASR (Automatic Speech Recognition — e.g., Whisper). This week is 
 <em>data-ingestion stage</em> of the textual channel: not an electoral model, but the factory
 producing the corpus analyzed in Part IV. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp8">Topic 8</a> — automatic speech recognition. Read that short segment first if any term below feels unfamiliar.</p>
 <p>A waveform is transformed into a <strong>Mel spectrogram</strong> S(t,f): a time–frequency map
 on the perceptually motivated Mel scale. An ASR encoder-decoder maps S to a token distribution
 P(tokens | S); decoding (beam search) yields the transcript, and forced alignment or timestamped
@@ -1201,7 +1209,7 @@ WER; verify before feeding NER.</p></div>
 </div>
 
 <!-- W09 seq2seq / LSTM -->
-<div class="lecture" id="dl9">
+<div class="lecture" id="dl9">dl9
 <header>
 <div class="wk"><span class="w">DL · Week 09</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.9 Seq2Seq and LSTM/GRU — the memory of the electoral cycle</h3>
@@ -1213,6 +1221,7 @@ WER; verify before feeding NER.</p></div>
 A recurrent network over each unit's cycle sequence is the honest neural temporal baseline —
 expressive enough for the dynamics, small enough for the available n.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp9">Topic 9</a> — LSTM/GRU and seq2seq. Read that short segment first if any term below feels unfamiliar.</p>
 <p>An <strong>RNN</strong> (Recurrent Neural Network) maintains hidden state
 h_t = f(h_{t−1}, x_t); plain RNNs suffer vanishing gradients over long spans. <strong>LSTM</strong>
 (Long Short-Term Memory, Hochreiter &amp; Schmidhuber 1997) adds a cell state c_t and three gates
@@ -1242,7 +1251,7 @@ pooling by entity or strong regularization; never invent history.</p></div>
 </div>
 
 <!-- W10-12 -->
-<div class="lecture" id="dl10">
+<div class="lecture" id="dl10">dl10
 <header>
 <div class="wk"><span class="w">DL · Weeks 10–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.10 LLMs · III.11 RAG · III.12 Agents — the knowledge layer</h3>
@@ -1256,6 +1265,7 @@ reliably: where a district is not comparable, what <code>PAN_PRI_PRD</code> mean
 Oaxaca is not abstention. RAG (Retrieval-Augmented Generation) connects the language model to that
 knowledge; agents orchestrate the analysis reproducibly. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp10">Topic 10</a>, <a href="#tp11">Topic 11</a>, <a href="#tp12">Topic 12</a> — LLMs, RAG and agentic workflows. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>LLM:</strong> a Transformer language model P(next token | prefix) pre-trained at scale;
 its parameters encode statistical regularities but not our private KB. <strong>RAG</strong>
 (Lewis et al. 2020): retrieve the k most relevant document chunks by dense embedding similarity,
@@ -1290,7 +1300,7 @@ decider — declared scope.</p></div>
 </div>
 
 <!-- W13-14 -->
-<div class="lecture" id="dl11">
+<div class="lecture" id="dl11">dl11
 <header>
 <div class="wk"><span class="w">DL · Weeks 13–14</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.13 Generative models · III.14 Transformer replacements</h3>
@@ -1304,6 +1314,7 @@ never as findings. <strong>State-Space Models (SSMs)</strong> such as Mamba (Gu 
 TSMixer replace quadratic attention with linear-time recurrence — for our short-T panel the gain
 is efficiency, not capacity; the ablation documents whether the complexity is worth it.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp13">Topic 13</a>, <a href="#tp14">Topic 14</a> — generative and state-space models. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>GAN</strong> (Generative Adversarial Network, Goodfellow et al. 2014): a generator G and
 discriminator D play a minimax game — G synthesizes, D detects; equilibrium yields samples
 approximating p_data. <strong>SSM:</strong> a continuous linear dynamical system
@@ -1371,7 +1382,7 @@ tokenizer justifies a domain tokenizer.</td></tr>
 </table>
 
 <!-- NLP W01-02 -->
-<div class="lecture" id="nlp1">
+<div class="lecture" id="nlp1">nlp1
 <header>
 <div class="wk"><span class="w">NLP · Weeks 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.1 Preprocessing and BoW/TF-IDF — the cheapest textual baseline · IV.2 Text RNN</h3>
@@ -1384,6 +1395,7 @@ tokenizer justifies a domain tokenizer.</td></tr>
 outcome? Bag-of-Words (BoW) plus TF-IDF is the textual baseline: cheap, transparent, interpretable
 — and hard to beat substantially if the signal is shallow.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp15">Topic 15</a>, <a href="#tp16">Topic 16</a> — BoW/TF-IDF and text RNNs. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>BoW:</strong> a document becomes a vector of token counts — order is discarded.
 <strong>TF-IDF</strong> (Term Frequency–Inverse Document Frequency) reweights by rarity:
 tokens frequent in one document but rare across the corpus get high weight —
@@ -1408,7 +1420,7 @@ IV.1 quantifies the value of lexical order in this domain. <span class="m mP">P<
 </div>
 
 <!-- NLP W03-04 -->
-<div class="lecture" id="nlp3">
+<div class="lecture" id="nlp3">nlp3
 <header>
 <div class="wk"><span class="w">NLP · Weeks 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.3 Tokenization · IV.4 N-grams — the morphology of political discourse</h3>
@@ -1421,6 +1433,7 @@ IV.1 quantifies the value of lexical order in this domain. <span class="m mP">P<
 BPE (Byte-Pair Encoding) on the corpus quantifies the problem (out-of-vocabulary rate) and yields
 a domain tokenizer. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp17">Topic 17</a>, <a href="#tp18">Topic 18</a> — BPE tokenization and n-grams. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>BPE</strong> (Gage 1994; Sennrich et al. 2016): start from characters, greedily merge
 the most frequent adjacent pair until the vocabulary reaches size B — frequent words become single
 tokens, rare words decompose into subwords, so OOV (out-of-vocabulary) vanishes by construction.
@@ -1444,7 +1457,7 @@ model trained on 2018? The sexenio distance in n-gram space is a quantitative pr
 </div>
 
 <!-- NLP W05-06 -->
-<div class="lecture" id="nlp5">
+<div class="lecture" id="nlp5">nlp5
 <header>
 <div class="wk"><span class="w">NLP · Weeks 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.5 Word embeddings · IV.6 Dimensionality reduction and visualization</h3>
@@ -1457,6 +1470,7 @@ post-2018 <code>MORENA</code> embedding sits closer to pre-2018 <code>PRD</code>
 history, semantic drift is quantifiable. And visualization is the pedagogical layer: a semantic
 map of the political lexicon per era communicates more than a thousand tables.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp19">Topic 19</a>, <a href="#tp20">Topic 20</a> — word embeddings and t-SNE/UMAP. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>Word2Vec</strong> (Mikolov et al. 2013): skip-gram learns vectors by predicting context —
 words sharing contexts land close in R^d; the geometry supports analogies v<sub>rey</sub> −
 v<sub>hombre</sub> + v<sub>mujer</sub> ≈ v<sub>reina</sub>. <strong>GloVe</strong> (Pennington et al.
@@ -1494,7 +1508,7 @@ branch feeding the multimodal model.</p>
 </div>
 
 <!-- W07 LDA -->
-<div class="lecture" id="nlp7">
+<div class="lecture" id="nlp7">nlp7
 <header>
 <div class="wk"><span class="w">NLP · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.7 Topic modeling (LDA) — the presidential agenda as a variable</h3>
@@ -1507,6 +1521,7 @@ branch feeding the multimodal model.</p>
 corpus into K topics and, per day/week, a prevalence distribution: the series
 <code>share_topic_seguridad</code> becomes a structural covariate, not a metadata tag.</p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp21">Topic 21</a> — LDA topic modeling. Read that short segment first if any term below feels unfamiliar.</p>
 <p>LDA is a generative probabilistic model: each document d draws a topic-mixture θ_d ~ Dir(α);
 each topic k is a word distribution φ_k ~ Dir(β); each observed word picks a topic z then a word
 from φ_z. Inference (variational Bayes or Gibbs sampling) recovers θ and φ; the Dirichlet prior
@@ -1529,7 +1544,7 @@ date (last N pre-election weeks). Measurable hypothesis: pre-vote prevalence of
 </div>
 
 <!-- W08 STM -->
-<div class="lecture" id="nlp8">
+<div class="lecture" id="nlp8">nlp8
 <header>
 <div class="wk"><span class="w">NLP · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
 <h3>IV.8 Structural Topic Models — topics conditioned on context</h3>
@@ -1543,6 +1558,7 @@ covariates</em>: sexenio year, pre-electoral quarter, current inflation. Natural
 share of security discourse rise when ENSU perception rises?" — that is a statistical model on
 text, not mere clustering. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp22">Topic 22</a> — structural topic models. Read that short segment first if any term below feels unfamiliar.</p>
 <p>STM generalizes LDA: the topic-prevalence parameter is drawn from a logistic normal whose mean
 is a regression on document covariates Γ·x_d; topic content can also depend on covariates.
 Estimated Γ coefficients are directly interpretable — "one extra inflation point ↔ +Δ topic-economy
@@ -1562,7 +1578,7 @@ macro_lag at the document's date. The Γ table with confidence intervals is a pa
 </div>
 
 <!-- W09-10 -->
-<div class="lecture" id="nlp9">
+<div class="lecture" id="nlp9">nlp9
 <header>
 <div class="wk"><span class="w">NLP · Weeks 09–10</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.9 Text classification · IV.10 NER — stance and territorial attention</h3>
@@ -1576,6 +1592,7 @@ territorial attention</strong> — a weighted count of entity/municipality menti
 does the president talk more about states where he loses? That last one is an original political
 covariate only the mañaneras corpus enables. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp23">Topic 23</a>, <a href="#tp24">Topic 24</a> — text classification/stance and NER. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>Sequence labeling with NER</strong> (Named Entity Recognition): assign each token a
 BIO tag (Begin/Inside/Outside of an entity: PER person, ORG organization, LOC location, GPE
 geopolitical entity) maximizing P(y|x) over tag sequences. <strong>Text classification:</strong>
@@ -1599,7 +1616,7 @@ validation reported. <span class="m mP">P</span></p>
 </div>
 
 <!-- W11-12 -->
-<div class="lecture" id="nlp11">
+<div class="lecture" id="nlp11">nlp11
 <header>
 <div class="wk"><span class="w">NLP · Weeks 11–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.11 Sequential CRF · IV.12 Attention and BETO — from interpretable to encoder</h3>
@@ -1615,6 +1632,7 @@ Representations from Transformers — trained on Spanish text) is the domain enc
 multimodal fusion (Part V). The CRF-vs-transformer comparison on NER documents the concrete gain
 of deep learning on this task, not in the abstract. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
+<p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp25">Topic 25</a>, <a href="#tp26">Topic 26</a> — CRFs and BETO/BERT. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>CRF</strong> (Lafferty et al. 2001): a discriminative undirected graphical model —
 P(y|x) ∝ exp(Σ_t [ s(y_t,x,t) + A_{y_{t−1},y_t} ]) — where s scores emission and A is the learned
 transition matrix; decoding by Viterbi. <strong>BERT</strong>: a bidirectional Transformer encoder

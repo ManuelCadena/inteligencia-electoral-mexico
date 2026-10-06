@@ -21,6 +21,10 @@ manifest. <span class="m mD">D</span></p>
 <tr><td>Tidy series — Presidency (<code>serie_presidencia_entidad</code>)</td><td><strong>3,520</strong></td><td>274 KB</td><td>32 entities × cycles <span class="m mD">D</span></td></tr>
 <tr><td>Tidy series — governors (<code>serie_estatal_gobernador</code>)</td><td><strong>1,538</strong></td><td>141 KB</td><td>32 entities × cycles <span class="m mD">D</span></td></tr>
 <tr><td><strong>Canonical wide (model-ready)</strong></td><td><strong>355,176 long / 11,739 wide</strong></td><td><strong>314 MB / 10 MB</strong></td><td>93 columns <span class="m mD">D</span></td></tr>
+<tr><td>ZIP ingestion coverage</td><td>196/196 archives cataloged (50 federal · 146 local)</td>
+<td>6,992 inner files: 2,809 CSV + 3,070 XLSX + 3 DOCX</td>
+<td>0 corrupt archives · 0 XLSX-only archives — every ZIP contains readable CSV; ZIPs are read
+in-memory via <code>zipfile</code>, never decompressed to disk <span class="m mD">D</span></td></tr>
 <tr><td><strong>Mañaneras text corpus</strong></td><td><strong>514,909 interventions · 18,135,177 words</strong></td><td>~10 CSV.gz yearly files</td><td>1,611 conferences, 2018-12 → 2025-08 <span class="m mD">D</span></td></tr>
 </table>
 <p class="small">Reading: the modeling table is 355,176 rows × 93 columns; the speech corpus is

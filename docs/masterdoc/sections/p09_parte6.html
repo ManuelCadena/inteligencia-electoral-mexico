@@ -1,0 +1,116 @@
+<!-- ============ PARTE VI — PAPER / EJECUCIÓN ============ -->
+<div class="part" id="p6">
+<div class="wrap">
+<div class="parthead">
+<div class="pn">Parte VI</div>
+<h2>Paper, amenazas a la validez y plan de ejecución</h2>
+<p>El documento maestro es el cuerpo pedagógico; el paper es su compresión científica.
+Esta parte fija la estructura, los riesgos que podrían invalidar el proyecto, y el cronograma.</p>
+</div>
+
+<h3 id="s61"><span class="secnum">VI.1</span>Estructura del paper final</h3>
+<table class="compact">
+<tr><th>§ Paper</th><th>Título</th><th>Contenido proviene de</th><th>Estado</th></tr>
+<tr><td>1</td><td>Introducción y contribuciones</td><td>Parte 0 + motivación SICEE</td><td>borrador listo <span class="m mD">D</span></td></tr>
+<tr><td>2</td><td>Sistema electoral mexicano</td><td>Parte I (KB) comprimido</td><td>documentado <span class="m mD">D</span></td></tr>
+<tr><td>3</td><td>Datos: SICEE canónico + exógenas</td><td>Parte II + diccionario + QA</td><td>verificado <span class="m mD">D</span></td></tr>
+<tr><td>4</td><td>Trabajo relacionado</td><td>ANTECEDENTES.md + 16 papers Consensus</td><td>documentado <span class="m mD">D</span></td></tr>
+<tr><td>5</td><td>Métodos por canal (MLP/LSTM/CNN/VAE/GNN/BETO)</td><td>Partes III-IV</td><td>especificado <span class="m mP">P</span></td></tr>
+<tr><td>6</td><td>Diseño experimental</td><td>V.6 splits, métricas, ablaciones</td><td>especificado <span class="m mP">P</span></td></tr>
+<tr><td>7</td><td>Resultados y análisis</td><td>notebooks ejecutados — tabla V.7</td><td>pendiente <span class="m mP">P</span></td></tr>
+<tr><td>8</td><td>Interpretabilidad y mapa latente</td><td>III.6 VAE + atención III.7 + NER IV.10</td><td>pendiente <span class="m mP">P</span></td></tr>
+<tr><td>9</td><td>Anomalías y límites forenses</td><td>V.4 C4 con disciplina de reporte</td><td>pendiente <span class="m mP">P</span></td></tr>
+<tr><td>10</td><td>Amenazas a la validez</td><td>VI.2</td><td>documentado <span class="m mP">P</span></td></tr>
+<tr><td>11</td><td>Discusión y trabajo futuro</td><td>gaps VI.4 + agenda</td><td>documentado <span class="m mP">P</span></td></tr>
+<tr><td>12</td><td>Reproducibilidad</td><td>scripts + checksums + ambiente Colab</td><td>parcial <span class="m mD">D</span></td></tr>
+</table>
+
+<h3 id="s62"><span class="secnum">VI.2</span>Amenazas a la validez — honestidad estructural</h3>
+<table class="compact">
+<tr><th>Amenaza</th><th>Mecanismo</th><th>Mitigación implementada/planeada</th></tr>
+<tr><td>Leakage temporal</td><td>feature del año de la elección o posterior</td>
+<td>regla <code>_LAG1</code>; fecha de publicación textual; tests del harness <span class="m mD">D</span></td></tr>
+<tr><td>Falacia ecológica</td><td>inferir comportamiento individual de agregados</td>
+<td>declaración explícita: los modelos predicen agregados, no electores <span class="m mP">P</span></td></tr>
+<tr><td>Sesgo de selección textual</td><td>mañaneras = solo el oficialismo post-2018</td>
+<td>corpus se documenta como "discurso del gobierno federal", nunca "opinión pública" <span class="m mP">P</span></td></tr>
+<tr><td>Cambio de régimen</td><td>regularidades 1991-2017 pueden no aplicar a 2018+</td>
+<td>test incluye era MORENA; ablación de ponderación temporal <span class="m mP">P</span></td></tr>
+<tr><td>n pequeño</td><td>~6-8 ciclos presidenciales por unidad</td>
+<td>pooling jerárquico, regularización fuerte, métricas con IC bootstrap <span class="m mP">P</span></td></tr>
+<tr><td>Coaliciones ambiguas</td><td>doble conteo si fuente reporta componentes+coalición</td>
+<td>FLAG_CONSISTENCIA; decisión actor-único documentada; sensibilidad alternativa <span class="m mD">D</span></td></tr>
+<tr><td>Anomalía ≠ fraude</td><td>sobre-interpretación de outliers</td>
+<td>V.4 disciplina de reporte: "patrón no explicado", jamás "irregularidad" <span class="m mP">P</span></td></tr>
+</table>
+
+<h3 id="s63"><span class="secnum">VI.3</span>Plan de ejecución — 6 sprints</h3>
+<ol class="steps">
+<li><strong>Sprint 1 — Harness y baseline:</strong> notebooks 02 (harness), 03 (MLP), C3
+(participación). Entrega: pipeline PyTorch + primer resultado honesto vs persistencia.</li>
+<li><strong>Sprint 2 — Estructura espacial:</strong> 04 CNN (opción a), 06 VAE, C1 GNN con
+adyacencia INEGI. Entrega: mapa latente + modelo espacial.</li>
+<li><strong>Sprint 3 — Corpus textual:</strong> integración mañaneras, III.8 ASR, n01-n04 (BoW,
+LSTM, tokenizer, n-gramas). Entrega: <code>mananeras_asr.parquet</code> + baseline textual.</li>
+<li><strong>Sprint 4 — NLP profundo:</strong> n05-n12 (embeddings, t-SNE, LDA, STM, stance, NER,
+CRF, BETO). Entrega: features textuales persistidas.</li>
+<li><strong>Sprint 5 — Integración:</strong> V.1 multimodal, III.13-14 generativo/SSM, C4-C5.
+Entrega: tabla V.7 completa + ablaciones.</li>
+<li><strong>Sprint 6 — Paper:</strong> redacción sobre resultados reales, figuras finales,
+paquete de reproducibilidad. Entrega: manuscrito.</li>
+</ol>
+
+<h3 id="s64"><span class="secnum">VI.4</span>Gaps abiertos</h3>
+<table class="compact">
+<tr><th>ID</th><th>Gap</th><th>Bloquea a</th><th>Plan de cierre</th></tr>
+<tr><td>G1</td><td>Corpus mañaneras no integrado al repo (existe en proyecto previo)</td>
+<td>Sprints 3-5 · Parte IV · C5</td><td>migración + índice por fecha de publicación</td></tr>
+<tr><td>G2</td><td>Serie armonizada de aprobación (catálogo en VARIABLES_EXOGENAS §2.5)</td>
+<td>feature de mayor señal esperada</td><td>compilar Reforma/Mitofsky/EF; metadatos de modo y muestra</td></tr>
+<tr><td>G3</td><td>Adyacencia municipal INEGI</td><td>C1 GNN</td><td>descargar geoestadística INEGI; fallback k-NN documentado</td></tr>
+<tr><td>G4</td><td>Tratamiento de coaliciones (actor único vs redistribución)</td><td>todos los shares</td>
+<td>decisión + sensibilidad en Sprint 1</td></tr>
+<tr><td>G5</td><td>318 grupos FLAG_CONSISTENCIA requieren decisión analítica</td><td>train limpio</td>
+<td>excluidos de train; estudiados en C4</td></tr>
+</table>
+
+<h3 id="s65"><span class="secnum">VI.5</span>Glosario de siglas</h3>
+<table class="compact">
+<tr><td>INE</td><td>Instituto Nacional Electoral</td>
+<td>OPLE</td><td>Organismo Público Local Electoral</td></tr>
+<tr><td>SICEE</td><td>Sistema de Consulta de la Estadística de las Elecciones</td>
+<td>TEPJF</td><td>Tribunal Electoral del Poder Judicial de la Federación</td></tr>
+<tr><td>CPEUM</td><td>Constitución Política de los Estados Unidos Mexicanos</td>
+<td>PREP</td><td>Programa de Resultados Electorales Preliminares</td></tr>
+<tr><td>MR / RP</td><td>Mayoría Relativa / Representación Proporcional</td>
+<td>NEP</td><td>Número Efectivo de Partidos (Laakso-Taagepera)</td></tr>
+<tr><td>ENCO</td><td>Encuesta Nacional sobre Confianza del Consumidor</td>
+<td>ENSU</td><td>Encuesta Nacional de Seguridad Pública Urbana</td></tr>
+<tr><td>CNR</td><td>Candidatos No Registrados</td>
+<td>ASR</td><td>Automatic Speech Recognition</td></tr>
+<tr><td>LDA / STM</td><td>Latent Dirichlet Allocation / Structural Topic Model</td>
+<td>NER / CRF</td><td>Named Entity Recognition / Conditional Random Field</td></tr>
+<tr><td>VAE / AE</td><td>Variational / (deterministic) Autoencoder</td>
+<td>GNN / GCN / GAT</td><td>Graph Neural Network / Graph Conv. Net / Graph Attention</td></tr>
+<tr><td>SSM</td><td>State-Space Model (Mamba, TSMixer)</td>
+<td>ECE / Brier</td><td>Expected Calibration Error / Brier score</td></tr>
+<tr><td>RAG</td><td>Retrieval-Augmented Generation</td>
+<td>BETO</td><td>BERT en español (dccuchile)</td></tr>
+</table>
+
+<h3 id="s66"><span class="secnum">VI.6</span>Referencias</h3>
+<ol class="refs">
+<li><span class="rt rt-of">OFICIAL</span> CPEUM, arts. 52-56, 115 — composición del Congreso y municipal.</li>
+<li><span class="rt rt-of">OFICIAL</span> INE, SICEE — estadísticas electorales históricas; DECEyEC — composición de congresos locales.</li>
+<li><span class="rt rt-of">OFICIAL</span> IEEPCO — sistemas de usos y costumbres en Oaxaca.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Laakso &amp; Taagepera (1979) — número efectivo de partidos.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Cantú (2014) — análisis forense de elecciones mexicanas.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Kennedy et al. (2017) — pooling electoral global 86 países.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Li et al. (2019) — GCNN jerárquico, elecciones Australia.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Mancilla et al. (2025) — ML + geostatística, Nuevo León 2021.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Zolghadr et al. (2018), Brito et al. (2020), Liu et al. (2020) — ANN/SVR/redes sociales electorales.</li>
+<li><span class="rt rt-pp">PROPUESTA</span> Este documento — arquitectura multimodal, sprints, especificaciones.</li>
+<li><span class="rt rt-pp">PROPUESTA</span> Roberts, Stewart &amp; Airoldi (2016) — stm package (Structural Topic Models), implementación de referencia para IV.8.</li>
+</ol>
+</div>
+</div>

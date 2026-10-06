@@ -1,0 +1,211 @@
+/* ============================================================
+   Harvard Academic System — CSS propio para Master Documento
+   Paleta inspirada en harvard.edu: crimson, tinta, gris neutro.
+   Cero JS. Compatible con WeasyPrint.
+   ============================================================ */
+:root{
+  --crimson:#A51C30;
+  --crimson-dark:#8C1D40;
+  --crimson-deep:#6E1423;
+  --ink:#1E1E1E;
+  --ink-soft:#3D3D3A;
+  --gray-bg:#F5F5F3;
+  --gray-alt:#F1F1EF;
+  --gray-line:#D8D5D0;
+  --gold:#C89938;
+  --gold-dark:#8A6224;
+  --teal:#587E92;
+  --green:#4E7A2C;
+  --red:#A13544;
+  --serif:"Source Serif 4","Charter","Merriweather",Georgia,serif;
+  --sans:"DM Sans","Helvetica Neue",-apple-system,sans-serif;
+  --mono:"SF Mono","Menlo","Consolas",monospace;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--gray-bg);
+  font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+
+/* ---------- Portada ---------- */
+.cover{background:linear-gradient(160deg,var(--crimson-deep) 0%,var(--crimson) 55%,var(--crimson-dark) 100%);
+  color:#fff;padding:72px 0 56px;border-bottom:6px solid var(--gold)}
+.cover .wrap{display:flex;flex-direction:column;gap:18px}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);font-weight:600}
+.cover h1{font-family:var(--serif);font-size:44px;line-height:1.15;font-weight:600;max-width:820px}
+.cover .subtitle{font-size:18px;color:rgba(255,255,255,.85);max-width:760px;font-weight:300}
+.cover .seal-line{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.seal-crest{width:64px;height:74px;flex:0 0 auto}
+.covermeta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;
+  margin-top:26px;max-width:900px}
+.covermeta .cm{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25);
+  border-radius:4px;padding:12px 16px;font-size:12.5px}
+.covermeta .cm b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:4px}
+.acuse{font-size:12.5px;color:rgba(255,255,255,.80);line-height:1.6;border-left:3px solid var(--gold);
+  padding-left:14px;margin-top:22px;max-width:860px}
+
+/* ---------- Índice ---------- */
+.toc{background:#fff;border-bottom:1px solid var(--gray-line);padding:34px 0}
+.toc h2{font-family:var(--serif);font-size:22px;color:var(--crimson);margin-bottom:14px}
+.toc ol{list-style:none;columns:2;column-gap:48px;font-size:13.5px}
+.toc ol li{margin-bottom:6px;break-inside:avoid}
+.toc a{color:var(--ink);text-decoration:none}
+.toc a:hover{color:var(--crimson);text-decoration:underline}
+.toc .t-part{font-weight:700;color:var(--crimson);margin-top:12px}
+.toc .t-part a{font-weight:700}
+.legend-box{background:var(--gray-alt);border-left:4px solid var(--crimson);padding:14px 18px;
+  margin-top:20px;font-size:13px;border-radius:0 4px 4px 0}
+.legend-box h3{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--crimson);margin-bottom:8px}
+.legend-box .lg{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+
+/* ---------- Badges y chips ---------- */
+.m{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;
+  padding:1px 7px;border-radius:3px;letter-spacing:.06em;vertical-align:middle;margin:0 2px}
+.mD{background:#E8F0E4;color:var(--green);border:1px solid var(--green)}
+.mK{background:#FBF3E2;color:var(--gold-dark);border:1px solid var(--gold)}
+.mP{background:#EFEAF1;color:#6B4E77;border:1px solid #6B4E77}
+.mL{background:#E8EEF4;color:#3D5A80;border:1px solid #3D5A80}
+.mV{background:#F0E3E5;color:var(--crimson);border:1px solid var(--crimson)}
+.badge{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:20px;
+  letter-spacing:.05em;margin-right:4px}
+.b-syl{background:var(--crimson);color:#fff}
+.b-sup{background:#fff;color:var(--crimson);border:1px solid var(--crimson)}
+.b-ill{background:var(--gray-alt);color:var(--ink-soft);border:1px solid var(--gray-line)}
+.srcchip{display:inline-block;font-size:10px;font-weight:700;padding:1px 8px;border-radius:3px;
+  letter-spacing:.05em;margin-right:4px}
+.src-ine{background:#F0E3E5;color:var(--crimson)}
+.src-cpeum{background:#E8EEF4;color:#3D5A80}
+.src-paper{background:#E8F0E4;color:var(--green)}
+.src-prop{background:var(--gray-alt);color:var(--ink-soft)}
+
+/* ---------- Secciones ---------- */
+.part{background:#fff;padding:56px 0 40px;border-bottom:1px solid var(--gray-line)}
+.part:nth-child(even){background:var(--gray-bg)}
+.parthead{border-bottom:3px solid var(--crimson);padding-bottom:16px;margin-bottom:32px}
+.parthead .pn{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold-dark)}
+.parthead h2{font-family:var(--serif);font-size:34px;color:var(--crimson);font-weight:600;line-height:1.2}
+.parthead p{color:var(--ink-soft);font-size:15px;max-width:820px;margin-top:8px}
+h3{font-family:var(--serif);font-size:23px;color:var(--ink);font-weight:600;margin:38px 0 12px}
+h3 .secnum{color:var(--crimson);font-weight:700;margin-right:8px}
+h4{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--crimson-dark);
+  margin:22px 0 8px;letter-spacing:.02em}
+p{margin-bottom:12px;max-width:860px}
+ul,ol{margin:0 0 12px 22px;max-width:840px}
+li{margin-bottom:5px}
+a{color:var(--crimson)}
+code{font-family:var(--mono);font-size:13px;background:var(--gray-alt);
+  padding:1px 6px;border-radius:3px;color:var(--crimson-dark)}
+strong{color:var(--ink)}
+
+/* ---------- Lecture blocks ---------- */
+.lecture{border:1px solid var(--gray-line);border-left:5px solid var(--crimson);border-radius:0 6px 6px 0;
+  background:#fff;margin:34px 0;box-shadow:0 1px 3px rgba(30,30,30,.06)}
+.lecture header{background:linear-gradient(90deg,#FBF3E5,#fff 70%);
+  padding:18px 24px 14px;border-bottom:1px solid var(--gray-line)}
+.lecture header .wk{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.lecture header .wk .w{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;
+  color:var(--crimson);text-transform:uppercase}
+.lecture header h3{margin:0;font-size:25px}
+.lecture header .sub{font-size:13.5px;color:var(--ink-soft);font-style:italic;margin-top:4px}
+.lecture .body{padding:10px 24px 22px}
+.lecture .body h4{color:var(--crimson)}
+.lecture .body h4::before{content:"§ ";color:var(--gold);font-weight:700}
+
+/* ---------- Fórmulas ---------- */
+.formula{font-family:var(--serif);font-size:18px;background:var(--gray-alt);
+  border-left:3px solid var(--gold);padding:16px 24px;margin:16px 0;border-radius:0 4px 4px 0;
+  overflow-x:auto;white-space:nowrap}
+.formula .fl{display:inline-block;margin-left:24px;font-family:var(--sans);font-size:11.5px;
+  color:var(--ink-soft)}
+.sub,.sub2{font-size:.62em;vertical-align:sub}
+.sup{font-size:.62em;vertical-align:super}
+
+/* ---------- Diagramas SVG ---------- */
+.arch{background:#fff;border:1px solid var(--gray-line);border-radius:6px;padding:20px;
+  margin:18px 0;text-align:center}
+.arch svg{max-width:100%;height:auto}
+.arch figcaption{font-size:12px;color:var(--ink-soft);margin-top:10px;text-align:left;
+  border-top:1px dashed var(--gray-line);padding-top:8px}
+
+/* ---------- Callouts ---------- */
+.call{border-radius:4px;padding:14px 18px;margin:16px 0;font-size:14px;max-width:860px}
+.call p{margin-bottom:6px}
+.call p:last-child{margin-bottom:0}
+.c-why{background:#FBF3E5;border-left:4px solid var(--gold)}
+.c-risk{background:#F7E9E9;border-left:4px solid var(--red)}
+.c-data{background:#EEF2F6;border-left:4px solid var(--teal)}
+.c-ok{background:#EDF3E6;border-left:4px solid var(--green)}
+.call .ct{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  display:block;margin-bottom:6px}
+.c-why .ct{color:var(--gold-dark)} .c-risk .ct{color:var(--red)}
+.c-data .ct{color:var(--teal)} .c-ok .ct{color:var(--green)}
+
+/* ---------- Tablas ---------- */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px;background:#fff}
+th{background:var(--crimson);color:#fff;font-weight:600;text-align:left;
+  padding:9px 12px;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+td{padding:9px 12px;border-bottom:1px solid var(--gray-line);vertical-align:top}
+tr:nth-child(even) td{background:var(--gray-alt)}
+table.compact td,table.compact th{padding:6px 10px;font-size:12.5px}
+td .mono{font-family:var(--mono);font-size:12px;color:var(--crimson-dark)}
+
+/* ---------- KPI cards ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:20px 0}
+.kpi{background:#fff;border:1px solid var(--gray-line);border-top:4px solid var(--crimson);
+  border-radius:6px;padding:16px 18px}
+.kpi .v{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--crimson);line-height:1.1}
+.kpi .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
+.kpi .d{font-size:12px;color:var(--ink-soft);margin-top:4px}
+
+/* ---------- Notebook spec ---------- */
+.nbspec{background:#1E1E1E;color:#EDEAE4;border-radius:6px;padding:18px 22px;margin:16px 0;
+  font-size:13px;max-width:880px}
+.nbspec .nt{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:10px}
+.nbspec code{background:transparent;color:#F5D98D;font-size:12.5px;padding:0}
+.nbspec table{margin:8px 0}
+.nbspec td,.nbspec th{border-bottom:1px solid #3A3A38;background:transparent;color:#EDEAE4}
+.nbspec th{background:#2A2A28;color:var(--gold);text-transform:uppercase;font-size:11px}
+.nbspec tr:nth-child(even) td{background:#262624}
+
+/* ---------- Pasos / secuencias ---------- */
+.steps{counter-reset:step;list-style:none;margin:16px 0;max-width:860px}
+.steps li{counter-increment:step;position:relative;padding:10px 0 10px 52px;
+  border-bottom:1px dashed var(--gray-line)}
+.steps li::before{content:counter(step);position:absolute;left:0;top:8px;width:34px;height:34px;
+  background:var(--crimson);color:#fff;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:14px;font-family:var(--serif)}
+
+/* ---------- Pills ---------- */
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;margin:2px 3px}
+.p-alta{background:#F7E9E9;color:var(--red);border:1px solid var(--red)}
+.p-media{background:#FBF3E5;color:var(--gold-dark);border:1px solid var(--gold)}
+.p-baja{background:#EDF3E6;color:var(--green);border:1px solid var(--green)}
+
+/* ---------- Citas y referencias ---------- */
+blockquote{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--ink-soft);
+  border-left:4px solid var(--crimson);padding:12px 20px;margin:18px 0;background:#fff;max-width:820px}
+.refs{font-size:13px;max-width:900px}
+.refs li{margin-bottom:8px}
+.refs .rt{font-size:10px;letter-spacing:.08em;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:6px}
+.rt-pr{background:#E8F0E4;color:var(--green)} .rt-of{background:#F0E3E5;color:var(--crimson)}
+.rt-pp{background:#EFEAF1;color:#6B4E77}
+
+/* ---------- Sello ---------- */
+.seal{background:var(--crimson-deep);color:#fff;padding:40px 0;text-align:center}
+.seal h2{font-family:var(--serif);font-size:26px;margin-bottom:14px}
+.seal .marks{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.seal .mk{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);
+  border-radius:4px;padding:6px 14px;font-size:12px;font-weight:600;letter-spacing:.08em}
+.seal p{font-size:12px;color:rgba(255,255,255,.75);margin:0 auto;max-width:640px}
+
+/* ---------- Utilidades ---------- */
+.small{font-size:12.5px;color:var(--ink-soft)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px}
+@media(max-width:760px){.two{grid-template-columns:1fr}.toc ol{columns:1}
+  .cover h1{font-size:32px}.wrap{padding:0 20px}}
+@media print{.toc{position:static}.lecture{break-inside:avoid}}

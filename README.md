@@ -120,6 +120,8 @@ Ve a `notebooks/` y abre el `.ipynb` con el botón "Open in Colab" o sube el arc
 
 Ver [`docs/ANTECEDENTES.md`](docs/ANTECEDENTES.md) para la bibliografía completa y [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) para el diseño experimental.
 
+**Documento maestro:** [`docs/MASTER_DOCUMENTO.html`](docs/MASTER_DOCUMENTO.html) — documento pedagógico completo (HTML autocontenido, estilo Harvard) que presenta el marco institucional del sistema electoral mexicano, la arquitectura del dataset canónico y las 26 lectures aplicadas de Deep Learning y NLP con sus especificaciones de notebook. Generado por `docs/masterdoc/scripts/build_masterdoc.py`.
+
 ## Advertencias metodológicas
 
 - **Coaliciones cambiantes:** una misma sigla no representa la misma alianza en diferentes procesos. Se conservan tres vistas: votos por partido, votos por coalición del proceso y votos por candidatura.

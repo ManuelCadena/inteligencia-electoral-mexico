@@ -1,0 +1,229 @@
+<!-- ============ PARTE III — DL LECTURES W07-W14 ============ -->
+<div class="part" id="p3b">
+<div class="wrap">
+<div class="parthead">
+<div class="pn">Parte III (cont.)</div>
+<h2>Lectures de Deep Learning — semanas 7 a 14</h2>
+<p>De la atención al estado del arte secuencial: Transformers, seq2seq, RAG, agentes,
+generativos y arquitecturas post-Transformer.</p>
+</div>
+
+<!-- W07 -->
+<div class="lecture" id="dl7">
+<header>
+<div class="wk"><span class="w">DL · Semana 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.7 Transformers — atención sobre la historia electoral</h3>
+<div class="sub">Self-attention, positional encoding, encoder/decoder, contexto sin recurrencia.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>Un RNN debe "pasar" por 2006 para influir en 2024; la atención accede directamente a cualquier
+ciclo pasado. Para una entidad, la pregunta "¿cuánto pesa la anomalía de 2018 vs. el régimen
+1991-2017?" es literalmente una distribución de atención — el mecanismo es a la vez predictor
+e <em>instrumento de interpretación</em>.</p>
+<h4>Formalismo</h4>
+<div class="formula">Attn(Q,K,V) = softmax( QK<sup>⊤</sup> / √d<sub>k</sub> ) V
+<span class="fl">Q,K,V = proyecciones de la secuencia de ciclos electorales de la unidad</span></div>
+<p>Multi-head attention permite que cabezas distintas atiendan a régimen largo, shock reciente y
+ciclo de sexenio simultáneamente. Positional encoding = año electoral (senoidal o aprendido);
+con irregularidad de calendario local, usar embedding de <code>ANIO</code> continuo. <span class="m mL">L</span></p>
+<h4>Arquitectura</h4>
+<figure class="arch">
+<svg viewBox="0 0 780 150" role="img"><defs><marker id="a4" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A51C30"/></marker></defs>
+<g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
+<rect x="10" y="40" width="130" height="80" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="75" y="60" font-weight="700">Secuencia ciclos</text>
+<text x="75" y="76" font-size="10">B×T×D_in</text>
+<text x="75" y="90" font-size="9">T = elecciones de la unidad</text>
+<text x="75" y="104" font-size="9">D_in = shares+macro+emb</text>
+<rect x="180" y="40" width="150" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
+<text x="255" y="60" font-weight="700">Encoder ×2</text>
+<text x="255" y="76" font-size="10">MHSA 4 heads + FFN</text>
+<text x="255" y="90" font-size="10">d=64 · causal mask</text>
+<text x="255" y="104" font-size="9">solo pasado ≤ t</text>
+<rect x="370" y="40" width="130" height="80" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
+<text x="435" y="60" font-weight="700">Pool último token</text>
+<text x="435" y="78" font-size="10">B×64 → contexto</text>
+<rect x="540" y="40" width="110" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
+<text x="595" y="60" font-weight="700">Head</text><text x="595" y="76" font-size="10">Dense K softmax</text>
+<text x="595" y="92" font-size="10">B×K</text>
+<rect x="680" y="40" width="90" height="80" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
+<text x="725" y="62" font-weight="700">share próx.</text><text x="725" y="80" font-size="10">ciclo t+1</text>
+<line x1="140" y1="80" x2="178" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
+<line x1="330" y1="80" x2="368" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
+<line x1="500" y1="80" x2="538" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
+<line x1="650" y1="80" x2="678" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
+</g></svg>
+<figcaption>Encoder temporal causal (A5). Máscara causal obligatoria: atender al futuro es leakage
+por definición. Output: atención por ciclo = interpretabilidad nativa.</figcaption></figure>
+<h4>Aplicación al dataset</h4>
+<p>Unidad: entidad (32 secuencias largas) y municipio (secuencias cortas e irregulares).
+Inputs por token: <code>SHARE_VALIDO</code> por partido + macro_lag + estructurales + posición temporal.
+Target: shares del siguiente ciclo. El mapa de atención se reporta como figura del paper:
+"¿a qué elecciones atiende el modelo para predecir 2024?" — respuesta esperada como dato, no como
+postulado. <span class="m mP">P</span></p>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — 07_transformer_temporal.ipynb</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>Secuencia</td><td>entidad-cargo, T variable (padding + máscara), split temporal idéntico al MLP</td></tr>
+<tr><td>Métricas</td><td>MAE share · acc ganador · comparación directa con III.8 (LSTM)</td></tr>
+<tr><td>Interpretabilidad</td><td>extracción de pesos de atención por cabeza; figura heatmap ciclo→ciclo</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Riesgos</span>
+<p><span class="pill p-alta">n mínimo</span> Transformers con ~30-200 secuencias por cargo son
+frágiles — d pequeño, pocas capas, dropout alto; la comparación justa con LSTM es el punto, no
+ganar.</p></div>
+</div>
+</div>
+
+<!-- W09 (speech) -->
+<div class="lecture" id="dl8">
+<header>
+<div class="wk"><span class="w">DL · Semana 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.8 Procesamiento de habla — el pipeline que alimenta la rama NLP</h3>
+<div class="sub">Espectrogramas, ASR, transcripción automática.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>El corpus de mañaneras es <strong>audio/video</strong>. Cada mañanera (≈1-2 h diarias, 2018-)
+se transcribe con ASR (Whisper o equivalente) para generar el corpus textual de la Parte IV.
+La semana de speech es la <em>etapa de ingesta</em> del canal textual: no es un modelo electoral,
+es la fábrica de datos. <span class="m mP">P</span></p>
+<h4>Formalismo</h4>
+<div class="formula">señal → mel-espectrograma S(t,f) → encoder ASR → P(tokens | S)
+<span class="fl">decoding con timestamp por segmento → índice temporal de menciones</span></div>
+<h4>Aplicación al dataset</h4>
+<p>El output no entra al canónico electoral: alimenta <code>corpus_mananeras</code> con
+<code>(fecha, segmento, texto, confianza_ASR)</code>. Regla anti-leakage: la fecha de publicación
+del audio gobierna la disponibilidad — una mañanera del 2024-03-15 solo puede explicar elecciones
+posteriores a esa fecha. <span class="m mD">D</span></p>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — 08_asr_mananeras.ipynb</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>Input</td><td>lista de URLs/archivos de audio + metadatos de fecha (pendiente: integración del corpus)</td></tr>
+<tr><td>Modelo</td><td>Whisper large-v3 (es-MX), extracción de timestamps por segmento</td></tr>
+<tr><td>Output</td><td><code>data/processed/texto/mananeras_asr.parquet</code> — fecha · segmento · texto · wpm</td></tr>
+<tr><td>QA</td><td>tasa de segmentos con confianza &lt; umbral; sample de 20 transcripciones verificadas manualmente</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Riesgos</span>
+<p><span class="pill p-alta">dependencia externa</span> el corpus de mañaneras aún no está en el
+repo — esta lecture define el spec; la ejecución espera a la integración del corpus (Sprint 3).
+<span class="pill p-media">calidad ASR</span> español mexicano + jerga política → WER no trivial;
+verificar antes de usar en NER.</p></div>
+</div>
+</div>
+
+<!-- W09 seq2seq -->
+<div class="lecture" id="dl9">
+<header>
+<div class="wk"><span class="w">DL · Semana 09</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.9 Seq2Seq y LSTM/GRU — la memoria del ciclo electoral</h3>
+<div class="sub">Encoder-decoder, compuertas LSTM/GRU, teacher forcing, forecasting de secuencias.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>El voto tiene memoria estructural: castigo al incumbente, inercia de bastiones, efecto sexenal.
+Un LSTM/GRU sobre la secuencia de ciclos de cada unidad es el baseline neuronal temporal honesto:
+suficientemente expresivo para la dinámica, suficientemente pequeño para el n disponible.</p>
+<h4>Formalismo</h4>
+<div class="formula">h<sub>t</sub> = GRU(h<sub>t−1</sub>, x<sub>t</sub>) ;
+&nbsp;&nbsp; decoder autoregresivo ŷ<sub>t+1</sub> = softmax(W·h<sub>T</sub>)
+<span class="fl">h acumula la historia; las compuertas deciden qué olvidar (olvido del PRI hegemónico,
+persistencia del bastión)</span></div>
+<h4>Aplicación al dataset</h4>
+<p>Mismo formato de secuencia que III.7 — la comparación LSTM vs Transformer sobre <em>idéntico
+split</em> es un experimento de la propuesta, no un detalle. Bidireccionalidad prohibida
+(violaría causalidad temporal). Multi-step: el decoder emite el vector de shares completo del
+siguiente ciclo (composicional). <span class="m mP">P</span></p>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — 09_lstm_series.ipynb (renombrado del stub actual)</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>Modelos</td><td>LSTM 2×64 · GRU 2×64 · comparación con Transformer III.7 y MLP III.1</td></tr>
+<tr><td>Targets</td><td>share por partido (softmax) · participación (regresión)</td></tr>
+<tr><td>Métricas</td><td>MAE share · acc ganador · IC por bootstrap de unidades</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Riesgos</span>
+<p><span class="pill p-media">secuencias cortas</span> locales: 1-3 ciclos por unidad → pooling
+jerárquico por entidad o regularización fuerte; no inventar historia.</p></div>
+</div>
+</div>
+
+<!-- W10-12 compactos -->
+<div class="lecture" id="dl10">
+<header>
+<div class="wk"><span class="w">DL · Semanas 10–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.10 LLMs · III.11 RAG · III.12 Agentes — la capa de conocimiento</h3>
+<div class="sub">Modelos de lenguaje grandes, retrieval-augmented generation, workflows agénticos.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>Estas tres semanas no entrenan sobre el dataset: son la <strong>capa de interpretación</strong>.
+El KB de la Parte I (353 líneas de reglas electorales) es exactamente el tipo de conocimiento que
+un modelo no puede memorizar: dónde un distrito no es comparable, qué significa
+<code>PAN_PRI_PRD</code>, por qué un cero en Oaxaca no es abstención. RAG conecta el modelo de
+lenguaje a ese conocimiento; agentes orquestan el análisis reproduciblemente. <span class="m mP">P</span></p>
+<h4>Formalismo (RAG)</h4>
+<div class="formula">P(respuesta | q) = Σ<sub>d∈top-k</sub> P(d | q) · P(respuesta | q, d)
+<span class="fl">retriever denso (embeddings BGE-M3/BETO) sobre chunks del KB + METODOLOGIA</span></div>
+<h4>Aplicación al dataset</h4>
+<ul>
+<li><strong>LLM base (W10):</strong> generación de interpretaciones de resultados con hard gate —
+toda afirmación debe citar fila de datos o sección del KB; alucinación detectada = error.</li>
+<li><strong>RAG (W11):</strong> índice vectorial sobre <code>KB_SISTEMA_ELECTORAL_MEXICO.md</code> +
+<code>METODOLOGIA.md</code> + diccionario de datos; consultas tipo "¿es comparable DIPUTADO_LOCAL_MR
+entre 2015 y 2021?" resueltas con citas.</li>
+<li><strong>Agente analista (W12):</strong> loop herramientas-orquestado: cargar cohorte → correr QA →
+producir mini-reporte con sello de datos consultados. Audit trail completo (qué archivo, qué query,
+qué resultado). <span class="m mP">P</span></li>
+</ul>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — 10_rag_kb.ipynb · 11_agente_analista.ipynb</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>RAG corpus</td><td>KB + METODOLOGIA + VARIABLES_EXOGENAS; chunking por sección; embeddings bge-m3</td></tr>
+<tr><td>Agente tools</td><td><code>query_canonical()</code> SQL sobre long · <code>qa_check()</code> · <code>cite()</code> obligatorio</td></tr>
+<tr><td>Evaluación RAG</td><td>faithfulness (¿cada afirmación citada?) · cobertura (¿encuentra la sección correcta?)</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Riesgos</span>
+<p><span class="pill p-alta">alucinación</span> ningún texto generado entra al paper sin marca
+<code>[P]</code>/<code>[L]</code> y revisión humana.
+<span class="pill p-media">alcance</span> el agente es flujo de trabajo auditable, no decisor
+autónomo — scope declarado.</p></div>
+</div>
+</div>
+
+<!-- W13-14 -->
+<div class="lecture" id="dl11">
+<header>
+<div class="wk"><span class="w">DL · Semanas 13–14</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.13 Modelos generativos · III.14 Reemplazos del Transformer</h3>
+<div class="sub">GANs/difusión como simulación; Mamba y state-space models como alternativa eficiente.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>Generativos: simulación de escenarios contrafácticos ("¿cómo sería 2024 con la inflación de
+2018?") — pedagógicamente valioso, científicamente frágil: se reporta como ilustrativo, no como
+hallazgo. State-space models (Mamba/TSMixer): la respuesta moderna a secuencias largas con costo
+lineal; para nuestro panel de T cortos el beneficio es de eficiencia, no de capacidad — la ablación
+documenta si vale la complejidad.</p>
+<h4>Formalismo</h4>
+<div class="formula">SSM: h<sub>t</sub> = A h<sub>t−1</sub> + B x<sub>t</sub> , y<sub>t</sub> = C h<sub>t</sub>
+&nbsp;&nbsp;|&nbsp;&nbsp; selectivo (Mamba): A,B,C dependen de x<sub>t</sub>
+<span class="fl">recurrencia lineal en el estado → O(T) vs O(T²) de atención</span></div>
+<h4>Aplicación al dataset</h4>
+<p><strong>Generativo (A9, <span class="badge b-ill">ILLUSTRATIVE</span>):</strong> decoder del VAE
+de III.6 + perturbación dirigida de macro genera perfiles electorales contrafácticos por municipio
+— figura de sensibilidad, marcada explícitamente como ejercicio pedagógico.
+<strong>SSM (A10):</strong> TSMixer o Mamba-lite sobre las mismas secuencias de III.7/III.9 —
+comparación directa de MAE vs costo de entrenamiento. La conclusión esperada es un <em>dato de
+diseño</em>: con T≈5-10 ciclos, ¿la eficiencia de SSM supera la interpretabilidad de atención?
+<span class="m mP">P</span></p>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — 12_generativo_contrafactico.ipynb · 13_ssm_ablacion.ipynb</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>Generativo</td><td>VAE decoder perturbado por macro sintético; etiquetado ILLUSTRATIVE</td></tr>
+<tr><td>SSM</td><td>mismo split temporal que LSTM/Transformer; tabla comparativa MAE·tiempo·params</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Riesgos</span>
+<p><span class="pill p-alta">sobre-claim</span> los escenarios generativos NO son predicciones —
+marca de proveniencia obligatoria.
+<span class="pill p-baja">dependencia</span> librerías SSM inmaduras; fallback = informe de
+comparación conceptual si la implementación no converge.</p></div>
+</div>
+</div>
+</div>
+</div>

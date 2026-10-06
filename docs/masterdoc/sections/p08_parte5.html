@@ -1,0 +1,126 @@
+<!-- ============ PARTE V — INTEGRACIÓN ============ -->
+<div class="part" id="p5">
+<div class="wrap">
+<div class="parthead">
+<div class="pn">Parte V</div>
+<h2>Integración — capstones y diseño experimental</h2>
+<p>Los canales se combinan en late fusion; la evaluación compara honestamente cada canal contra
+persistencia y contra el modelo sin ese canal (ablación).</p>
+</div>
+
+<h3 id="s51"><span class="secnum">V.1</span>Capstone C2 — arquitectura multimodal late fusion</h3>
+<figure class="arch">
+<svg viewBox="0 0 860 260" role="img">
+<defs><marker id="a5" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
+<g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
+<!-- ramas -->
+<rect x="10" y="20" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="85" y="40" font-weight="700">MLP tabular (III.1)</text><text x="85" y="55" font-size="9">B×F → B×128</text>
+<rect x="10" y="80" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="85" y="100" font-weight="700">LSTM temporal (III.9)</text><text x="85" y="115" font-size="9">B×T×D → B×64</text>
+<rect x="10" y="140" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="85" y="160" font-weight="700">GNN espacial (V.3)</text><text x="85" y="175" font-size="9">grafo mun. → B×64</text>
+<rect x="10" y="200" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="85" y="220" font-weight="700">BETO texto (IV.12)</text><text x="85" y="235" font-size="9">768 → proj B×64</text>
+<!-- concat -->
+<rect x="230" y="95" width="130" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
+<text x="295" y="120" font-weight="700">Concat</text>
+<text x="295" y="138" font-size="10">B×(128+64+64+64)</text>
+<text x="295" y="155" font-size="9">+ e_elección + e_geo</text>
+<!-- fusion -->
+<rect x="400" y="95" width="130" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
+<text x="465" y="120" font-weight="700">MLP fusión</text>
+<text x="465" y="138" font-size="10">256→128, GELU</text>
+<text x="465" y="155" font-size="9">Drop 0.4 · residual</text>
+<!-- heads -->
+<rect x="570" y="20" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
+<text x="635" y="40" font-weight="700">shares</text><text x="635" y="55" font-size="9">softmax K · composicional</text>
+<rect x="570" y="80" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
+<text x="635" y="100" font-weight="700">participación</text><text x="635" y="115" font-size="9">regresión σ</text>
+<rect x="570" y="140" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
+<text x="635" y="160" font-weight="700">ganador</text><text x="635" y="175" font-size="9">CE + Brier</text>
+<rect x="570" y="200" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
+<text x="635" y="220" font-weight="700">incertidumbre</text><text x="635" y="235" font-size="9">MC-Dropout/ensemble</text>
+<!-- ejes -->
+<line x1="160" y1="43" x2="228" y2="110" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+<line x1="160" y1="103" x2="228" y2="125" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+<line x1="160" y1="163" x2="228" y2="140" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+<line x1="160" y1="223" x2="228" y2="160" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+<line x1="360" y1="135" x2="398" y2="135" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a5)"/>
+<line x1="530" y1="120" x2="568" y2="42" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+<line x1="530" y1="130" x2="568" y2="102" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+<line x1="530" y1="140" x2="568" y2="162" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+<line x1="530" y1="150" x2="568" y2="222" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
+</g></svg>
+<figcaption><strong>Late fusion.</strong> Cada rama se entrena en su sección-lectura y se congela;
+la fusión aprende solo la combinación — las ablaciones miden qué canal aporta señal marginal.</figcaption>
+</figure>
+<p><strong>Matriz de ablación obligatoria:</strong> solo-tabular · +temporal · +espacial · +texto ·
+completo. El paper reporta el Δ de cada canal sobre el baseline — incluyendo si es negativo.
+<span class="m mP">P</span></p>
+
+<h3 id="s52"><span class="secnum">V.2</span>Capstone C3 — forecasting de participación</h3>
+<p>El experimento end-to-end más simple: predecir <code>PARTICIPACION</code> del siguiente ciclo
+por unidad (participación es continua, interpretable, y no composicional — evita la complejidad
+del simplex). MLP (III.1) vs LSTM (III.9) vs persistencia. Fija el harness de evaluación para
+todos los experimentos posteriores. <strong>Sprint 1 = este notebook.</strong> <span class="m mP">P</span></p>
+
+<h3 id="s53"><span class="secnum">V.3</span>Capstone C1 — GNN municipal</h3>
+<p>Municipios como nodos; aristas = adyacencia geográfica INEGI (pendiente de integrar) o similitud
+socioeconómica como fallback documentado. GCN/GraphSAGE/GAT comparados. Mensajes = shares lags +
+macro_lag + embedding latente VAE (III.6). La pregunta SQ3 es si la difusión espacial reduce el
+error en diputados locales — donde la geografía es la estructura más rica disponible. <span class="m mP">P</span></p>
+<div class="call c-risk"><span class="ct">Dependencia bloqueante</span>
+<p>Requiere shapefile/adyacencia INEGI municipal — <strong>gap abierto</strong> (VI.4). Fallback
+declarado: grafo k-NN por distancia de centroides o similitud de features.</p></div>
+
+<h3 id="s54"><span class="secnum">V.4</span>Capstone C4 — forense de anomalías electorales</h3>
+<p>Los outliers del autoencoder (III.6) + <code>FLAG_CONSISTENCIA</code> + residuos del modelo
+temporal forman un sistema de detección de anomalías electorales: municipios cuyo patrón de votación
+no se explica por su latente ni su historia. Inspirado en el análisis forense de Cantú (2014) sobre
+fraudulent fingerprinting — se reporta como <strong>hallazgo anómalo</strong>, nunca como acusación
+de fraude sin evidencia externa. Disciplina del reporte: anomalía estadística ≠ irregularidad jurídica.
+<span class="m mP">P</span></p>
+
+<h3 id="s55"><span class="secnum">V.5</span>Capstone C5 — nowcasting textual</h3>
+<p>Ventana de 90 días pre-elección: solo features textuales (IV.7, IV.9, IV.10) + macro reciente
+→ predicción del outcome. Contesta si el discurso contiene señal <em>anticipada</em> — y delimita
+qué "anticipada" significa: la mañanera del día T solo explica elecciones posteriores a T.
+<span class="m mP">P</span></p>
+
+<h3 id="s56"><span class="secnum">V.6</span>Diseño experimental maestro</h3>
+<table class="compact">
+<tr><th>Elemento</th><th>Decisión</th><th>Justificación</th></tr>
+<tr><td>Split temporal</td><td>train ≤2012 · val 2015-2018 · test 2021-2024</td>
+<td>respeta regimenes; test incluye era MORENA (cambio estructural) <span class="m mP">P</span></td></tr>
+<tr><td>Split auxiliar</td><td>rolling-origin dentro de train para tuning</td>
+<td>evita leakage de hiperparámetros <span class="m mP">P</span></td></tr>
+<tr><td>Filtro</td><td><code>FLAG_CONSISTENCIA=0</code> en train/val/test</td>
+<td>anomalías se estudian aparte (C4) <span class="m mD">D</span></td></tr>
+<tr><td>Unidad panel</td><td>entidad para federales; municipio con pooling para locales</td>
+<td>secuencias cortas locales — no inventar historia <span class="m mP">P</span></td></tr>
+<tr><td>Métricas share</td><td>MAE · RMSE · top-1 winner · Brier · ECE calibración</td>
+<td>composicional: evaluar distribución, no solo ganador <span class="m mP">P</span></td></tr>
+<tr><td>Métricas aux</td><td>participación: MAE · alternancia: AUC/macro-F1</td><td>outcomes secundarios</td></tr>
+<tr><td>IC</td><td>bootstrap por unidad geográfica</td><td>unidades correlacionadas — bootstrap clásico inválido <span class="m mL">L</span></td></tr>
+<tr><td>Baseline cero</td><td>persistencia (share anterior), más regresión multinomial</td>
+<td>piso honesto — todo modelo debe justificar sobre él <span class="m mP">P</span></td></tr>
+</table>
+
+<h3 id="s57"><span class="secnum">V.7</span>Tablero de evaluación esperado</h3>
+<table class="compact">
+<tr><th>Modelo</th><th>Canal</th><th>MAE share</th><th>Acc ganador</th><th>Brier</th><th>ECE</th><th>vs persistencia</th></tr>
+<tr><td>Persistencia</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0.000</td></tr>
+<tr><td>Reg. multinomial</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>MLP (III.1)</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>LSTM (III.9)</td><td>+temporal</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Transformer (III.7)</td><td>+temporal-attn</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>GNN (V.3)</td><td>+espacial</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>+BETO (IV.12)</td><td>+texto</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Multimodal (V.1)</td><td>completo</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>SSM (III.14)</td><td>ablación arq.</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+</table>
+<p class="small">Tabla en blanco deliberadamente: se llena con resultados reales de los notebooks —
+ningún valor pre-llenado. <span class="m mP">P</span></p>
+</div>
+</div>

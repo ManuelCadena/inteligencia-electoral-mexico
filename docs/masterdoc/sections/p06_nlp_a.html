@@ -1,0 +1,108 @@
+<!-- ============ PARTE IV — NLP W01-W06 ============ -->
+<div class="part" id="p4">
+<div class="wrap">
+<div class="parthead">
+<div class="pn">Parte IV</div>
+<h2>Lectures de NLP — CSCI E-89b aplicadas al discurso político mexicano</h2>
+<p>Corpus principal: mañaneras presidenciales (transcripción ASR, III.8) + corpus secundario de
+boletines/discursos de campaña. Doce semanas convertidas en features textuales con valor electoral.
+Cada variable derivada del texto recibe timestamp de <strong>fecha de publicación</strong>, nunca
+de referencia — la regla anti-leakage es estructural. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
+</div>
+
+<!-- NLP W01-02 -->
+<div class="lecture" id="nlp1">
+<header>
+<div class="wk"><span class="w">NLP · Semanas 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.1 Preprocesamiento y BoW/TF-IDF — el baseline textual más barato</h3>
+<div class="sub">Normalización, stopwords, vectorización clásica; IV.2 RNN sobre texto.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>Antes de BERT hay que saber cuánta señal lexical simple existe: ¿la frecuencia de "seguridad",
+"inflación", "empleo" en las semanas previas a una elección correlaciona con el resultado?
+BoW/TF-IDF es el baseline textual: barato, transparente, interpretable — y difícil de superar
+sustancialmente si la señal es superficial.</p>
+<h4>Formalismo</h4>
+<div class="formula">TF-IDF(w,d) = TF(w,d) · log( N / df<sub>w</sub> )
+<span class="fl">clasificador/regresor: ŷ = softmax(W·tfidf(d)) por ventana pre-electoral</span></div>
+<h4>Aplicación al dataset</h4>
+<p>Ventana de 90 días pre-elección por unidad (federal) o entidad (local); features agregadas =
+vectores TF-IDF promediados por semana. Target: <code>SHARE_VALIDO</code> del oficialismo y
+<code>ALTERNANCIA</code>. Este baseline define el piso textual: todo lo posterior debe mejorarlo
+o justificar su complejidad. <span class="m mP">P</span></p>
+<h4>RNN sobre texto (W02)</h4>
+<p>La versión secuencial procesa tokens en orden — captura "no queremos" vs "queremos" que BoW pierde.
+Se implementa LSTM 1×128 sobre la secuencia de palabras de cada discurso; comparación directa con
+IV.1 cuantifica el valor del orden léxico en este dominio.</p>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — n01_bow_baseline.ipynb · n02_lstm_texto.ipynb</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>Corpus</td><td>mañaneras ASR + corpus campaña; filtro fecha ≤ elección − 0 días</td></tr>
+<tr><td>Métricas</td><td>MAE share oficialismo · AUC alternancia · top-20 términos por importancia</td></tr>
+<tr><td>Anti-leakage</td><td>vocabulario TF-IDF ajustado solo en train temporal</td></tr></table></div>
+</div>
+</div>
+
+<!-- NLP W03-04 -->
+<div class="lecture" id="nlp3">
+<header>
+<div class="wk"><span class="w">NLP · Semanas 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.3 Tokenización · IV.4 N-gramas — la morfología del discurso político</h3>
+<div class="sub">BPE/subword, vocabulario propio; modelos de lenguaje n-gram.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>El español político mexicano tiene su propia morfología: "chairos", "fifís", "mañanera",
+siglas (INE, MORENA, IMSS) que se comportan como tokens atómicos. Un tokenizer genérico fragmenta
+estas unidades; entrenar BPE sobre el corpus cuantifica el problema (tasa OOV) y produce un
+tokenizer de dominio. <span class="m mP">P</span></p>
+<h4>Formalismo</h4>
+<div class="formula">BPE: fusiones greedy de pares más frecuentes · vocab B&nbsp;·&nbsp;OOV-rate = |tokens fuera de vocab| / |tokens|
+<span class="fl">comparación: tokenizer dominio vs tokenizer BETO pre-entrenado</span></div>
+<div class="formula">n-grama LM: P(w<sub>t</sub> | w<sub>t−n+1..t−1</sub>) · Perplexity = exp(−(1/N)Σ log P)</div>
+<h4>Aplicación al dataset</h4>
+<p>N-gramas por sexenio: perplexity cruzada — ¿qué tan predecible es el discurso de 2024 desde el
+modelo de 2018? La distancia entre sexenios en el espacio n-gram es un proxy cuantitativo del
+<em>cambio retórico de régimen</em> documentado cualitativamente en §I.5. Feature derivada:
+<code>drift_retorico_sexenio</code>. <span class="m mP">P</span></p>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — n03_tokenizer_dominio.ipynb · n04_ngram_drift.ipynb</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>Output</td><td>tokenizer BPE propio · tabla OOV · perplexity matrix sexenio×sexenio</td></tr>
+<tr><td>Visual</td><td>heatmap de perplexity cruzada (figura candidata del paper)</td></tr></table></div>
+</div>
+</div>
+
+<!-- NLP W05-06 -->
+<div class="lecture" id="nlp5">
+<header>
+<div class="wk"><span class="w">NLP · Semanas 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.5 Embeddings de palabra · IV.6 Reducción y visualización</h3>
+<div class="sub">Word2Vec/GloVe, similitud semántica; PCA/t-SNE/UMAP para inspección.</div>
+</header>
+<div class="body">
+<h4>Por qué existe</h4>
+<p>Los embeddings convierten la intuición "MORENA es sucesor del PRD" en geometría medible:
+si el embedding de <code>MORENA</code> post-2018 está más cerca de <code>PRD</code> pre-2018 que
+de sí mismo históricamente, el drift semántico es cuantificable. Y la visualización es la capa
+pedagógica: un mapa semántico del léxico político por época comunica más que mil tablas.</p>
+<h4>Formalismo</h4>
+<div class="formula">word2vec skip-gram: max Σ log P(contexto | w) ; analogía: v<sub>rey</sub>−v<sub>hombre</sub>+v<sub>mujer</sub> ≈ v<sub>reina</sub>
+<span class="fl">t-SNE: minimiza KL entre similitudes en d alto y 2D (no interpretar distancias globales)</span></div>
+<h4>Aplicación al dataset</h4>
+<p>Dos usos: (a) embeddings de <strong>palabras</strong> entrenados sobre mañaneras → mapa t-SNE
+del léxico político por sexenio, mostrando migración de "pobreza", "corrupción", "transformación";
+(b) embeddings de <strong>entidades y partidos</strong> aprendidos conjuntamente con el MLP de
+III.1 — ¿el embedding de Oaxaca queda cerca de Chiapas? El artefacto tiene doble valor: feature
+(modelo) y visualización (paper). <span class="m mP">P</span></p>
+<h4>Spec de notebook</h4>
+<div class="nbspec"><div class="nt">Notebook spec — n05_embeddings_politicos.ipynb · n06_tsne_lexico.ipynb</div>
+<table><tr><th>Campo</th><th>Valor</th></tr>
+<tr><td>Modelos</td><td>word2vec 100d por sexenio · extracción de embeddings del MLP III.1</td></tr>
+<tr><td>Visual</td><td>t-SNE del léxico por época · scatter de embeddings de partido/entidad del MLP</td></tr>
+<tr><td>Métrica</td><td>similitud coseno entre siglas sucesoras · correlación embedding vs distancia geográfica</td></tr></table></div>
+</div>
+</div>
+</div>
+</div>

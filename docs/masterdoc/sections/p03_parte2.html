@@ -1,0 +1,113 @@
+<!-- ============ PARTE II — DATASET ============ -->
+<div class="part" id="p2">
+<div class="wrap">
+<div class="parthead">
+<div class="pn">Parte II</div>
+<h2>Dataset canónico y pipeline — qué datos tenemos y cómo se construyeron</h2>
+<p>La capa de datos es el fundamento verificable del proyecto: 196 ZIPs SICEE → series tidy →
+dataset canónico long/wide con QA automatizado. Todo número de esta parte está respaldado por
+<code>data/processed/canonical/qa_report.json</code>. <span class="m mD">D</span></p>
+</div>
+
+<h3 id="s21"><span class="secnum">II.1</span>Inventario SICEE</h3>
+<table class="compact">
+<tr><th>Dimensión</th><th>Valor</th><th>Detalle</th></tr>
+<tr><td>ZIPs totales</td><td>196</td><td>50 federales · 146 locales <span class="m mD">D</span></td></tr>
+<tr><td>Archivos internos</td><td>6,992</td><td>~1.63 GB crudos <span class="m mD">D</span></td></tr>
+<tr><td>Rango temporal</td><td>1991–2024</td><td>cobertura irregular por cargo/entidad <span class="m mD">D</span></td></tr>
+<tr><td>Cargos cubiertos</td><td colspan="2">PRESIDENCIA · DIPUTADO_FEDERAL_MR/RP · SENADOR_MR/RP ·
+GOBERNADOR · DIPUTADO_LOCAL_MR/RP · AYUNTAMIENTO <span class="m mD">D</span></td></tr>
+</table>
+
+<h3 id="s22"><span class="secnum">II.2</span>Pipeline de construcción</h3>
+<figure class="arch">
+<svg viewBox="0 0 900 150" role="img">
+<defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+<path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
+<g font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle">
+<rect x="10" y="45" width="150" height="60" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="85" y="70" font-weight="700">download_sicee.py</text><text x="85" y="86" font-size="10">196 ZIPs → raw/</text>
+<rect x="200" y="45" width="150" height="60" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="275" y="66" font-weight="700">build_series.py</text>
+<text x="275" y="82" font-size="10">tidy long por nivel</text>
+<text x="275" y="96" font-size="9" fill="#A13544">BOM·mojibake·ID_DISTRITO_LOCAL</text>
+<rect x="390" y="45" width="170" height="60" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
+<text x="475" y="66" font-weight="700">build_canonical_dataset.py</text>
+<text x="475" y="82" font-size="10">normalización + outcomes + exógenas</text>
+<text x="475" y="96" font-size="9" fill="#A13544">merges m:1 validados</text>
+<rect x="600" y="20" width="140" height="50" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
+<text x="670" y="42" font-weight="700">canonical_long.csv</text><text x="670" y="58" font-size="10">355,176 × 93</text>
+<rect x="600" y="85" width="140" height="50" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
+<text x="670" y="107" font-weight="700">canonical_wide.csv</text><text x="670" y="123" font-size="10">11,739 × 93</text>
+<rect x="770" y="45" width="120" height="60" rx="6" fill="#FBF3E5" stroke="#C89938"/>
+<text x="830" y="70" font-weight="700">qa_report.json</text><text x="830" y="86" font-size="10">0 dup · 0 null · 318 flags</text>
+<line x1="160" y1="75" x2="198" y2="75" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
+<line x1="350" y1="75" x2="388" y2="75" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
+<line x1="560" y1="65" x2="598" y2="45" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
+<line x1="560" y1="85" x2="598" y2="110" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
+<line x1="740" y1="75" x2="768" y2="75" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
+</g></svg>
+<figcaption><strong>Flujo verificable.</strong> Cada etapa es un script determinista; los merges
+llevan <code>validate="m:1"</code> y aserciones de cardinalidad — defecto histórico corregido:
+un merge many-to-many había inflado 387k filas válidas a 11.5M fantasmas.</figcaption>
+</figure>
+
+<h3 id="s23"><span class="secnum">II.3</span>Esquema canónico — clave, outcomes y estructurales</h3>
+<p>Clave única de observación (0 duplicados verificados):</p>
+<div class="formula">clave = (<span class="sub">AMBITO, CARGO×PRINCIPIO, ANIO, ENTIDAD_CANONICA,
+GEO_KEY_2, PARTIDO_COALICION, FUENTE</span>)<span class="fl">— granularidad: elección × geo × partido</span></div>
+<p>Tres familias de variables:</p>
+<ul>
+<li><strong>Outcomes:</strong> <code>SHARE_TOTAL</code>, <code>SHARE_VALIDO</code>, <code>ES_GANADOR</code>,
+<code>GANADOR</code>, <code>MARGEN_VICTORIA</code>, <code>NEP</code>, <code>NUM_PARTIDOS</code>,
+<code>PARTICIPACION</code>, <code>TASA_NULOS</code>, <code>TASA_NREG</code>, <code>ALTERNANCIA</code>.
+<span class="m mD">D</span></li>
+<li><strong>Estructurales:</strong> <code>ES_PRESIDENCIAL</code>, <code>ES_INTERMEDIA</code>,
+<code>ES_FEDERAL</code>, <code>ES_LOCAL</code>, <code>AÑO_SEXENIO</code>, <code>NIVEL_GEO</code>,
+<code>FLAG_CONSISTENCIA</code>. <span class="m mD">D</span></li>
+<li><strong>Contexto de fuente:</strong> <code>VOTOS_TOTALES</code>, <code>VOTOS_VALIDOS</code>,
+<code>LISTA_NOMINAL</code>, <code>ARCHIVO</code>, <code>TERRITORIO</code>. <span class="m mD">D</span></li>
+</ul>
+
+<h3 id="s24"><span class="secnum">II.4</span>Features exógenas y aprobación</h3>
+<table class="compact">
+<tr><th>Familia</th><th>Columnas</th><th>Nivel temporal</th><th>Cobertura</th></tr>
+<tr><td>Confianza del consumidor</td><td><code>enco_*</code>, <code>icc_*</code></td><td>anual nacional</td><td>desde 2001 <span class="m mD">D</span></td></tr>
+<tr><td>Macro</td><td><code>ocde_*</code>, <code>fred_*</code> (PIB, inflación, TC)</td><td>anual nacional</td><td>1969–2026 <span class="m mD">D</span></td></tr>
+<tr><td>Remesas</td><td><code>remesas_*</code></td><td>anual por entidad</td><td>98.9% <span class="m mD">D</span></td></tr>
+<tr><td>Aprobación</td><td><code>aprob_*</code> (a construir)</td><td>por evento encuesta</td><td>heterogénea — ver catálogo <span class="m mP">P</span></td></tr>
+</table>
+<p><strong>Regla anti-leakage:</strong> las features anuales se integran con sufijo <code>_LAG1</code>
+(el año previo a la elección) — nunca el año de la elección ni revisiones posteriores.
+<span class="m mD">D</span></p>
+<p><strong>Aprobación — catálogo de fuentes</strong> (documentado en
+<code>docs/VARIABLES_EXOGENAS.md</code> §2.5): Reforma (histórico presidencial), Consulta Mitofsky
+(presidencial/estatal/municipal), El Financiero (serie comparativa reciente), BGC/Parametría/OPR,
+Latinobarómetro (actitudes), Pew (confianza institucional), Demoscopia Digital (subnacional).
+No existe serie única pública 1991–2024: el proyecto construirá una <strong>serie armonizada</strong>
+con metadatos de encuestadora, modo, muestra y redacción, más indicador de missingness.
+<span class="m mP">P</span></p>
+
+<h3 id="s25"><span class="secnum">II.5</span>QA y casos límite</h3>
+<div class="call c-ok"><span class="ct">qa_report.json — estado verificado</span>
+<ul>
+<li>Duplicados en clave canónica: <strong>0</strong> <span class="m mD">D</span></li>
+<li>Nulos en <code>ENTIDAD_CANONICA</code>/<code>GEO_KEY_2</code>/<code>VOTOS</code>: <strong>0</strong>
+<span class="m mD">D</span></li>
+<li>Entidades canónicas: <strong>32</strong> (DF→CDMX consolidado) <span class="m mD">D</span></li>
+<li>Grupos con <code>FLAG_CONSISTENCIA=1</code>: <strong>318 de 11,739 (2.7%)</strong> —
+elecciones anuladas (Chiapas 2015, Tampico 2018), totales de fuente inconsistentes; conservados
+y marcados, no eliminados. <span class="m mD">D</span></li>
+<li>Mojibake en campos geográficos: <strong>0</strong> tras limpieza BOM/UTF-8 <span class="m mD">D</span></li>
+</ul></div>
+<div class="call c-risk"><span class="ct">Casos límite que condicionan el modelado</span>
+<ul>
+<li>Archivos 2012 presidenciales separan "voto en el extranjero" del territorial — el pipeline
+suma ambos en la misma clave (<code>TERRITORIO</code> conserva la distinción). <span class="m mD">D</span></li>
+<li>Filas todas-NaN al final de algunos CSV municipales (VER 2017, BC 2019) — eliminadas.
+<span class="m mD">D</span></li>
+<li>Coaliciones reportadas junto a sus partidos componentes inflan la suma de shares — decisión de
+modelado pendiente (actor único vs. redistribución). <span class="m mP">P</span></li>
+</ul></div>
+</div>
+</div>

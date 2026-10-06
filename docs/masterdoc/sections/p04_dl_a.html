@@ -1,42 +1,56 @@
-<!-- ============ PARTE III — DL LECTURES W01-W06 ============ -->
+<!-- ============ PART III — DL LECTURES W01-W06 (expanded theory) ============ -->
 <div class="part" id="p3">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte III</div>
-<h2>Lectures de Deep Learning — CSCI E-89 aplicadas al dataset electoral</h2>
-<p>Catorce semanas del curso convertidas en análisis ejecutables. Cada lecture sigue el esqueleto:
-por qué existe → formalismo → arquitectura SVG → aplicación al dataset → spec de notebook →
-interpretación → riesgos. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
+<div class="pn">Part III</div>
+<h2>Deep Learning lectures — CSCI E-89 applied to the electoral dataset</h2>
+<p>Fourteen course weeks turned into executable analyses. Every lecture follows the skeleton:
+<em>why it exists → theoretical framework (every term derived, every acronym expanded) →
+architecture diagram → dataset binding → notebook spec → electoral interpretation → risks</em>.
+<span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
 </div>
 
-<!-- W01 -->
+<!-- ============ W01 MLP ============ -->
 <div class="lecture" id="dl1">
 <header>
-<div class="wk"><span class="w">DL · Semana 01</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.1 Perceptrón multicapa — el baseline tabular honesto</h3>
-<div class="sub">Introducción a redes neuronales: unidades, activaciones, propagación hacia adelante y atrás.</div>
+<div class="wk"><span class="w">DL · Week 01</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.1 The Multi-Layer Perceptron — the honest tabular baseline</h3>
+<div class="sub">Neural-network fundamentals: units, activation functions, forward and backward propagation.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Una elección es, en primera aproximación, una función no lineal de features tabulares:
-historial de voto, marginación, incumbencia, macro. Antes de cualquier arquitectura exótica se
-necesita el baseline que responde: <em>¿qué tanta señal hay en lo tabular, sin estructura?</em></p>
-<h4>Formalismo</h4>
-<div class="formula">h<sup>[l]</sup> = σ( W<sup>[l]</sup> h<sup>[l−1]</sup> + b<sup>[l]</sup> ),
-&nbsp;&nbsp; ŷ = softmax( W<sup>[L]</sup> h<sup>[L−1]</sup> + b<sup>[L]</sup> )</div>
-<p>σ = ReLU/GELU; softmax final porque el outcome es <strong>composicional</strong> (los shares de
-partidos suman 1). Pérdida: cross-entropy sobre la distribución de shares, más interpretable que
-MSE para vectores en el simplex. <span class="m mL">L</span></p>
-<h4>Arquitectura</h4>
+<h4>Why it exists</h4>
+<p>An election is, to first approximation, a nonlinear function of tabular features: vote history,
+marginalization, incumbency, macroeconomics. Before any exotic architecture we need the baseline
+answering: <em>how much signal lives in the table alone, with no explicit structure?</em></p>
+<h4>Theoretical framework</h4>
+<p>A neuron computes an affine map plus a nonlinearity: <code>y = σ(w·x + b)</code>. The
+<strong>Universal Approximation Theorem</strong> (Cybenko 1989; Hornik 1991) states that a single
+hidden layer with enough units approximates any continuous function on a compact set — the
+existence guarantee; depth is the efficiency story (functions computable with exponentially fewer
+units deep than wide; Eldan &amp; Shamir 2016). <span class="m mL">L</span></p>
+<p><strong>Activation functions, expanded:</strong> ReLU (Rectified Linear Unit) =
+<code>max(0, z)</code> — cheap, non-saturating, but can "die" at 0; GELU (Gaussian Error Linear
+Unit) = <code>x·Φ(x)</code> where Φ is the standard-normal CDF — a smooth probabilistic gating
+used by Transformers; softmax turns a real vector <code>z ∈ R^K</code> into a probability vector
+<code>exp(z_i)/Σ_j exp(z_j)</code> lying in the (K−1)-simplex.</p>
+<div class="formula">h<sup>[l]</sup> = σ( W<sup>[l]</sup> h<sup>[l−1]</sup> + b<sup>[l]</sup> ),&nbsp;
+ŷ = softmax( W<sup>[L]</sup> h<sup>[L−1]</sup> + b<sup>[L]</sup> )</div>
+<p><strong>Loss:</strong> categorical cross-entropy CE = −Σ_k y_k log ŷ_k measures the divergence
+between predicted and empirical party-share distributions; it is the MLE objective for a
+categorical model and the natural metric for our compositional outcome (shares sum to 1).
+<strong>Backpropagation</strong> is the chain rule applied layer-wise — computing ∂L/∂W^[l] by
+propagating δ^[l] = (∂L/∂h^[l]) ⊙ σ′ — enabling gradient descent in O(#params) memory.
+<span class="m mL">L</span></p>
+<h4>Architecture</h4>
 <figure class="arch">
 <svg viewBox="0 0 760 170" role="img"><defs><marker id="a3" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
 <rect x="15" y="35" width="140" height="100" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
 <text x="85" y="55" font-weight="700">X  B×F</text>
 <text x="85" y="72" font-size="10">F ≈ 60–80 features</text>
-<text x="85" y="86" font-size="9">shares_lag · macro_lag1</text>
-<text x="85" y="99" font-size="9">estructurales · embeds</text>
-<text x="85" y="112" font-size="9">entidad/cargo</text>
+<text x="85" y="86" font-size="9">share_lag · macro_lag1</text>
+<text x="85" y="99" font-size="9">structural · entity/party</text>
+<text x="85" y="112" font-size="9">embeddings</text>
 <rect x="200" y="35" width="110" height="100" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="255" y="58" font-weight="700">Dense 256</text><text x="255" y="74" font-size="10">GELU + Drop 0.3</text>
 <text x="255" y="90" font-size="10">B×256</text>
@@ -45,221 +59,257 @@ MSE para vectores en el simplex. <span class="m mL">L</span></p>
 <text x="405" y="90" font-size="10">B×128</text>
 <rect x="500" y="35" width="110" height="100" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
 <text x="555" y="58" font-weight="700">Dense K</text><text x="555" y="74" font-size="10">softmax</text>
-<text x="555" y="90" font-size="10">B×K partidos</text>
+<text x="555" y="90" font-size="10">B×K parties</text>
 <rect x="650" y="35" width="95" height="100" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
 <text x="697" y="58" font-weight="700">heads</text>
 <text x="697" y="74" font-size="10">share (softmax)</text>
-<text x="697" y="88" font-size="10">turnout (σ lineal)</text>
-<text x="697" y="102" font-size="10">ganador (CE)</text>
+<text x="697" y="88" font-size="10">turnout (linear)</text>
+<text x="697" y="102" font-size="10">winner (CE)</text>
 <line x1="155" y1="85" x2="198" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 <line x1="310" y1="85" x2="348" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 <line x1="460" y1="85" x2="498" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 <line x1="610" y1="85" x2="648" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 </g></svg>
-<figcaption>MLP tabular A1. Embeddings aprendidos para entidad (32×16) y partido (~40×16) se
-concatenan a las features densas.</figcaption></figure>
-<h4>Aplicación al dataset</h4>
-<table class="compact"><tr><th>Input</th><th>Columna(s)</th><th>Transformación</th></tr>
-<tr><td>Historial</td><td><code>SHARE_VALIDO</code> del ciclo previo por partido</td><td>pivot wide, fillna 0 + indicador</td></tr>
-<tr><td>Macro</td><td><code>fred_*</code>/<code>ocde_*</code>/<code>enco_*_LAG1</code></td><td>estandarización fit solo en train</td></tr>
+<figcaption>Tabular MLP (analysis A1). Learned embeddings for entity (32×16) and party (~40×16)
+concatenate to the dense features. Output: compositional share via softmax — the K-vector lies
+in the simplex by construction.</figcaption></figure>
+<h4>Dataset binding</h4>
+<table class="compact"><tr><th>Input</th><th>Column(s)</th><th>Transform</th></tr>
+<tr><td>History</td><td><code>SHARE_VALIDO</code> previous cycle per party</td><td>pivot wide, fillna 0 + indicator</td></tr>
+<tr><td>Macro</td><td><code>fred_*</code>/<code>ocde_*</code>/<code>enco_*_LAG1</code></td><td>standardize, scaler fit on train only</td></tr>
 <tr><td>Territorial</td><td><code>remesas_*_LAG1</code>, <code>LISTA_NOMINAL</code></td><td>log1p + z-score</td></tr>
-<tr><td>Estructural</td><td><code>AÑO_SEXENIO</code>, <code>ES_*</code>, <code>NEP</code> lag</td><td>one-hot / ordinal</td></tr>
-<tr><td>Categóricas</td><td><code>ENTIDAD_CANONICA</code>, <code>PARTIDO_COALICION</code>, <code>CARGO</code></td><td>embeddings 16d</td></tr></table>
-<h4>Spec de notebook</h4>
+<tr><td>Structural</td><td><code>AÑO_SEXENIO</code>, <code>ES_*</code>, <code>NEP</code> lag</td><td>one-hot / ordinal</td></tr>
+<tr><td>Categoricals</td><td><code>ENTIDAD_CANONICA</code>, <code>PARTIDO_COALICION</code>, <code>CARGO</code></td><td>16-d embeddings</td></tr></table>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 03_mlp_baseline.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Data</td><td><code>canonical_long.csv</code>, <code>FLAG_CONSISTENCIA=0</code>, cargos: PRESIDENCIA + GOBERNADOR + DIPUTADO_FEDERAL_MR</td></tr>
-<tr><td>Split</td><td>train ≤2012 · val 2015-2018 · test 2021-2024</td></tr>
-<tr><td>Métricas</td><td>MAE share · top-1 winner acc · Brier · ECE (calibración)</td></tr>
-<tr><td>Baselines</td><td>persistencia (share previo) · regresión multinomial</td></tr>
-<tr><td>Anti-leakage</td><td>solo <code>*_LAG1</code>; scaler fit en train; sin features del año de elección</td></tr></table></div>
-<h4>Interpretación electoral</h4>
-<p>Responde SQ1: cuánta señal explicable hay sin temporalidad ni geografía explícita. El gap vs.
-persistencia cuantifica el valor de la covariación estructural — si no lo supera, todo lo demás
-debe justificarse cuidadosamente.</p>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">overfitting</span> ~6-8 ciclos presidenciales por unidad → dropout
-alto + weight decay + early stopping sobre val temporal.
-<span class="pill p-media">coaliciones</span> embeddings por string crudo: <code>PAN</code> y
-<code>PAN_PRI</code> son vocabularios distintos — primera iteración los trata como actores
-separados (documentado).</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Data</td><td><code>canonical_long.csv</code>, <code>FLAG_CONSISTENCIA=0</code>; offices: PRESIDENTE, GOBERNADOR, DIPUTADO_FEDERAL_MR</td></tr>
+<tr><td>Split</td><td>train ≤2012 · val 2015–2018 · test 2021–2024 (temporal)</td></tr>
+<tr><td>Metrics</td><td>MAE share · top-1 winner acc · Brier · ECE (calibration)</td></tr>
+<tr><td>Baselines</td><td>persistence (previous share) · multinomial logistic regression</td></tr>
+<tr><td>Anti-leakage</td><td>only <code>*_LAG1</code>; scaler fit on train; no election-year features</td></tr></table></div>
+<h4>Electoral interpretation</h4>
+<p>Answers SQ1: how much explainable signal exists with neither temporality nor explicit geography.
+The gap vs persistence quantifies the value of structural covariation — if the MLP does not beat
+persistence, every later model must justify its extra complexity.</p>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">overfitting</span> ~6–8 presidential cycles per unit → high dropout,
+weight decay, early stopping on temporal val.
+<span class="pill p-media">coalitions</span> raw-string embeddings treat <code>PAN</code> and
+<code>PAN_PRI</code> as distinct vocabularies — iteration one treats them as separate actors
+(documented).</p></div>
 </div>
 </div>
 
-<!-- W02 -->
+<!-- ============ W02 PyTorch ============ -->
 <div class="lecture" id="dl2">
 <header>
-<div class="wk"><span class="w">DL · Semana 02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.2 PyTorch — el harness que todo lo demás reutiliza</h3>
-<div class="sub">Tensores, autograd, Dataset/DataLoader, optimizadores, dispositivos.</div>
+<div class="wk"><span class="w">DL · Week 02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.2 PyTorch — the reusable experiment harness</h3>
+<div class="sub">Tensors, autograd, Dataset/DataLoader, optimizers, devices.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El valor pedagógico es el <em>pipeline</em>, no el framework: Dataset que materializa la clave
-canónica, DataLoader con batches consistentes por grupo electoral, y loop de entrenamiento con
-logging de métricas por cohorte (año × nivel). Un harness mal hecho contamina todos los experimentos
-posteriores.</p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>The pedagogical value is the <em>pipeline</em>, not the framework: a <code>Dataset</code> that
+materializes the canonical key, a <code>DataLoader</code> yielding election-geography-consistent
+batches, and a training loop logging metrics per cohort (year × level). A defective harness
+contaminates every downstream experiment.</p>
+<h4>Theoretical framework</h4>
+<p>PyTorch is an <strong>imperative autodiff</strong> engine: operations on tensors record a
+computational graph (tape), and <code>loss.backward()</code> traverses it applying the chain rule
+(reverse-mode automatic differentiation). The optimizer updates parameters by a descent rule —
+SGD (Stochastic Gradient Descent) <code>θ ← θ − η∇L</code>, or Adam (Adaptive Moments) which keeps
+per-parameter exponential moving averages of gradient mean <code>m</code> and variance <code>v</code>
+with bias correction, adapting the step size: <code>θ ← θ − η·m̂/(√v̂+ε)</code>. <span class="m mL">L</span></p>
 <div class="formula">θ<sub>t+1</sub> = θ<sub>t</sub> − η·∇<sub>θ</sub>L(θ<sub>t</sub>; B<sub>t</sub>),
-&nbsp;&nbsp; ∇θ por regla de la cadena (autograd)</div>
-<h4>Aplicación al dataset</h4>
-<p><code>ElectionDataset(canonical_long)</code>: agrupa por clave elección-geo, emite
-<code>(x_tab, x_ent, x_party, x_cargo, y_share, mask_valid)</code> donde la máscara excluye
-grupos <code>FLAG_CONSISTENCIA=1</code> y coaliciones ambiguas. <strong>Batching por grupo:</strong>
-una elección-geografía completa por batch preserva la restricción Σshares=1 en la pérdida.
+&nbsp;&nbsp; ∇θ via chain rule (autograd)</div>
+<h4>Dataset binding</h4>
+<p><code>ElectionDataset(canonical_long)</code>: groups by election-geography key, emits
+<code>(x_tab, x_ent, x_party, x_cargo, y_share, mask_valid)</code> where the mask excludes
+<code>FLAG_CONSISTENCIA=1</code> groups and ambiguous coalition rows. <strong>Group batching:</strong>
+one full election-geography per batch preserves the Σshares=1 constraint inside the loss.
 <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 02_pytorch_harness.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Output</td><td>módulo <code>src/electoral_data.py</code> exportable a Colab; tests de shape y máscara</td></tr>
-<tr><td>Tests</td><td>Σ shares ∈ [0.9,1.1] por batch; shapes B×F/B×K; claves únicas por batch</td></tr>
-<tr><td>Métricas</td><td>loss train/val por época; nunca métricas de test durante el desarrollo</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">leakage estructural</span> si el scaler/vocab de embeddings se ajusta
-sobre test. <span class="pill p-media">mezcla de cohortes</span> si un batch combina elecciones de
-años distintos sin embedding temporal.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Output</td><td>module <code>src/electoral_data.py</code> exportable to Colab; shape and mask tests</td></tr>
+<tr><td>Tests</td><td>Σ shares ∈ [0.9,1.1] per batch; shapes B×F / B×K; unique keys per batch</td></tr>
+<tr><td>Metrics</td><td>train/val loss per epoch; never test metrics during development</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">structural leakage</span> if the scaler or embedding vocab is fit on
+test. <span class="pill p-media">cohort mixing</span> if a batch combines elections of different
+years without a temporal embedding.</p></div>
 </div>
 </div>
 
-<!-- W03 -->
+<!-- ============ W03 Regularization ============ -->
 <div class="lecture" id="dl3">
 <header>
-<div class="wk"><span class="w">DL · Semana 03</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
-<h3>III.3 Regularización y desarrollo asistido por IA</h3>
-<div class="sub">Dropout, weight decay, early stopping, data augmentation; prácticas de AI-assisted coding.</div>
+<div class="wk"><span class="w">DL · Week 03</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
+<h3>III.3 Regularization and AI-assisted development</h3>
+<div class="sub">Dropout, weight decay, early stopping, data augmentation; AI-assisted coding practice.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Con n efectivo pequeño (elecciones son eventos raros: ~200 grupos presidenciales por entidad-año
-de todo el panel), la regularización <em>es</em> el modelo. La semana 3 se traduce en: qué tan lejos
-puede ir un MLP sin sobreajustar, y cómo la asistencia de IA acelera sin comprometer la integridad.</p>
-<h4>Formalismo</h4>
-<div class="formula">L<sub>reg</sub> = L<sub>CE</sub> + λ‖W‖² ,
-&nbsp;&nbsp; Dropout: h̃ = h ⊙ Bernoulli(p) / p</div>
-<p>Early stopping sobre <strong>val temporal</strong> (2015-2018), no sobre split aleatorio:
-detiene cuando el error de generalización futura deja de mejorar — la única noción honesta de
-"generalización" en series electorales. <span class="m mP">P</span></p>
-<h4>Aplicación al dataset</h4>
-<p>Grid reportado: dropout ∈ {0.2,0.3,0.5}, λ ∈ {1e-4,1e-3,1e-2}, arquitectura {256-128} vs
-{128-64-32}. La configuración final del baseline se reporta con su curva de validación — evidencia
-de regularización, no solo resultado.</p>
-<h4>Spec de notebook</h4>
-<div class="nbspec"><div class="nt">Notebook spec — integrado en 03_mlp_baseline.ipynb (sección regularización)</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Experimento</td><td>grid regularización × gap train/val; tabla de selección</td></tr>
-<tr><td>IA-coding</td><td>disclosure de uso de IA conforme política del curso; cada celda generada validada por tests del harness (III.2)</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-media">honestidad</span> reportar el grid completo, no el mejor punto
-(cherry-picking infla el resultado esperado fuera de muestra).</p></div>
+<h4>Why it exists</h4>
+<p>With a small effective n — elections are rare events: ~200 presidential entity-year groups in
+the whole panel — regularization <em>is</em> the model. Week 3 translates to: how far can an MLP
+go without overfitting, and how does AI assistance accelerate development without compromising
+integrity.</p>
+<h4>Theoretical framework</h4>
+<p><strong>Bias–variance tradeoff:</strong> expected test error decomposes into bias² + variance +
+irreducible noise; capacity raises variance. Regularization injects a prior penalty on complexity.
+<strong>L2 / weight decay</strong> adds λ‖W‖² to the loss — equivalent (for SGD) to a Gaussian
+prior on weights, shrinking them toward 0. <strong>Dropout</strong> (Srivastava et al. 2014) masks
+each hidden unit with probability p at train time and rescales at test — an ensemble of ~2^n
+thinned subnetworks sharing weights, discouraging co-adaptation. <strong>Early stopping</strong>
+halts when validation error stops improving — a form of implicit capacity control.
+<span class="m mL">L</span></p>
+<div class="formula">L<sub>reg</sub> = L<sub>CE</sub> + λ‖W‖² ,&nbsp;&nbsp;
+Dropout: h̃ = h ⊙ Bernoulli(p) / p</div>
+<p>Early stopping is computed on the <strong>temporal validation</strong> slice (2015–2018), never a
+random split: it halts when out-of-time generalization stops improving — the only honest notion of
+generalization for electoral series. <span class="m mP">P</span></p>
+<h4>Dataset binding</h4>
+<p>Reported grid: dropout ∈ {0.2, 0.3, 0.5}, λ ∈ {1e-4, 1e-3, 1e-2}, architectures {256-128} vs
+{128-64-32}. The final baseline configuration is reported together with its validation curve —
+evidence of regularization, not just a result.</p>
+<h4>Notebook spec</h4>
+<div class="nbspec"><div class="nt">Notebook spec — integrated into 03_mlp_baseline.ipynb (regularization section)</div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Experiment</td><td>regularization × train/val gap grid; selection table</td></tr>
+<tr><td>AI-coding</td><td>AI-use disclosure per course policy; every generated cell validated by harness tests (III.2)</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-media">honesty</span> report the full grid, not the best point —
+cherry-picking inflates the expected out-of-sample result.</p></div>
 </div>
 </div>
 
-<!-- W04 -->
+<!-- ============ W04 CNN ============ -->
 <div class="lecture" id="dl4">
 <header>
-<div class="wk"><span class="w">DL · Semana 04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.4 CNN — patrones espaciales sobre el tensor electoral</h3>
-<div class="sub">Convolución, pooling, campo receptivo, weight sharing.</div>
+<div class="wk"><span class="w">DL · Week 04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.4 Convolutional Neural Networks — spatial texture in the vote</h3>
+<div class="sub">Convolution, pooling, receptive field, weight sharing.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El voto tiene textura espacial: cinturones PAN del norte, bastiones del sur, corredores urbanos.
-Una CNN sobre una grilla geográfica aprende detectores de patrones locales — "vecindad con
-penetración creciente de MORENA", "isla de oposición" — con parámetros compartidos que escalan a
-miles de municipios.</p>
-<h4>Formalismo</h4>
-<div class="formula">(f ∗ X)[i,j] = Σ<sub>m,n</sub> f[m,n] · X[i+m, j+n] ,
-&nbsp;&nbsp; salida: mapa de activación donde el campo receptivo = contexto vecinal</div>
-<h4>Aplicación al dataset</h4>
-<p>Dos representaciones posibles: (a) <strong>tensor año×partido×entidad</strong> — conv 1D temporal
-+ conv sobre partidos captura correlaciones de ciclo; (b) <strong>grilla geográfica real</strong> —
-requiere rasterizar municipios a lat/lon (hexbin o rejilla INEGI). La opción (b) es superior
-conceptualmente pero depende de geometrías externas; (a) es inmediata con el canónico actual.
-<span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>The vote has spatial texture: the PAN northern belt, southern strongholds, urban corridors.
+A Convolutional Neural Network (CNN) over a geographic grid learns local pattern detectors —
+"neighborhood with growing MORENA penetration", "opposition island" — with shared parameters that
+scale to thousands of municipalities.</p>
+<h4>Theoretical framework</h4>
+<p><strong>Discrete convolution</strong> slides a kernel f over the input, computing local inner
+products: the same weights apply at every position (weight sharing → translation equivariance),
+each output unit sees only a finite receptive field. Stacking layers grows the effective receptive
+field — early layers see immediate neighbors, deep layers see regional context. <strong>Pooling</strong>
+(max/mean) adds local invariance and reduces spatial resolution. The inductive bias is locality +
+sharing: exactly the assumption that nearby geographies behave similarly (Tobler's first law).
+<span class="m mL">L</span></p>
+<div class="formula">(f ∗ X)[i,j] = Σ<sub>m,n</sub> f[m,n] · X[i+m, j+n]
+<span class="fl">output = activation map; receptive field = neighborhood context</span></div>
+<h4>Dataset binding</h4>
+<p>Two possible representations: (a) a <strong>year×party×entity tensor</strong> — 1-D temporal
+convolution plus convolutions over parties capture cycle correlations; (b) a <strong>true
+geographic grid</strong> — requires rasterizing municipalities to lat/lon (hexbin or INEGI grid).
+Option (b) is conceptually superior but depends on external geometries; (a) is immediate on the
+current canonical set. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 04_cnn_spatial.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Input (a)</td><td>tensor B×32entidades×Kpartidos×Taños — Conv2d (entidad×partido), canales=año</td></tr>
-<tr><td>Input (b)</td><td>hexgrid municipal, canales = shares + macro_lag1 — pendiente de geometría INEGI</td></tr>
-<tr><td>Métricas</td><td>MAE share; comparación vs MLP mismo split</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">pseudoestructura</span> una conv sobre ejes no-espaciales (año×partido)
-encuentra correlaciones, no geografía — declarar la diferencia.
-<span class="pill p-media">bordes</span> la convolución trata el borde de la rejilla como
-topológicamente especial; en mapa real hay que cuidar Baja California vs Yucatán.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Input (a)</td><td>tensor B×32 entities×K parties×T years — Conv2d over (entity×party), channels=year</td></tr>
+<tr><td>Input (b)</td><td>municipal hexgrid, channels = shares + macro_lag1 — pending INEGI geometry</td></tr>
+<tr><td>Metrics</td><td>MAE share; head-to-head vs MLP on identical split</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">pseudo-structure</span> a convolution over non-spatial axes
+(year×party) finds correlations, not geography — the difference must be declared.
+<span class="pill p-media">borders</span> convolution treats the grid edge as topologically
+special; on a real map Baja California and Yucatán boundaries need care.</p></div>
 </div>
 </div>
 
-<!-- W05 -->
+<!-- ============ W05 Transfer ============ -->
 <div class="lecture" id="dl5">
 <header>
-<div class="wk"><span class="w">DL · Semana 05</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.5 Transfer learning — lo federal enseña a lo local</h3>
-<div class="sub">Pre-entrenamiento, fine-tuning, congelación de capas, domain shift.</div>
+<div class="wk"><span class="w">DL · Week 05</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.5 Transfer learning — the federal panel teaches the local</h3>
+<div class="sub">Pre-training, fine-tuning, layer freezing, domain shift.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Las elecciones federales tienen mejor cobertura temporal y geográfica que las locales. La
-hipótesis de transfer: representaciones aprendidas sobre el panel federal (más denso) transfieren
-al escaso panel de gubernaturas/diputados locales — análogo a ImageNet→dominio médico.
-<span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">θ<sub>base</sub> = argmin L<sub>federal</sub> ;
-&nbsp;&nbsp; θ<sub>local</sub> = argmin L<sub>local</sub>(θ<sub>base</sub> congelado hasta capa k, cabeza nueva)</div>
-<h4>Aplicación al dataset</h4>
-<p>Fuente: PRESIDENCIA + DIPUTADO_FEDERAL_MR (municipio y distrito, todos los ciclos).
-Destino: GOBERNADOR + DIPUTADO_LOCAL_MR. Embeddings de entidad/partido compartidos (vocabulario
-común); cabezas nuevas por cargo. Se mide el beneficio vs. entrenar el modelo local desde cero
-— el delta es el efecto del transfer. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>Federal elections have denser temporal and geographic coverage than local ones. The transfer
+hypothesis: representations learned on the denser federal panel transfer to the sparse panel of
+governorships and local deputies — analogous to ImageNet → medical imaging. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p>Transfer learning exploits the idea that early network layers learn general features
+(Gabor-like edges in vision; here, generic "electoral response" filters) that transfer across
+related domains. <strong>Fine-tuning</strong> starts from pre-trained weights and updates them on
+the target task with a lower learning rate; <strong>freezing</strong> stops gradients below layer k.
+<strong>Domain shift</strong> — the gap between source and target distributions — determines whether
+transfer helps or hurts; a negative transfer must be reported honestly. <span class="m mL">L</span></p>
+<div class="formula">θ<sub>base</sub> = argmin L<sub>federal</sub> ;&nbsp;
+θ<sub>local</sub> = argmin L<sub>local</sub>(θ<sub>base</sub> frozen up to layer k, new head)</div>
+<h4>Dataset binding</h4>
+<p>Source: PRESIDENTE + DIPUTADO_FEDERAL_MR (municipal and district levels, all cycles).
+Target: GOBERNADOR + DIPUTADO_LOCAL_MR. Entity/party embeddings are shared (common vocabulary);
+new heads per office. The benefit is measured against training the local model from scratch —
+that delta is the transfer effect. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 05_transfer_federal_local.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Pre-train</td><td>MLP A1 en federales 1991-2012</td></tr>
-<tr><td>Fine-tune</td><td>locales con capas bajas congeladas vs. no congeladas; LR discriminativo (1e-4 base, 1e-3 cabeza)</td></tr>
-<tr><td>Ablación</td><td>from-scratch · frozen · partial-unfreeze · full fine-tune</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">domain shift</span> voto federal ≠ voto local (clivajes distintos,
-candidatos importan más localmente) — el transfer puede ser negativo; reportar honestamente.
-<span class="pill p-media">vocabulario</span> partidos estatales que no existen a nivel federal
-quedan fuera del embedding pre-entrenado.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Pre-train</td><td>MLP A1 on federals 1991–2012</td></tr>
+<tr><td>Fine-tune</td><td>locals with lower layers frozen vs unfrozen; discriminative LR (1e-4 base, 1e-3 head)</td></tr>
+<tr><td>Ablation</td><td>from-scratch · frozen · partial-unfreeze · full fine-tune</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">domain shift</span> federal vote ≠ local vote (different cleavages;
+candidates matter more locally) — transfer can be negative; report honestly.
+<span class="pill p-media">vocabulary</span> state parties absent federally fall outside the
+pre-trained embedding.</p></div>
 </div>
 </div>
 
-<!-- W06 -->
+<!-- ============ W06 AE/VAE ============ -->
 <div class="lecture" id="dl6">
 <header>
-<div class="wk"><span class="w">DL · Semana 06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.6 Autoencoders y VAE — el mapa electoral como variedad latente</h3>
-<div class="sub">Cuello de botella, manifold hypothesis, ELBO, reparemetrización.</div>
+<div class="wk"><span class="w">DL · Week 06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.6 Autoencoders and VAEs — the electoral map as a latent manifold</h3>
+<div class="sub">Bottleneck, manifold hypothesis, ELBO, reparameterization.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El mapa electoral de México es aproximable por pocas dimensiones latentes — "norte industrial",
-"sur rural", "centro urbano", "frontera". Un autoencoder fuerza el perfil electoral completo de un
-municipio por un cuello de 2-3 dimensiones; si la variedad existe, los clusters emergentes deben
-coincidir (o refutar) la tipología de la literatura. El VAE añade estructura probabilística:
-regiones latentes suaves en vez de clusters duros.</p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>Mexico's electoral map is approximable by few latent dimensions — "industrial north",
+"ancestral south", "urban center", "border". An Autoencoder (AE) forces a municipality's full
+electoral profile through a 2–3-dimensional bottleneck; if the manifold exists, emergent clusters
+should match (or refute) the literature's typology. The Variational Autoencoder (VAE, Kingma &amp;
+Welling 2013) adds probabilistic structure: soft latent regions instead of hard clusters.</p>
+<h4>Theoretical framework</h4>
+<p><strong>AE:</strong> encoder z = f(x), decoder x̂ = g(z); trained to minimize reconstruction
+error ‖x−x̂‖², the bottleneck forces a compressed code z capturing the dominant factors of
+variation. <strong>Manifold hypothesis:</strong> high-dimensional data lie near a low-dimensional
+manifold; the AE is a nonlinear generalization of PCA (Principal Component Analysis) that learns
+it. <strong>VAE:</strong> the encoder outputs a posterior q(z|x); training maximizes the
+<strong>ELBO</strong> (Evidence Lower Bound) — reconstruction term minus the KL divergence
+(Kullback–Leibler) pulling q(z|x) toward a standard-normal prior. The <strong>reparameterization
+trick</strong> z = μ + σ·ε, ε~N(0,I) keeps the sampling differentiable. <span class="m mL">L</span></p>
 <div class="formula">ELBO = E<sub>q(z|x)</sub>[log p(x|z)] − KL( q(z|x) ‖ N(0,I) )
-<span class="fl">x = vector de shares por partido de un municipio-año; z = perfil latente</span></div>
-<h4>Aplicación al dataset</h4>
-<p>x = vector de shares de un municipio en un ciclo (dimensión ≈ 10-15 partidos relevantes,
-resto colapsado en "otros"). Se entrena AE y VAE sobre todos los municipio-año válidos; el latente
-2D se proyecta a mapa y se compara con regiones documentadas (§I.5). Bonus estructural: el
-<strong>decoder</strong> reconstruye elecciones plausibles → municipios con alto error de
-reconstrucción son outliers del sistema — candidatos para el capstone forense C4. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<span class="fl">x = municipality-year share vector; z = latent electoral profile</span></div>
+<h4>Dataset binding</h4>
+<p>x = vector of a municipality's party shares in one cycle (≈10–15 relevant parties, rest folded
+into "other"). AE and VAE trained over all valid municipality-years; the 2-D latent space is
+projected to a map and compared with documented regions (§I.5). Structural bonus: the
+<strong>decoder</strong> reconstructs plausible elections → municipalities with high reconstruction
+error are system outliers — candidates for forensic capstone C4. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 06_vae_perfiles.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Input</td><td>municipio-año válido: shares por partido (PRESIDENCIA para consistencia)</td></tr>
-<tr><td>Modelos</td><td>AE determinista · VAE (β=1 y β=4) · comparación con PCA/t-SNE (IV.6)</td></tr>
-<tr><td>Outputs</td><td>scatter latente coloreado por región KB · error de reconstrucción por municipio · tabla cluster×entidad</td></tr>
-<tr><td>Métrica</td><td>reconstrucción MAE · silhouette de clusters vs regiones KB · estabilidad entre semillas</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-media">interpretabilidad</span> las dimensiones latentes no vienen etiquetadas
-— nombrarlas exige inspección manual (correlación con macro/entidad).
-<span class="pill p-media">temporalidad</span> mezclar años en el mismo latente confunde drift
-histórico con posición geográfica — reportar también por ciclo.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Input</td><td>valid municipality-year: party shares (PRESIDENTE for consistency)</td></tr>
+<tr><td>Models</td><td>deterministic AE · VAE (β=1 and β=4) · comparison vs PCA/t-SNE (IV.6)</td></tr>
+<tr><td>Outputs</td><td>latent scatter colored by KB region · per-municipality reconstruction error · cluster×entity table</td></tr>
+<tr><td>Metric</td><td>reconstruction MAE · silhouette of clusters vs KB regions · seed stability</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-media">interpretability</span> latent dimensions arrive unlabeled — naming
+them requires manual inspection (correlation with macro/entity).
+<span class="pill p-media">temporality</span> mixing years in one latent space confounds historical
+drift with geographic position — also report per cycle.</p></div>
 </div>
 </div>
 </div>

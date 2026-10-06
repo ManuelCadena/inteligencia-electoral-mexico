@@ -1,107 +1,124 @@
-<!-- ============ PARTE IV — NLP W01-W06 ============ -->
+<!-- ============ PART IV — NLP W01-W06 (expanded theory) ============ -->
 <div class="part" id="p4">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte IV</div>
-<h2>Lectures de NLP — CSCI E-89b aplicadas al discurso político mexicano</h2>
-<p>Corpus principal: mañaneras presidenciales (transcripción ASR, III.8) + corpus secundario de
-boletines/discursos de campaña. Doce semanas convertidas en features textuales con valor electoral.
-Cada variable derivada del texto recibe timestamp de <strong>fecha de publicación</strong>, nunca
-de referencia — la regla anti-leakage es estructural. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
+<div class="pn">Part IV</div>
+<h2>NLP lectures — CSCI E-89b applied to Mexican political discourse</h2>
+<p>Primary corpus: presidential morning conferences ("mañaneras") — 514,909 speaker-attributed,
+timestamped interventions totaling 18,135,177 words (II.5). Twelve course weeks converted into
+textual features with electoral value. Every text-derived variable is timestamped by its
+<strong>publication date</strong>, never by the date of the event discussed — the anti-leakage rule
+is structural. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
 </div>
 
 <!-- NLP W01-02 -->
 <div class="lecture" id="nlp1">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.1 Preprocesamiento y BoW/TF-IDF — el baseline textual más barato</h3>
-<div class="sub">Normalización, stopwords, vectorización clásica; IV.2 RNN sobre texto.</div>
+<div class="wk"><span class="w">NLP · Weeks 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.1 Preprocessing and BoW/TF-IDF — the cheapest textual baseline · IV.2 Text RNN</h3>
+<div class="sub">Normalization, stopwords, classical vectorization; recurrent networks over token sequences.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Antes de BERT hay que saber cuánta señal lexical simple existe: ¿la frecuencia de "seguridad",
-"inflación", "empleo" en las semanas previas a una elección correlaciona con el resultado?
-BoW/TF-IDF es el baseline textual: barato, transparente, interpretable — y difícil de superar
-sustancialmente si la señal es superficial.</p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>Before BERT we must know how much simple lexical signal exists: does the frequency of
+"seguridad" (security), "inflación", "empleo" in the weeks before an election correlate with the
+outcome? Bag-of-Words (BoW) plus TF-IDF is the textual baseline: cheap, transparent, interpretable
+— and hard to beat substantially if the signal is shallow.</p>
+<h4>Theoretical framework</h4>
+<p><strong>BoW:</strong> a document becomes a vector of token counts — order is discarded.
+<strong>TF-IDF</strong> (Term Frequency–Inverse Document Frequency) reweights by rarity:
+tokens frequent in one document but rare across the corpus get high weight —
+TF-IDF(w,d) = TF(w,d)·log(N/df_w) where df_w is the number of documents containing w.
+<strong>Text RNN:</strong> an LSTM processes tokens in order — it captures "no queremos" vs
+"queremos" (negation scope) that BoW loses. <span class="m mL">L</span></p>
 <div class="formula">TF-IDF(w,d) = TF(w,d) · log( N / df<sub>w</sub> )
-<span class="fl">clasificador/regresor: ŷ = softmax(W·tfidf(d)) por ventana pre-electoral</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Ventana de 90 días pre-elección por unidad (federal) o entidad (local); features agregadas =
-vectores TF-IDF promediados por semana. Target: <code>SHARE_VALIDO</code> del oficialismo y
-<code>ALTERNANCIA</code>. Este baseline define el piso textual: todo lo posterior debe mejorarlo
-o justificar su complejidad. <span class="m mP">P</span></p>
-<h4>RNN sobre texto (W02)</h4>
-<p>La versión secuencial procesa tokens en orden — captura "no queremos" vs "queremos" que BoW pierde.
-Se implementa LSTM 1×128 sobre la secuencia de palabras de cada discurso; comparación directa con
-IV.1 cuantifica el valor del orden léxico en este dominio.</p>
-<h4>Spec de notebook</h4>
+<span class="fl">classifier: ŷ = softmax(W·tfidf(d)) per pre-electoral window</span></div>
+<h4>Dataset binding</h4>
+<p>90-day pre-election window per entity (locals) or nationally (federals); features = weekly
+averaged TF-IDF vectors. Targets: incumbent <code>SHARE_VALIDO</code> and <code>ALTERNANCIA</code>.
+This baseline sets the textual floor: everything after it must improve on it or justify its
+complexity. RNN variant: LSTM 1×128 over each discourse's token sequence; direct comparison with
+IV.1 quantifies the value of lexical order in this domain. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n01_bow_baseline.ipynb · n02_lstm_texto.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Corpus</td><td>mañaneras ASR + corpus campaña; filtro fecha ≤ elección − 0 días</td></tr>
-<tr><td>Métricas</td><td>MAE share oficialismo · AUC alternancia · top-20 términos por importancia</td></tr>
-<tr><td>Anti-leakage</td><td>vocabulario TF-IDF ajustado solo en train temporal</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Corpus</td><td>mañaneras interventions (514,909 rows) filtered publication-date ≤ election day</td></tr>
+<tr><td>Metrics</td><td>MAE incumbent share · AUC alternancia · top-20 terms by importance</td></tr>
+<tr><td>Anti-leakage</td><td>TF-IDF vocabulary fit on temporal train only</td></tr></table></div>
 </div>
 </div>
 
 <!-- NLP W03-04 -->
 <div class="lecture" id="nlp3">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.3 Tokenización · IV.4 N-gramas — la morfología del discurso político</h3>
-<div class="sub">BPE/subword, vocabulario propio; modelos de lenguaje n-gram.</div>
+<div class="wk"><span class="w">NLP · Weeks 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.3 Tokenization · IV.4 N-grams — the morphology of political discourse</h3>
+<div class="sub">BPE/subword units, domain tokenizer; n-gram language models.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El español político mexicano tiene su propia morfología: "chairos", "fifís", "mañanera",
-siglas (INE, MORENA, IMSS) que se comportan como tokens atómicos. Un tokenizer genérico fragmenta
-estas unidades; entrenar BPE sobre el corpus cuantifica el problema (tasa OOV) y produce un
-tokenizer de dominio. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">BPE: fusiones greedy de pares más frecuentes · vocab B&nbsp;·&nbsp;OOV-rate = |tokens fuera de vocab| / |tokens|
-<span class="fl">comparación: tokenizer dominio vs tokenizer BETO pre-entrenado</span></div>
-<div class="formula">n-grama LM: P(w<sub>t</sub> | w<sub>t−n+1..t−1</sub>) · Perplexity = exp(−(1/N)Σ log P)</div>
-<h4>Aplicación al dataset</h4>
-<p>N-gramas por sexenio: perplexity cruzada — ¿qué tan predecible es el discurso de 2024 desde el
-modelo de 2018? La distancia entre sexenios en el espacio n-gram es un proxy cuantitativo del
-<em>cambio retórico de régimen</em> documentado cualitativamente en §I.5. Feature derivada:
+<h4>Why it exists</h4>
+<p>Mexican political Spanish has its own morphology: "chairos", "fifís", "mañanera", acronyms
+(INE, MORENA, IMSS) behaving as atomic tokens. A generic tokenizer splits these units; training
+BPE (Byte-Pair Encoding) on the corpus quantifies the problem (out-of-vocabulary rate) and yields
+a domain tokenizer. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p><strong>BPE</strong> (Gage 1994; Sennrich et al. 2016): start from characters, greedily merge
+the most frequent adjacent pair until the vocabulary reaches size B — frequent words become single
+tokens, rare words decompose into subwords, so OOV (out-of-vocabulary) vanishes by construction.
+<strong>N-gram LM:</strong> the Markovian model P(w_t | w_{t−n+1..t−1}) estimated by counts with
+smoothing; <strong>perplexity</strong> = exp(−(1/N)Σ log P) is the effective vocabulary branching —
+lower = more predictable text. <span class="m mL">L</span></p>
+<div class="formula">BPE: greedy merges of most-frequent pairs · vocab B · OOV-rate = |unknown| / |tokens|
+<span class="fl">domain tokenizer vs pre-trained BETO tokenizer</span></div>
+<div class="formula">n-gram LM: P(w<sub>t</sub> | w<sub>t−n+1..t−1</sub>) · Perplexity = exp(−(1/N)Σ log P)</div>
+<h4>Dataset binding</h4>
+<p>N-grams per sexenio (six-year term): cross-perplexity — how predictable is 2024 discourse from a
+model trained on 2018? The sexenio distance in n-gram space is a quantitative proxy of the
+<em>rhetorical regime change</em> documented qualitatively in §I.5. Derived feature:
 <code>drift_retorico_sexenio</code>. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n03_tokenizer_dominio.ipynb · n04_ngram_drift.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Output</td><td>tokenizer BPE propio · tabla OOV · perplexity matrix sexenio×sexenio</td></tr>
-<tr><td>Visual</td><td>heatmap de perplexity cruzada (figura candidata del paper)</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Output</td><td>custom BPE tokenizer · OOV table · sexenio×sexenio perplexity matrix</td></tr>
+<tr><td>Visual</td><td>cross-perplexity heatmap (paper figure candidate)</td></tr></table></div>
 </div>
 </div>
 
 <!-- NLP W05-06 -->
 <div class="lecture" id="nlp5">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.5 Embeddings de palabra · IV.6 Reducción y visualización</h3>
-<div class="sub">Word2Vec/GloVe, similitud semántica; PCA/t-SNE/UMAP para inspección.</div>
+<div class="wk"><span class="w">NLP · Weeks 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.5 Word embeddings · IV.6 Dimensionality reduction and visualization</h3>
+<div class="sub">Word2Vec/GloVe, semantic similarity; PCA/t-SNE/UMAP for inspection.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Los embeddings convierten la intuición "MORENA es sucesor del PRD" en geometría medible:
-si el embedding de <code>MORENA</code> post-2018 está más cerca de <code>PRD</code> pre-2018 que
-de sí mismo históricamente, el drift semántico es cuantificable. Y la visualización es la capa
-pedagógica: un mapa semántico del léxico político por época comunica más que mil tablas.</p>
-<h4>Formalismo</h4>
-<div class="formula">word2vec skip-gram: max Σ log P(contexto | w) ; analogía: v<sub>rey</sub>−v<sub>hombre</sub>+v<sub>mujer</sub> ≈ v<sub>reina</sub>
-<span class="fl">t-SNE: minimiza KL entre similitudes en d alto y 2D (no interpretar distancias globales)</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Dos usos: (a) embeddings de <strong>palabras</strong> entrenados sobre mañaneras → mapa t-SNE
-del léxico político por sexenio, mostrando migración de "pobreza", "corrupción", "transformación";
-(b) embeddings de <strong>entidades y partidos</strong> aprendidos conjuntamente con el MLP de
-III.1 — ¿el embedding de Oaxaca queda cerca de Chiapas? El artefacto tiene doble valor: feature
-(modelo) y visualización (paper). <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>Embeddings turn the intuition "MORENA is the PRD's successor" into measurable geometry: if the
+post-2018 <code>MORENA</code> embedding sits closer to pre-2018 <code>PRD</code> than to its own
+history, semantic drift is quantifiable. And visualization is the pedagogical layer: a semantic
+map of the political lexicon per era communicates more than a thousand tables.</p>
+<h4>Theoretical framework</h4>
+<p><strong>Word2Vec</strong> (Mikolov et al. 2013): skip-gram learns vectors by predicting context —
+words sharing contexts land close in R^d; the geometry supports analogies v<sub>rey</sub> −
+v<sub>hombre</sub> + v<sub>mujer</sub> ≈ v<sub>reina</sub>. <strong>GloVe</strong> (Pennington et al.
+2014) factorizes the log co-occurrence matrix instead. <strong>t-SNE</strong> (van der Maaten &amp;
+Hinton 2008): embeds high-D into 2-D by minimizing the KL divergence between neighborhood
+similarities — local structure is faithful, global distances are not interpretable.
+<strong>UMAP</strong> is a faster, better-preserving alternative. <span class="m mL">L</span></p>
+<div class="formula">skip-gram: max Σ log P(context | w) ; analogy: v<sub>a</sub>−v<sub>b</sub>+v<sub>c</sub> ≈ v<sub>d</sub>
+<span class="fl">t-SNE minimizes KL(high-D ‖ 2-D) — do not read global distances</span></div>
+<h4>Dataset binding</h4>
+<p>Two uses: (a) <strong>word</strong> embeddings trained on mañaneras → t-SNE map of the political
+lexicon per sexenio, showing the migration of "pobreza", "corrupción", "transformación";
+(b) <strong>entity and party</strong> embeddings learned jointly with the MLP (III.1) — does
+Oaxaca's embedding sit near Chiapas's? The artifact is double-valued: a feature (model) and a
+figure (paper). <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n05_embeddings_politicos.ipynb · n06_tsne_lexico.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Modelos</td><td>word2vec 100d por sexenio · extracción de embeddings del MLP III.1</td></tr>
-<tr><td>Visual</td><td>t-SNE del léxico por época · scatter de embeddings de partido/entidad del MLP</td></tr>
-<tr><td>Métrica</td><td>similitud coseno entre siglas sucesoras · correlación embedding vs distancia geográfica</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Models</td><td>word2vec 100d per sexenio · MLP (III.1) entity/party embeddings extraction</td></tr>
+<tr><td>Visual</td><td>lexicon t-SNE per era · party/entity embedding scatter</td></tr>
+<tr><td>Metric</td><td>cosine similarity between successor acronyms · embedding-vs-geographic-distance correlation</td></tr></table></div>
 </div>
 </div>
 </div>

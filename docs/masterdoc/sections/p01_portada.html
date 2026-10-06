@@ -1,4 +1,4 @@
-<!-- ============ PARTE 0 — PORTADA / TOC / RESUMEN ============ -->
+<!-- ============ PARTE 0 — COVER / TOC / EXEC SUMMARY ============ -->
 <div class="cover" id="portada">
 <div class="wrap">
 <div class="seal-line">
@@ -10,83 +10,87 @@
 <text x="32" y="60" text-anchor="middle" font-size="9" fill="#fff"
       font-family="Georgia,serif" letter-spacing="2">VERITAS</text>
 </svg>
-<div class="eyebrow">Programa de Maestría · Harvard Extension School · CSCI E-89 + CSCI E-89b</div>
+<div class="eyebrow">Master's Program · Harvard Extension School · CSCI E-89 + CSCI E-89b</div>
 </div>
-<h1>Inteligencia Electoral México</h1>
-<div class="subtitle">Un marco multimodal de aprendizaje profundo y procesamiento de lenguaje natural para el análisis y pronóstico del voto mexicano (1991–2024) — documento maestro pedagógico y de investigación.</div>
+<h1>Electoral Intelligence Mexico</h1>
+<div class="subtitle">A multimodal deep-learning and natural-language-processing framework for the analysis and forecasting of the Mexican vote (1991–2024) — pedagogical master document and research blueprint.</div>
 <div class="covermeta">
-<div class="cm"><b>Autor</b>Manuel Cadena — PhD Neural Networks, AI &amp; LLM</div>
-<div class="cm"><b>Versión</b>v1.0 · Documento maestro de investigación</div>
-<div class="cm"><b>Fecha</b>2026-10-06 · ISO-8601</div>
-<div class="cm"><b>Repositorio</b>github.com/ManuelCadena/inteligencia-electoral-mexico</div>
+<div class="cm"><b>Author</b>Manuel Cadena — PhD Neural Networks, AI &amp; LLM</div>
+<div class="cm"><b>Version</b>v2.0 · Master research document (English)</div>
+<div class="cm"><b>Date</b>2026-10-06 · ISO-8601</div>
+<div class="cm"><b>Repository</b>github.com/ManuelCadena/inteligencia-electoral-mexico</div>
 </div>
 <div class="acuse">
-Acuse N.º 20261006-MDOC · Documento maestro del proyecto <strong>Inteligencia Electoral México</strong> ·
-Cubre: (a) marco institucional del sistema electoral mexicano, (b) dataset canónico SICEE normalizado
-(355,176 observaciones · 11,739 elección-geografías · 32 entidades), (c) 26 lectures aplicadas —
-14 de Deep Learning (CSCI E-89, semanas 1–14) y 12 de NLP (CSCI E-89b, semanas 1–12) — con marco
-teórico, formalismo, diagrama de arquitectura y especificación de notebook por tema, (d) diseño
-experimental, estructura del paper, amenazas a la validez y plan de 6 sprints ·
-Fuentes: INE/OPLE/TEPJF (oficiales), literatura arbitrada vía Consensus, propuesta original marcada
-como <em>PROPUESTO</em> · Corte de estatus: dataset canónico validado, modelos aún no entrenados.
+Acuse N.º 20261006-MDOC-v2 · Master document of the <strong>Electoral Intelligence Mexico</strong>
+project · Covers: (a) institutional framework of the Mexican electoral system, (b) canonical
+dataset built from raw SICEE tabulations — <strong>463,834 tidy observation-rows across all
+processed series; 355,176 canonical election×geography×party rows; 11,739 election-geography
+groups; 32 states; 314 MB of model-ready tabular data plus 18.1&nbsp;million words of presidential
+morning-conference text</strong>, (c) 26 applied lectures — 14 from Deep Learning (CSCI E-89,
+weeks 1–14) and 12 from NLP (CSCI E-89b, weeks 1–12) — each with full theoretical framework,
+formal derivation, architecture diagram, dataset binding and notebook specification,
+(d) experimental design, paper structure, validity threats and a 6-sprint execution plan ·
+Sources: INE/OPLE/TEPJF (official), peer-reviewed literature via Consensus, original proposals
+flagged <em>PROPOSED</em> · Status cutoff: canonical dataset validated; no model has been trained yet.
 </div>
 </div>
 </div>
 
 <nav class="toc" id="indice">
 <div class="wrap">
-<h2>Índice</h2>
+<h2>Table of Contents</h2>
 <ol>
-<li class="t-part"><a href="#p0">Parte 0 — Tesis rectora y resumen ejecutivo</a></li>
-<li><a href="#p0">0.1 Pregunta de investigación y subpreguntas</a></li>
-<li><a href="#p0b">0.2 Cómo leer este documento</a></li>
-<li class="t-part"><a href="#p1">Parte I — El sistema electoral mexicano</a></li>
-<li><a href="#s11">I.1 Instituciones y fuentes oficiales</a></li>
-<li><a href="#s12">I.2 Geografía electoral: anidación territorial</a></li>
-<li><a href="#s13">I.3 Fórmulas de asignación (MR · RP · 1ª minoría)</a></li>
-<li><a href="#s14">I.4 Partidos, coaliciones y lectura de siglas</a></li>
-<li><a href="#s15">I.5 Mapa electoral histórico 1988–2024</a></li>
-<li><a href="#s16">I.6 Lectura de las cifras del dataset</a></li>
-<li><a href="#s17">I.7 Advertencias de comparabilidad</a></li>
-<li class="t-part"><a href="#p2">Parte II — Dataset canónico y pipeline</a></li>
-<li><a href="#s21">II.1 Inventario SICEE</a></li>
-<li><a href="#s22">II.2 Pipeline de construcción</a></li>
-<li><a href="#s23">II.3 Esquema canónico y variables de outcome</a></li>
-<li><a href="#s24">II.4 Features exógenas y aprobación</a></li>
-<li><a href="#s25">II.5 QA y casos límite</a></li>
-<li class="t-part"><a href="#p3">Parte III — Lectures de Deep Learning (E-89)</a></li>
-<li><a href="#dl1">III.1 MLP · III.2 PyTorch · III.3 Regularización</a></li>
+<li class="t-part"><a href="#p0">Part 0 — Governing thesis and executive summary</a></li>
+<li><a href="#s01">0.1 Research question and sub-questions</a></li>
+<li><a href="#s02">0.2 How to read this document</a></li>
+<li class="t-part"><a href="#p1">Part I — The Mexican electoral system</a></li>
+<li><a href="#s11">I.1 Institutions and official sources</a></li>
+<li><a href="#s12">I.2 Electoral geography: territorial nesting</a></li>
+<li><a href="#s13">I.3 Seat-allocation formulas (MR · RP · first minority)</a></li>
+<li><a href="#s14">I.4 Parties, coalitions and acronym semantics</a></li>
+<li><a href="#s15">I.5 Historical electoral map 1988–2024</a></li>
+<li><a href="#s16">I.6 Reading the dataset's figures</a></li>
+<li><a href="#s17">I.7 Comparability warnings</a></li>
+<li class="t-part"><a href="#p2">Part II — Canonical dataset and pipeline</a></li>
+<li><a href="#s21">II.1 Raw-data inventory and real sizes</a></li>
+<li><a href="#s22">II.2 Construction pipeline</a></li>
+<li><a href="#s23">II.3 Canonical schema and outcome variables</a></li>
+<li><a href="#s24">II.4 Exogenous features and approval data</a></li>
+<li><a href="#s25">II.5 Text corpus: the mañaneras dataset</a></li>
+<li><a href="#s26">II.6 QA and edge cases</a></li>
+<li class="t-part"><a href="#p3">Part III — Deep Learning lectures (E-89)</a></li>
+<li><a href="#dl1">III.1 MLP · III.2 PyTorch · III.3 Regularization</a></li>
 <li><a href="#dl4">III.4 CNN · III.5 Transfer · III.6 AE/VAE</a></li>
-<li><a href="#dl7">III.7 Transformers · III.8 Seq2Seq/LSTM</a></li>
-<li><a href="#dl10">III.9 RAG · III.10 Agentes · III.11 Generativos · III.12 SSM</a></li>
-<li class="t-part"><a href="#p4">Parte IV — Lectures de NLP (E-89b)</a></li>
-<li><a href="#nlp1">IV.1 BoW/TF-IDF · IV.2 RNN texto · IV.3 Tokenización</a></li>
+<li><a href="#dl7">III.7 Transformers · III.8 Speech · III.9 Seq2Seq/LSTM</a></li>
+<li><a href="#dl10">III.10 LLMs · III.11 RAG · III.12 Agents · III.13 Generative · III.14 SSM</a></li>
+<li class="t-part"><a href="#p4">Part IV — NLP lectures (E-89b)</a></li>
+<li><a href="#nlp1">IV.1 BoW/TF-IDF · IV.2 Text RNN · IV.3 Tokenization</a></li>
 <li><a href="#nlp4">IV.4 N-grams · IV.5 Embeddings · IV.6 t-SNE</a></li>
-<li><a href="#nlp7">IV.7 LDA · IV.8 STM · IV.9 Clasificación</a></li>
+<li><a href="#nlp7">IV.7 LDA · IV.8 STM · IV.9 Classification</a></li>
 <li><a href="#nlp10">IV.10 NER · IV.11 CRF · IV.12 BETO</a></li>
-<li class="t-part"><a href="#p5">Parte V — Integración y diseño experimental</a></li>
-<li><a href="#s51">V.1 Arquitectura multimodal (capstone C2)</a></li>
+<li class="t-part"><a href="#p5">Part V — Integration and experimental design</a></li>
+<li><a href="#s51">V.1 Multimodal architecture (capstone C2)</a></li>
 <li><a href="#s52">V.2–V.5 Capstones C3·C1·C4·C5</a></li>
-<li><a href="#s56">V.6 Diseño experimental maestro</a></li>
-<li><a href="#s57">V.7 Tablero de evaluación</a></li>
-<li class="t-part"><a href="#p6">Parte VI — Paper, riesgos y ejecución</a></li>
-<li><a href="#s61">VI.1 Estructura del paper · VI.2 Amenazas · VI.3 Sprints</a></li>
-<li><a href="#s64">VI.4 Gaps · VI.5 Glosario · VI.6 Referencias</a></li>
+<li><a href="#s56">V.6 Master experimental design · V.7 Evaluation board</a></li>
+<li class="t-part"><a href="#p6">Part VI — Paper, risks and execution</a></li>
+<li><a href="#s61">VI.1 Paper structure · VI.2 Threats · VI.3 Sprints</a></li>
+<li><a href="#s64">VI.4 Gaps · VI.5 Acronym glossary · VI.6 References</a></li>
 </ol>
 <div class="legend-box">
-<h3>Leyenda — Hard Gate de proveniencia</h3>
+<h3>Legend — provenance hard gate</h3>
 <div class="lg">
-<span class="m mD">D</span> <span class="small">Dato verificado del dataset/pipeline</span>
-<span class="m mK">K</span> <span class="small">Hecho institucional (KB · INE · CPEUM)</span>
-<span class="m mL">L</span> <span class="small">Literatura arbitrada (Consensus)</span>
-<span class="m mP">P</span> <span class="small">Propuesta original del proyecto</span>
+<span class="m mD">D</span> <span class="small">Verified dataset/pipeline figure</span>
+<span class="m mK">K</span> <span class="small">Institutional fact (KB · INE · CPEUM)</span>
+<span class="m mL">L</span> <span class="small">Peer-reviewed literature (Consensus)</span>
+<span class="m mP">P</span> <span class="small">Original project proposal</span>
 <span class="badge b-syl">SYLLABUS-CONFIRMED</span>
 <span class="badge b-sup">SUPPLEMENTARY</span>
 <span class="badge b-ill">ILLUSTRATIVE</span>
 </div>
-<p class="small" style="margin-top:10px">Toda afirmación lleva marca inline. Sin marca no hay afirmación.
-Los números del dataset provienen de <code>qa_report.json</code> y <code>canonical_metadata.json</code>;
-ningún modelo ha sido entrenado aún — las secciones-lectura son especificaciones de diseño.</p>
+<p class="small" style="margin-top:10px">Every substantive claim carries an inline mark. No mark, no claim.
+Dataset figures come from <code>qa_report.json</code>, <code>canonical_metadata.json</code> and the
+mañaneras <code>MANIFIESTO_DATOS.md</code>; no model has been trained yet — all lecture sections are
+design specifications, not empirical results.</p>
 </div>
 </div>
 </nav>
@@ -94,61 +98,65 @@ ningún modelo ha sido entrenado aún — las secciones-lectura son especificaci
 <div class="part" id="p0">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte 0</div>
-<h2>Tesis rectora y resumen ejecutivo</h2>
-<p>Las elecciones mexicanas como problema multimodal espacio-temporal: cada capa de estructura
-— tabular, temporal, espacial, latente, textual — se modela con la arquitectura neuronal que
-mejor respeta su geometría, y la contribución científica es medir la señal <em>incremental</em>
-de cada canal sobre una persistencia honesta.</p>
+<div class="pn">Part 0</div>
+<h2>Governing thesis and executive summary</h2>
+<p>Mexican elections as a multimodal spatio-temporal problem: each structural layer
+— tabular, temporal, spatial, latent, textual — is modeled with the neural architecture
+that best respects its geometry, and the scientific contribution is measuring the
+<em>incremental</em> signal of each channel over an honest persistence baseline.</p>
 </div>
 
 <div class="kpis">
-<div class="kpi"><div class="v">355,176</div><div class="k">observaciones canónicas</div>
-<div class="d">elección × geografía × partido <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">11,739</div><div class="k">elección-geografías</div>
-<div class="d">grupos en wide format <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">32</div><div class="k">entidades federativas</div>
-<div class="d">0 nulos tras normalización DF→CDMX <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">196</div><div class="k">ZIPs SICEE procesados</div>
-<div class="d">50 federales · 146 locales · 6,992 archivos <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">26</div><div class="k">lectures aplicadas</div>
-<div class="d">14 DL + 12 NLP, cada una con spec de notebook <span class="m mP">P</span></div></div>
-<div class="kpi"><div class="v">318</div><div class="k">grupos FLAG_CONSISTENCIA</div>
-<div class="d">2.7% — anulaciones y errores de fuente, conservados y marcados <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">463,834</div><div class="k">tidy data rows</div>
+<div class="d">sum of all processed series (row-level, excl. header) <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">355,176</div><div class="k">canonical observations</div>
+<div class="d">election × geography × party, 93 columns, 314 MB <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">18.1 M</div><div class="k">spoken words (mañaneras)</div>
+<div class="d">1,611 conferences · 514,909 interventions · 2018–2025 <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">32</div><div class="k">federal entities</div>
+<div class="d">0 nulls after DF→CDMX normalization <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">26</div><div class="k">applied lectures</div>
+<div class="d">14 DL + 12 NLP, each with notebook spec <span class="m mP">P</span></div></div>
+<div class="kpi"><div class="v">318</div><div class="k">FLAG_CONSISTENCIA groups</div>
+<div class="d">2.7% — annulled elections &amp; source defects, kept and flagged <span class="m mD">D</span></div></div>
 </div>
 
-<h3 id="s01"><span class="secnum">0.1</span>Pregunta de investigación</h3>
-<blockquote>¿Puede un sistema multimodal —que combina series históricas de votación, covariables
-macroeconómicas y territoriales, estructura de vecindad geográfica y discurso político textual—
-producir pronósticos electorales subnacionales en México mejores calibrados que una persistencia
-ingenua, y explicar qué canal aporta señal incremental?</blockquote>
-<p>Subpreguntas operativas:</p>
+<h3 id="s01"><span class="secnum">0.1</span>Research question</h3>
+<blockquote>Can a multimodal system — combining historical vote series, macroeconomic and
+territorial covariates, geographic neighborhood structure and political discourse text —
+produce subnational electoral forecasts in Mexico that are better calibrated than a naive
+persistence baseline, while explaining which channel contributes incremental signal?</blockquote>
+<p>Operational sub-questions:</p>
 <ol>
-<li><strong>SQ1 (tabular):</strong> ¿un MLP sobre features estructurales + exógenas supera a la
-regresión logística y a la persistencia en share y ganador? <span class="m mP">P</span></li>
-<li><strong>SQ2 (temporal):</strong> ¿LSTM/GRU captan dependencia inter-ciclo (reacción a sexenio,
-castigo premial) que un MLP pierde? <span class="m mP">P</span></li>
-<li><strong>SQ3 (espacial):</strong> ¿la difusión en un GNN municipal reduce el error en
-elecciones subnacionales respecto a modelos aspatiales? <span class="m mP">P</span></li>
-<li><strong>SQ4 (textual):</strong> ¿las features derivadas del discurso presidencial (tópicos,
-stance, atención territorial vía NER) tienen poder predictivo incremental? <span class="m mP">P</span></li>
-<li><strong>SQ5 (latente):</strong> ¿un VAE de perfiles electorales recupera regiones del mapa
-electoral documentadas en la literatura (norte industrial, sur ancestral, centro urbano)?
+<li><strong>SQ1 (tabular):</strong> does a Multi-Layer Perceptron (MLP) over structural plus
+exogenous features beat multinomial logistic regression and persistence on vote share and winner?
 <span class="m mP">P</span></li>
+<li><strong>SQ2 (temporal):</strong> do recurrent networks — Long Short-Term Memory (LSTM) and
+Gated Recurrent Units (GRU) — capture inter-cycle dependence (sexenio punishment/reward) that an
+MLP misses? <span class="m mP">P</span></li>
+<li><strong>SQ3 (spatial):</strong> does message passing in a Graph Neural Network (GNN) over
+municipal adjacency reduce subnational error versus aspatial models? <span class="m mP">P</span></li>
+<li><strong>SQ4 (textual):</strong> do features derived from presidential discourse (topic shares,
+stance, territorial attention via Named Entity Recognition) carry incremental predictive power?
+<span class="m mP">P</span></li>
+<li><strong>SQ5 (latent):</strong> does a Variational Autoencoder (VAE) over electoral profiles
+recover the regional blocs documented in the literature (industrial north, ancestral south,
+urban center)? <span class="m mP">P</span></li>
 </ol>
 
-<h3 id="s02"><span class="secnum">0.2</span>Cómo leer este documento</h3>
-<p>Cada sección de las Partes III–IV es una <strong>lecture completa</strong> con esqueleto fijo:
-<em>por qué existe → formalismo → diagrama de arquitectura → aplicación al dataset →
-especificación de notebook → interpretación electoral → riesgos</em>. Esto cumple dos funciones:
-(a) documento pedagógico que enseña cada técnica desde cero, y (b) contrato de implementación —
-los notebooks de Colab se derivan 1:1 de los specs. Las Partes I–II son el contexto institucional
-y de datos sin el cual los modelos serían ejercicios aislados; las Partes V–VI son la integración
-científica y el plan de ejecución.</p>
-<div class="call c-data"><span class="ct">Regla de lectura</span>
-<p>El orden de cada lecture es deliberadamente <strong>visual-first</strong>: la intuición y el
-diagrama de tensores preceden al código, conforme al estándar AGENTS del proyecto. Ningún diagrama
-implica conectividad no implementada; los shapes <code>B×T×D</code> son exactamente los que el
-notebook producirá.</p></div>
+<h3 id="s02"><span class="secnum">0.2</span>How to read this document</h3>
+<p>Every section in Parts III–IV is a <strong>full lecture</strong> with a fixed skeleton:
+<em>why it exists → theoretical framework (all terms and acronyms expanded, mathematics derived)
+→ architecture diagram → application to this dataset → notebook specification → electoral
+interpretation → risks</em>. This serves two purposes: (a) a pedagogical document that teaches each
+technique from first principles, and (b) an implementation contract — the Colab notebooks are
+derived one-to-one from the specs. Parts I–II supply the institutional and data context without
+which the models would be isolated exercises; Parts V–VI provide scientific integration and the
+execution plan.</p>
+<div class="call c-data"><span class="ct">Reading rule</span>
+<p>Each lecture is deliberately <strong>visual-first</strong>: intuition and tensor diagrams precede
+code, per the project's AGENTS standard. No diagram implies connectivity that is not implemented;
+the shapes <code>B×T×D</code> (batch × time × feature dimension) are exactly what the notebook will
+produce.</p></div>
 </div>
 </div>

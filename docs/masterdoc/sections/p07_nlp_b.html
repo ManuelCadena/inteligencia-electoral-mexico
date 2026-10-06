@@ -1,141 +1,160 @@
-<!-- ============ PARTE IV — NLP W07-W12 ============ -->
+<!-- ============ PART IV — NLP W07-W12 (expanded theory) ============ -->
 <div class="part" id="p4b">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte IV (cont.)</div>
-<h2>Lectures de NLP — semanas 7 a 12</h2>
-<p>Topic modeling, clasificación, NER, CRF y la entrada a Transformers/BETO — la rama de texto
-que alimenta el modelo multimodal.</p>
+<div class="pn">Part IV (cont.)</div>
+<h2>NLP lectures — weeks 7 to 12</h2>
+<p>Topic modeling, classification, NER, CRF and the entry into Transformers/BETO — the textual
+branch feeding the multimodal model.</p>
 </div>
 
 <!-- W07 LDA -->
 <div class="lecture" id="nlp7">
 <header>
-<div class="wk"><span class="w">NLP · Semana 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.7 Topic modeling (LDA) — la agenda presidencial como variable</h3>
-<div class="sub">Latent Dirichlet Allocation, coherencia de tópicos, prevalencia temática.</div>
+<div class="wk"><span class="w">NLP · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.7 Topic modeling (LDA) — the presidential agenda as a variable</h3>
+<div class="sub">Latent Dirichlet Allocation, topic coherence, thematic prevalence.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>"De qué habla el gobierno" es una variable de estado con historia en ciencia política
-(agenda-setting). LDA convierte el corpus en K tópicos y, por cada día/semana, en una distribución
-de prevalencia temática: la serie temporal <code>share_topico_seguridad</code> es una covariable
-estructural, no un metadato.</p>
-<h4>Formalismo</h4>
-<div class="formula">P(w) = Σ<sub>k</sub> P(w|z=k) · P(z=k|d) ,
-&nbsp;&nbsp; θ<sub>d</sub> ~ Dir(α) , φ<sub>k</sub> ~ Dir(β)
-<span class="fl">θ<sub>d</sub> = prevalencia de tópicos en el documento d; el agregado temporal es la feature</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Mañaneras segmentadas por día → LDA K≈20-30 → prevalencia semanal por tópico → join con
-elecciones por fecha (últimas N semanas pre-elección). Hipótesis electoral medible: la prevalencia
-de "seguridad"/"economía" previas al voto correlaciona con outcomes — y, más importante, LDA
-produce el <em>baseline interpretable</em> que la rama BETO (IV.12) debe superar. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>"What the government talks about" is a state variable with a political-science pedigree
+(agenda-setting). Latent Dirichlet Allocation (LDA, Blei, Ng &amp; Jordan 2003) decomposes the
+corpus into K topics and, per day/week, a prevalence distribution: the series
+<code>share_topic_seguridad</code> becomes a structural covariate, not a metadata tag.</p>
+<h4>Theoretical framework</h4>
+<p>LDA is a generative probabilistic model: each document d draws a topic-mixture θ_d ~ Dir(α);
+each topic k is a word distribution φ_k ~ Dir(β); each observed word picks a topic z then a word
+from φ_z. Inference (variational Bayes or Gibbs sampling) recovers θ and φ; the Dirichlet prior
+encourages sparse, interpretable mixtures. <strong>Coherence (C_v)</strong> measures how
+semantically consistent a topic's top words are — used to select K. <span class="m mL">L</span></p>
+<div class="formula">P(w) = Σ<sub>k</sub> P(w|z=k) · P(z=k|d) ,&nbsp; θ<sub>d</sub> ~ Dir(α) , φ<sub>k</sub> ~ Dir(β)
+<span class="fl">θ_d = topic prevalence in document d; temporal aggregate → feature</span></div>
+<h4>Dataset binding</h4>
+<p>Mañaneras segmented by day → LDA K≈20–30 → weekly prevalence per topic → joined to elections by
+date (last N pre-election weeks). Measurable hypothesis: pre-vote prevalence of
+"seguridad"/"economía" correlates with outcomes — and crucially, LDA provides the
+<em>interpretable baseline</em> the BETO branch (IV.12) must beat. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n07_lda_agenda.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Corpus</td><td>mananeras_asr segmentadas por día; stopwords español + stopwords políticos propios</td></tr>
-<tr><td>Selección K</td><td>coherencia C_v sobre grid K∈{10,20,30,50}</td></tr>
-<tr><td>Outputs</td><td>serie semanal topic-share · top-10 palabras por tópico · etiquetado manual de los K tópicos</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Corpus</td><td>mananeras_asr segmented by day; Spanish stopwords + custom political stopwords</td></tr>
+<tr><td>K selection</td><td>C_v coherence over K∈{10,20,30,50}</td></tr>
+<tr><td>Outputs</td><td>weekly topic-share series · top-10 words per topic · manual K-topic labeling</td></tr></table></div>
 </div>
 </div>
 
 <!-- W08 STM -->
 <div class="lecture" id="nlp8">
 <header>
-<div class="wk"><span class="w">NLP · Semana 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
-<h3>IV.8 Structural Topic Models — tópicos condicionados por contexto</h3>
-<div class="sub">STM: prevalencia y contenido como función de covariables documentales.</div>
+<div class="wk"><span class="w">NLP · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
+<h3>IV.8 Structural Topic Models — topics conditioned on context</h3>
+<div class="sub">STM: prevalence and content as functions of document covariates.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>LDA ignora que un discurso en 2019 no es el mismo contexto que uno en 2023. STM hace la
-prevalencia temática una <em>función de covariables</em>: año de sexenio, trimestre pre-electoral,
-índice de inflación vigente. Pregunta natural: "¿la proporción de discurso sobre inseguridad
-aumenta cuando la percepción ENSU sube?" — eso es un modelo estadístico sobre texto, no solo
-clustering. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">θ<sub>d</sub> ~ LogisticNormal( Γ x<sub>d</sub> , Σ ) ,
-&nbsp;&nbsp; φ<sub>k</sub> depende también de covariables de contenido
-<span class="fl">x<sub>d</sub> = covariables del documento: semana, indicador económico, dummy pre-electoral</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Covariables x<sub>d</sub> desde el canónico: <code>AÑO_SEXENIO</code>, <code>ES_INTERMEDIA</code>
-(indicador de ciclo), macro_lag correspondiente a la fecha del documento. Los efectos estimados
-Γ se reportan como coeficientes interpretables — la lectura "un punto más de inflación ↔ +Δ share
-de tópico economía" es una contribución sustantiva, no solo una feature. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>LDA ignores that a 2019 discourse is not the same context as a 2023 one. The Structural Topic
+Model (STM, Roberts, Stewart &amp; Airoldi 2016) makes thematic prevalence a <em>function of
+covariates</em>: sexenio year, pre-electoral quarter, current inflation. Natural question: "does the
+share of security discourse rise when ENSU perception rises?" — that is a statistical model on
+text, not mere clustering. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p>STM generalizes LDA: the topic-prevalence parameter is drawn from a logistic normal whose mean
+is a regression on document covariates Γ·x_d; topic content can also depend on covariates.
+Estimated Γ coefficients are directly interpretable — "one extra inflation point ↔ +Δ topic-economy
+share" is a substantive contribution, not just a feature. <span class="m mL">L</span></p>
+<div class="formula">θ<sub>d</sub> ~ LogisticNormal( Γ x<sub>d</sub> , Σ ) ,&nbsp; φ<sub>k</sub> covariate-dependent
+<span class="fl">x_d = document covariates: week, economic indicator, pre-electoral dummy</span></div>
+<h4>Dataset binding</h4>
+<p>Covariates x_d from the canonical set: <code>AÑO_SEXENIO</code>, <code>ES_INTERMEDIA</code>,
+macro_lag at the document's date. The Γ table with confidence intervals is a paper deliverable.
+<span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n08_stm_contexto.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Nota</td><td>STM es R-nativo (<code>stm</code> package); el notebook orquesta R vía rpy2 o corre como script separado documentado</td></tr>
-<tr><td>Outputs</td><td>tabla Γ con IC · gráfico de prevalencia condicionada · comparación con LDA IV.7</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Note</td><td>STM is R-native (<code>stm</code> package); the notebook orchestrates R via rpy2 or runs as a documented separate script</td></tr>
+<tr><td>Outputs</td><td>Γ table with CIs · conditioned-prevalence plot · comparison vs LDA IV.7</td></tr></table></div>
 </div>
 </div>
 
 <!-- W09-10 -->
 <div class="lecture" id="nlp9">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 09–10</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.9 Clasificación de texto · IV.10 NER — stance y atención territorial</h3>
-<div class="sub">Clasificación supervisada de documentos; reconocimiento de entidades nombradas.</div>
+<div class="wk"><span class="w">NLP · Weeks 09–10</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.9 Text classification · IV.10 NER — stance and territorial attention</h3>
+<div class="sub">Supervised document classification; Named Entity Recognition.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Dos features de alto valor electoral: (a) <strong>stance del discurso</strong> — ¿el tono sobre
-la oposición/economía/seguridad es positivo, negativo, combatiendo? — y (b) <strong>atención
-territorial presidencial</strong> — conteo ponderado de menciones por entidad/municipio en el
-discurso: ¿el presidente habla más de los estados donde pierde? Esa última es una covariable
-política original que solo el corpus de mañaneras permite. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">NER sequence-labeling: argmax<sub>y</sub> Π P(y<sub>t</sub> | x, y<sub>t−1</sub>) ·
-BIO tags · Entidades: PER, ORG, LOC, GPE<span class="fl">las menciones GPE/LOC se mapean a ENTIDAD_CANONICA y GEO_KEY_2</span></div>
-<h4>Aplicación al dataset</h4>
-<p>NER fine-tuned sobre español (o BETO-ner) produce, por segmento, entidades territoriales
-normalizadas a la clave canónica. Agregado semanal por entidad → feature
-<code>atencion_presidencial_ent</code>. Stance: clasificador fine-tuned con etiquetas propias
-(positivo/negativo/neutro/combate) anotadas sobre muestra — se reporta inter-annotator o
-validación por muestra si la anotación es asistida por LLM. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>Two high-value electoral features: (a) <strong>discourse stance</strong> — is the tone toward
+opposition/economy/security positive, negative, combative? — and (b) <strong>presidential
+territorial attention</strong> — a weighted count of entity/municipality mentions in the discourse:
+does the president talk more about states where he loses? That last one is an original political
+covariate only the mañaneras corpus enables. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p><strong>Sequence labeling with NER</strong> (Named Entity Recognition): assign each token a
+BIO tag (Begin/Inside/Outside of an entity: PER person, ORG organization, LOC location, GPE
+geopolitical entity) maximizing P(y|x) over tag sequences. <strong>Text classification:</strong>
+a document vector → softmax over classes; fine-tuning a pre-trained encoder (IV.12) replaces the
+shallow BoW classifier. <span class="m mL">L</span></p>
+<div class="formula">NER: argmax<sub>y</sub> Π P(y<sub>t</sub> | x, y<sub>t−1</sub>) · BIO tags ·
+entities: PER, ORG, LOC, GPE<span class="fl">GPE/LOC mentions map to ENTIDAD_CANONICA and GEO_KEY_2</span></div>
+<h4>Dataset binding</h4>
+<p>Spanish fine-tuned NER (or BETO-NER) yields, per intervention, territorial entities normalized
+to the canonical key. Weekly aggregation per entity → feature
+<code>atencion_presidencial_ent</code>. Stance: fine-tuned classifier with our own labels
+(positive/negative/neutral/combat) annotated on a sample — inter-annotator agreement or LLM-assisted
+validation reported. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n09_stance_finetune.ipynb · n10_ner_atencion.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>NER</td><td>modelo es multilingüe (p. ej. <code>dccuchile/bert-base-spanish-wwm-ner</code> o XLM-R-NER); normalización a gazetteer del canónico</td></tr>
-<tr><td>Stance</td><td>muestra anotada n≥500 segmentos; métrica macro-F1 por clase</td></tr>
-<tr><td>Feature final</td><td><code>atencion_presidencial_{ent}</code> semanal → merge por fecha+entidad con canónico</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>NER</td><td>Spanish/multilingual model (e.g., <code>dccuchile/bert-base-spanish-wwm-ner</code> or XLM-R-NER); gazetteer normalization against the canonical set</td></tr>
+<tr><td>Stance</td><td>annotated sample n≥500 segments; macro-F1 per class</td></tr>
+<tr><td>Final feature</td><td><code>atencion_presidencial_{ent}</code> weekly → merge by date+entity with canonical</td></tr></table></div>
 </div>
 </div>
 
 <!-- W11-12 -->
 <div class="lecture" id="nlp11">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 11–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.11 CRF secuencial · IV.12 Atención y BETO — de lo interpretable al encoder</h3>
-<div class="sub">Conditional Random Fields como baseline de secuencias; self-attention y encoders españoles.</div>
+<div class="wk"><span class="w">NLP · Weeks 11–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.11 Sequential CRF · IV.12 Attention and BETO — from interpretable to encoder</h3>
+<div class="sub">Conditional Random Fields as sequence baseline; self-attention and Spanish encoders.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>CRF es el baseline estructurado del sequence-labeling: su matriz de transición aprendida es
-interpretable directamente (qué tags pueden seguir a qué tags). BETO/RoBERTa-es es el encoder
-del dominio: su embedding <code>[CLS]</code> (o pool de tokens) es el vector textual que entra a la
-fusión multimodal de la Parte V. La comparación CRF-vs-transformer en NER documenta la ganancia
-del deep learning en la tarea concreta, no en abstracto. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>A Conditional Random Field (CRF) is the structured sequence-labeling baseline: its learned
+transition matrix is directly interpretable (which tags may follow which). BETO
+(<code>dccuchile/bert-base-spanish-wwm-cased</code>, a BERT — Bidirectional Encoder
+Representations from Transformers — trained on Spanish text) is the domain encoder: its
+<code>[CLS]</code> token embedding (or mean pooling over tokens) is the textual vector feeding the
+multimodal fusion (Part V). The CRF-vs-transformer comparison on NER documents the concrete gain
+of deep learning on this task, not in the abstract. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p><strong>CRF</strong> (Lafferty et al. 2001): a discriminative undirected graphical model —
+P(y|x) ∝ exp(Σ_t [ s(y_t,x,t) + A_{y_{t−1},y_t} ]) — where s scores emission and A is the learned
+transition matrix; decoding by Viterbi. <strong>BERT</strong>: a bidirectional Transformer encoder
+pre-trained with Masked Language Modeling (predict masked tokens) and next-sentence objectives;
+fine-tuning adapts it to a task with a small head. <span class="m mL">L</span></p>
 <div class="formula">CRF: P(y|x) ∝ exp( Σ<sub>t</sub> [ s(y<sub>t</sub>,x,t) + A<sub>y<sub>t−1</sub>,y<sub>t</sub></sub> ] )
-&nbsp;&nbsp;|&nbsp;&nbsp; BERT pool: h = MeanPool(Encoder(tokens))
-<span class="fl">A = matriz de transición interpretable · h ∈ R^768 = vector de entrada a la fusión</span></div>
-<h4>Aplicación al dataset</h4>
-<p>CRF: features ortográficas (capitalización, prefijos, contexto ±2) sobre los mismos datos NER —
-baseline interpretable contra BETO-NER de IV.10. BETO: fine-tuning en clasificación de stance
-(IV.9) y el mismo encoder sin fine-tune como extractor de embeddings para la fusión — se reporta
-si el fine-tune de dominio mejora el pool genérico. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+&nbsp;|&nbsp; BERT pool: h = MeanPool(Encoder(tokens))
+<span class="fl">A = interpretable transition matrix · h ∈ R^768 = fusion input</span></div>
+<h4>Dataset binding</h4>
+<p>CRF: orthographic features (capitalization, prefixes, ±2 context) on the same NER data —
+interpretable baseline against BETO-NER (IV.10). BETO: fine-tune on stance classification (IV.9)
+plus the unfrozen encoder as an embedding extractor for fusion — report whether domain fine-tuning
+improves the generic pool. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n11_crf_baseline.ipynb · n12_beto_encoder.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>CRF</td><td><code>sklearn-crfsuite</code>; reportar matriz de transición como figura</td></tr>
-<tr><td>BETO</td><td><code>dccuchile/bert-base-spanish-wwm-cased</code>; embeddings B×768 persistidos por segmento; fine-tune stance</td></tr>
-<tr><td>Output fusión</td><td><code>texto_emb.parquet</code>: (fecha, entidad?) × 768 → input del multimodal V.1</td></tr></table></div>
-<div class="call c-data"><span class="ct">Cierre de la Parte IV</span>
-<p>La rama textual produce tres artefactos persistentes: (1) corpus ASR con timestamps, (2) features
-semanales <code>topic_share_*</code>, <code>atencion_presidencial_*</code>, <code>stance_*</code>,
-(3) embeddings BETO por segmento. Todo se une al canónico por (fecha_disponible, entidad) — la
-fecha de publicación gobierna el join, nunca la fecha de referencia. <span class="m mP">P</span></p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>CRF</td><td><code>sklearn-crfsuite</code>; report transition matrix as figure</td></tr>
+<tr><td>BETO</td><td><code>dccuchile/bert-base-spanish-wwm-cased</code>; B×768 embeddings persisted per intervention; stance fine-tune</td></tr>
+<tr><td>Fusion output</td><td><code>texto_emb.parquet</code>: (fecha, entidad?) × 768 → multimodal input V.1</td></tr></table></div>
+<div class="call c-data"><span class="ct">Part IV closing</span>
+<p>The textual branch produces three persistent artifacts: (1) a timestamped corpus, (2) weekly
+features <code>topic_share_*</code>, <code>atencion_presidencial_*</code>, <code>stance_*</code>,
+(3) BETO embeddings per intervention. Everything joins the canonical set by
+(publication_date, entity) — the publication date governs the join, never the referenced-event date.
+<span class="m mP">P</span></p></div>
 </div>
 </div>
 </div>

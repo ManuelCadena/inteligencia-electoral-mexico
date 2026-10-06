@@ -1,47 +1,48 @@
-<!-- ============ PARTE V — INTEGRACIÓN ============ -->
+<!-- ============ PART V — INTEGRATION ============ -->
 <div class="part" id="p5">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte V</div>
-<h2>Integración — capstones y diseño experimental</h2>
-<p>Los canales se combinan en late fusion; la evaluación compara honestamente cada canal contra
-persistencia y contra el modelo sin ese canal (ablación).</p>
+<div class="pn">Part V</div>
+<h2>Integration — capstones and experimental design</h2>
+<p>The channels combine by late fusion; evaluation honestly compares each channel against
+persistence and against the model without that channel (ablation).</p>
 </div>
 
-<h3 id="s51"><span class="secnum">V.1</span>Capstone C2 — arquitectura multimodal late fusion</h3>
+<h3 id="s51"><span class="secnum">V.1</span>Capstone C2 — multimodal late-fusion architecture</h3>
+<p><strong>Late fusion</strong> keeps each modality's encoder frozen and learns only the
+combination — unlike early fusion (concatenating raw features) it avoids forcing incompatible
+geometries into one space, and unlike joint end-to-end training it keeps every branch independently
+auditable. The four branches (tabular MLP, temporal LSTM, spatial GNN, textual BETO) each emit a
+fixed-length embedding; concatenation plus election/entity embeddings feeds a fusion MLP.
+<span class="m mP">P</span></p>
 <figure class="arch">
 <svg viewBox="0 0 860 260" role="img">
 <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
-<!-- ramas -->
 <rect x="10" y="20" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="40" font-weight="700">MLP tabular (III.1)</text><text x="85" y="55" font-size="9">B×F → B×128</text>
+<text x="85" y="40" font-weight="700">Tabular MLP (III.1)</text><text x="85" y="55" font-size="9">B×F → B×128</text>
 <rect x="10" y="80" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="100" font-weight="700">LSTM temporal (III.9)</text><text x="85" y="115" font-size="9">B×T×D → B×64</text>
+<text x="85" y="100" font-weight="700">Temporal LSTM (III.9)</text><text x="85" y="115" font-size="9">B×T×D → B×64</text>
 <rect x="10" y="140" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="160" font-weight="700">GNN espacial (V.3)</text><text x="85" y="175" font-size="9">grafo mun. → B×64</text>
+<text x="85" y="160" font-weight="700">Spatial GNN (V.3)</text><text x="85" y="175" font-size="9">municipal graph → B×64</text>
 <rect x="10" y="200" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="220" font-weight="700">BETO texto (IV.12)</text><text x="85" y="235" font-size="9">768 → proj B×64</text>
-<!-- concat -->
+<text x="85" y="220" font-weight="700">Text BETO (IV.12)</text><text x="85" y="235" font-size="9">768 → proj B×64</text>
 <rect x="230" y="95" width="130" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="295" y="120" font-weight="700">Concat</text>
 <text x="295" y="138" font-size="10">B×(128+64+64+64)</text>
-<text x="295" y="155" font-size="9">+ e_elección + e_geo</text>
-<!-- fusion -->
+<text x="295" y="155" font-size="9">+ e_election + e_geo</text>
 <rect x="400" y="95" width="130" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
-<text x="465" y="120" font-weight="700">MLP fusión</text>
+<text x="465" y="120" font-weight="700">Fusion MLP</text>
 <text x="465" y="138" font-size="10">256→128, GELU</text>
 <text x="465" y="155" font-size="9">Drop 0.4 · residual</text>
-<!-- heads -->
 <rect x="570" y="20" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="40" font-weight="700">shares</text><text x="635" y="55" font-size="9">softmax K · composicional</text>
+<text x="635" y="40" font-weight="700">shares</text><text x="635" y="55" font-size="9">softmax K · compositional</text>
 <rect x="570" y="80" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="100" font-weight="700">participación</text><text x="635" y="115" font-size="9">regresión σ</text>
+<text x="635" y="100" font-weight="700">turnout</text><text x="635" y="115" font-size="9">linear σ</text>
 <rect x="570" y="140" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="160" font-weight="700">ganador</text><text x="635" y="175" font-size="9">CE + Brier</text>
+<text x="635" y="160" font-weight="700">winner</text><text x="635" y="175" font-size="9">CE + Brier</text>
 <rect x="570" y="200" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="220" font-weight="700">incertidumbre</text><text x="635" y="235" font-size="9">MC-Dropout/ensemble</text>
-<!-- ejes -->
+<text x="635" y="220" font-weight="700">uncertainty</text><text x="635" y="235" font-size="9">MC-Dropout/ensemble</text>
 <line x1="160" y1="43" x2="228" y2="110" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 <line x1="160" y1="103" x2="228" y2="125" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 <line x1="160" y1="163" x2="228" y2="140" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
@@ -52,75 +53,79 @@ persistencia y contra el modelo sin ese canal (ablación).</p>
 <line x1="530" y1="140" x2="568" y2="162" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 <line x1="530" y1="150" x2="568" y2="222" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 </g></svg>
-<figcaption><strong>Late fusion.</strong> Cada rama se entrena en su sección-lectura y se congela;
-la fusión aprende solo la combinación — las ablaciones miden qué canal aporta señal marginal.</figcaption>
+<figcaption><strong>Late fusion.</strong> Each branch is trained in its lecture section and frozen;
+fusion learns only the combination — ablations measure each channel's marginal signal.</figcaption>
 </figure>
-<p><strong>Matriz de ablación obligatoria:</strong> solo-tabular · +temporal · +espacial · +texto ·
-completo. El paper reporta el Δ de cada canal sobre el baseline — incluyendo si es negativo.
+<p><strong>Mandatory ablation matrix:</strong> tabular-only · +temporal · +spatial · +text · full.
+The paper reports each channel's Δ over baseline — including when it is negative.
 <span class="m mP">P</span></p>
 
-<h3 id="s52"><span class="secnum">V.2</span>Capstone C3 — forecasting de participación</h3>
-<p>El experimento end-to-end más simple: predecir <code>PARTICIPACION</code> del siguiente ciclo
-por unidad (participación es continua, interpretable, y no composicional — evita la complejidad
-del simplex). MLP (III.1) vs LSTM (III.9) vs persistencia. Fija el harness de evaluación para
-todos los experimentos posteriores. <strong>Sprint 1 = este notebook.</strong> <span class="m mP">P</span></p>
+<h3 id="s52"><span class="secnum">V.2</span>Capstone C3 — turnout forecasting</h3>
+<p>The simplest end-to-end experiment: predict next-cycle <code>PARTICIPACION</code> per unit
+(turnout is continuous, interpretable, non-compositional — avoiding the simplex's complexity).
+MLP (III.1) vs LSTM (III.9) vs persistence. It fixes the evaluation harness for all later
+experiments. <strong>Sprint 1 = this notebook.</strong> <span class="m mP">P</span></p>
 
-<h3 id="s53"><span class="secnum">V.3</span>Capstone C1 — GNN municipal</h3>
-<p>Municipios como nodos; aristas = adyacencia geográfica INEGI (pendiente de integrar) o similitud
-socioeconómica como fallback documentado. GCN/GraphSAGE/GAT comparados. Mensajes = shares lags +
-macro_lag + embedding latente VAE (III.6). La pregunta SQ3 es si la difusión espacial reduce el
-error en diputados locales — donde la geografía es la estructura más rica disponible. <span class="m mP">P</span></p>
-<div class="call c-risk"><span class="ct">Dependencia bloqueante</span>
-<p>Requiere shapefile/adyacencia INEGI municipal — <strong>gap abierto</strong> (VI.4). Fallback
-declarado: grafo k-NN por distancia de centroides o similitud de features.</p></div>
+<h3 id="s53"><span class="secnum">V.3</span>Capstone C1 — municipal GNN</h3>
+<p><strong>Graph Neural Networks</strong> replace a grid with an explicit adjacency graph:
+municipalities as nodes, edges = INEGI geographic adjacency (pending integration) or socioeconomic
+similarity as documented fallback. <strong>GCN</strong> (Graph Convolutional Network, Kipf &amp;
+Welling 2017) averages a node's neighborhood embedding; <strong>GraphSAGE</strong> samples and
+aggregates neighborhoods; <strong>GAT</strong> (Graph Attention, Veličković et al. 2018) weighs
+neighbors by learned attention. Messages = share lags + macro_lag + VAE latent embedding (III.6).
+SQ3 asks whether spatial diffusion reduces error in local deputies — where geography is the richest
+available structure. <span class="m mP">P</span></p>
+<div class="call c-risk"><span class="ct">Blocking dependency</span>
+<p>Requires the INEGI municipal adjacency/shapefile — <strong>open gap</strong> (VI.4). Declared
+fallback: k-NN graph by centroid distance or feature similarity.</p></div>
 
-<h3 id="s54"><span class="secnum">V.4</span>Capstone C4 — forense de anomalías electorales</h3>
-<p>Los outliers del autoencoder (III.6) + <code>FLAG_CONSISTENCIA</code> + residuos del modelo
-temporal forman un sistema de detección de anomalías electorales: municipios cuyo patrón de votación
-no se explica por su latente ni su historia. Inspirado en el análisis forense de Cantú (2014) sobre
-fraudulent fingerprinting — se reporta como <strong>hallazgo anómalo</strong>, nunca como acusación
-de fraude sin evidencia externa. Disciplina del reporte: anomalía estadística ≠ irregularidad jurídica.
+<h3 id="s54"><span class="secnum">V.4</span>Capstone C4 — electoral-anomaly forensics</h3>
+<p>Autoencoder outliers (III.6) + <code>FLAG_CONSISTENCIA</code> + temporal-model residuals form an
+electoral-anomaly detection system: municipalities whose voting pattern is explained by neither
+their latent profile nor their history. Inspired by Cantú's (2014) forensic analysis of fraudulent
+fingerprinting — reported as a <strong>statistical anomaly</strong>, never as a fraud accusation
+without external evidence. Reporting discipline: statistical anomaly ≠ legal irregularity.
 <span class="m mP">P</span></p>
 
-<h3 id="s55"><span class="secnum">V.5</span>Capstone C5 — nowcasting textual</h3>
-<p>Ventana de 90 días pre-elección: solo features textuales (IV.7, IV.9, IV.10) + macro reciente
-→ predicción del outcome. Contesta si el discurso contiene señal <em>anticipada</em> — y delimita
-qué "anticipada" significa: la mañanera del día T solo explica elecciones posteriores a T.
-<span class="m mP">P</span></p>
+<h3 id="s55"><span class="secnum">V.5</span>Capstone C5 — textual nowcasting</h3>
+<p>90-day pre-election window: textual features only (IV.7, IV.9, IV.10) + recent macro → outcome
+prediction. Answers whether discourse carries <em>anticipatory</em> signal — and delimits what
+"anticipatory" means: a mañanera of day T can only explain elections after T. <span class="m mP">P</span></p>
 
-<h3 id="s56"><span class="secnum">V.6</span>Diseño experimental maestro</h3>
+<h3 id="s56"><span class="secnum">V.6</span>Master experimental design</h3>
 <table class="compact">
-<tr><th>Elemento</th><th>Decisión</th><th>Justificación</th></tr>
-<tr><td>Split temporal</td><td>train ≤2012 · val 2015-2018 · test 2021-2024</td>
-<td>respeta regimenes; test incluye era MORENA (cambio estructural) <span class="m mP">P</span></td></tr>
-<tr><td>Split auxiliar</td><td>rolling-origin dentro de train para tuning</td>
-<td>evita leakage de hiperparámetros <span class="m mP">P</span></td></tr>
-<tr><td>Filtro</td><td><code>FLAG_CONSISTENCIA=0</code> en train/val/test</td>
-<td>anomalías se estudian aparte (C4) <span class="m mD">D</span></td></tr>
-<tr><td>Unidad panel</td><td>entidad para federales; municipio con pooling para locales</td>
-<td>secuencias cortas locales — no inventar historia <span class="m mP">P</span></td></tr>
-<tr><td>Métricas share</td><td>MAE · RMSE · top-1 winner · Brier · ECE calibración</td>
-<td>composicional: evaluar distribución, no solo ganador <span class="m mP">P</span></td></tr>
-<tr><td>Métricas aux</td><td>participación: MAE · alternancia: AUC/macro-F1</td><td>outcomes secundarios</td></tr>
-<tr><td>IC</td><td>bootstrap por unidad geográfica</td><td>unidades correlacionadas — bootstrap clásico inválido <span class="m mL">L</span></td></tr>
-<tr><td>Baseline cero</td><td>persistencia (share anterior), más regresión multinomial</td>
-<td>piso honesto — todo modelo debe justificar sobre él <span class="m mP">P</span></td></tr>
+<tr><th>Element</th><th>Decision</th><th>Justification</th></tr>
+<tr><td>Temporal split</td><td>train ≤2012 · val 2015–2018 · test 2021–2024</td>
+<td>respects regimes; test includes the MORENA era (structural break) <span class="m mP">P</span></td></tr>
+<tr><td>Auxiliary split</td><td>rolling-origin within train for tuning</td>
+<td>avoids hyperparameter leakage <span class="m mP">P</span></td></tr>
+<tr><td>Filter</td><td><code>FLAG_CONSISTENCIA=0</code> in train/val/test</td>
+<td>anomalies studied separately (C4) <span class="m mD">D</span></td></tr>
+<tr><td>Panel unit</td><td>entity for federals; municipality with pooling for locals</td>
+<td>short local sequences — never invent history <span class="m mP">P</span></td></tr>
+<tr><td>Share metrics</td><td>MAE · RMSE · top-1 winner · Brier · ECE calibration</td>
+<td>compositional: evaluate the distribution, not only the winner <span class="m mP">P</span></td></tr>
+<tr><td>Aux metrics</td><td>turnout: MAE · alternancia: AUC/macro-F1</td><td>secondary outcomes</td></tr>
+<tr><td>CI</td><td>bootstrap by geographic unit</td>
+<td>units are correlated — classical bootstrap invalid <span class="m mL">L</span></td></tr>
+<tr><td>Zero baseline</td><td>persistence (previous share), plus multinomial regression</td>
+<td>honest floor — every model must justify itself against it <span class="m mP">P</span></td></tr>
 </table>
 
-<h3 id="s57"><span class="secnum">V.7</span>Tablero de evaluación esperado</h3>
+<h3 id="s57"><span class="secnum">V.7</span>Expected evaluation board</h3>
 <table class="compact">
-<tr><th>Modelo</th><th>Canal</th><th>MAE share</th><th>Acc ganador</th><th>Brier</th><th>ECE</th><th>vs persistencia</th></tr>
-<tr><td>Persistencia</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0.000</td></tr>
-<tr><td>Reg. multinomial</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><th>Model</th><th>Channel</th><th>MAE share</th><th>Winner acc</th><th>Brier</th><th>ECE</th><th>vs persistence</th></tr>
+<tr><td>Persistence</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0.000</td></tr>
+<tr><td>Multinomial reg.</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>MLP (III.1)</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>LSTM (III.9)</td><td>+temporal</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>Transformer (III.7)</td><td>+temporal-attn</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>GNN (V.3)</td><td>+espacial</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>+BETO (IV.12)</td><td>+texto</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Multimodal (V.1)</td><td>completo</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>SSM (III.14)</td><td>ablación arq.</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>GNN (V.3)</td><td>+spatial</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>+BETO (IV.12)</td><td>+text</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Multimodal (V.1)</td><td>full</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>SSM (III.14)</td><td>arch ablation</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 </table>
-<p class="small">Tabla en blanco deliberadamente: se llena con resultados reales de los notebooks —
-ningún valor pre-llenado. <span class="m mP">P</span></p>
+<p class="small">Deliberately blank: filled with real notebook results — no pre-filled values.
+<span class="m mP">P</span></p>
 </div>
 </div>

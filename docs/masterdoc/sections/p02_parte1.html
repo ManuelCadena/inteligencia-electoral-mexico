@@ -1,57 +1,63 @@
-<!-- ============ PARTE I — SISTEMA ELECTORAL ============ -->
+<!-- ============ PART I — MEXICAN ELECTORAL SYSTEM ============ -->
 <div class="part" id="p1">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte I</div>
-<h2>El sistema electoral mexicano — contexto institucional para interpretar el dataset</h2>
-<p>Sin esta parte, <code>SHARE_TOTAL</code>, <code>GEO_KEY_2</code> o una coalición
-<code>PAN_PRI_PRD</code> son solo strings. Esta sección traduce la arquitectura legal-territorial
-a reglas de análisis ejecutables. Fuente base: <code>docs/KB_SISTEMA_ELECTORAL_MEXICO.md</code>.
+<div class="pn">Part I</div>
+<h2>The Mexican electoral system — institutional context for interpreting the data</h2>
+<p>Without this part, <code>SHARE_TOTAL</code>, <code>GEO_KEY_2</code> or a coalition string like
+<code>PAN_PRI_PRD</code> are just tokens. This section translates the legal-territorial
+architecture into executable analysis rules. Base source:
+<code>docs/KB_SISTEMA_ELECTORAL_MEXICO.md</code>.
 <span class="srcchip src-cpeum">CPEUM</span><span class="srcchip src-ine">INE</span></p>
 </div>
 
-<h3 id="s11"><span class="secnum">I.1</span>Instituciones y fuentes oficiales</h3>
-<p>México opera un federalismo electoral dual: el <strong>Instituto Nacional Electoral (INE)</strong>
-organiza los procesos federales (presidencia, diputados federales, senadores) y los
-<strong>Organismos Públicos Locales Electorales (OPLE)</strong> organizan los locales
-(gubernaturas, diputados locales, ayuntamientos). El <strong>Tribunal Electoral del Poder Judicial
-de la Federación (TEPJF)</strong> y sus salas regionales resuelven impugnaciones — relevante porque
-elecciones anuladas (p. ej. municipios de Chiapas 2015) aparecen en la fuente con votos en cero.
-<span class="m mK">K</span></p>
-<p>Tres fuentes de resultados con distinta naturaleza: <strong>PREP</strong> (resultados preliminares,
-no oficiales), <strong>cómputos distritales</strong> (oficiales) y <strong>SICEE</strong>
-(Sistema de Consulta de la Estadística de las Elecciones — histórico consolidado). Nuestro dataset
-usa SICEE: definitivo, pero con inconsistencias de fuente que el pipeline marca con
-<code>FLAG_CONSISTENCIA</code> en lugar de corregir a ciegas. <span class="m mK">K</span><span class="m mD">D</span></p>
+<h3 id="s11"><span class="secnum">I.1</span>Institutions and official sources</h3>
+<p>Mexico operates a dual electoral federalism. The <strong>Instituto Nacional Electoral (INE)</strong>
+— the national electoral management body created in its current form by the 2014 reform that
+succeeded the Instituto Federal Electoral (IFE) — organizes federal contests: President,
+Federal Deputies and Senators. The 32 <strong>Organismos Públicos Locales Electorales (OPLE)</strong>
+— one local electoral institute per state — organize gubernatorial, local-deputy and municipal
+races. The <strong>Tribunal Electoral del Poder Judicial de la Federación (TEPJF)</strong> and its
+regional chambers adjudicate challenges — which matters analytically because annulled elections
+(e.g., several Chiapas municipalities in 2015) appear in the source with zero votes and must not be
+confused with abstention. <span class="m mK">K</span></p>
+<p>Three result sources with distinct legal status: <strong>PREP</strong> (Programa de Resultados
+Electorales Preliminares — preliminary, unofficial, election-night count), the
+<strong>distrital computations</strong> (legally official tallies), and <strong>SICEE</strong>
+(Sistema de Consulta de la Estadística de las Elecciones — INE's consolidated historical
+statistics). Our dataset is built from SICEE: definitive, but containing source defects the
+pipeline flags with <code>FLAG_CONSISTENCIA</code> rather than silently correcting.
+<span class="m mK">K</span><span class="m mD">D</span></p>
 
-<h3 id="s12"><span class="secnum">I.2</span>Geografía electoral — la cadena de anidación territorial</h3>
-<p>La unidad atómica es la <strong>sección electoral</strong> (~68–71 mil, entre 100 y 3,000
-electores), que contiene <strong>casillas</strong> (~170 mil en 2024). Las secciones se agregan en
-<strong>distritos locales uninominales</strong> (699 en total), en <strong>distritos federales
-uninominales</strong> (300, art. 52-53 CPEUM), en <strong>municipios</strong> (~2,469 + 16 alcaldías
-CDMX) y en <strong>entidades</strong> (32). Para la Cámara alta el distrito federal no existe:
-el senador se elige por entidad. <span class="m mK">K</span></p>
+<h3 id="s12"><span class="secnum">I.2</span>Electoral geography — the territorial nesting chain</h3>
+<p>The atomic unit is the <strong>electoral section</strong> (~68–71 thousand nationwide, each
+covering 100–3,000 voters), which contains <strong>polling stations</strong> (casillas, ~170
+thousand in 2024). Sections aggregate upward into <strong>local single-member districts</strong>
+(699 across all 32 states), <strong>federal single-member districts</strong> (300, per articles
+52–53 of the Constitución Política de los Estados Unidos Mexicanos, CPEUM), <strong>municipalities</strong>
+(~2,469 plus 16 Mexico City alcaldías), and <strong>entities</strong> (32 states). For the Senate
+no federal district exists: senators are elected at the entity level. <span class="m mK">K</span></p>
 <figure class="arch">
 <svg viewBox="0 0 900 190" role="img">
 <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
 <path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle">
 <rect x="10" y="60" width="120" height="54" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="70" y="82" font-weight="700">Casilla</text><text x="70" y="98" font-size="10">~170,000</text>
+<text x="70" y="82" font-weight="700">Polling station</text><text x="70" y="98" font-size="10">~170,000</text>
 <rect x="160" y="60" width="120" height="54" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="220" y="82" font-weight="700">Sección</text><text x="220" y="98" font-size="10">~68–71k · 100–3,000 elect.</text>
+<text x="220" y="82" font-weight="700">Section</text><text x="220" y="98" font-size="10">~68–71k · 100–3,000 voters</text>
 <rect x="310" y="20" width="130" height="46" rx="6" fill="#FBF3E5" stroke="#C89938"/>
-<text x="375" y="40" font-weight="700">Distrito federal</text><text x="375" y="55" font-size="10">300 uninominales</text>
+<text x="375" y="40" font-weight="700">Federal district</text><text x="375" y="55" font-size="10">300 single-member</text>
 <rect x="310" y="80" width="130" height="46" rx="6" fill="#FBF3E5" stroke="#C89938"/>
-<text x="375" y="100" font-weight="700">Distrito local</text><text x="375" y="115" font-size="10">699 uninominales</text>
+<text x="375" y="100" font-weight="700">Local district</text><text x="375" y="115" font-size="10">699 single-member</text>
 <rect x="480" y="60" width="120" height="54" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="540" y="82" font-weight="700">Municipio</text><text x="540" y="98" font-size="10">~2,469 + 16 alc.</text>
+<text x="540" y="82" font-weight="700">Municipality</text><text x="540" y="98" font-size="10">~2,469 + 16 alcaldías</text>
 <rect x="640" y="60" width="110" height="54" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="695" y="82" font-weight="700">Entidad</text><text x="695" y="98" font-size="10">32</text>
+<text x="695" y="82" font-weight="700">Entity</text><text x="695" y="98" font-size="10">32 states</text>
 <rect x="780" y="20" width="110" height="46" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
-<text x="835" y="40" font-weight="700">Circunscripción</text><text x="835" y="55" font-size="10">5 × 40 dip. RP</text>
+<text x="835" y="40" font-weight="700">Circumscription</text><text x="835" y="55" font-size="10">5 × 40 RP deputies</text>
 <rect x="780" y="80" width="110" height="46" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
-<text x="835" y="100" font-weight="700">Nación</text><text x="835" y="115" font-size="10">32 sen. RP</text>
+<text x="835" y="100" font-weight="700">Nation</text><text x="835" y="115" font-size="10">32 RP senators</text>
 <line x1="130" y1="87" x2="158" y2="87" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="280" y1="80" x2="308" y2="45" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="280" y1="94" x2="308" y2="102" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
@@ -60,93 +66,108 @@ el senador se elige por entidad. <span class="m mK">K</span></p>
 <line x1="750" y1="80" x2="778" y2="45" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="750" y1="94" x2="778" y2="102" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 </g></svg>
-<figcaption><strong>Cadena de anidación.</strong> El voto se emite en casilla; se agrega a sección;
-las secciones definen los distritos. El municipio <em>no</em> contiene necesariamente distritos
-completos: las fronteras de distrito local/federal se dibujan por equilibrio poblacional, no por
-municipio. Consecuencia para el dataset: <code>GEO_KEY_2</code> es la clave canónica por nivel
-(<code>ENT|03</code>, <code>DF|03|07</code>, <code>MUN|03|001</code>).</figcaption>
+<figcaption><strong>Nesting chain.</strong> Votes are cast at polling stations, aggregated into
+sections; sections define districts. A municipality does <em>not</em> necessarily contain whole
+districts: district boundaries are drawn for population balance, not municipal borders. Dataset
+consequence: <code>GEO_KEY_2</code> is the canonical key per level (<code>ENT|03</code>,
+<code>DF|03|07</code>, <code>MUN|03|001</code>).</figcaption>
 </figure>
 
-<h3 id="s13"><span class="secnum">I.3</span>Fórmulas de asignación — por qué el voto no es la curul</h3>
+<h3 id="s13"><span class="secnum">I.3</span>Seat-allocation formulas — why vote share is not seat share</h3>
+<p>Two principles coexist. <strong>Mayoría Relativa (MR)</strong> — single-member plurality:
+whoever gets the most votes in the district wins the seat. <strong>Representación Proporcional
+(RP)</strong> — proportional representation: seats allocated from party lists by quotient and
+largest-remainder formulas, subject to constitutional caps (no party may exceed 300 federal
+deputies; an 8-point overrepresentation cap limits the gap between national vote share and seat
+share). The Senate adds a third device: <strong>primera minoría</strong> (first minority) — one
+seat per entity for the runner-up slate. <span class="m mK">K</span></p>
 <table class="compact">
-<tr><th>Cargo</th><th>Principio</th><th>Regla (CPEUM)</th><th>Lectura en dataset</th></tr>
-<tr><td>Diputado federal</td><td>MR</td><td>300 distritos, mayoría relativa</td>
-<td><code>CARGO=DIPUTADO_FEDERAL</code>, nivel <code>DISTRITO</code></td></tr>
-<tr><td>Diputado federal</td><td>RP</td><td>200 curules, 5 circunscripciones × 40, fórmula de cociente + resto mayor, topes 300 y sobrerrepresentación ±8%</td>
-<td>Voto se agrega por entidad; escaño por circunscripción — no mapeable a distrito</td></tr>
-<tr><td>Senador</td><td>MR</td><td>2 por entidad a la fórmula ganadora (art. 56)</td>
-<td><code>SENADOR_MR</code>, nivel <code>ENTIDAD</code></td></tr>
-<tr><td>Senador</td><td>1ª minoría</td><td>1 por entidad a la primera minoría</td>
-<td>Mismo voto que MR; asignación distinta</td></tr>
-<tr><td>Senador</td><td>RP</td><td>32 de lista nacional, cociente natural</td>
-<td><code>SENADOR_RP</code>, nivel <code>ENTIDAD</code></td></tr>
-<tr><td>Diputado local</td><td>MR/RP</td><td>699 MR + 459 RP = 1,158 curules en 32 congresos</td>
-<td><code>DIPUTADO_LOCAL_MR/RP</code>, nivel <code>DISTRITO</code>/<code>ENTIDAD</code></td></tr>
-<tr><td>Ayuntamiento</td><td>MR/RP municipal</td><td>Presidente MR; regidores por planillas/proporcional según ley estatal</td>
-<td><code>AYUNTAMIENTO</code>, nivel <code>MUNICIPIO</code></td></tr>
+<tr><th>Office</th><th>Principle</th><th>Rule (CPEUM)</th><th>Reading in dataset</th></tr>
+<tr><td>Federal deputy</td><td>MR</td><td>300 districts, plurality wins</td>
+<td><code>CARGO=DIPUTADO_FEDERAL_MR</code>, level <code>DISTRITO</code></td></tr>
+<tr><td>Federal deputy</td><td>RP</td><td>200 seats, 5 circumscriptions × 40, quotient + largest remainder, caps</td>
+<td>Vote aggregates by entity; seat assigned by circumscription — not mappable to a district</td></tr>
+<tr><td>Senator</td><td>MR</td><td>2 per entity to the winning slate (art. 56)</td>
+<td><code>SENADOR_MR</code>, level <code>ENTIDAD</code></td></tr>
+<tr><td>Senator</td><td>First minority</td><td>1 per entity to the runner-up</td>
+<td>Same votes as MR; different allocation</td></tr>
+<tr><td>Senator</td><td>RP</td><td>32 from national list, natural quotient</td>
+<td><code>SENADOR_RP</code>, level <code>ENTIDAD</code></td></tr>
+<tr><td>Local deputy</td><td>MR/RP</td><td>699 MR + 459 RP = 1,158 seats in 32 congresses</td>
+<td><code>DIPUTADO_LOCAL_MR/RP</code>, levels <code>DISTRITO</code>/<code>ENTIDAD</code></td></tr>
+<tr><td>City council</td><td>Municipal MR/RP</td><td>Mayor by plurality; councilors by slate/proportion per state law</td>
+<td><code>AYUNTAMIENTO</code>, level <code>MUNICIPIO</code></td></tr>
 </table>
-<p class="small">Implicación directa: <strong>el share de voto y el share de escaños divergen por
-diseño</strong>. Modelar "quién gana" requiere distinguir el outcome composicional (share) del
-outcome institucional (curul), y éste último es función no lineal del primero. <span class="m mK">K</span></p>
+<p class="small">Direct implication: <strong>vote share and seat share diverge by design</strong>.
+Modeling "who wins" requires distinguishing the compositional outcome (share) from the
+institutional outcome (seat); the latter is a nonlinear function of the former plus the allocation
+formula. <span class="m mK">K</span></p>
 
-<h3 id="s14"><span class="secnum">I.4</span>Partidos y coaliciones — el campo semántico más frágil</h3>
-<p><code>PARTIDO_COALICION</code> en el dataset toma valores como <code>PAN</code>, <code>MORENA</code>
-o <code>PAN_PRI_PRD</code>. Una coalición es una <strong>candidatura común</strong>, no un partido:
-sumar votos de <code>PAN</code> + <code>PRI</code> + <code>PAN_PRI_PRD</code> en la misma elección
-puede doble-contar si la fuente reporta la coalición y sus componentes por separado.
-<span class="m mK">K</span> Regla de análisis: para shares consistentes hay que (a) decidir si la
-coalición se trata como actor único o se redistribuye por reglas OPLE/INE, y (b) ser explícito en el
-notebook. En el canónico actual se conserva el valor de fuente y el flag de consistencia marca los
-grupos donde la suma de shares cae fuera de [0.9, 1.1]. <span class="m mD">D</span></p>
-<p>Cronología crítica de siglas: extinciones recientes — PANAL (2018, refundado parcialmente),
-PES y RSP y FXM (2021) — y aparición de MORENA (2014). Un modelo longitudinal no puede tratar el
-vocabulario de partidos como estacionario: requiere tabla de equivalencias o aprendizaje de
-embeddings por ciclo (ver IV.5). <span class="m mK">K</span></p>
+<h3 id="s14"><span class="secnum">I.4</span>Parties and coalitions — the most fragile semantic field</h3>
+<p><code>PARTIDO_COALICION</code> takes values like <code>PAN</code>, <code>MORENA</code> or
+<code>PAN_PRI_PRD</code>. The acronyms: <strong>PAN</strong> = Partido Acción Nacional
+(center-right, founded 1939); <strong>PRI</strong> = Partido Revolucionario Institucional
+(the hegemonic party 1929–2000); <strong>PRD</strong> = Partido de la Revolución Democrática
+(left, 1989); <strong>MORENA</strong> = Movimiento Regeneración Nacional (registered 2014);
+<strong>PT</strong> = Partido del Trabajo; <strong>PVEM</strong> = Partido Verde Ecologista;
+<strong>MC</strong> = Movimiento Ciudadano. A coalition is a <strong>joint candidacy</strong>,
+not a party: summing <code>PAN</code> + <code>PRI</code> + <code>PAN_PRI_PRD</code> rows in the
+same election can double-count when the source reports the coalition and its components
+separately. <span class="m mK">K</span> Analysis rule: choose explicitly whether the coalition is
+treated as a single actor or redistributed under OPLE/INE rules, and state the choice in the
+notebook. The canonical dataset preserves source values; the consistency flag marks groups whose
+share sums fall outside [0.9, 1.1]. <span class="m mD">D</span></p>
+<p>Critical acronym chronology: recent party extinctions — PANAL (Partido Nueva Alianza), PES
+(Partido Encuentro Social), RSP (Redes Sociales Progresistas), FXM (Fuerza por México), all
+de-registered after 2021 — and the rise of MORENA. A longitudinal model cannot treat the party
+vocabulary as stationary: it needs an equivalence table or per-cycle learned embeddings (see IV.5).
+<span class="m mK">K</span></p>
 
-<h3 id="s15"><span class="secnum">I.5</span>Mapa electoral histórico 1988–2024</h3>
+<h3 id="s15"><span class="secnum">I.5</span>Historical electoral map 1988–2024</h3>
 <ul>
-<li><strong>PRI hegemónico (–1988):</strong> partido de Estado; elecciones competitivas efectivas
-comienzan con la ruptura cardenista de 1988. Los datos SICEE anteriores a 1991 tienen baja
-competitividad real — útiles como baseline, peligrosos como señal. <span class="m mK">K</span></li>
-<li><strong>Transición (1988–2000):</strong> alternancia en Baja California 1989 (primer gobernador
-de oposición), presidencial 2000 (PAN). <span class="m mK">K</span></li>
-<li><strong>Polarización norte-sur (2006–2012):</strong> PAN fuerte en norte industrial; PRD en
-CDMX/sur; PRI territorialmente resiliente. <span class="m mK">K</span><span class="m mL">L</span></li>
-<li><strong>Nacionalización MORENA (2018–2024):</strong> barrido territorial históricamente inédito —
-en 2018 gana entidades que nunca habían votado a la izquierda; en 2024 amplía. Para el modelado:
-cambio de régimen que invalida regularidades pre-2018 si se entrena sin ponderación temporal.
-<span class="m mK">K</span></li>
+<li><strong>PRI hegemony (–1988):</strong> party-state regime; effectively competitive elections
+begin with the 1988 cardenista rupture. Pre-1991 SICEE data show low real competitiveness —
+useful as a baseline, dangerous as a signal. <span class="m mK">K</span></li>
+<li><strong>Transition (1988–2000):</strong> alternation in Baja California 1989 (first opposition
+governor), presidential alternation 2000 (PAN). <span class="m mK">K</span></li>
+<li><strong>North–south polarization (2006–2012):</strong> PAN strong in the industrial north;
+PRD in Mexico City and the south; PRI territorially resilient. <span class="m mK">K</span><span class="m mL">L</span></li>
+<li><strong>MORENA nationalization (2018–2024):</strong> historically unprecedented territorial
+sweep — in 2018 MORENA wins entities that had never voted left; 2024 widens the map. For modeling:
+a regime change that invalidates pre-2018 regularities unless temporal weighting or per-regime
+parameters are used. <span class="m mK">K</span></li>
 </ul>
 
-<h3 id="s16"><span class="secnum">I.6</span>Lectura de las cifras — diccionario vivo de variables clave</h3>
+<h3 id="s16"><span class="secnum">I.6</span>Reading the figures — living dictionary of key variables</h3>
 <table class="compact">
-<tr><th>Variable</th><th>Definición</th><th>Regla de uso</th></tr>
-<tr><td><code>VOTOS</code></td><td>Votos a favor del partido/coalición en la unidad</td><td>Nunca nulo tras pipeline; ceros legítimos en anuladas <span class="m mD">D</span></td></tr>
-<tr><td><code>SHARE_TOTAL</code>/<code>SHARE_VALIDO</code></td><td>Votos ÷ <code>TOTAL_VOTOS</code> / ÷ votos válidos (menos nulos y CNR)</td><td>Modelar <code>SHARE_VALIDO</code> (composicional real); <code>SHARE_TOTAL</code> incluye abstención efectiva</td></tr>
-<tr><td><code>LISTA_NOMINAL</code></td><td>Electores con credencial vigente y recogida (⊂ padrón)</td><td>Denominador correcto de <code>PARTICIPACION</code>; nunca usar padrón <span class="m mK">K</span></td></tr>
-<tr><td><code>TASA_NULOS</code>/<code>TASA_NREG</code></td><td>Nulos y candidatos no registrados sobre total</td><td>Outcome propio (voto de protesta), no solo ruido <span class="m mP">P</span></td></tr>
-<tr><td><code>NEP</code></td><td>Número efectivo de partidos = 1/Σ s<sub>i</sub>²</td><td>Índice Laakso-Taagepera; mide fragmentación <span class="m mL">L</span></td></tr>
-<tr><td><code>ALTERNANCIA</code></td><td>1 si el partido ganador difiere del ganador previo en la misma unidad</td><td>Definición mínima operativa; refinable con incumbencia individual</td></tr>
-<tr><td><code>AÑO_SEXENIO</code></td><td>Año dentro del sexenio presidencial (1–6)</td><td>Captura ciclo de castigo/premial presidencial <span class="m mP">P</span></td></tr>
-<tr><td><code>FLAG_CONSISTENCIA</code></td><td>1 si el grupo viola controles de calidad de fuente</td><td>Filtro de entrenamiento (<code>=0</code>); objeto de estudio en capstone C4</td></tr>
+<tr><th>Variable</th><th>Definition</th><th>Usage rule</th></tr>
+<tr><td><code>VOTOS</code></td><td>Votes for the party/coalition in the unit</td><td>Never null post-pipeline; legitimate zeros in annulled elections <span class="m mD">D</span></td></tr>
+<tr><td><code>SHARE_TOTAL</code>/<code>SHARE_VALIDO</code></td><td>Votes ÷ <code>TOTAL_VOTOS</code> / ÷ valid votes (excluding nulls and write-ins)</td><td>Model <code>SHARE_VALIDO</code> (the true compositional quantity); <code>SHARE_TOTAL</code> absorbs effective abstention</td></tr>
+<tr><td><code>LISTA_NOMINAL</code></td><td>Voters with valid, collected credential (⊂ padrón registry)</td><td>Correct denominator of <code>PARTICIPACION</code>; never use the padrón <span class="m mK">K</span></td></tr>
+<tr><td><code>TASA_NULOS</code>/<code>TASA_NREG</code></td><td>Null ballots and non-registered candidates over total</td><td>An outcome of its own (protest vote), not just noise <span class="m mP">P</span></td></tr>
+<tr><td><code>NEP</code></td><td>Effective number of parties = 1/Σ s<sub>i</sub>²</td><td>Laakso–Taagepera index; measures fragmentation <span class="m mL">L</span></td></tr>
+<tr><td><code>ALTERNANCIA</code></td><td>1 if the winning party differs from the previous winner in the same unit</td><td>Minimal operational definition; refinable with individual incumbency</td></tr>
+<tr><td><code>AÑO_SEXENIO</code></td><td>Year within the six-year presidential term (1–6)</td><td>Captures the presidential punishment/reward cycle <span class="m mP">P</span></td></tr>
+<tr><td><code>FLAG_CONSISTENCIA</code></td><td>1 if the group violates source quality controls</td><td>Training filter (<code>=0</code>); object of study in capstone C4</td></tr>
 </table>
 
-<h3 id="s17"><span class="secnum">I.7</span>Advertencias de comparabilidad temporal</h3>
-<div class="call c-risk"><span class="ct">Checklist de no-comparabilidad</span>
+<h3 id="s17"><span class="secnum">I.7</span>Temporal-comparability warnings</h3>
+<div class="call c-risk"><span class="ct">Non-comparability checklist</span>
 <ul>
-<li><strong>Redistritaciones federales 2005/2017/2022:</strong> <code>ID_DISTRITO</code> federal
-no es estable entre procesos — un análisis panel por distrito cruza la redistritación debe usar
-sección o municipio como puente, o tratar el distrito como unidad nueva. <span class="m mK">K</span></li>
-<li><strong>DF→CDMX (2016):</strong> el pipeline ya mapea a <code>CIUDAD DE MEXICO</code>; alcaldías
-equiparables a municipios desde 2018. <span class="m mD">D</span></li>
-<li><strong>Usos y costumbres:</strong> ~418 de 570 municipios de Oaxaca eligen autoridad sin
-elección partidista — generan ceros estructurales, no abstención. Modelar aparte o excluir.
+<li><strong>Federal redistricting 2005/2017/2022:</strong> federal <code>ID_DISTRITO</code> is not
+stable across processes — a panel analysis by district that crosses a redistricting must bridge
+via section or municipality, or treat the district as a new unit. <span class="m mK">K</span></li>
+<li><strong>DF→CDMX (2016):</strong> the pipeline maps Distrito Federal to
+<code>CIUDAD DE MEXICO</code>; alcaldías comparable to municipalities from 2018. <span class="m mD">D</span></li>
+<li><strong>Usos y costumbres:</strong> ~418 of 570 Oaxaca municipalities select authorities without
+partisan elections — producing structural zeros, not abstention. Model separately or exclude.
 <span class="m mK">K</span></li>
-<li><strong>Reelección:</strong> municipal solo existe desde ~2018; legislativa federal desde 2021 —
-variables de incumbencia tienen truncamiento de naturaleza, no de dato faltante. <span class="m mK">K</span></li>
-<li><strong>Gubernaturas escalonadas:</strong> calendarios estatales no coinciden; 2015–2024 cada
-entidad tiene su propio ciclo — <code>ANIO</code> solo no define el panel; hace falta
-(cargo × entidad). <span class="m mK">K</span></li>
+<li><strong>Re-election:</strong> municipal re-election exists only from ~2018; federal legislative
+re-election from 2021 — incumbency variables are censored by nature, not by missing data.
+<span class="m mK">K</span></li>
+<li><strong>Staggered gubernatorial calendars:</strong> state cycles do not coincide; in 2015–2024
+each entity has its own calendar — <code>ANIO</code> alone does not define the panel; the unit
+is (office × entity). <span class="m mK">K</span></li>
 </ul></div>
 </div>
 </div>

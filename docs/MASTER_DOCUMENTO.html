@@ -222,7 +222,7 @@ blockquote{font-family:var(--serif);font-size:17px;font-style:italic;color:var(-
 </style>
 </head>
 <body>
-<!-- ============ PARTE 0 — PORTADA / TOC / RESUMEN ============ -->
+<!-- ============ PARTE 0 — COVER / TOC / EXEC SUMMARY ============ -->
 <div class="cover" id="portada">
 <div class="wrap">
 <div class="seal-line">
@@ -234,83 +234,87 @@ blockquote{font-family:var(--serif);font-size:17px;font-style:italic;color:var(-
 <text x="32" y="60" text-anchor="middle" font-size="9" fill="#fff"
       font-family="Georgia,serif" letter-spacing="2">VERITAS</text>
 </svg>
-<div class="eyebrow">Programa de Maestría · Harvard Extension School · CSCI E-89 + CSCI E-89b</div>
+<div class="eyebrow">Master's Program · Harvard Extension School · CSCI E-89 + CSCI E-89b</div>
 </div>
-<h1>Inteligencia Electoral México</h1>
-<div class="subtitle">Un marco multimodal de aprendizaje profundo y procesamiento de lenguaje natural para el análisis y pronóstico del voto mexicano (1991–2024) — documento maestro pedagógico y de investigación.</div>
+<h1>Electoral Intelligence Mexico</h1>
+<div class="subtitle">A multimodal deep-learning and natural-language-processing framework for the analysis and forecasting of the Mexican vote (1991–2024) — pedagogical master document and research blueprint.</div>
 <div class="covermeta">
-<div class="cm"><b>Autor</b>Manuel Cadena — PhD Neural Networks, AI &amp; LLM</div>
-<div class="cm"><b>Versión</b>v1.0 · Documento maestro de investigación</div>
-<div class="cm"><b>Fecha</b>2026-10-06 · ISO-8601</div>
-<div class="cm"><b>Repositorio</b>github.com/ManuelCadena/inteligencia-electoral-mexico</div>
+<div class="cm"><b>Author</b>Manuel Cadena — PhD Neural Networks, AI &amp; LLM</div>
+<div class="cm"><b>Version</b>v2.0 · Master research document (English)</div>
+<div class="cm"><b>Date</b>2026-10-06 · ISO-8601</div>
+<div class="cm"><b>Repository</b>github.com/ManuelCadena/inteligencia-electoral-mexico</div>
 </div>
 <div class="acuse">
-Acuse N.º 20261006-MDOC · Documento maestro del proyecto <strong>Inteligencia Electoral México</strong> ·
-Cubre: (a) marco institucional del sistema electoral mexicano, (b) dataset canónico SICEE normalizado
-(355,176 observaciones · 11,739 elección-geografías · 32 entidades), (c) 26 lectures aplicadas —
-14 de Deep Learning (CSCI E-89, semanas 1–14) y 12 de NLP (CSCI E-89b, semanas 1–12) — con marco
-teórico, formalismo, diagrama de arquitectura y especificación de notebook por tema, (d) diseño
-experimental, estructura del paper, amenazas a la validez y plan de 6 sprints ·
-Fuentes: INE/OPLE/TEPJF (oficiales), literatura arbitrada vía Consensus, propuesta original marcada
-como <em>PROPUESTO</em> · Corte de estatus: dataset canónico validado, modelos aún no entrenados.
+Acuse N.º 20261006-MDOC-v2 · Master document of the <strong>Electoral Intelligence Mexico</strong>
+project · Covers: (a) institutional framework of the Mexican electoral system, (b) canonical
+dataset built from raw SICEE tabulations — <strong>463,834 tidy observation-rows across all
+processed series; 355,176 canonical election×geography×party rows; 11,739 election-geography
+groups; 32 states; 314 MB of model-ready tabular data plus 18.1&nbsp;million words of presidential
+morning-conference text</strong>, (c) 26 applied lectures — 14 from Deep Learning (CSCI E-89,
+weeks 1–14) and 12 from NLP (CSCI E-89b, weeks 1–12) — each with full theoretical framework,
+formal derivation, architecture diagram, dataset binding and notebook specification,
+(d) experimental design, paper structure, validity threats and a 6-sprint execution plan ·
+Sources: INE/OPLE/TEPJF (official), peer-reviewed literature via Consensus, original proposals
+flagged <em>PROPOSED</em> · Status cutoff: canonical dataset validated; no model has been trained yet.
 </div>
 </div>
 </div>
 
 <nav class="toc" id="indice">
 <div class="wrap">
-<h2>Índice</h2>
+<h2>Table of Contents</h2>
 <ol>
-<li class="t-part"><a href="#p0">Parte 0 — Tesis rectora y resumen ejecutivo</a></li>
-<li><a href="#p0">0.1 Pregunta de investigación y subpreguntas</a></li>
-<li><a href="#p0b">0.2 Cómo leer este documento</a></li>
-<li class="t-part"><a href="#p1">Parte I — El sistema electoral mexicano</a></li>
-<li><a href="#s11">I.1 Instituciones y fuentes oficiales</a></li>
-<li><a href="#s12">I.2 Geografía electoral: anidación territorial</a></li>
-<li><a href="#s13">I.3 Fórmulas de asignación (MR · RP · 1ª minoría)</a></li>
-<li><a href="#s14">I.4 Partidos, coaliciones y lectura de siglas</a></li>
-<li><a href="#s15">I.5 Mapa electoral histórico 1988–2024</a></li>
-<li><a href="#s16">I.6 Lectura de las cifras del dataset</a></li>
-<li><a href="#s17">I.7 Advertencias de comparabilidad</a></li>
-<li class="t-part"><a href="#p2">Parte II — Dataset canónico y pipeline</a></li>
-<li><a href="#s21">II.1 Inventario SICEE</a></li>
-<li><a href="#s22">II.2 Pipeline de construcción</a></li>
-<li><a href="#s23">II.3 Esquema canónico y variables de outcome</a></li>
-<li><a href="#s24">II.4 Features exógenas y aprobación</a></li>
-<li><a href="#s25">II.5 QA y casos límite</a></li>
-<li class="t-part"><a href="#p3">Parte III — Lectures de Deep Learning (E-89)</a></li>
-<li><a href="#dl1">III.1 MLP · III.2 PyTorch · III.3 Regularización</a></li>
+<li class="t-part"><a href="#p0">Part 0 — Governing thesis and executive summary</a></li>
+<li><a href="#s01">0.1 Research question and sub-questions</a></li>
+<li><a href="#s02">0.2 How to read this document</a></li>
+<li class="t-part"><a href="#p1">Part I — The Mexican electoral system</a></li>
+<li><a href="#s11">I.1 Institutions and official sources</a></li>
+<li><a href="#s12">I.2 Electoral geography: territorial nesting</a></li>
+<li><a href="#s13">I.3 Seat-allocation formulas (MR · RP · first minority)</a></li>
+<li><a href="#s14">I.4 Parties, coalitions and acronym semantics</a></li>
+<li><a href="#s15">I.5 Historical electoral map 1988–2024</a></li>
+<li><a href="#s16">I.6 Reading the dataset's figures</a></li>
+<li><a href="#s17">I.7 Comparability warnings</a></li>
+<li class="t-part"><a href="#p2">Part II — Canonical dataset and pipeline</a></li>
+<li><a href="#s21">II.1 Raw-data inventory and real sizes</a></li>
+<li><a href="#s22">II.2 Construction pipeline</a></li>
+<li><a href="#s23">II.3 Canonical schema and outcome variables</a></li>
+<li><a href="#s24">II.4 Exogenous features and approval data</a></li>
+<li><a href="#s25">II.5 Text corpus: the mañaneras dataset</a></li>
+<li><a href="#s26">II.6 QA and edge cases</a></li>
+<li class="t-part"><a href="#p3">Part III — Deep Learning lectures (E-89)</a></li>
+<li><a href="#dl1">III.1 MLP · III.2 PyTorch · III.3 Regularization</a></li>
 <li><a href="#dl4">III.4 CNN · III.5 Transfer · III.6 AE/VAE</a></li>
-<li><a href="#dl7">III.7 Transformers · III.8 Seq2Seq/LSTM</a></li>
-<li><a href="#dl10">III.9 RAG · III.10 Agentes · III.11 Generativos · III.12 SSM</a></li>
-<li class="t-part"><a href="#p4">Parte IV — Lectures de NLP (E-89b)</a></li>
-<li><a href="#nlp1">IV.1 BoW/TF-IDF · IV.2 RNN texto · IV.3 Tokenización</a></li>
+<li><a href="#dl7">III.7 Transformers · III.8 Speech · III.9 Seq2Seq/LSTM</a></li>
+<li><a href="#dl10">III.10 LLMs · III.11 RAG · III.12 Agents · III.13 Generative · III.14 SSM</a></li>
+<li class="t-part"><a href="#p4">Part IV — NLP lectures (E-89b)</a></li>
+<li><a href="#nlp1">IV.1 BoW/TF-IDF · IV.2 Text RNN · IV.3 Tokenization</a></li>
 <li><a href="#nlp4">IV.4 N-grams · IV.5 Embeddings · IV.6 t-SNE</a></li>
-<li><a href="#nlp7">IV.7 LDA · IV.8 STM · IV.9 Clasificación</a></li>
+<li><a href="#nlp7">IV.7 LDA · IV.8 STM · IV.9 Classification</a></li>
 <li><a href="#nlp10">IV.10 NER · IV.11 CRF · IV.12 BETO</a></li>
-<li class="t-part"><a href="#p5">Parte V — Integración y diseño experimental</a></li>
-<li><a href="#s51">V.1 Arquitectura multimodal (capstone C2)</a></li>
+<li class="t-part"><a href="#p5">Part V — Integration and experimental design</a></li>
+<li><a href="#s51">V.1 Multimodal architecture (capstone C2)</a></li>
 <li><a href="#s52">V.2–V.5 Capstones C3·C1·C4·C5</a></li>
-<li><a href="#s56">V.6 Diseño experimental maestro</a></li>
-<li><a href="#s57">V.7 Tablero de evaluación</a></li>
-<li class="t-part"><a href="#p6">Parte VI — Paper, riesgos y ejecución</a></li>
-<li><a href="#s61">VI.1 Estructura del paper · VI.2 Amenazas · VI.3 Sprints</a></li>
-<li><a href="#s64">VI.4 Gaps · VI.5 Glosario · VI.6 Referencias</a></li>
+<li><a href="#s56">V.6 Master experimental design · V.7 Evaluation board</a></li>
+<li class="t-part"><a href="#p6">Part VI — Paper, risks and execution</a></li>
+<li><a href="#s61">VI.1 Paper structure · VI.2 Threats · VI.3 Sprints</a></li>
+<li><a href="#s64">VI.4 Gaps · VI.5 Acronym glossary · VI.6 References</a></li>
 </ol>
 <div class="legend-box">
-<h3>Leyenda — Hard Gate de proveniencia</h3>
+<h3>Legend — provenance hard gate</h3>
 <div class="lg">
-<span class="m mD">D</span> <span class="small">Dato verificado del dataset/pipeline</span>
-<span class="m mK">K</span> <span class="small">Hecho institucional (KB · INE · CPEUM)</span>
-<span class="m mL">L</span> <span class="small">Literatura arbitrada (Consensus)</span>
-<span class="m mP">P</span> <span class="small">Propuesta original del proyecto</span>
+<span class="m mD">D</span> <span class="small">Verified dataset/pipeline figure</span>
+<span class="m mK">K</span> <span class="small">Institutional fact (KB · INE · CPEUM)</span>
+<span class="m mL">L</span> <span class="small">Peer-reviewed literature (Consensus)</span>
+<span class="m mP">P</span> <span class="small">Original project proposal</span>
 <span class="badge b-syl">SYLLABUS-CONFIRMED</span>
 <span class="badge b-sup">SUPPLEMENTARY</span>
 <span class="badge b-ill">ILLUSTRATIVE</span>
 </div>
-<p class="small" style="margin-top:10px">Toda afirmación lleva marca inline. Sin marca no hay afirmación.
-Los números del dataset provienen de <code>qa_report.json</code> y <code>canonical_metadata.json</code>;
-ningún modelo ha sido entrenado aún — las secciones-lectura son especificaciones de diseño.</p>
+<p class="small" style="margin-top:10px">Every substantive claim carries an inline mark. No mark, no claim.
+Dataset figures come from <code>qa_report.json</code>, <code>canonical_metadata.json</code> and the
+mañaneras <code>MANIFIESTO_DATOS.md</code>; no model has been trained yet — all lecture sections are
+design specifications, not empirical results.</p>
 </div>
 </div>
 </nav>
@@ -318,119 +322,129 @@ ningún modelo ha sido entrenado aún — las secciones-lectura son especificaci
 <div class="part" id="p0">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte 0</div>
-<h2>Tesis rectora y resumen ejecutivo</h2>
-<p>Las elecciones mexicanas como problema multimodal espacio-temporal: cada capa de estructura
-— tabular, temporal, espacial, latente, textual — se modela con la arquitectura neuronal que
-mejor respeta su geometría, y la contribución científica es medir la señal <em>incremental</em>
-de cada canal sobre una persistencia honesta.</p>
+<div class="pn">Part 0</div>
+<h2>Governing thesis and executive summary</h2>
+<p>Mexican elections as a multimodal spatio-temporal problem: each structural layer
+— tabular, temporal, spatial, latent, textual — is modeled with the neural architecture
+that best respects its geometry, and the scientific contribution is measuring the
+<em>incremental</em> signal of each channel over an honest persistence baseline.</p>
 </div>
 
 <div class="kpis">
-<div class="kpi"><div class="v">355,176</div><div class="k">observaciones canónicas</div>
-<div class="d">elección × geografía × partido <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">11,739</div><div class="k">elección-geografías</div>
-<div class="d">grupos en wide format <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">32</div><div class="k">entidades federativas</div>
-<div class="d">0 nulos tras normalización DF→CDMX <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">196</div><div class="k">ZIPs SICEE procesados</div>
-<div class="d">50 federales · 146 locales · 6,992 archivos <span class="m mD">D</span></div></div>
-<div class="kpi"><div class="v">26</div><div class="k">lectures aplicadas</div>
-<div class="d">14 DL + 12 NLP, cada una con spec de notebook <span class="m mP">P</span></div></div>
-<div class="kpi"><div class="v">318</div><div class="k">grupos FLAG_CONSISTENCIA</div>
-<div class="d">2.7% — anulaciones y errores de fuente, conservados y marcados <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">463,834</div><div class="k">tidy data rows</div>
+<div class="d">sum of all processed series (row-level, excl. header) <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">355,176</div><div class="k">canonical observations</div>
+<div class="d">election × geography × party, 93 columns, 314 MB <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">18.1 M</div><div class="k">spoken words (mañaneras)</div>
+<div class="d">1,611 conferences · 514,909 interventions · 2018–2025 <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">32</div><div class="k">federal entities</div>
+<div class="d">0 nulls after DF→CDMX normalization <span class="m mD">D</span></div></div>
+<div class="kpi"><div class="v">26</div><div class="k">applied lectures</div>
+<div class="d">14 DL + 12 NLP, each with notebook spec <span class="m mP">P</span></div></div>
+<div class="kpi"><div class="v">318</div><div class="k">FLAG_CONSISTENCIA groups</div>
+<div class="d">2.7% — annulled elections &amp; source defects, kept and flagged <span class="m mD">D</span></div></div>
 </div>
 
-<h3 id="s01"><span class="secnum">0.1</span>Pregunta de investigación</h3>
-<blockquote>¿Puede un sistema multimodal —que combina series históricas de votación, covariables
-macroeconómicas y territoriales, estructura de vecindad geográfica y discurso político textual—
-producir pronósticos electorales subnacionales en México mejores calibrados que una persistencia
-ingenua, y explicar qué canal aporta señal incremental?</blockquote>
-<p>Subpreguntas operativas:</p>
+<h3 id="s01"><span class="secnum">0.1</span>Research question</h3>
+<blockquote>Can a multimodal system — combining historical vote series, macroeconomic and
+territorial covariates, geographic neighborhood structure and political discourse text —
+produce subnational electoral forecasts in Mexico that are better calibrated than a naive
+persistence baseline, while explaining which channel contributes incremental signal?</blockquote>
+<p>Operational sub-questions:</p>
 <ol>
-<li><strong>SQ1 (tabular):</strong> ¿un MLP sobre features estructurales + exógenas supera a la
-regresión logística y a la persistencia en share y ganador? <span class="m mP">P</span></li>
-<li><strong>SQ2 (temporal):</strong> ¿LSTM/GRU captan dependencia inter-ciclo (reacción a sexenio,
-castigo premial) que un MLP pierde? <span class="m mP">P</span></li>
-<li><strong>SQ3 (espacial):</strong> ¿la difusión en un GNN municipal reduce el error en
-elecciones subnacionales respecto a modelos aspatiales? <span class="m mP">P</span></li>
-<li><strong>SQ4 (textual):</strong> ¿las features derivadas del discurso presidencial (tópicos,
-stance, atención territorial vía NER) tienen poder predictivo incremental? <span class="m mP">P</span></li>
-<li><strong>SQ5 (latente):</strong> ¿un VAE de perfiles electorales recupera regiones del mapa
-electoral documentadas en la literatura (norte industrial, sur ancestral, centro urbano)?
+<li><strong>SQ1 (tabular):</strong> does a Multi-Layer Perceptron (MLP) over structural plus
+exogenous features beat multinomial logistic regression and persistence on vote share and winner?
 <span class="m mP">P</span></li>
+<li><strong>SQ2 (temporal):</strong> do recurrent networks — Long Short-Term Memory (LSTM) and
+Gated Recurrent Units (GRU) — capture inter-cycle dependence (sexenio punishment/reward) that an
+MLP misses? <span class="m mP">P</span></li>
+<li><strong>SQ3 (spatial):</strong> does message passing in a Graph Neural Network (GNN) over
+municipal adjacency reduce subnational error versus aspatial models? <span class="m mP">P</span></li>
+<li><strong>SQ4 (textual):</strong> do features derived from presidential discourse (topic shares,
+stance, territorial attention via Named Entity Recognition) carry incremental predictive power?
+<span class="m mP">P</span></li>
+<li><strong>SQ5 (latent):</strong> does a Variational Autoencoder (VAE) over electoral profiles
+recover the regional blocs documented in the literature (industrial north, ancestral south,
+urban center)? <span class="m mP">P</span></li>
 </ol>
 
-<h3 id="s02"><span class="secnum">0.2</span>Cómo leer este documento</h3>
-<p>Cada sección de las Partes III–IV es una <strong>lecture completa</strong> con esqueleto fijo:
-<em>por qué existe → formalismo → diagrama de arquitectura → aplicación al dataset →
-especificación de notebook → interpretación electoral → riesgos</em>. Esto cumple dos funciones:
-(a) documento pedagógico que enseña cada técnica desde cero, y (b) contrato de implementación —
-los notebooks de Colab se derivan 1:1 de los specs. Las Partes I–II son el contexto institucional
-y de datos sin el cual los modelos serían ejercicios aislados; las Partes V–VI son la integración
-científica y el plan de ejecución.</p>
-<div class="call c-data"><span class="ct">Regla de lectura</span>
-<p>El orden de cada lecture es deliberadamente <strong>visual-first</strong>: la intuición y el
-diagrama de tensores preceden al código, conforme al estándar AGENTS del proyecto. Ningún diagrama
-implica conectividad no implementada; los shapes <code>B×T×D</code> son exactamente los que el
-notebook producirá.</p></div>
+<h3 id="s02"><span class="secnum">0.2</span>How to read this document</h3>
+<p>Every section in Parts III–IV is a <strong>full lecture</strong> with a fixed skeleton:
+<em>why it exists → theoretical framework (all terms and acronyms expanded, mathematics derived)
+→ architecture diagram → application to this dataset → notebook specification → electoral
+interpretation → risks</em>. This serves two purposes: (a) a pedagogical document that teaches each
+technique from first principles, and (b) an implementation contract — the Colab notebooks are
+derived one-to-one from the specs. Parts I–II supply the institutional and data context without
+which the models would be isolated exercises; Parts V–VI provide scientific integration and the
+execution plan.</p>
+<div class="call c-data"><span class="ct">Reading rule</span>
+<p>Each lecture is deliberately <strong>visual-first</strong>: intuition and tensor diagrams precede
+code, per the project's AGENTS standard. No diagram implies connectivity that is not implemented;
+the shapes <code>B×T×D</code> (batch × time × feature dimension) are exactly what the notebook will
+produce.</p></div>
 </div>
 </div>
 
-<!-- ============ PARTE I — SISTEMA ELECTORAL ============ -->
+<!-- ============ PART I — MEXICAN ELECTORAL SYSTEM ============ -->
 <div class="part" id="p1">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte I</div>
-<h2>El sistema electoral mexicano — contexto institucional para interpretar el dataset</h2>
-<p>Sin esta parte, <code>SHARE_TOTAL</code>, <code>GEO_KEY_2</code> o una coalición
-<code>PAN_PRI_PRD</code> son solo strings. Esta sección traduce la arquitectura legal-territorial
-a reglas de análisis ejecutables. Fuente base: <code>docs/KB_SISTEMA_ELECTORAL_MEXICO.md</code>.
+<div class="pn">Part I</div>
+<h2>The Mexican electoral system — institutional context for interpreting the data</h2>
+<p>Without this part, <code>SHARE_TOTAL</code>, <code>GEO_KEY_2</code> or a coalition string like
+<code>PAN_PRI_PRD</code> are just tokens. This section translates the legal-territorial
+architecture into executable analysis rules. Base source:
+<code>docs/KB_SISTEMA_ELECTORAL_MEXICO.md</code>.
 <span class="srcchip src-cpeum">CPEUM</span><span class="srcchip src-ine">INE</span></p>
 </div>
 
-<h3 id="s11"><span class="secnum">I.1</span>Instituciones y fuentes oficiales</h3>
-<p>México opera un federalismo electoral dual: el <strong>Instituto Nacional Electoral (INE)</strong>
-organiza los procesos federales (presidencia, diputados federales, senadores) y los
-<strong>Organismos Públicos Locales Electorales (OPLE)</strong> organizan los locales
-(gubernaturas, diputados locales, ayuntamientos). El <strong>Tribunal Electoral del Poder Judicial
-de la Federación (TEPJF)</strong> y sus salas regionales resuelven impugnaciones — relevante porque
-elecciones anuladas (p. ej. municipios de Chiapas 2015) aparecen en la fuente con votos en cero.
-<span class="m mK">K</span></p>
-<p>Tres fuentes de resultados con distinta naturaleza: <strong>PREP</strong> (resultados preliminares,
-no oficiales), <strong>cómputos distritales</strong> (oficiales) y <strong>SICEE</strong>
-(Sistema de Consulta de la Estadística de las Elecciones — histórico consolidado). Nuestro dataset
-usa SICEE: definitivo, pero con inconsistencias de fuente que el pipeline marca con
-<code>FLAG_CONSISTENCIA</code> en lugar de corregir a ciegas. <span class="m mK">K</span><span class="m mD">D</span></p>
+<h3 id="s11"><span class="secnum">I.1</span>Institutions and official sources</h3>
+<p>Mexico operates a dual electoral federalism. The <strong>Instituto Nacional Electoral (INE)</strong>
+— the national electoral management body created in its current form by the 2014 reform that
+succeeded the Instituto Federal Electoral (IFE) — organizes federal contests: President,
+Federal Deputies and Senators. The 32 <strong>Organismos Públicos Locales Electorales (OPLE)</strong>
+— one local electoral institute per state — organize gubernatorial, local-deputy and municipal
+races. The <strong>Tribunal Electoral del Poder Judicial de la Federación (TEPJF)</strong> and its
+regional chambers adjudicate challenges — which matters analytically because annulled elections
+(e.g., several Chiapas municipalities in 2015) appear in the source with zero votes and must not be
+confused with abstention. <span class="m mK">K</span></p>
+<p>Three result sources with distinct legal status: <strong>PREP</strong> (Programa de Resultados
+Electorales Preliminares — preliminary, unofficial, election-night count), the
+<strong>distrital computations</strong> (legally official tallies), and <strong>SICEE</strong>
+(Sistema de Consulta de la Estadística de las Elecciones — INE's consolidated historical
+statistics). Our dataset is built from SICEE: definitive, but containing source defects the
+pipeline flags with <code>FLAG_CONSISTENCIA</code> rather than silently correcting.
+<span class="m mK">K</span><span class="m mD">D</span></p>
 
-<h3 id="s12"><span class="secnum">I.2</span>Geografía electoral — la cadena de anidación territorial</h3>
-<p>La unidad atómica es la <strong>sección electoral</strong> (~68–71 mil, entre 100 y 3,000
-electores), que contiene <strong>casillas</strong> (~170 mil en 2024). Las secciones se agregan en
-<strong>distritos locales uninominales</strong> (699 en total), en <strong>distritos federales
-uninominales</strong> (300, art. 52-53 CPEUM), en <strong>municipios</strong> (~2,469 + 16 alcaldías
-CDMX) y en <strong>entidades</strong> (32). Para la Cámara alta el distrito federal no existe:
-el senador se elige por entidad. <span class="m mK">K</span></p>
+<h3 id="s12"><span class="secnum">I.2</span>Electoral geography — the territorial nesting chain</h3>
+<p>The atomic unit is the <strong>electoral section</strong> (~68–71 thousand nationwide, each
+covering 100–3,000 voters), which contains <strong>polling stations</strong> (casillas, ~170
+thousand in 2024). Sections aggregate upward into <strong>local single-member districts</strong>
+(699 across all 32 states), <strong>federal single-member districts</strong> (300, per articles
+52–53 of the Constitución Política de los Estados Unidos Mexicanos, CPEUM), <strong>municipalities</strong>
+(~2,469 plus 16 Mexico City alcaldías), and <strong>entities</strong> (32 states). For the Senate
+no federal district exists: senators are elected at the entity level. <span class="m mK">K</span></p>
 <figure class="arch">
 <svg viewBox="0 0 900 190" role="img">
 <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
 <path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle">
 <rect x="10" y="60" width="120" height="54" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="70" y="82" font-weight="700">Casilla</text><text x="70" y="98" font-size="10">~170,000</text>
+<text x="70" y="82" font-weight="700">Polling station</text><text x="70" y="98" font-size="10">~170,000</text>
 <rect x="160" y="60" width="120" height="54" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="220" y="82" font-weight="700">Sección</text><text x="220" y="98" font-size="10">~68–71k · 100–3,000 elect.</text>
+<text x="220" y="82" font-weight="700">Section</text><text x="220" y="98" font-size="10">~68–71k · 100–3,000 voters</text>
 <rect x="310" y="20" width="130" height="46" rx="6" fill="#FBF3E5" stroke="#C89938"/>
-<text x="375" y="40" font-weight="700">Distrito federal</text><text x="375" y="55" font-size="10">300 uninominales</text>
+<text x="375" y="40" font-weight="700">Federal district</text><text x="375" y="55" font-size="10">300 single-member</text>
 <rect x="310" y="80" width="130" height="46" rx="6" fill="#FBF3E5" stroke="#C89938"/>
-<text x="375" y="100" font-weight="700">Distrito local</text><text x="375" y="115" font-size="10">699 uninominales</text>
+<text x="375" y="100" font-weight="700">Local district</text><text x="375" y="115" font-size="10">699 single-member</text>
 <rect x="480" y="60" width="120" height="54" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="540" y="82" font-weight="700">Municipio</text><text x="540" y="98" font-size="10">~2,469 + 16 alc.</text>
+<text x="540" y="82" font-weight="700">Municipality</text><text x="540" y="98" font-size="10">~2,469 + 16 alcaldías</text>
 <rect x="640" y="60" width="110" height="54" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="695" y="82" font-weight="700">Entidad</text><text x="695" y="98" font-size="10">32</text>
+<text x="695" y="82" font-weight="700">Entity</text><text x="695" y="98" font-size="10">32 states</text>
 <rect x="780" y="20" width="110" height="46" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
-<text x="835" y="40" font-weight="700">Circunscripción</text><text x="835" y="55" font-size="10">5 × 40 dip. RP</text>
+<text x="835" y="40" font-weight="700">Circumscription</text><text x="835" y="55" font-size="10">5 × 40 RP deputies</text>
 <rect x="780" y="80" width="110" height="46" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
-<text x="835" y="100" font-weight="700">Nación</text><text x="835" y="115" font-size="10">32 sen. RP</text>
+<text x="835" y="100" font-weight="700">Nation</text><text x="835" y="115" font-size="10">32 RP senators</text>
 <line x1="130" y1="87" x2="158" y2="87" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="280" y1="80" x2="308" y2="45" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="280" y1="94" x2="308" y2="102" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
@@ -439,138 +453,161 @@ el senador se elige por entidad. <span class="m mK">K</span></p>
 <line x1="750" y1="80" x2="778" y2="45" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 <line x1="750" y1="94" x2="778" y2="102" stroke="#A51C30" stroke-width="1.6" marker-end="url(#arr)"/>
 </g></svg>
-<figcaption><strong>Cadena de anidación.</strong> El voto se emite en casilla; se agrega a sección;
-las secciones definen los distritos. El municipio <em>no</em> contiene necesariamente distritos
-completos: las fronteras de distrito local/federal se dibujan por equilibrio poblacional, no por
-municipio. Consecuencia para el dataset: <code>GEO_KEY_2</code> es la clave canónica por nivel
-(<code>ENT|03</code>, <code>DF|03|07</code>, <code>MUN|03|001</code>).</figcaption>
+<figcaption><strong>Nesting chain.</strong> Votes are cast at polling stations, aggregated into
+sections; sections define districts. A municipality does <em>not</em> necessarily contain whole
+districts: district boundaries are drawn for population balance, not municipal borders. Dataset
+consequence: <code>GEO_KEY_2</code> is the canonical key per level (<code>ENT|03</code>,
+<code>DF|03|07</code>, <code>MUN|03|001</code>).</figcaption>
 </figure>
 
-<h3 id="s13"><span class="secnum">I.3</span>Fórmulas de asignación — por qué el voto no es la curul</h3>
+<h3 id="s13"><span class="secnum">I.3</span>Seat-allocation formulas — why vote share is not seat share</h3>
+<p>Two principles coexist. <strong>Mayoría Relativa (MR)</strong> — single-member plurality:
+whoever gets the most votes in the district wins the seat. <strong>Representación Proporcional
+(RP)</strong> — proportional representation: seats allocated from party lists by quotient and
+largest-remainder formulas, subject to constitutional caps (no party may exceed 300 federal
+deputies; an 8-point overrepresentation cap limits the gap between national vote share and seat
+share). The Senate adds a third device: <strong>primera minoría</strong> (first minority) — one
+seat per entity for the runner-up slate. <span class="m mK">K</span></p>
 <table class="compact">
-<tr><th>Cargo</th><th>Principio</th><th>Regla (CPEUM)</th><th>Lectura en dataset</th></tr>
-<tr><td>Diputado federal</td><td>MR</td><td>300 distritos, mayoría relativa</td>
-<td><code>CARGO=DIPUTADO_FEDERAL</code>, nivel <code>DISTRITO</code></td></tr>
-<tr><td>Diputado federal</td><td>RP</td><td>200 curules, 5 circunscripciones × 40, fórmula de cociente + resto mayor, topes 300 y sobrerrepresentación ±8%</td>
-<td>Voto se agrega por entidad; escaño por circunscripción — no mapeable a distrito</td></tr>
-<tr><td>Senador</td><td>MR</td><td>2 por entidad a la fórmula ganadora (art. 56)</td>
-<td><code>SENADOR_MR</code>, nivel <code>ENTIDAD</code></td></tr>
-<tr><td>Senador</td><td>1ª minoría</td><td>1 por entidad a la primera minoría</td>
-<td>Mismo voto que MR; asignación distinta</td></tr>
-<tr><td>Senador</td><td>RP</td><td>32 de lista nacional, cociente natural</td>
-<td><code>SENADOR_RP</code>, nivel <code>ENTIDAD</code></td></tr>
-<tr><td>Diputado local</td><td>MR/RP</td><td>699 MR + 459 RP = 1,158 curules en 32 congresos</td>
-<td><code>DIPUTADO_LOCAL_MR/RP</code>, nivel <code>DISTRITO</code>/<code>ENTIDAD</code></td></tr>
-<tr><td>Ayuntamiento</td><td>MR/RP municipal</td><td>Presidente MR; regidores por planillas/proporcional según ley estatal</td>
-<td><code>AYUNTAMIENTO</code>, nivel <code>MUNICIPIO</code></td></tr>
+<tr><th>Office</th><th>Principle</th><th>Rule (CPEUM)</th><th>Reading in dataset</th></tr>
+<tr><td>Federal deputy</td><td>MR</td><td>300 districts, plurality wins</td>
+<td><code>CARGO=DIPUTADO_FEDERAL_MR</code>, level <code>DISTRITO</code></td></tr>
+<tr><td>Federal deputy</td><td>RP</td><td>200 seats, 5 circumscriptions × 40, quotient + largest remainder, caps</td>
+<td>Vote aggregates by entity; seat assigned by circumscription — not mappable to a district</td></tr>
+<tr><td>Senator</td><td>MR</td><td>2 per entity to the winning slate (art. 56)</td>
+<td><code>SENADOR_MR</code>, level <code>ENTIDAD</code></td></tr>
+<tr><td>Senator</td><td>First minority</td><td>1 per entity to the runner-up</td>
+<td>Same votes as MR; different allocation</td></tr>
+<tr><td>Senator</td><td>RP</td><td>32 from national list, natural quotient</td>
+<td><code>SENADOR_RP</code>, level <code>ENTIDAD</code></td></tr>
+<tr><td>Local deputy</td><td>MR/RP</td><td>699 MR + 459 RP = 1,158 seats in 32 congresses</td>
+<td><code>DIPUTADO_LOCAL_MR/RP</code>, levels <code>DISTRITO</code>/<code>ENTIDAD</code></td></tr>
+<tr><td>City council</td><td>Municipal MR/RP</td><td>Mayor by plurality; councilors by slate/proportion per state law</td>
+<td><code>AYUNTAMIENTO</code>, level <code>MUNICIPIO</code></td></tr>
 </table>
-<p class="small">Implicación directa: <strong>el share de voto y el share de escaños divergen por
-diseño</strong>. Modelar "quién gana" requiere distinguir el outcome composicional (share) del
-outcome institucional (curul), y éste último es función no lineal del primero. <span class="m mK">K</span></p>
+<p class="small">Direct implication: <strong>vote share and seat share diverge by design</strong>.
+Modeling "who wins" requires distinguishing the compositional outcome (share) from the
+institutional outcome (seat); the latter is a nonlinear function of the former plus the allocation
+formula. <span class="m mK">K</span></p>
 
-<h3 id="s14"><span class="secnum">I.4</span>Partidos y coaliciones — el campo semántico más frágil</h3>
-<p><code>PARTIDO_COALICION</code> en el dataset toma valores como <code>PAN</code>, <code>MORENA</code>
-o <code>PAN_PRI_PRD</code>. Una coalición es una <strong>candidatura común</strong>, no un partido:
-sumar votos de <code>PAN</code> + <code>PRI</code> + <code>PAN_PRI_PRD</code> en la misma elección
-puede doble-contar si la fuente reporta la coalición y sus componentes por separado.
-<span class="m mK">K</span> Regla de análisis: para shares consistentes hay que (a) decidir si la
-coalición se trata como actor único o se redistribuye por reglas OPLE/INE, y (b) ser explícito en el
-notebook. En el canónico actual se conserva el valor de fuente y el flag de consistencia marca los
-grupos donde la suma de shares cae fuera de [0.9, 1.1]. <span class="m mD">D</span></p>
-<p>Cronología crítica de siglas: extinciones recientes — PANAL (2018, refundado parcialmente),
-PES y RSP y FXM (2021) — y aparición de MORENA (2014). Un modelo longitudinal no puede tratar el
-vocabulario de partidos como estacionario: requiere tabla de equivalencias o aprendizaje de
-embeddings por ciclo (ver IV.5). <span class="m mK">K</span></p>
+<h3 id="s14"><span class="secnum">I.4</span>Parties and coalitions — the most fragile semantic field</h3>
+<p><code>PARTIDO_COALICION</code> takes values like <code>PAN</code>, <code>MORENA</code> or
+<code>PAN_PRI_PRD</code>. The acronyms: <strong>PAN</strong> = Partido Acción Nacional
+(center-right, founded 1939); <strong>PRI</strong> = Partido Revolucionario Institucional
+(the hegemonic party 1929–2000); <strong>PRD</strong> = Partido de la Revolución Democrática
+(left, 1989); <strong>MORENA</strong> = Movimiento Regeneración Nacional (registered 2014);
+<strong>PT</strong> = Partido del Trabajo; <strong>PVEM</strong> = Partido Verde Ecologista;
+<strong>MC</strong> = Movimiento Ciudadano. A coalition is a <strong>joint candidacy</strong>,
+not a party: summing <code>PAN</code> + <code>PRI</code> + <code>PAN_PRI_PRD</code> rows in the
+same election can double-count when the source reports the coalition and its components
+separately. <span class="m mK">K</span> Analysis rule: choose explicitly whether the coalition is
+treated as a single actor or redistributed under OPLE/INE rules, and state the choice in the
+notebook. The canonical dataset preserves source values; the consistency flag marks groups whose
+share sums fall outside [0.9, 1.1]. <span class="m mD">D</span></p>
+<p>Critical acronym chronology: recent party extinctions — PANAL (Partido Nueva Alianza), PES
+(Partido Encuentro Social), RSP (Redes Sociales Progresistas), FXM (Fuerza por México), all
+de-registered after 2021 — and the rise of MORENA. A longitudinal model cannot treat the party
+vocabulary as stationary: it needs an equivalence table or per-cycle learned embeddings (see IV.5).
+<span class="m mK">K</span></p>
 
-<h3 id="s15"><span class="secnum">I.5</span>Mapa electoral histórico 1988–2024</h3>
+<h3 id="s15"><span class="secnum">I.5</span>Historical electoral map 1988–2024</h3>
 <ul>
-<li><strong>PRI hegemónico (–1988):</strong> partido de Estado; elecciones competitivas efectivas
-comienzan con la ruptura cardenista de 1988. Los datos SICEE anteriores a 1991 tienen baja
-competitividad real — útiles como baseline, peligrosos como señal. <span class="m mK">K</span></li>
-<li><strong>Transición (1988–2000):</strong> alternancia en Baja California 1989 (primer gobernador
-de oposición), presidencial 2000 (PAN). <span class="m mK">K</span></li>
-<li><strong>Polarización norte-sur (2006–2012):</strong> PAN fuerte en norte industrial; PRD en
-CDMX/sur; PRI territorialmente resiliente. <span class="m mK">K</span><span class="m mL">L</span></li>
-<li><strong>Nacionalización MORENA (2018–2024):</strong> barrido territorial históricamente inédito —
-en 2018 gana entidades que nunca habían votado a la izquierda; en 2024 amplía. Para el modelado:
-cambio de régimen que invalida regularidades pre-2018 si se entrena sin ponderación temporal.
-<span class="m mK">K</span></li>
+<li><strong>PRI hegemony (–1988):</strong> party-state regime; effectively competitive elections
+begin with the 1988 cardenista rupture. Pre-1991 SICEE data show low real competitiveness —
+useful as a baseline, dangerous as a signal. <span class="m mK">K</span></li>
+<li><strong>Transition (1988–2000):</strong> alternation in Baja California 1989 (first opposition
+governor), presidential alternation 2000 (PAN). <span class="m mK">K</span></li>
+<li><strong>North–south polarization (2006–2012):</strong> PAN strong in the industrial north;
+PRD in Mexico City and the south; PRI territorially resilient. <span class="m mK">K</span><span class="m mL">L</span></li>
+<li><strong>MORENA nationalization (2018–2024):</strong> historically unprecedented territorial
+sweep — in 2018 MORENA wins entities that had never voted left; 2024 widens the map. For modeling:
+a regime change that invalidates pre-2018 regularities unless temporal weighting or per-regime
+parameters are used. <span class="m mK">K</span></li>
 </ul>
 
-<h3 id="s16"><span class="secnum">I.6</span>Lectura de las cifras — diccionario vivo de variables clave</h3>
+<h3 id="s16"><span class="secnum">I.6</span>Reading the figures — living dictionary of key variables</h3>
 <table class="compact">
-<tr><th>Variable</th><th>Definición</th><th>Regla de uso</th></tr>
-<tr><td><code>VOTOS</code></td><td>Votos a favor del partido/coalición en la unidad</td><td>Nunca nulo tras pipeline; ceros legítimos en anuladas <span class="m mD">D</span></td></tr>
-<tr><td><code>SHARE_TOTAL</code>/<code>SHARE_VALIDO</code></td><td>Votos ÷ <code>TOTAL_VOTOS</code> / ÷ votos válidos (menos nulos y CNR)</td><td>Modelar <code>SHARE_VALIDO</code> (composicional real); <code>SHARE_TOTAL</code> incluye abstención efectiva</td></tr>
-<tr><td><code>LISTA_NOMINAL</code></td><td>Electores con credencial vigente y recogida (⊂ padrón)</td><td>Denominador correcto de <code>PARTICIPACION</code>; nunca usar padrón <span class="m mK">K</span></td></tr>
-<tr><td><code>TASA_NULOS</code>/<code>TASA_NREG</code></td><td>Nulos y candidatos no registrados sobre total</td><td>Outcome propio (voto de protesta), no solo ruido <span class="m mP">P</span></td></tr>
-<tr><td><code>NEP</code></td><td>Número efectivo de partidos = 1/Σ s<sub>i</sub>²</td><td>Índice Laakso-Taagepera; mide fragmentación <span class="m mL">L</span></td></tr>
-<tr><td><code>ALTERNANCIA</code></td><td>1 si el partido ganador difiere del ganador previo en la misma unidad</td><td>Definición mínima operativa; refinable con incumbencia individual</td></tr>
-<tr><td><code>AÑO_SEXENIO</code></td><td>Año dentro del sexenio presidencial (1–6)</td><td>Captura ciclo de castigo/premial presidencial <span class="m mP">P</span></td></tr>
-<tr><td><code>FLAG_CONSISTENCIA</code></td><td>1 si el grupo viola controles de calidad de fuente</td><td>Filtro de entrenamiento (<code>=0</code>); objeto de estudio en capstone C4</td></tr>
+<tr><th>Variable</th><th>Definition</th><th>Usage rule</th></tr>
+<tr><td><code>VOTOS</code></td><td>Votes for the party/coalition in the unit</td><td>Never null post-pipeline; legitimate zeros in annulled elections <span class="m mD">D</span></td></tr>
+<tr><td><code>SHARE_TOTAL</code>/<code>SHARE_VALIDO</code></td><td>Votes ÷ <code>TOTAL_VOTOS</code> / ÷ valid votes (excluding nulls and write-ins)</td><td>Model <code>SHARE_VALIDO</code> (the true compositional quantity); <code>SHARE_TOTAL</code> absorbs effective abstention</td></tr>
+<tr><td><code>LISTA_NOMINAL</code></td><td>Voters with valid, collected credential (⊂ padrón registry)</td><td>Correct denominator of <code>PARTICIPACION</code>; never use the padrón <span class="m mK">K</span></td></tr>
+<tr><td><code>TASA_NULOS</code>/<code>TASA_NREG</code></td><td>Null ballots and non-registered candidates over total</td><td>An outcome of its own (protest vote), not just noise <span class="m mP">P</span></td></tr>
+<tr><td><code>NEP</code></td><td>Effective number of parties = 1/Σ s<sub>i</sub>²</td><td>Laakso–Taagepera index; measures fragmentation <span class="m mL">L</span></td></tr>
+<tr><td><code>ALTERNANCIA</code></td><td>1 if the winning party differs from the previous winner in the same unit</td><td>Minimal operational definition; refinable with individual incumbency</td></tr>
+<tr><td><code>AÑO_SEXENIO</code></td><td>Year within the six-year presidential term (1–6)</td><td>Captures the presidential punishment/reward cycle <span class="m mP">P</span></td></tr>
+<tr><td><code>FLAG_CONSISTENCIA</code></td><td>1 if the group violates source quality controls</td><td>Training filter (<code>=0</code>); object of study in capstone C4</td></tr>
 </table>
 
-<h3 id="s17"><span class="secnum">I.7</span>Advertencias de comparabilidad temporal</h3>
-<div class="call c-risk"><span class="ct">Checklist de no-comparabilidad</span>
+<h3 id="s17"><span class="secnum">I.7</span>Temporal-comparability warnings</h3>
+<div class="call c-risk"><span class="ct">Non-comparability checklist</span>
 <ul>
-<li><strong>Redistritaciones federales 2005/2017/2022:</strong> <code>ID_DISTRITO</code> federal
-no es estable entre procesos — un análisis panel por distrito cruza la redistritación debe usar
-sección o municipio como puente, o tratar el distrito como unidad nueva. <span class="m mK">K</span></li>
-<li><strong>DF→CDMX (2016):</strong> el pipeline ya mapea a <code>CIUDAD DE MEXICO</code>; alcaldías
-equiparables a municipios desde 2018. <span class="m mD">D</span></li>
-<li><strong>Usos y costumbres:</strong> ~418 de 570 municipios de Oaxaca eligen autoridad sin
-elección partidista — generan ceros estructurales, no abstención. Modelar aparte o excluir.
+<li><strong>Federal redistricting 2005/2017/2022:</strong> federal <code>ID_DISTRITO</code> is not
+stable across processes — a panel analysis by district that crosses a redistricting must bridge
+via section or municipality, or treat the district as a new unit. <span class="m mK">K</span></li>
+<li><strong>DF→CDMX (2016):</strong> the pipeline maps Distrito Federal to
+<code>CIUDAD DE MEXICO</code>; alcaldías comparable to municipalities from 2018. <span class="m mD">D</span></li>
+<li><strong>Usos y costumbres:</strong> ~418 of 570 Oaxaca municipalities select authorities without
+partisan elections — producing structural zeros, not abstention. Model separately or exclude.
 <span class="m mK">K</span></li>
-<li><strong>Reelección:</strong> municipal solo existe desde ~2018; legislativa federal desde 2021 —
-variables de incumbencia tienen truncamiento de naturaleza, no de dato faltante. <span class="m mK">K</span></li>
-<li><strong>Gubernaturas escalonadas:</strong> calendarios estatales no coinciden; 2015–2024 cada
-entidad tiene su propio ciclo — <code>ANIO</code> solo no define el panel; hace falta
-(cargo × entidad). <span class="m mK">K</span></li>
+<li><strong>Re-election:</strong> municipal re-election exists only from ~2018; federal legislative
+re-election from 2021 — incumbency variables are censored by nature, not by missing data.
+<span class="m mK">K</span></li>
+<li><strong>Staggered gubernatorial calendars:</strong> state cycles do not coincide; in 2015–2024
+each entity has its own calendar — <code>ANIO</code> alone does not define the panel; the unit
+is (office × entity). <span class="m mK">K</span></li>
 </ul></div>
 </div>
 </div>
 
-<!-- ============ PARTE II — DATASET ============ -->
+<!-- ============ PART II — DATASET (real sizes) ============ -->
 <div class="part" id="p2">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte II</div>
-<h2>Dataset canónico y pipeline — qué datos tenemos y cómo se construyeron</h2>
-<p>La capa de datos es el fundamento verificable del proyecto: 196 ZIPs SICEE → series tidy →
-dataset canónico long/wide con QA automatizado. Todo número de esta parte está respaldado por
-<code>data/processed/canonical/qa_report.json</code>. <span class="m mD">D</span></p>
+<div class="pn">Part II</div>
+<h2>Canonical dataset and pipeline — what data we actually have</h2>
+<p>Data scale is reported in <strong>rows, words and bytes</strong>, not file counts. Every figure
+is backed by <code>qa_report.json</code>, <code>resumen_series.json</code> or the mañaneras data
+manifest. <span class="m mD">D</span></p>
 </div>
 
-<h3 id="s21"><span class="secnum">II.1</span>Inventario SICEE</h3>
+<h3 id="s21"><span class="secnum">II.1</span>Raw-data inventory — real sizes</h3>
 <table class="compact">
-<tr><th>Dimensión</th><th>Valor</th><th>Detalle</th></tr>
-<tr><td>ZIPs totales</td><td>196</td><td>50 federales · 146 locales <span class="m mD">D</span></td></tr>
-<tr><td>Archivos internos</td><td>6,992</td><td>~1.63 GB crudos <span class="m mD">D</span></td></tr>
-<tr><td>Rango temporal</td><td>1991–2024</td><td>cobertura irregular por cargo/entidad <span class="m mD">D</span></td></tr>
-<tr><td>Cargos cubiertos</td><td colspan="2">PRESIDENCIA · DIPUTADO_FEDERAL_MR/RP · SENADOR_MR/RP ·
-GOBERNADOR · DIPUTADO_LOCAL_MR/RP · AYUNTAMIENTO <span class="m mD">D</span></td></tr>
+<tr><th>Layer</th><th>Rows (data, excl. header)</th><th>Size on disk</th><th>Coverage</th></tr>
+<tr><td>Raw SICEE extracts (federal)</td><td>~6,992 source CSVs</td><td>1.1 GB</td><td>1991–2024 federal contests <span class="m mD">D</span></td></tr>
+<tr><td>Raw SICEE extracts (local)</td><td>—</td><td>568 MB</td><td>State/municipal contests <span class="m mD">D</span></td></tr>
+<tr><td>Tidy series — municipal mayors (<code>serie_municipal_ayuntamiento</code>)</td><td><strong>354,113</strong></td><td>32 MB</td><td>~2,400 municipalities × cycles <span class="m mD">D</span></td></tr>
+<tr><td>Tidy series — local deputies (<code>serie_estatal_diputados_local</code>)</td><td><strong>77,077</strong></td><td>7.7 MB</td><td>699 local districts + RP <span class="m mD">D</span></td></tr>
+<tr><td>Tidy series — federal deputies MR (<code>serie_diputados_fed_mr</code>)</td><td><strong>6,752</strong></td><td>594 KB</td><td>300 districts × cycles <span class="m mD">D</span></td></tr>
+<tr><td>Tidy series — Senate (<code>serie_senado_entidad</code>)</td><td><strong>4,480</strong></td><td>366 KB</td><td>32 entities × cycles <span class="m mD">D</span></td></tr>
+<tr><td>Tidy series — Presidency (<code>serie_presidencia_entidad</code>)</td><td><strong>3,520</strong></td><td>274 KB</td><td>32 entities × cycles <span class="m mD">D</span></td></tr>
+<tr><td>Tidy series — governors (<code>serie_estatal_gobernador</code>)</td><td><strong>1,538</strong></td><td>141 KB</td><td>32 entities × cycles <span class="m mD">D</span></td></tr>
+<tr><td><strong>Canonical wide (model-ready)</strong></td><td><strong>355,176 long / 11,739 wide</strong></td><td><strong>314 MB / 10 MB</strong></td><td>93 columns <span class="m mD">D</span></td></tr>
+<tr><td><strong>Mañaneras text corpus</strong></td><td><strong>514,909 interventions · 18,135,177 words</strong></td><td>~10 CSV.gz yearly files</td><td>1,611 conferences, 2018-12 → 2025-08 <span class="m mD">D</span></td></tr>
 </table>
+<p class="small">Reading: the modeling table is 355,176 rows × 93 columns; the speech corpus is
+18.1 million spoken words — roughly 25–30 million tokens once tokenized. These are the quantities
+that determine model capacity: ~5–8 usable electoral cycles per geographic unit, but half a
+million text interventions. <span class="m mD">D</span></p>
 
-<h3 id="s22"><span class="secnum">II.2</span>Pipeline de construcción</h3>
+<h3 id="s22"><span class="secnum">II.2</span>Construction pipeline</h3>
 <figure class="arch">
 <svg viewBox="0 0 900 150" role="img">
-<defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-<path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
+<defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle">
 <rect x="10" y="45" width="150" height="60" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="70" font-weight="700">download_sicee.py</text><text x="85" y="86" font-size="10">196 ZIPs → raw/</text>
+<text x="85" y="70" font-weight="700">download_sicee.py</text><text x="85" y="86" font-size="10">1.67 GB raw → raw/</text>
 <rect x="200" y="45" width="150" height="60" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
 <text x="275" y="66" font-weight="700">build_series.py</text>
-<text x="275" y="82" font-size="10">tidy long por nivel</text>
-<text x="275" y="96" font-size="9" fill="#A13544">BOM·mojibake·ID_DISTRITO_LOCAL</text>
+<text x="275" y="82" font-size="10">tidy long by level</text>
+<text x="275" y="96" font-size="9" fill="#A13544">BOM · mojibake · ID_DISTRITO_LOCAL</text>
 <rect x="390" y="45" width="170" height="60" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
 <text x="475" y="66" font-weight="700">build_canonical_dataset.py</text>
-<text x="475" y="82" font-size="10">normalización + outcomes + exógenas</text>
-<text x="475" y="96" font-size="9" fill="#A13544">merges m:1 validados</text>
+<text x="475" y="82" font-size="10">normalization + outcomes + exog</text>
+<text x="475" y="96" font-size="9" fill="#A13544">m:1-validated merges</text>
 <rect x="600" y="20" width="140" height="50" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="670" y="42" font-weight="700">canonical_long.csv</text><text x="670" y="58" font-size="10">355,176 × 93</text>
+<text x="670" y="42" font-weight="700">canonical_long.csv</text><text x="670" y="58" font-size="10">355,176 × 93 · 314 MB</text>
 <rect x="600" y="85" width="140" height="50" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="670" y="107" font-weight="700">canonical_wide.csv</text><text x="670" y="123" font-size="10">11,739 × 93</text>
+<text x="670" y="107" font-weight="700">canonical_wide.csv</text><text x="670" y="123" font-size="10">11,739 × 93 · 10 MB</text>
 <rect x="770" y="45" width="120" height="60" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="830" y="70" font-weight="700">qa_report.json</text><text x="830" y="86" font-size="10">0 dup · 0 null · 318 flags</text>
 <line x1="160" y1="75" x2="198" y2="75" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
@@ -579,110 +616,151 @@ GOBERNADOR · DIPUTADO_LOCAL_MR/RP · AYUNTAMIENTO <span class="m mD">D</span></
 <line x1="560" y1="85" x2="598" y2="110" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
 <line x1="740" y1="75" x2="768" y2="75" stroke="#A51C30" stroke-width="1.6" marker-end="url(#a2)"/>
 </g></svg>
-<figcaption><strong>Flujo verificable.</strong> Cada etapa es un script determinista; los merges
-llevan <code>validate="m:1"</code> y aserciones de cardinalidad — defecto histórico corregido:
-un merge many-to-many había inflado 387k filas válidas a 11.5M fantasmas.</figcaption>
+<figcaption><strong>Verifiable flow.</strong> Each stage is a deterministic script; all merges
+carry <code>validate="m:1"</code> plus cardinality assertions — a corrected historical defect:
+a many-to-many merge had inflated 387k valid rows to 11.5M phantom rows.</figcaption>
 </figure>
 
-<h3 id="s23"><span class="secnum">II.3</span>Esquema canónico — clave, outcomes y estructurales</h3>
-<p>Clave única de observación (0 duplicados verificados):</p>
-<div class="formula">clave = (<span class="sub">AMBITO, CARGO×PRINCIPIO, ANIO, ENTIDAD_CANONICA,
-GEO_KEY_2, PARTIDO_COALICION, FUENTE</span>)<span class="fl">— granularidad: elección × geo × partido</span></div>
-<p>Tres familias de variables:</p>
+<h3 id="s23"><span class="secnum">II.3</span>Canonical schema — key, outcomes, structural variables</h3>
+<p>Unique observation key (0 duplicates verified):</p>
+<div class="formula">key = (<span class="sub">AMBITO, CARGO×PRINCIPLE, ANIO, ENTIDAD_CANONICA,
+GEO_KEY_2, PARTIDO_COALICION, SOURCE_FILE</span>)<span class="fl">— grain: election × geography × party</span></div>
+<p>Three variable families:</p>
 <ul>
 <li><strong>Outcomes:</strong> <code>SHARE_TOTAL</code>, <code>SHARE_VALIDO</code>, <code>ES_GANADOR</code>,
-<code>GANADOR</code>, <code>MARGEN_VICTORIA</code>, <code>NEP</code>, <code>NUM_PARTIDOS</code>,
-<code>PARTICIPACION</code>, <code>TASA_NULOS</code>, <code>TASA_NREG</code>, <code>ALTERNANCIA</code>.
+<code>GANADOR</code>, <code>MARGEN_VICTORIA</code>, <code>NEP</code> (effective number of parties),
+<code>NUM_PARTIDOS</code>, <code>PARTICIPACION</code> (turnout = votes ÷ lista nominal),
+<code>TASA_NULOS</code> (null-ballot rate), <code>TASA_NREG</code> (non-registered candidate rate),
+<code>ALTERNANCIA</code> (party alternation flag). <span class="m mD">D</span></li>
+<li><strong>Structural:</strong> <code>ES_PRESIDENCIAL</code>, <code>ES_INTERMEDIA</code>,
+<code>ES_FEDERAL</code>, <code>ES_LOCAL</code>, <code>AÑO_SEXENIO</code> (year within the six-year
+term), <code>NIVEL_GEO</code>, <code>FLAG_CONSISTENCIA</code>. <span class="m mD">D</span></li>
+<li><strong>Source context:</strong> <code>VOTOS_TOTALES</code>, <code>VOTOS_VALIDOS</code>,
+<code>LISTA_NOMINAL</code>, <code>ARCHIVO</code>, <code>TERRITORIO</code> (domestic vs abroad ballot).
 <span class="m mD">D</span></li>
-<li><strong>Estructurales:</strong> <code>ES_PRESIDENCIAL</code>, <code>ES_INTERMEDIA</code>,
-<code>ES_FEDERAL</code>, <code>ES_LOCAL</code>, <code>AÑO_SEXENIO</code>, <code>NIVEL_GEO</code>,
-<code>FLAG_CONSISTENCIA</code>. <span class="m mD">D</span></li>
-<li><strong>Contexto de fuente:</strong> <code>VOTOS_TOTALES</code>, <code>VOTOS_VALIDOS</code>,
-<code>LISTA_NOMINAL</code>, <code>ARCHIVO</code>, <code>TERRITORIO</code>. <span class="m mD">D</span></li>
 </ul>
 
-<h3 id="s24"><span class="secnum">II.4</span>Features exógenas y aprobación</h3>
+<h3 id="s24"><span class="secnum">II.4</span>Exogenous features and approval data</h3>
 <table class="compact">
-<tr><th>Familia</th><th>Columnas</th><th>Nivel temporal</th><th>Cobertura</th></tr>
-<tr><td>Confianza del consumidor</td><td><code>enco_*</code>, <code>icc_*</code></td><td>anual nacional</td><td>desde 2001 <span class="m mD">D</span></td></tr>
-<tr><td>Macro</td><td><code>ocde_*</code>, <code>fred_*</code> (PIB, inflación, TC)</td><td>anual nacional</td><td>1969–2026 <span class="m mD">D</span></td></tr>
-<tr><td>Remesas</td><td><code>remesas_*</code></td><td>anual por entidad</td><td>98.9% <span class="m mD">D</span></td></tr>
-<tr><td>Aprobación</td><td><code>aprob_*</code> (a construir)</td><td>por evento encuesta</td><td>heterogénea — ver catálogo <span class="m mP">P</span></td></tr>
+<tr><th>Family</th><th>Columns</th><th>Granularity</th><th>Coverage</th></tr>
+<tr><td>Consumer confidence (ENCO — Encuesta Nacional sobre Confianza del Consumidor)</td>
+<td><code>enco_*</code>, <code>icc_*</code></td><td>annual national</td><td>98.91% <span class="m mD">D</span></td></tr>
+<tr><td>Macro (OCDE/FRED series)</td><td><code>ocde_*</code>, <code>fred_*</code> — GDP, inflation, exchange rate</td>
+<td>annual national</td><td>1969–2026 <span class="m mD">D</span></td></tr>
+<tr><td>Remittances</td><td><code>remesas_*</code></td><td>annual per-entity</td><td>98.91% <span class="m mD">D</span></td></tr>
+<tr><td>Approval</td><td><code>aprob_*</code> (to be built)</td><td>per-poll event</td>
+<td>heterogeneous — see catalog <span class="m mP">P</span></td></tr>
 </table>
-<p><strong>Regla anti-leakage:</strong> las features anuales se integran con sufijo <code>_LAG1</code>
-(el año previo a la elección) — nunca el año de la elección ni revisiones posteriores.
+<p><strong>Anti-leakage rule:</strong> annual features are joined with a <code>_LAG1</code> suffix —
+the year <em>before</em> the election — never the election year and never revised values.
 <span class="m mD">D</span></p>
-<p><strong>Aprobación — catálogo de fuentes</strong> (documentado en
-<code>docs/VARIABLES_EXOGENAS.md</code> §2.5): Reforma (histórico presidencial), Consulta Mitofsky
-(presidencial/estatal/municipal), El Financiero (serie comparativa reciente), BGC/Parametría/OPR,
-Latinobarómetro (actitudes), Pew (confianza institucional), Demoscopia Digital (subnacional).
-No existe serie única pública 1991–2024: el proyecto construirá una <strong>serie armonizada</strong>
-con metadatos de encuestadora, modo, muestra y redacción, más indicador de missingness.
+<p><strong>Approval catalog</strong> (documented in <code>docs/VARIABLES_EXOGENAS.md</code> §2.5):
+Reforma (historical presidential), Consulta Mitofsky (presidential/state/municipal), El Financiero
+(recent comparative series), BGC/Parametría/OPR, Latinobarómetro (democratic attitudes), Pew
+Research Center (institutional trust), Demoscopia Digital (subnational). No single public series
+spans 1991–2024: the project will build a <strong>harmonized series</strong> carrying per-row
+metadata — pollster, mode, sample, question wording — plus a missingness indicator.
 <span class="m mP">P</span></p>
 
-<h3 id="s25"><span class="secnum">II.5</span>QA y casos límite</h3>
-<div class="call c-ok"><span class="ct">qa_report.json — estado verificado</span>
+<h3 id="s25"><span class="secnum">II.5</span>The mañaneras text corpus — prior analysis integrated</h3>
+<p>The presidential morning conferences ("mañaneras") were previously assembled and verified in a
+companion project (<code>09-nlp-mananeras</code>, Lo que México Cree repo, branch
+<code>feat/nlp-mananeras-dataset-completo</code>, cutoff 2026-09-02). Verified ingest figures:</p>
+<table class="compact">
+<tr><th>Block</th><th>Conferences</th><th>Interventions</th><th>Spoken words</th><th>Source</th></tr>
+<tr><td>AMLO (Andrés Manuel López Obrador)</td><td>1,390</td><td>430,449</td><td>15,568,520</td>
+<td>NOSTRODATA + roicort (3 days recovered) <span class="m mD">D</span></td></tr>
+<tr><td>Sheinbaum (Claudia Sheinbaum)</td><td>221</td><td>84,460</td><td>2,566,657</td>
+<td>NOSTRODATA <span class="m mD">D</span></td></tr>
+<tr><td><strong>Total</strong></td><td><strong>1,611</strong></td><td><strong>514,909</strong></td>
+<td><strong>18,135,177</strong></td><td>2018-12-04 → 2025-08-22 <span class="m mD">D</span></td></tr>
+</table>
+<p>Each row is one speaker intervention with date, participant, text and word count — i.e., a
+speaker-attributed, timestamped corpus. Declared gaps: one AMLO day unrecoverable (2024-05-23),
+and Sheinbaum post-2025-08-22 blocked by the gob.mx WAF (documented, not silently dropped).
+A legacy lexical-sentiment column inherited from NOSTRODATA is used only as a baseline, flagged as
+undocumented provenance. <span class="m mD">D</span> This corpus feeds every lecture in Part IV and
+the textual channel of the multimodal model (Part V); joining it to the canonical dataset uses the
+<strong>publication date</strong> of each conference — never the date of the event discussed —
+so that no post-election text leaks into pre-election features. <span class="m mP">P</span></p>
+
+<h3 id="s26"><span class="secnum">II.6</span>QA and edge cases</h3>
+<div class="call c-ok"><span class="ct">qa_report.json — verified state</span>
 <ul>
-<li>Duplicados en clave canónica: <strong>0</strong> <span class="m mD">D</span></li>
-<li>Nulos en <code>ENTIDAD_CANONICA</code>/<code>GEO_KEY_2</code>/<code>VOTOS</code>: <strong>0</strong>
+<li>Duplicates on canonical key: <strong>0</strong> <span class="m mD">D</span></li>
+<li>Nulls in <code>ENTIDAD_CANONICA</code>/<code>GEO_KEY_2</code>/<code>VOTOS</code>: <strong>0</strong>
 <span class="m mD">D</span></li>
-<li>Entidades canónicas: <strong>32</strong> (DF→CDMX consolidado) <span class="m mD">D</span></li>
-<li>Grupos con <code>FLAG_CONSISTENCIA=1</code>: <strong>318 de 11,739 (2.7%)</strong> —
-elecciones anuladas (Chiapas 2015, Tampico 2018), totales de fuente inconsistentes; conservados
-y marcados, no eliminados. <span class="m mD">D</span></li>
-<li>Mojibake en campos geográficos: <strong>0</strong> tras limpieza BOM/UTF-8 <span class="m mD">D</span></li>
+<li>Canonical entities: <strong>32</strong> (DF→CDMX consolidated) <span class="m mD">D</span></li>
+<li>Groups with <code>FLAG_CONSISTENCIA=1</code>: <strong>318 of 11,739 (2.7%)</strong> —
+13,592 rows; annulled elections (Chiapas 2015, Tampico 2018), inconsistent source totals;
+kept and flagged, not deleted. <span class="m mD">D</span></li>
+<li>Mojibake in geographic fields: <strong>0</strong> after BOM/UTF-8 cleanup <span class="m mD">D</span></li>
 </ul></div>
-<div class="call c-risk"><span class="ct">Casos límite que condicionan el modelado</span>
+<div class="call c-risk"><span class="ct">Edge cases conditioning the modeling</span>
 <ul>
-<li>Archivos 2012 presidenciales separan "voto en el extranjero" del territorial — el pipeline
-suma ambos en la misma clave (<code>TERRITORIO</code> conserva la distinción). <span class="m mD">D</span></li>
-<li>Filas todas-NaN al final de algunos CSV municipales (VER 2017, BC 2019) — eliminadas.
+<li>2012 presidential files split "votes from abroad" vs territory — the pipeline sums both within
+the same key; <code>TERRITORIO</code> preserves the distinction. <span class="m mD">D</span></li>
+<li>All-NaN trailing rows in some municipal CSVs (Veracruz 2017, Baja California 2019) — dropped.
 <span class="m mD">D</span></li>
-<li>Coaliciones reportadas junto a sus partidos componentes inflan la suma de shares — decisión de
-modelado pendiente (actor único vs. redistribución). <span class="m mP">P</span></li>
+<li>Coalitions reported alongside their component parties can inflate share sums — modeling decision
+pending (single actor vs redistribution). <span class="m mP">P</span></li>
 </ul></div>
 </div>
 </div>
 
-<!-- ============ PARTE III — DL LECTURES W01-W06 ============ -->
+<!-- ============ PART III — DL LECTURES W01-W06 (expanded theory) ============ -->
 <div class="part" id="p3">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte III</div>
-<h2>Lectures de Deep Learning — CSCI E-89 aplicadas al dataset electoral</h2>
-<p>Catorce semanas del curso convertidas en análisis ejecutables. Cada lecture sigue el esqueleto:
-por qué existe → formalismo → arquitectura SVG → aplicación al dataset → spec de notebook →
-interpretación → riesgos. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
+<div class="pn">Part III</div>
+<h2>Deep Learning lectures — CSCI E-89 applied to the electoral dataset</h2>
+<p>Fourteen course weeks turned into executable analyses. Every lecture follows the skeleton:
+<em>why it exists → theoretical framework (every term derived, every acronym expanded) →
+architecture diagram → dataset binding → notebook spec → electoral interpretation → risks</em>.
+<span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
 </div>
 
-<!-- W01 -->
+<!-- ============ W01 MLP ============ -->
 <div class="lecture" id="dl1">
 <header>
-<div class="wk"><span class="w">DL · Semana 01</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.1 Perceptrón multicapa — el baseline tabular honesto</h3>
-<div class="sub">Introducción a redes neuronales: unidades, activaciones, propagación hacia adelante y atrás.</div>
+<div class="wk"><span class="w">DL · Week 01</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.1 The Multi-Layer Perceptron — the honest tabular baseline</h3>
+<div class="sub">Neural-network fundamentals: units, activation functions, forward and backward propagation.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Una elección es, en primera aproximación, una función no lineal de features tabulares:
-historial de voto, marginación, incumbencia, macro. Antes de cualquier arquitectura exótica se
-necesita el baseline que responde: <em>¿qué tanta señal hay en lo tabular, sin estructura?</em></p>
-<h4>Formalismo</h4>
-<div class="formula">h<sup>[l]</sup> = σ( W<sup>[l]</sup> h<sup>[l−1]</sup> + b<sup>[l]</sup> ),
-&nbsp;&nbsp; ŷ = softmax( W<sup>[L]</sup> h<sup>[L−1]</sup> + b<sup>[L]</sup> )</div>
-<p>σ = ReLU/GELU; softmax final porque el outcome es <strong>composicional</strong> (los shares de
-partidos suman 1). Pérdida: cross-entropy sobre la distribución de shares, más interpretable que
-MSE para vectores en el simplex. <span class="m mL">L</span></p>
-<h4>Arquitectura</h4>
+<h4>Why it exists</h4>
+<p>An election is, to first approximation, a nonlinear function of tabular features: vote history,
+marginalization, incumbency, macroeconomics. Before any exotic architecture we need the baseline
+answering: <em>how much signal lives in the table alone, with no explicit structure?</em></p>
+<h4>Theoretical framework</h4>
+<p>A neuron computes an affine map plus a nonlinearity: <code>y = σ(w·x + b)</code>. The
+<strong>Universal Approximation Theorem</strong> (Cybenko 1989; Hornik 1991) states that a single
+hidden layer with enough units approximates any continuous function on a compact set — the
+existence guarantee; depth is the efficiency story (functions computable with exponentially fewer
+units deep than wide; Eldan &amp; Shamir 2016). <span class="m mL">L</span></p>
+<p><strong>Activation functions, expanded:</strong> ReLU (Rectified Linear Unit) =
+<code>max(0, z)</code> — cheap, non-saturating, but can "die" at 0; GELU (Gaussian Error Linear
+Unit) = <code>x·Φ(x)</code> where Φ is the standard-normal CDF — a smooth probabilistic gating
+used by Transformers; softmax turns a real vector <code>z ∈ R^K</code> into a probability vector
+<code>exp(z_i)/Σ_j exp(z_j)</code> lying in the (K−1)-simplex.</p>
+<div class="formula">h<sup>[l]</sup> = σ( W<sup>[l]</sup> h<sup>[l−1]</sup> + b<sup>[l]</sup> ),&nbsp;
+ŷ = softmax( W<sup>[L]</sup> h<sup>[L−1]</sup> + b<sup>[L]</sup> )</div>
+<p><strong>Loss:</strong> categorical cross-entropy CE = −Σ_k y_k log ŷ_k measures the divergence
+between predicted and empirical party-share distributions; it is the MLE objective for a
+categorical model and the natural metric for our compositional outcome (shares sum to 1).
+<strong>Backpropagation</strong> is the chain rule applied layer-wise — computing ∂L/∂W^[l] by
+propagating δ^[l] = (∂L/∂h^[l]) ⊙ σ′ — enabling gradient descent in O(#params) memory.
+<span class="m mL">L</span></p>
+<h4>Architecture</h4>
 <figure class="arch">
 <svg viewBox="0 0 760 170" role="img"><defs><marker id="a3" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
 <rect x="15" y="35" width="140" height="100" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
 <text x="85" y="55" font-weight="700">X  B×F</text>
 <text x="85" y="72" font-size="10">F ≈ 60–80 features</text>
-<text x="85" y="86" font-size="9">shares_lag · macro_lag1</text>
-<text x="85" y="99" font-size="9">estructurales · embeds</text>
-<text x="85" y="112" font-size="9">entidad/cargo</text>
+<text x="85" y="86" font-size="9">share_lag · macro_lag1</text>
+<text x="85" y="99" font-size="9">structural · entity/party</text>
+<text x="85" y="112" font-size="9">embeddings</text>
 <rect x="200" y="35" width="110" height="100" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="255" y="58" font-weight="700">Dense 256</text><text x="255" y="74" font-size="10">GELU + Drop 0.3</text>
 <text x="255" y="90" font-size="10">B×256</text>
@@ -691,752 +769,856 @@ MSE para vectores en el simplex. <span class="m mL">L</span></p>
 <text x="405" y="90" font-size="10">B×128</text>
 <rect x="500" y="35" width="110" height="100" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
 <text x="555" y="58" font-weight="700">Dense K</text><text x="555" y="74" font-size="10">softmax</text>
-<text x="555" y="90" font-size="10">B×K partidos</text>
+<text x="555" y="90" font-size="10">B×K parties</text>
 <rect x="650" y="35" width="95" height="100" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
 <text x="697" y="58" font-weight="700">heads</text>
 <text x="697" y="74" font-size="10">share (softmax)</text>
-<text x="697" y="88" font-size="10">turnout (σ lineal)</text>
-<text x="697" y="102" font-size="10">ganador (CE)</text>
+<text x="697" y="88" font-size="10">turnout (linear)</text>
+<text x="697" y="102" font-size="10">winner (CE)</text>
 <line x1="155" y1="85" x2="198" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 <line x1="310" y1="85" x2="348" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 <line x1="460" y1="85" x2="498" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 <line x1="610" y1="85" x2="648" y2="85" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a3)"/>
 </g></svg>
-<figcaption>MLP tabular A1. Embeddings aprendidos para entidad (32×16) y partido (~40×16) se
-concatenan a las features densas.</figcaption></figure>
-<h4>Aplicación al dataset</h4>
-<table class="compact"><tr><th>Input</th><th>Columna(s)</th><th>Transformación</th></tr>
-<tr><td>Historial</td><td><code>SHARE_VALIDO</code> del ciclo previo por partido</td><td>pivot wide, fillna 0 + indicador</td></tr>
-<tr><td>Macro</td><td><code>fred_*</code>/<code>ocde_*</code>/<code>enco_*_LAG1</code></td><td>estandarización fit solo en train</td></tr>
+<figcaption>Tabular MLP (analysis A1). Learned embeddings for entity (32×16) and party (~40×16)
+concatenate to the dense features. Output: compositional share via softmax — the K-vector lies
+in the simplex by construction.</figcaption></figure>
+<h4>Dataset binding</h4>
+<table class="compact"><tr><th>Input</th><th>Column(s)</th><th>Transform</th></tr>
+<tr><td>History</td><td><code>SHARE_VALIDO</code> previous cycle per party</td><td>pivot wide, fillna 0 + indicator</td></tr>
+<tr><td>Macro</td><td><code>fred_*</code>/<code>ocde_*</code>/<code>enco_*_LAG1</code></td><td>standardize, scaler fit on train only</td></tr>
 <tr><td>Territorial</td><td><code>remesas_*_LAG1</code>, <code>LISTA_NOMINAL</code></td><td>log1p + z-score</td></tr>
-<tr><td>Estructural</td><td><code>AÑO_SEXENIO</code>, <code>ES_*</code>, <code>NEP</code> lag</td><td>one-hot / ordinal</td></tr>
-<tr><td>Categóricas</td><td><code>ENTIDAD_CANONICA</code>, <code>PARTIDO_COALICION</code>, <code>CARGO</code></td><td>embeddings 16d</td></tr></table>
-<h4>Spec de notebook</h4>
+<tr><td>Structural</td><td><code>AÑO_SEXENIO</code>, <code>ES_*</code>, <code>NEP</code> lag</td><td>one-hot / ordinal</td></tr>
+<tr><td>Categoricals</td><td><code>ENTIDAD_CANONICA</code>, <code>PARTIDO_COALICION</code>, <code>CARGO</code></td><td>16-d embeddings</td></tr></table>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 03_mlp_baseline.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Data</td><td><code>canonical_long.csv</code>, <code>FLAG_CONSISTENCIA=0</code>, cargos: PRESIDENCIA + GOBERNADOR + DIPUTADO_FEDERAL_MR</td></tr>
-<tr><td>Split</td><td>train ≤2012 · val 2015-2018 · test 2021-2024</td></tr>
-<tr><td>Métricas</td><td>MAE share · top-1 winner acc · Brier · ECE (calibración)</td></tr>
-<tr><td>Baselines</td><td>persistencia (share previo) · regresión multinomial</td></tr>
-<tr><td>Anti-leakage</td><td>solo <code>*_LAG1</code>; scaler fit en train; sin features del año de elección</td></tr></table></div>
-<h4>Interpretación electoral</h4>
-<p>Responde SQ1: cuánta señal explicable hay sin temporalidad ni geografía explícita. El gap vs.
-persistencia cuantifica el valor de la covariación estructural — si no lo supera, todo lo demás
-debe justificarse cuidadosamente.</p>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">overfitting</span> ~6-8 ciclos presidenciales por unidad → dropout
-alto + weight decay + early stopping sobre val temporal.
-<span class="pill p-media">coaliciones</span> embeddings por string crudo: <code>PAN</code> y
-<code>PAN_PRI</code> son vocabularios distintos — primera iteración los trata como actores
-separados (documentado).</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Data</td><td><code>canonical_long.csv</code>, <code>FLAG_CONSISTENCIA=0</code>; offices: PRESIDENTE, GOBERNADOR, DIPUTADO_FEDERAL_MR</td></tr>
+<tr><td>Split</td><td>train ≤2012 · val 2015–2018 · test 2021–2024 (temporal)</td></tr>
+<tr><td>Metrics</td><td>MAE share · top-1 winner acc · Brier · ECE (calibration)</td></tr>
+<tr><td>Baselines</td><td>persistence (previous share) · multinomial logistic regression</td></tr>
+<tr><td>Anti-leakage</td><td>only <code>*_LAG1</code>; scaler fit on train; no election-year features</td></tr></table></div>
+<h4>Electoral interpretation</h4>
+<p>Answers SQ1: how much explainable signal exists with neither temporality nor explicit geography.
+The gap vs persistence quantifies the value of structural covariation — if the MLP does not beat
+persistence, every later model must justify its extra complexity.</p>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">overfitting</span> ~6–8 presidential cycles per unit → high dropout,
+weight decay, early stopping on temporal val.
+<span class="pill p-media">coalitions</span> raw-string embeddings treat <code>PAN</code> and
+<code>PAN_PRI</code> as distinct vocabularies — iteration one treats them as separate actors
+(documented).</p></div>
 </div>
 </div>
 
-<!-- W02 -->
+<!-- ============ W02 PyTorch ============ -->
 <div class="lecture" id="dl2">
 <header>
-<div class="wk"><span class="w">DL · Semana 02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.2 PyTorch — el harness que todo lo demás reutiliza</h3>
-<div class="sub">Tensores, autograd, Dataset/DataLoader, optimizadores, dispositivos.</div>
+<div class="wk"><span class="w">DL · Week 02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.2 PyTorch — the reusable experiment harness</h3>
+<div class="sub">Tensors, autograd, Dataset/DataLoader, optimizers, devices.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El valor pedagógico es el <em>pipeline</em>, no el framework: Dataset que materializa la clave
-canónica, DataLoader con batches consistentes por grupo electoral, y loop de entrenamiento con
-logging de métricas por cohorte (año × nivel). Un harness mal hecho contamina todos los experimentos
-posteriores.</p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>The pedagogical value is the <em>pipeline</em>, not the framework: a <code>Dataset</code> that
+materializes the canonical key, a <code>DataLoader</code> yielding election-geography-consistent
+batches, and a training loop logging metrics per cohort (year × level). A defective harness
+contaminates every downstream experiment.</p>
+<h4>Theoretical framework</h4>
+<p>PyTorch is an <strong>imperative autodiff</strong> engine: operations on tensors record a
+computational graph (tape), and <code>loss.backward()</code> traverses it applying the chain rule
+(reverse-mode automatic differentiation). The optimizer updates parameters by a descent rule —
+SGD (Stochastic Gradient Descent) <code>θ ← θ − η∇L</code>, or Adam (Adaptive Moments) which keeps
+per-parameter exponential moving averages of gradient mean <code>m</code> and variance <code>v</code>
+with bias correction, adapting the step size: <code>θ ← θ − η·m̂/(√v̂+ε)</code>. <span class="m mL">L</span></p>
 <div class="formula">θ<sub>t+1</sub> = θ<sub>t</sub> − η·∇<sub>θ</sub>L(θ<sub>t</sub>; B<sub>t</sub>),
-&nbsp;&nbsp; ∇θ por regla de la cadena (autograd)</div>
-<h4>Aplicación al dataset</h4>
-<p><code>ElectionDataset(canonical_long)</code>: agrupa por clave elección-geo, emite
-<code>(x_tab, x_ent, x_party, x_cargo, y_share, mask_valid)</code> donde la máscara excluye
-grupos <code>FLAG_CONSISTENCIA=1</code> y coaliciones ambiguas. <strong>Batching por grupo:</strong>
-una elección-geografía completa por batch preserva la restricción Σshares=1 en la pérdida.
+&nbsp;&nbsp; ∇θ via chain rule (autograd)</div>
+<h4>Dataset binding</h4>
+<p><code>ElectionDataset(canonical_long)</code>: groups by election-geography key, emits
+<code>(x_tab, x_ent, x_party, x_cargo, y_share, mask_valid)</code> where the mask excludes
+<code>FLAG_CONSISTENCIA=1</code> groups and ambiguous coalition rows. <strong>Group batching:</strong>
+one full election-geography per batch preserves the Σshares=1 constraint inside the loss.
 <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 02_pytorch_harness.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Output</td><td>módulo <code>src/electoral_data.py</code> exportable a Colab; tests de shape y máscara</td></tr>
-<tr><td>Tests</td><td>Σ shares ∈ [0.9,1.1] por batch; shapes B×F/B×K; claves únicas por batch</td></tr>
-<tr><td>Métricas</td><td>loss train/val por época; nunca métricas de test durante el desarrollo</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">leakage estructural</span> si el scaler/vocab de embeddings se ajusta
-sobre test. <span class="pill p-media">mezcla de cohortes</span> si un batch combina elecciones de
-años distintos sin embedding temporal.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Output</td><td>module <code>src/electoral_data.py</code> exportable to Colab; shape and mask tests</td></tr>
+<tr><td>Tests</td><td>Σ shares ∈ [0.9,1.1] per batch; shapes B×F / B×K; unique keys per batch</td></tr>
+<tr><td>Metrics</td><td>train/val loss per epoch; never test metrics during development</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">structural leakage</span> if the scaler or embedding vocab is fit on
+test. <span class="pill p-media">cohort mixing</span> if a batch combines elections of different
+years without a temporal embedding.</p></div>
 </div>
 </div>
 
-<!-- W03 -->
+<!-- ============ W03 Regularization ============ -->
 <div class="lecture" id="dl3">
 <header>
-<div class="wk"><span class="w">DL · Semana 03</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
-<h3>III.3 Regularización y desarrollo asistido por IA</h3>
-<div class="sub">Dropout, weight decay, early stopping, data augmentation; prácticas de AI-assisted coding.</div>
+<div class="wk"><span class="w">DL · Week 03</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
+<h3>III.3 Regularization and AI-assisted development</h3>
+<div class="sub">Dropout, weight decay, early stopping, data augmentation; AI-assisted coding practice.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Con n efectivo pequeño (elecciones son eventos raros: ~200 grupos presidenciales por entidad-año
-de todo el panel), la regularización <em>es</em> el modelo. La semana 3 se traduce en: qué tan lejos
-puede ir un MLP sin sobreajustar, y cómo la asistencia de IA acelera sin comprometer la integridad.</p>
-<h4>Formalismo</h4>
-<div class="formula">L<sub>reg</sub> = L<sub>CE</sub> + λ‖W‖² ,
-&nbsp;&nbsp; Dropout: h̃ = h ⊙ Bernoulli(p) / p</div>
-<p>Early stopping sobre <strong>val temporal</strong> (2015-2018), no sobre split aleatorio:
-detiene cuando el error de generalización futura deja de mejorar — la única noción honesta de
-"generalización" en series electorales. <span class="m mP">P</span></p>
-<h4>Aplicación al dataset</h4>
-<p>Grid reportado: dropout ∈ {0.2,0.3,0.5}, λ ∈ {1e-4,1e-3,1e-2}, arquitectura {256-128} vs
-{128-64-32}. La configuración final del baseline se reporta con su curva de validación — evidencia
-de regularización, no solo resultado.</p>
-<h4>Spec de notebook</h4>
-<div class="nbspec"><div class="nt">Notebook spec — integrado en 03_mlp_baseline.ipynb (sección regularización)</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Experimento</td><td>grid regularización × gap train/val; tabla de selección</td></tr>
-<tr><td>IA-coding</td><td>disclosure de uso de IA conforme política del curso; cada celda generada validada por tests del harness (III.2)</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-media">honestidad</span> reportar el grid completo, no el mejor punto
-(cherry-picking infla el resultado esperado fuera de muestra).</p></div>
+<h4>Why it exists</h4>
+<p>With a small effective n — elections are rare events: ~200 presidential entity-year groups in
+the whole panel — regularization <em>is</em> the model. Week 3 translates to: how far can an MLP
+go without overfitting, and how does AI assistance accelerate development without compromising
+integrity.</p>
+<h4>Theoretical framework</h4>
+<p><strong>Bias–variance tradeoff:</strong> expected test error decomposes into bias² + variance +
+irreducible noise; capacity raises variance. Regularization injects a prior penalty on complexity.
+<strong>L2 / weight decay</strong> adds λ‖W‖² to the loss — equivalent (for SGD) to a Gaussian
+prior on weights, shrinking them toward 0. <strong>Dropout</strong> (Srivastava et al. 2014) masks
+each hidden unit with probability p at train time and rescales at test — an ensemble of ~2^n
+thinned subnetworks sharing weights, discouraging co-adaptation. <strong>Early stopping</strong>
+halts when validation error stops improving — a form of implicit capacity control.
+<span class="m mL">L</span></p>
+<div class="formula">L<sub>reg</sub> = L<sub>CE</sub> + λ‖W‖² ,&nbsp;&nbsp;
+Dropout: h̃ = h ⊙ Bernoulli(p) / p</div>
+<p>Early stopping is computed on the <strong>temporal validation</strong> slice (2015–2018), never a
+random split: it halts when out-of-time generalization stops improving — the only honest notion of
+generalization for electoral series. <span class="m mP">P</span></p>
+<h4>Dataset binding</h4>
+<p>Reported grid: dropout ∈ {0.2, 0.3, 0.5}, λ ∈ {1e-4, 1e-3, 1e-2}, architectures {256-128} vs
+{128-64-32}. The final baseline configuration is reported together with its validation curve —
+evidence of regularization, not just a result.</p>
+<h4>Notebook spec</h4>
+<div class="nbspec"><div class="nt">Notebook spec — integrated into 03_mlp_baseline.ipynb (regularization section)</div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Experiment</td><td>regularization × train/val gap grid; selection table</td></tr>
+<tr><td>AI-coding</td><td>AI-use disclosure per course policy; every generated cell validated by harness tests (III.2)</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-media">honesty</span> report the full grid, not the best point —
+cherry-picking inflates the expected out-of-sample result.</p></div>
 </div>
 </div>
 
-<!-- W04 -->
+<!-- ============ W04 CNN ============ -->
 <div class="lecture" id="dl4">
 <header>
-<div class="wk"><span class="w">DL · Semana 04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.4 CNN — patrones espaciales sobre el tensor electoral</h3>
-<div class="sub">Convolución, pooling, campo receptivo, weight sharing.</div>
+<div class="wk"><span class="w">DL · Week 04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.4 Convolutional Neural Networks — spatial texture in the vote</h3>
+<div class="sub">Convolution, pooling, receptive field, weight sharing.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El voto tiene textura espacial: cinturones PAN del norte, bastiones del sur, corredores urbanos.
-Una CNN sobre una grilla geográfica aprende detectores de patrones locales — "vecindad con
-penetración creciente de MORENA", "isla de oposición" — con parámetros compartidos que escalan a
-miles de municipios.</p>
-<h4>Formalismo</h4>
-<div class="formula">(f ∗ X)[i,j] = Σ<sub>m,n</sub> f[m,n] · X[i+m, j+n] ,
-&nbsp;&nbsp; salida: mapa de activación donde el campo receptivo = contexto vecinal</div>
-<h4>Aplicación al dataset</h4>
-<p>Dos representaciones posibles: (a) <strong>tensor año×partido×entidad</strong> — conv 1D temporal
-+ conv sobre partidos captura correlaciones de ciclo; (b) <strong>grilla geográfica real</strong> —
-requiere rasterizar municipios a lat/lon (hexbin o rejilla INEGI). La opción (b) es superior
-conceptualmente pero depende de geometrías externas; (a) es inmediata con el canónico actual.
-<span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>The vote has spatial texture: the PAN northern belt, southern strongholds, urban corridors.
+A Convolutional Neural Network (CNN) over a geographic grid learns local pattern detectors —
+"neighborhood with growing MORENA penetration", "opposition island" — with shared parameters that
+scale to thousands of municipalities.</p>
+<h4>Theoretical framework</h4>
+<p><strong>Discrete convolution</strong> slides a kernel f over the input, computing local inner
+products: the same weights apply at every position (weight sharing → translation equivariance),
+each output unit sees only a finite receptive field. Stacking layers grows the effective receptive
+field — early layers see immediate neighbors, deep layers see regional context. <strong>Pooling</strong>
+(max/mean) adds local invariance and reduces spatial resolution. The inductive bias is locality +
+sharing: exactly the assumption that nearby geographies behave similarly (Tobler's first law).
+<span class="m mL">L</span></p>
+<div class="formula">(f ∗ X)[i,j] = Σ<sub>m,n</sub> f[m,n] · X[i+m, j+n]
+<span class="fl">output = activation map; receptive field = neighborhood context</span></div>
+<h4>Dataset binding</h4>
+<p>Two possible representations: (a) a <strong>year×party×entity tensor</strong> — 1-D temporal
+convolution plus convolutions over parties capture cycle correlations; (b) a <strong>true
+geographic grid</strong> — requires rasterizing municipalities to lat/lon (hexbin or INEGI grid).
+Option (b) is conceptually superior but depends on external geometries; (a) is immediate on the
+current canonical set. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 04_cnn_spatial.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Input (a)</td><td>tensor B×32entidades×Kpartidos×Taños — Conv2d (entidad×partido), canales=año</td></tr>
-<tr><td>Input (b)</td><td>hexgrid municipal, canales = shares + macro_lag1 — pendiente de geometría INEGI</td></tr>
-<tr><td>Métricas</td><td>MAE share; comparación vs MLP mismo split</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">pseudoestructura</span> una conv sobre ejes no-espaciales (año×partido)
-encuentra correlaciones, no geografía — declarar la diferencia.
-<span class="pill p-media">bordes</span> la convolución trata el borde de la rejilla como
-topológicamente especial; en mapa real hay que cuidar Baja California vs Yucatán.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Input (a)</td><td>tensor B×32 entities×K parties×T years — Conv2d over (entity×party), channels=year</td></tr>
+<tr><td>Input (b)</td><td>municipal hexgrid, channels = shares + macro_lag1 — pending INEGI geometry</td></tr>
+<tr><td>Metrics</td><td>MAE share; head-to-head vs MLP on identical split</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">pseudo-structure</span> a convolution over non-spatial axes
+(year×party) finds correlations, not geography — the difference must be declared.
+<span class="pill p-media">borders</span> convolution treats the grid edge as topologically
+special; on a real map Baja California and Yucatán boundaries need care.</p></div>
 </div>
 </div>
 
-<!-- W05 -->
+<!-- ============ W05 Transfer ============ -->
 <div class="lecture" id="dl5">
 <header>
-<div class="wk"><span class="w">DL · Semana 05</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.5 Transfer learning — lo federal enseña a lo local</h3>
-<div class="sub">Pre-entrenamiento, fine-tuning, congelación de capas, domain shift.</div>
+<div class="wk"><span class="w">DL · Week 05</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.5 Transfer learning — the federal panel teaches the local</h3>
+<div class="sub">Pre-training, fine-tuning, layer freezing, domain shift.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Las elecciones federales tienen mejor cobertura temporal y geográfica que las locales. La
-hipótesis de transfer: representaciones aprendidas sobre el panel federal (más denso) transfieren
-al escaso panel de gubernaturas/diputados locales — análogo a ImageNet→dominio médico.
-<span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">θ<sub>base</sub> = argmin L<sub>federal</sub> ;
-&nbsp;&nbsp; θ<sub>local</sub> = argmin L<sub>local</sub>(θ<sub>base</sub> congelado hasta capa k, cabeza nueva)</div>
-<h4>Aplicación al dataset</h4>
-<p>Fuente: PRESIDENCIA + DIPUTADO_FEDERAL_MR (municipio y distrito, todos los ciclos).
-Destino: GOBERNADOR + DIPUTADO_LOCAL_MR. Embeddings de entidad/partido compartidos (vocabulario
-común); cabezas nuevas por cargo. Se mide el beneficio vs. entrenar el modelo local desde cero
-— el delta es el efecto del transfer. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>Federal elections have denser temporal and geographic coverage than local ones. The transfer
+hypothesis: representations learned on the denser federal panel transfer to the sparse panel of
+governorships and local deputies — analogous to ImageNet → medical imaging. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p>Transfer learning exploits the idea that early network layers learn general features
+(Gabor-like edges in vision; here, generic "electoral response" filters) that transfer across
+related domains. <strong>Fine-tuning</strong> starts from pre-trained weights and updates them on
+the target task with a lower learning rate; <strong>freezing</strong> stops gradients below layer k.
+<strong>Domain shift</strong> — the gap between source and target distributions — determines whether
+transfer helps or hurts; a negative transfer must be reported honestly. <span class="m mL">L</span></p>
+<div class="formula">θ<sub>base</sub> = argmin L<sub>federal</sub> ;&nbsp;
+θ<sub>local</sub> = argmin L<sub>local</sub>(θ<sub>base</sub> frozen up to layer k, new head)</div>
+<h4>Dataset binding</h4>
+<p>Source: PRESIDENTE + DIPUTADO_FEDERAL_MR (municipal and district levels, all cycles).
+Target: GOBERNADOR + DIPUTADO_LOCAL_MR. Entity/party embeddings are shared (common vocabulary);
+new heads per office. The benefit is measured against training the local model from scratch —
+that delta is the transfer effect. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 05_transfer_federal_local.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Pre-train</td><td>MLP A1 en federales 1991-2012</td></tr>
-<tr><td>Fine-tune</td><td>locales con capas bajas congeladas vs. no congeladas; LR discriminativo (1e-4 base, 1e-3 cabeza)</td></tr>
-<tr><td>Ablación</td><td>from-scratch · frozen · partial-unfreeze · full fine-tune</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">domain shift</span> voto federal ≠ voto local (clivajes distintos,
-candidatos importan más localmente) — el transfer puede ser negativo; reportar honestamente.
-<span class="pill p-media">vocabulario</span> partidos estatales que no existen a nivel federal
-quedan fuera del embedding pre-entrenado.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Pre-train</td><td>MLP A1 on federals 1991–2012</td></tr>
+<tr><td>Fine-tune</td><td>locals with lower layers frozen vs unfrozen; discriminative LR (1e-4 base, 1e-3 head)</td></tr>
+<tr><td>Ablation</td><td>from-scratch · frozen · partial-unfreeze · full fine-tune</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">domain shift</span> federal vote ≠ local vote (different cleavages;
+candidates matter more locally) — transfer can be negative; report honestly.
+<span class="pill p-media">vocabulary</span> state parties absent federally fall outside the
+pre-trained embedding.</p></div>
 </div>
 </div>
 
-<!-- W06 -->
+<!-- ============ W06 AE/VAE ============ -->
 <div class="lecture" id="dl6">
 <header>
-<div class="wk"><span class="w">DL · Semana 06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.6 Autoencoders y VAE — el mapa electoral como variedad latente</h3>
-<div class="sub">Cuello de botella, manifold hypothesis, ELBO, reparemetrización.</div>
+<div class="wk"><span class="w">DL · Week 06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.6 Autoencoders and VAEs — the electoral map as a latent manifold</h3>
+<div class="sub">Bottleneck, manifold hypothesis, ELBO, reparameterization.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El mapa electoral de México es aproximable por pocas dimensiones latentes — "norte industrial",
-"sur rural", "centro urbano", "frontera". Un autoencoder fuerza el perfil electoral completo de un
-municipio por un cuello de 2-3 dimensiones; si la variedad existe, los clusters emergentes deben
-coincidir (o refutar) la tipología de la literatura. El VAE añade estructura probabilística:
-regiones latentes suaves en vez de clusters duros.</p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>Mexico's electoral map is approximable by few latent dimensions — "industrial north",
+"ancestral south", "urban center", "border". An Autoencoder (AE) forces a municipality's full
+electoral profile through a 2–3-dimensional bottleneck; if the manifold exists, emergent clusters
+should match (or refute) the literature's typology. The Variational Autoencoder (VAE, Kingma &amp;
+Welling 2013) adds probabilistic structure: soft latent regions instead of hard clusters.</p>
+<h4>Theoretical framework</h4>
+<p><strong>AE:</strong> encoder z = f(x), decoder x̂ = g(z); trained to minimize reconstruction
+error ‖x−x̂‖², the bottleneck forces a compressed code z capturing the dominant factors of
+variation. <strong>Manifold hypothesis:</strong> high-dimensional data lie near a low-dimensional
+manifold; the AE is a nonlinear generalization of PCA (Principal Component Analysis) that learns
+it. <strong>VAE:</strong> the encoder outputs a posterior q(z|x); training maximizes the
+<strong>ELBO</strong> (Evidence Lower Bound) — reconstruction term minus the KL divergence
+(Kullback–Leibler) pulling q(z|x) toward a standard-normal prior. The <strong>reparameterization
+trick</strong> z = μ + σ·ε, ε~N(0,I) keeps the sampling differentiable. <span class="m mL">L</span></p>
 <div class="formula">ELBO = E<sub>q(z|x)</sub>[log p(x|z)] − KL( q(z|x) ‖ N(0,I) )
-<span class="fl">x = vector de shares por partido de un municipio-año; z = perfil latente</span></div>
-<h4>Aplicación al dataset</h4>
-<p>x = vector de shares de un municipio en un ciclo (dimensión ≈ 10-15 partidos relevantes,
-resto colapsado en "otros"). Se entrena AE y VAE sobre todos los municipio-año válidos; el latente
-2D se proyecta a mapa y se compara con regiones documentadas (§I.5). Bonus estructural: el
-<strong>decoder</strong> reconstruye elecciones plausibles → municipios con alto error de
-reconstrucción son outliers del sistema — candidatos para el capstone forense C4. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<span class="fl">x = municipality-year share vector; z = latent electoral profile</span></div>
+<h4>Dataset binding</h4>
+<p>x = vector of a municipality's party shares in one cycle (≈10–15 relevant parties, rest folded
+into "other"). AE and VAE trained over all valid municipality-years; the 2-D latent space is
+projected to a map and compared with documented regions (§I.5). Structural bonus: the
+<strong>decoder</strong> reconstructs plausible elections → municipalities with high reconstruction
+error are system outliers — candidates for forensic capstone C4. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 06_vae_perfiles.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Input</td><td>municipio-año válido: shares por partido (PRESIDENCIA para consistencia)</td></tr>
-<tr><td>Modelos</td><td>AE determinista · VAE (β=1 y β=4) · comparación con PCA/t-SNE (IV.6)</td></tr>
-<tr><td>Outputs</td><td>scatter latente coloreado por región KB · error de reconstrucción por municipio · tabla cluster×entidad</td></tr>
-<tr><td>Métrica</td><td>reconstrucción MAE · silhouette de clusters vs regiones KB · estabilidad entre semillas</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-media">interpretabilidad</span> las dimensiones latentes no vienen etiquetadas
-— nombrarlas exige inspección manual (correlación con macro/entidad).
-<span class="pill p-media">temporalidad</span> mezclar años en el mismo latente confunde drift
-histórico con posición geográfica — reportar también por ciclo.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Input</td><td>valid municipality-year: party shares (PRESIDENTE for consistency)</td></tr>
+<tr><td>Models</td><td>deterministic AE · VAE (β=1 and β=4) · comparison vs PCA/t-SNE (IV.6)</td></tr>
+<tr><td>Outputs</td><td>latent scatter colored by KB region · per-municipality reconstruction error · cluster×entity table</td></tr>
+<tr><td>Metric</td><td>reconstruction MAE · silhouette of clusters vs KB regions · seed stability</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-media">interpretability</span> latent dimensions arrive unlabeled — naming
+them requires manual inspection (correlation with macro/entity).
+<span class="pill p-media">temporality</span> mixing years in one latent space confounds historical
+drift with geographic position — also report per cycle.</p></div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- ============ PARTE III — DL LECTURES W07-W14 ============ -->
+<!-- ============ PART III — DL LECTURES W07-W14 (expanded theory) ============ -->
 <div class="part" id="p3b">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte III (cont.)</div>
-<h2>Lectures de Deep Learning — semanas 7 a 14</h2>
-<p>De la atención al estado del arte secuencial: Transformers, seq2seq, RAG, agentes,
-generativos y arquitecturas post-Transformer.</p>
+<div class="pn">Part III (cont.)</div>
+<h2>Deep Learning lectures — weeks 7 to 14</h2>
+<p>From attention to post-Transformer state of the art: Transformers, speech, seq2seq,
+LLMs, RAG, agents, generative models, and state-space alternatives.</p>
 </div>
 
-<!-- W07 -->
+<!-- W07 Transformers -->
 <div class="lecture" id="dl7">
 <header>
-<div class="wk"><span class="w">DL · Semana 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.7 Transformers — atención sobre la historia electoral</h3>
-<div class="sub">Self-attention, positional encoding, encoder/decoder, contexto sin recurrencia.</div>
+<div class="wk"><span class="w">DL · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.7 Transformers — attention over electoral history</h3>
+<div class="sub">Self-attention, positional encoding, encoder/decoder, context without recurrence.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Un RNN debe "pasar" por 2006 para influir en 2024; la atención accede directamente a cualquier
-ciclo pasado. Para una entidad, la pregunta "¿cuánto pesa la anomalía de 2018 vs. el régimen
-1991-2017?" es literalmente una distribución de atención — el mecanismo es a la vez predictor
-e <em>instrumento de interpretación</em>.</p>
-<h4>Formalismo</h4>
-<div class="formula">Attn(Q,K,V) = softmax( QK<sup>⊤</sup> / √d<sub>k</sub> ) V
-<span class="fl">Q,K,V = proyecciones de la secuencia de ciclos electorales de la unidad</span></div>
-<p>Multi-head attention permite que cabezas distintas atiendan a régimen largo, shock reciente y
-ciclo de sexenio simultáneamente. Positional encoding = año electoral (senoidal o aprendido);
-con irregularidad de calendario local, usar embedding de <code>ANIO</code> continuo. <span class="m mL">L</span></p>
-<h4>Arquitectura</h4>
+<h4>Why it exists</h4>
+<p>A recurrent network must "pass through" 2006 to influence 2024; attention accesses any past
+cycle directly. For one entity, the question "how much does the 2018 anomaly weigh versus the
+1991–2017 regime?" is literally an attention distribution — the mechanism is simultaneously a
+predictor and an <em>interpretability instrument</em>.</p>
+<h4>Theoretical framework</h4>
+<p><strong>Scaled dot-product self-attention</strong> (Vaswani et al. 2017): each position emits a
+query Q, key K and value V; the output is a weighted sum of values where weights measure
+query–key compatibility, scaled by √d_k to keep softmax gradients stable. <strong>Multi-head
+attention (MHA)</strong> runs h parallel attention functions on different projections — different
+heads can attend to long regime, recent shock and sexenio cycle simultaneously.
+<strong>Positional encoding</strong> injects order (sinusoidal or learned); with irregular local
+calendars we use a continuous <code>ANIO</code> embedding. <strong>Causal masking</strong> blocks
+attention to future positions — attending to the future is leakage by definition.
+<span class="m mL">L</span></p>
+<div class="formula">Attn(Q,K,V) = softmax( QK<sup>⊤</sup> / √d<sub>k</sub> ) · V
+<span class="fl">Q,K,V = projections of the unit's electoral-cycle sequence</span></div>
+<p>A Transformer block stacks: LayerNorm (normalizes activations per position) → MHA → residual
+connection → position-wise feed-forward (two dense layers, GELU) → residual. Complexity O(T²·d)
+in sequence length — the reason state-space alternatives exist (III.14). <span class="m mL">L</span></p>
+<h4>Architecture</h4>
 <figure class="arch">
 <svg viewBox="0 0 780 150" role="img"><defs><marker id="a4" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
 <rect x="10" y="40" width="130" height="80" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="75" y="60" font-weight="700">Secuencia ciclos</text>
+<text x="75" y="60" font-weight="700">Cycle sequence</text>
 <text x="75" y="76" font-size="10">B×T×D_in</text>
-<text x="75" y="90" font-size="9">T = elecciones de la unidad</text>
+<text x="75" y="90" font-size="9">T = elections of the unit</text>
 <text x="75" y="104" font-size="9">D_in = shares+macro+emb</text>
 <rect x="180" y="40" width="150" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="255" y="60" font-weight="700">Encoder ×2</text>
-<text x="255" y="76" font-size="10">MHSA 4 heads + FFN</text>
+<text x="255" y="76" font-size="10">MHA 4 heads + FFN</text>
 <text x="255" y="90" font-size="10">d=64 · causal mask</text>
-<text x="255" y="104" font-size="9">solo pasado ≤ t</text>
+<text x="255" y="104" font-size="9">past ≤ t only</text>
 <rect x="370" y="40" width="130" height="80" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="435" y="60" font-weight="700">Pool último token</text>
-<text x="435" y="78" font-size="10">B×64 → contexto</text>
+<text x="435" y="60" font-weight="700">Last-token pool</text>
+<text x="435" y="78" font-size="10">B×64 → context</text>
 <rect x="540" y="40" width="110" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="595" y="60" font-weight="700">Head</text><text x="595" y="76" font-size="10">Dense K softmax</text>
 <text x="595" y="92" font-size="10">B×K</text>
 <rect x="680" y="40" width="90" height="80" rx="6" fill="#F0E3E5" stroke="#A51C30"/>
-<text x="725" y="62" font-weight="700">share próx.</text><text x="725" y="80" font-size="10">ciclo t+1</text>
+<text x="725" y="62" font-weight="700">next-cycle</text><text x="725" y="80" font-size="10">shares t+1</text>
 <line x1="140" y1="80" x2="178" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
 <line x1="330" y1="80" x2="368" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
 <line x1="500" y1="80" x2="538" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
 <line x1="650" y1="80" x2="678" y2="80" stroke="#A51C30" stroke-width="1.5" marker-end="url(#a4)"/>
 </g></svg>
-<figcaption>Encoder temporal causal (A5). Máscara causal obligatoria: atender al futuro es leakage
-por definición. Output: atención por ciclo = interpretabilidad nativa.</figcaption></figure>
-<h4>Aplicación al dataset</h4>
-<p>Unidad: entidad (32 secuencias largas) y municipio (secuencias cortas e irregulares).
-Inputs por token: <code>SHARE_VALIDO</code> por partido + macro_lag + estructurales + posición temporal.
-Target: shares del siguiente ciclo. El mapa de atención se reporta como figura del paper:
-"¿a qué elecciones atiende el modelo para predecir 2024?" — respuesta esperada como dato, no como
-postulado. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<figcaption>Causal temporal encoder (analysis A5). Attention map per cycle = native
+interpretability — the figure "which past elections does the model attend to?" is a paper
+deliverable.</figcaption></figure>
+<h4>Dataset binding</h4>
+<p>Unit: entity (32 long sequences) and municipality (short irregular sequences). Per-token inputs:
+<code>SHARE_VALIDO</code> per party + macro_lag + structurals + temporal position. Target:
+next-cycle shares. Attention maps are reported as a paper figure — treated as evidence, not
+postulate. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 07_transformer_temporal.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Secuencia</td><td>entidad-cargo, T variable (padding + máscara), split temporal idéntico al MLP</td></tr>
-<tr><td>Métricas</td><td>MAE share · acc ganador · comparación directa con III.8 (LSTM)</td></tr>
-<tr><td>Interpretabilidad</td><td>extracción de pesos de atención por cabeza; figura heatmap ciclo→ciclo</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">n mínimo</span> Transformers con ~30-200 secuencias por cargo son
-frágiles — d pequeño, pocas capas, dropout alto; la comparación justa con LSTM es el punto, no
-ganar.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Sequence</td><td>entity-office, variable T (padding + mask), temporal split identical to MLP</td></tr>
+<tr><td>Metrics</td><td>MAE share · winner acc · head-to-head vs III.9 (LSTM)</td></tr>
+<tr><td>Interpretability</td><td>attention weights per head; cycle→cycle heatmap figure</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">tiny n</span> Transformers with ~30–200 sequences per office are
+fragile — small d, few layers, high dropout; the fair comparison vs LSTM is the point, not
+winning.</p></div>
 </div>
 </div>
 
-<!-- W09 (speech) -->
+<!-- W08 Speech -->
 <div class="lecture" id="dl8">
 <header>
-<div class="wk"><span class="w">DL · Semana 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.8 Procesamiento de habla — el pipeline que alimenta la rama NLP</h3>
-<div class="sub">Espectrogramas, ASR, transcripción automática.</div>
+<div class="wk"><span class="w">DL · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.8 Speech processing — the ingestion stage feeding NLP</h3>
+<div class="sub">Spectrograms, Automatic Speech Recognition (ASR), automatic transcription.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El corpus de mañaneras es <strong>audio/video</strong>. Cada mañanera (≈1-2 h diarias, 2018-)
-se transcribe con ASR (Whisper o equivalente) para generar el corpus textual de la Parte IV.
-La semana de speech es la <em>etapa de ingesta</em> del canal textual: no es un modelo electoral,
-es la fábrica de datos. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">señal → mel-espectrograma S(t,f) → encoder ASR → P(tokens | S)
-<span class="fl">decoding con timestamp por segmento → índice temporal de menciones</span></div>
-<h4>Aplicación al dataset</h4>
-<p>El output no entra al canónico electoral: alimenta <code>corpus_mananeras</code> con
-<code>(fecha, segmento, texto, confianza_ASR)</code>. Regla anti-leakage: la fecha de publicación
-del audio gobierna la disponibilidad — una mañanera del 2024-03-15 solo puede explicar elecciones
-posteriores a esa fecha. <span class="m mD">D</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>The mañaneras are <strong>audio/video</strong>. Each conference (~1–2 h daily, 2018–) becomes
+text through ASR (Automatic Speech Recognition — e.g., Whisper). This week is the
+<em>data-ingestion stage</em> of the textual channel: not an electoral model, but the factory
+producing the corpus analyzed in Part IV. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p>A waveform is transformed into a <strong>Mel spectrogram</strong> S(t,f): a time–frequency map
+on the perceptually motivated Mel scale. An ASR encoder-decoder maps S to a token distribution
+P(tokens | S); decoding (beam search) yields the transcript, and forced alignment or timestamped
+decoding assigns each segment a time interval. Quality is measured by <strong>WER</strong>
+(Word Error Rate = (substitutions+insertions+deletions)/N words). <span class="m mL">L</span></p>
+<div class="formula">signal → Mel spectrogram S(t,f) → ASR encoder → P(tokens | S)
+<span class="fl">timestamped decoding → temporal index of mentions</span></div>
+<h4>Dataset binding</h4>
+<p>The mañaneras corpus is already assembled from structured transcripts (NOSTRODATA + roicort,
+514,909 interventions) — for the ~2 years where we have audio only, or as validation, ASR supplies
+timestamps and confidences. Output: <code>(fecha, segment, text, asr_confidence)</code> rows into
+<code>corpus_mananeras</code>. Anti-leakage: the conference's <em>publication</em> date governs
+availability. <span class="m mD">D</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 08_asr_mananeras.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Input</td><td>lista de URLs/archivos de audio + metadatos de fecha (pendiente: integración del corpus)</td></tr>
-<tr><td>Modelo</td><td>Whisper large-v3 (es-MX), extracción de timestamps por segmento</td></tr>
-<tr><td>Output</td><td><code>data/processed/texto/mananeras_asr.parquet</code> — fecha · segmento · texto · wpm</td></tr>
-<tr><td>QA</td><td>tasa de segmentos con confianza &lt; umbral; sample de 20 transcripciones verificadas manualmente</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">dependencia externa</span> el corpus de mañaneras aún no está en el
-repo — esta lecture define el spec; la ejecución espera a la integración del corpus (Sprint 3).
-<span class="pill p-media">calidad ASR</span> español mexicano + jerga política → WER no trivial;
-verificar antes de usar en NER.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Input</td><td>audio/video URL list + date metadata (or NOSTRODATA transcripts where present)</td></tr>
+<tr><td>Model</td><td>Whisper large-v3 (es-MX), per-segment timestamps</td></tr>
+<tr><td>Output</td><td><code>data/processed/texto/mananeras_asr.parquet</code> — date · segment · text · wpm</td></tr>
+<tr><td>QA</td><td>share of segments below confidence threshold; 20-sample manual check</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-media">ASR quality</span> Mexican Spanish + political jargon → non-trivial
+WER; verify before feeding NER.</p></div>
 </div>
 </div>
 
-<!-- W09 seq2seq -->
+<!-- W09 seq2seq / LSTM -->
 <div class="lecture" id="dl9">
 <header>
-<div class="wk"><span class="w">DL · Semana 09</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.9 Seq2Seq y LSTM/GRU — la memoria del ciclo electoral</h3>
-<div class="sub">Encoder-decoder, compuertas LSTM/GRU, teacher forcing, forecasting de secuencias.</div>
+<div class="wk"><span class="w">DL · Week 09</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.9 Seq2Seq and LSTM/GRU — the memory of the electoral cycle</h3>
+<div class="sub">Encoder-decoder, LSTM/GRU gates, teacher forcing, sequence forecasting.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El voto tiene memoria estructural: castigo al incumbente, inercia de bastiones, efecto sexenal.
-Un LSTM/GRU sobre la secuencia de ciclos de cada unidad es el baseline neuronal temporal honesto:
-suficientemente expresivo para la dinámica, suficientemente pequeño para el n disponible.</p>
-<h4>Formalismo</h4>
-<div class="formula">h<sub>t</sub> = GRU(h<sub>t−1</sub>, x<sub>t</sub>) ;
-&nbsp;&nbsp; decoder autoregresivo ŷ<sub>t+1</sub> = softmax(W·h<sub>T</sub>)
-<span class="fl">h acumula la historia; las compuertas deciden qué olvidar (olvido del PRI hegemónico,
-persistencia del bastión)</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Mismo formato de secuencia que III.7 — la comparación LSTM vs Transformer sobre <em>idéntico
-split</em> es un experimento de la propuesta, no un detalle. Bidireccionalidad prohibida
-(violaría causalidad temporal). Multi-step: el decoder emite el vector de shares completo del
-siguiente ciclo (composicional). <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
-<div class="nbspec"><div class="nt">Notebook spec — 09_lstm_series.ipynb (renombrado del stub actual)</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Modelos</td><td>LSTM 2×64 · GRU 2×64 · comparación con Transformer III.7 y MLP III.1</td></tr>
-<tr><td>Targets</td><td>share por partido (softmax) · participación (regresión)</td></tr>
-<tr><td>Métricas</td><td>MAE share · acc ganador · IC por bootstrap de unidades</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-media">secuencias cortas</span> locales: 1-3 ciclos por unidad → pooling
-jerárquico por entidad o regularización fuerte; no inventar historia.</p></div>
+<h4>Why it exists</h4>
+<p>The vote has structural memory: incumbent punishment, stronghold inertia, the sexenio effect.
+A recurrent network over each unit's cycle sequence is the honest neural temporal baseline —
+expressive enough for the dynamics, small enough for the available n.</p>
+<h4>Theoretical framework</h4>
+<p>An <strong>RNN</strong> (Recurrent Neural Network) maintains hidden state
+h_t = f(h_{t−1}, x_t); plain RNNs suffer vanishing gradients over long spans. <strong>LSTM</strong>
+(Long Short-Term Memory, Hochreiter &amp; Schmidhuber 1997) adds a cell state c_t and three gates
+— input i, forget f, output o — that learn what to write, keep and emit:
+c_t = f⊙c_{t−1} + i⊙tanh(c̃). <strong>GRU</strong> (Gated Recurrent Unit, Cho et al. 2014) merges
+the gates (update z, reset r) for fewer parameters. <strong>Seq2seq</strong> (encoder–decoder)
+maps an input sequence to a context vector h_T, then decodes the target autoregressively;
+<strong>teacher forcing</strong> feeds the true previous output during training. <span class="m mL">L</span></p>
+<div class="formula">c<sub>t</sub> = f<sub>t</sub>⊙c<sub>t−1</sub> + i<sub>t</sub>⊙c̃<sub>t</sub> ,
+h<sub>t</sub> = o<sub>t</sub>⊙tanh(c<sub>t</sub>)
+<span class="fl">the forget gate decides what the system "remembers" — regime vs anomaly</span></div>
+<h4>Dataset binding</h4>
+<p>Same sequence format as III.7 — the LSTM-vs-Transformer comparison on the <em>identical</em>
+split is itself an experiment, not a detail. Bidirectionality is forbidden (it would violate
+temporal causality). Multi-step: the decoder emits the full next-cycle share vector
+(compositional). <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
+<div class="nbspec"><div class="nt">Notebook spec — 09_lstm_series.ipynb (renamed from current stub)</div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Models</td><td>LSTM 2×64 · GRU 2×64 · vs Transformer III.7 and MLP III.1</td></tr>
+<tr><td>Targets</td><td>party share (softmax) · turnout (regression)</td></tr>
+<tr><td>Metrics</td><td>MAE share · winner acc · CIs via unit bootstrap</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-media">short sequences</span> locals: 1–3 cycles per unit → hierarchical
+pooling by entity or strong regularization; never invent history.</p></div>
 </div>
 </div>
 
-<!-- W10-12 compactos -->
+<!-- W10-12 -->
 <div class="lecture" id="dl10">
 <header>
-<div class="wk"><span class="w">DL · Semanas 10–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.10 LLMs · III.11 RAG · III.12 Agentes — la capa de conocimiento</h3>
-<div class="sub">Modelos de lenguaje grandes, retrieval-augmented generation, workflows agénticos.</div>
+<div class="wk"><span class="w">DL · Weeks 10–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.10 LLMs · III.11 RAG · III.12 Agents — the knowledge layer</h3>
+<div class="sub">Large Language Models, Retrieval-Augmented Generation, agentic workflows.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Estas tres semanas no entrenan sobre el dataset: son la <strong>capa de interpretación</strong>.
-El KB de la Parte I (353 líneas de reglas electorales) es exactamente el tipo de conocimiento que
-un modelo no puede memorizar: dónde un distrito no es comparable, qué significa
-<code>PAN_PRI_PRD</code>, por qué un cero en Oaxaca no es abstención. RAG conecta el modelo de
-lenguaje a ese conocimiento; agentes orquestan el análisis reproduciblemente. <span class="m mP">P</span></p>
-<h4>Formalismo (RAG)</h4>
-<div class="formula">P(respuesta | q) = Σ<sub>d∈top-k</sub> P(d | q) · P(respuesta | q, d)
-<span class="fl">retriever denso (embeddings BGE-M3/BETO) sobre chunks del KB + METODOLOGIA</span></div>
-<h4>Aplicación al dataset</h4>
+<h4>Why it exists</h4>
+<p>These three weeks do not train on the dataset: they form the <strong>interpretation layer</strong>.
+The Part-I KB (353 lines of electoral rules) is exactly the knowledge a model cannot memorize
+reliably: where a district is not comparable, what <code>PAN_PRI_PRD</code> means, why a zero in
+Oaxaca is not abstention. RAG (Retrieval-Augmented Generation) connects the language model to that
+knowledge; agents orchestrate the analysis reproducibly. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p><strong>LLM:</strong> a Transformer language model P(next token | prefix) pre-trained at scale;
+its parameters encode statistical regularities but not our private KB. <strong>RAG</strong>
+(Lewis et al. 2020): retrieve the k most relevant document chunks by dense embedding similarity,
+condition generation on them — hallucination is bounded by what was retrieved. <strong>Agents:</strong>
+an LLM in a tool-use loop (plan → call tool → observe → revise) with an audit trail of every
+action. <span class="m mL">L</span></p>
+<div class="formula">P(answer | q) = Σ<sub>d∈top-k</sub> P(d | q) · P(answer | q, d)
+<span class="fl">dense retriever (BGE-M3/BETO embeddings) over KB + methodology chunks</span></div>
+<h4>Dataset binding</h4>
 <ul>
-<li><strong>LLM base (W10):</strong> generación de interpretaciones de resultados con hard gate —
-toda afirmación debe citar fila de datos o sección del KB; alucinación detectada = error.</li>
-<li><strong>RAG (W11):</strong> índice vectorial sobre <code>KB_SISTEMA_ELECTORAL_MEXICO.md</code> +
-<code>METODOLOGIA.md</code> + diccionario de datos; consultas tipo "¿es comparable DIPUTADO_LOCAL_MR
-entre 2015 y 2021?" resueltas con citas.</li>
-<li><strong>Agente analista (W12):</strong> loop herramientas-orquestado: cargar cohorte → correr QA →
-producir mini-reporte con sello de datos consultados. Audit trail completo (qué archivo, qué query,
-qué resultado). <span class="m mP">P</span></li>
+<li><strong>Base LLM (W10):</strong> generates interpretations of results under a hard gate —
+every claim must cite a data row or a KB section; detected hallucination = error.</li>
+<li><strong>RAG (W11):</strong> vector index over <code>KB_SISTEMA_ELECTORAL_MEXICO.md</code> +
+<code>METODOLOGIA.md</code> + data dictionary; queries like "is DIPUTADO_LOCAL_MR comparable
+between 2015 and 2021?" answered with citations.</li>
+<li><strong>Analyst agent (W12):</strong> tool-orchestrated loop: load cohort → run QA → emit
+mini-report with a seal of consulted data. Full audit trail (which file, which query, which
+result). <span class="m mP">P</span></li>
 </ul>
-<h4>Spec de notebook</h4>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 10_rag_kb.ipynb · 11_agente_analista.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>RAG corpus</td><td>KB + METODOLOGIA + VARIABLES_EXOGENAS; chunking por sección; embeddings bge-m3</td></tr>
-<tr><td>Agente tools</td><td><code>query_canonical()</code> SQL sobre long · <code>qa_check()</code> · <code>cite()</code> obligatorio</td></tr>
-<tr><td>Evaluación RAG</td><td>faithfulness (¿cada afirmación citada?) · cobertura (¿encuentra la sección correcta?)</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">alucinación</span> ningún texto generado entra al paper sin marca
-<code>[P]</code>/<code>[L]</code> y revisión humana.
-<span class="pill p-media">alcance</span> el agente es flujo de trabajo auditable, no decisor
-autónomo — scope declarado.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>RAG corpus</td><td>KB + METODOLOGIA + VARIABLES_EXOGENAS; per-section chunking; bge-m3 embeddings</td></tr>
+<tr><td>Agent tools</td><td><code>query_canonical()</code> SQL over long · <code>qa_check()</code> · mandatory <code>cite()</code></td></tr>
+<tr><td>RAG eval</td><td>faithfulness (is every claim cited?) · coverage (does it retrieve the right section?)</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">hallucination</span> no generated text enters the paper without
+provenance mark <code>[P]</code>/<code>[L]</code> and human review.
+<span class="pill p-media">scope</span> the agent is an auditable workflow, not an autonomous
+decider — declared scope.</p></div>
 </div>
 </div>
 
 <!-- W13-14 -->
 <div class="lecture" id="dl11">
 <header>
-<div class="wk"><span class="w">DL · Semanas 13–14</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>III.13 Modelos generativos · III.14 Reemplazos del Transformer</h3>
-<div class="sub">GANs/difusión como simulación; Mamba y state-space models como alternativa eficiente.</div>
+<div class="wk"><span class="w">DL · Weeks 13–14</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>III.13 Generative models · III.14 Transformer replacements</h3>
+<div class="sub">GANs/diffusion as simulation; State-Space Models (Mamba, TSMixer) as efficient alternatives.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Generativos: simulación de escenarios contrafácticos ("¿cómo sería 2024 con la inflación de
-2018?") — pedagógicamente valioso, científicamente frágil: se reporta como ilustrativo, no como
-hallazgo. State-space models (Mamba/TSMixer): la respuesta moderna a secuencias largas con costo
-lineal; para nuestro panel de T cortos el beneficio es de eficiencia, no de capacidad — la ablación
-documenta si vale la complejidad.</p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p><strong>Generative:</strong> simulating counterfactual scenarios ("what would 2024 look like
+with 2018 inflation?") — pedagogically valuable, scientifically fragile: reported as illustrative,
+never as findings. <strong>State-Space Models (SSMs)</strong> such as Mamba (Gu &amp; Dao 2023) or
+TSMixer replace quadratic attention with linear-time recurrence — for our short-T panel the gain
+is efficiency, not capacity; the ablation documents whether the complexity is worth it.</p>
+<h4>Theoretical framework</h4>
+<p><strong>GAN</strong> (Generative Adversarial Network, Goodfellow et al. 2014): a generator G and
+discriminator D play a minimax game — G synthesizes, D detects; equilibrium yields samples
+approximating p_data. <strong>SSM:</strong> a continuous linear dynamical system
+h_t = A·h_{t−1} + B·x_t, y_t = C·h_t — a recurrence linear in the state, hence O(T) instead of
+attention's O(T²); <strong>Mamba</strong> makes A,B,C input-dependent ("selective"), recovering
+content-aware behavior. <span class="m mL">L</span></p>
 <div class="formula">SSM: h<sub>t</sub> = A h<sub>t−1</sub> + B x<sub>t</sub> , y<sub>t</sub> = C h<sub>t</sub>
-&nbsp;&nbsp;|&nbsp;&nbsp; selectivo (Mamba): A,B,C dependen de x<sub>t</sub>
-<span class="fl">recurrencia lineal en el estado → O(T) vs O(T²) de atención</span></div>
-<h4>Aplicación al dataset</h4>
-<p><strong>Generativo (A9, <span class="badge b-ill">ILLUSTRATIVE</span>):</strong> decoder del VAE
-de III.6 + perturbación dirigida de macro genera perfiles electorales contrafácticos por municipio
-— figura de sensibilidad, marcada explícitamente como ejercicio pedagógico.
-<strong>SSM (A10):</strong> TSMixer o Mamba-lite sobre las mismas secuencias de III.7/III.9 —
-comparación directa de MAE vs costo de entrenamiento. La conclusión esperada es un <em>dato de
-diseño</em>: con T≈5-10 ciclos, ¿la eficiencia de SSM supera la interpretabilidad de atención?
-<span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+&nbsp;|&nbsp; selective: A,B,C depend on x<sub>t</sub>
+<span class="fl">linear-in-state recurrence → O(T) vs attention's O(T²)</span></div>
+<h4>Dataset binding</h4>
+<p><strong>Generative (A9, <span class="badge b-ill">ILLUSTRATIVE</span>):</strong> the VAE decoder
+(III.6) perturbed by synthetic macro generates counterfactual municipal electoral profiles —
+a sensitivity figure, explicitly labeled pedagogical. <strong>SSM (A10):</strong> TSMixer or
+Mamba-lite on the same III.7/III.9 sequences — direct MAE vs training-cost comparison. The expected
+conclusion is a <em>design datum</em>: with T≈5–10 cycles, does SSM efficiency beat attention's
+interpretability? <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — 12_generativo_contrafactico.ipynb · 13_ssm_ablacion.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Generativo</td><td>VAE decoder perturbado por macro sintético; etiquetado ILLUSTRATIVE</td></tr>
-<tr><td>SSM</td><td>mismo split temporal que LSTM/Transformer; tabla comparativa MAE·tiempo·params</td></tr></table></div>
-<div class="call c-risk"><span class="ct">Riesgos</span>
-<p><span class="pill p-alta">sobre-claim</span> los escenarios generativos NO son predicciones —
-marca de proveniencia obligatoria.
-<span class="pill p-baja">dependencia</span> librerías SSM inmaduras; fallback = informe de
-comparación conceptual si la implementación no converge.</p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Generative</td><td>VAE decoder perturbed by synthetic macro; labeled ILLUSTRATIVE</td></tr>
+<tr><td>SSM</td><td>same temporal split as LSTM/Transformer; MAE · time · params comparison table</td></tr></table></div>
+<div class="call c-risk"><span class="ct">Risks</span>
+<p><span class="pill p-alta">over-claim</span> generative scenarios are NOT predictions —
+mandatory provenance label.
+<span class="pill p-baja">dependency</span> immature SSM libraries; fallback = conceptual
+comparison report if implementation does not converge.</p></div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- ============ PARTE IV — NLP W01-W06 ============ -->
+<!-- ============ PART IV — NLP W01-W06 (expanded theory) ============ -->
 <div class="part" id="p4">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte IV</div>
-<h2>Lectures de NLP — CSCI E-89b aplicadas al discurso político mexicano</h2>
-<p>Corpus principal: mañaneras presidenciales (transcripción ASR, III.8) + corpus secundario de
-boletines/discursos de campaña. Doce semanas convertidas en features textuales con valor electoral.
-Cada variable derivada del texto recibe timestamp de <strong>fecha de publicación</strong>, nunca
-de referencia — la regla anti-leakage es estructural. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
+<div class="pn">Part IV</div>
+<h2>NLP lectures — CSCI E-89b applied to Mexican political discourse</h2>
+<p>Primary corpus: presidential morning conferences ("mañaneras") — 514,909 speaker-attributed,
+timestamped interventions totaling 18,135,177 words (II.5). Twelve course weeks converted into
+textual features with electoral value. Every text-derived variable is timestamped by its
+<strong>publication date</strong>, never by the date of the event discussed — the anti-leakage rule
+is structural. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
 </div>
 
 <!-- NLP W01-02 -->
 <div class="lecture" id="nlp1">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.1 Preprocesamiento y BoW/TF-IDF — el baseline textual más barato</h3>
-<div class="sub">Normalización, stopwords, vectorización clásica; IV.2 RNN sobre texto.</div>
+<div class="wk"><span class="w">NLP · Weeks 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.1 Preprocessing and BoW/TF-IDF — the cheapest textual baseline · IV.2 Text RNN</h3>
+<div class="sub">Normalization, stopwords, classical vectorization; recurrent networks over token sequences.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Antes de BERT hay que saber cuánta señal lexical simple existe: ¿la frecuencia de "seguridad",
-"inflación", "empleo" en las semanas previas a una elección correlaciona con el resultado?
-BoW/TF-IDF es el baseline textual: barato, transparente, interpretable — y difícil de superar
-sustancialmente si la señal es superficial.</p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>Before BERT we must know how much simple lexical signal exists: does the frequency of
+"seguridad" (security), "inflación", "empleo" in the weeks before an election correlate with the
+outcome? Bag-of-Words (BoW) plus TF-IDF is the textual baseline: cheap, transparent, interpretable
+— and hard to beat substantially if the signal is shallow.</p>
+<h4>Theoretical framework</h4>
+<p><strong>BoW:</strong> a document becomes a vector of token counts — order is discarded.
+<strong>TF-IDF</strong> (Term Frequency–Inverse Document Frequency) reweights by rarity:
+tokens frequent in one document but rare across the corpus get high weight —
+TF-IDF(w,d) = TF(w,d)·log(N/df_w) where df_w is the number of documents containing w.
+<strong>Text RNN:</strong> an LSTM processes tokens in order — it captures "no queremos" vs
+"queremos" (negation scope) that BoW loses. <span class="m mL">L</span></p>
 <div class="formula">TF-IDF(w,d) = TF(w,d) · log( N / df<sub>w</sub> )
-<span class="fl">clasificador/regresor: ŷ = softmax(W·tfidf(d)) por ventana pre-electoral</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Ventana de 90 días pre-elección por unidad (federal) o entidad (local); features agregadas =
-vectores TF-IDF promediados por semana. Target: <code>SHARE_VALIDO</code> del oficialismo y
-<code>ALTERNANCIA</code>. Este baseline define el piso textual: todo lo posterior debe mejorarlo
-o justificar su complejidad. <span class="m mP">P</span></p>
-<h4>RNN sobre texto (W02)</h4>
-<p>La versión secuencial procesa tokens en orden — captura "no queremos" vs "queremos" que BoW pierde.
-Se implementa LSTM 1×128 sobre la secuencia de palabras de cada discurso; comparación directa con
-IV.1 cuantifica el valor del orden léxico en este dominio.</p>
-<h4>Spec de notebook</h4>
+<span class="fl">classifier: ŷ = softmax(W·tfidf(d)) per pre-electoral window</span></div>
+<h4>Dataset binding</h4>
+<p>90-day pre-election window per entity (locals) or nationally (federals); features = weekly
+averaged TF-IDF vectors. Targets: incumbent <code>SHARE_VALIDO</code> and <code>ALTERNANCIA</code>.
+This baseline sets the textual floor: everything after it must improve on it or justify its
+complexity. RNN variant: LSTM 1×128 over each discourse's token sequence; direct comparison with
+IV.1 quantifies the value of lexical order in this domain. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n01_bow_baseline.ipynb · n02_lstm_texto.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Corpus</td><td>mañaneras ASR + corpus campaña; filtro fecha ≤ elección − 0 días</td></tr>
-<tr><td>Métricas</td><td>MAE share oficialismo · AUC alternancia · top-20 términos por importancia</td></tr>
-<tr><td>Anti-leakage</td><td>vocabulario TF-IDF ajustado solo en train temporal</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Corpus</td><td>mañaneras interventions (514,909 rows) filtered publication-date ≤ election day</td></tr>
+<tr><td>Metrics</td><td>MAE incumbent share · AUC alternancia · top-20 terms by importance</td></tr>
+<tr><td>Anti-leakage</td><td>TF-IDF vocabulary fit on temporal train only</td></tr></table></div>
 </div>
 </div>
 
 <!-- NLP W03-04 -->
 <div class="lecture" id="nlp3">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.3 Tokenización · IV.4 N-gramas — la morfología del discurso político</h3>
-<div class="sub">BPE/subword, vocabulario propio; modelos de lenguaje n-gram.</div>
+<div class="wk"><span class="w">NLP · Weeks 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.3 Tokenization · IV.4 N-grams — the morphology of political discourse</h3>
+<div class="sub">BPE/subword units, domain tokenizer; n-gram language models.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>El español político mexicano tiene su propia morfología: "chairos", "fifís", "mañanera",
-siglas (INE, MORENA, IMSS) que se comportan como tokens atómicos. Un tokenizer genérico fragmenta
-estas unidades; entrenar BPE sobre el corpus cuantifica el problema (tasa OOV) y produce un
-tokenizer de dominio. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">BPE: fusiones greedy de pares más frecuentes · vocab B&nbsp;·&nbsp;OOV-rate = |tokens fuera de vocab| / |tokens|
-<span class="fl">comparación: tokenizer dominio vs tokenizer BETO pre-entrenado</span></div>
-<div class="formula">n-grama LM: P(w<sub>t</sub> | w<sub>t−n+1..t−1</sub>) · Perplexity = exp(−(1/N)Σ log P)</div>
-<h4>Aplicación al dataset</h4>
-<p>N-gramas por sexenio: perplexity cruzada — ¿qué tan predecible es el discurso de 2024 desde el
-modelo de 2018? La distancia entre sexenios en el espacio n-gram es un proxy cuantitativo del
-<em>cambio retórico de régimen</em> documentado cualitativamente en §I.5. Feature derivada:
+<h4>Why it exists</h4>
+<p>Mexican political Spanish has its own morphology: "chairos", "fifís", "mañanera", acronyms
+(INE, MORENA, IMSS) behaving as atomic tokens. A generic tokenizer splits these units; training
+BPE (Byte-Pair Encoding) on the corpus quantifies the problem (out-of-vocabulary rate) and yields
+a domain tokenizer. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p><strong>BPE</strong> (Gage 1994; Sennrich et al. 2016): start from characters, greedily merge
+the most frequent adjacent pair until the vocabulary reaches size B — frequent words become single
+tokens, rare words decompose into subwords, so OOV (out-of-vocabulary) vanishes by construction.
+<strong>N-gram LM:</strong> the Markovian model P(w_t | w_{t−n+1..t−1}) estimated by counts with
+smoothing; <strong>perplexity</strong> = exp(−(1/N)Σ log P) is the effective vocabulary branching —
+lower = more predictable text. <span class="m mL">L</span></p>
+<div class="formula">BPE: greedy merges of most-frequent pairs · vocab B · OOV-rate = |unknown| / |tokens|
+<span class="fl">domain tokenizer vs pre-trained BETO tokenizer</span></div>
+<div class="formula">n-gram LM: P(w<sub>t</sub> | w<sub>t−n+1..t−1</sub>) · Perplexity = exp(−(1/N)Σ log P)</div>
+<h4>Dataset binding</h4>
+<p>N-grams per sexenio (six-year term): cross-perplexity — how predictable is 2024 discourse from a
+model trained on 2018? The sexenio distance in n-gram space is a quantitative proxy of the
+<em>rhetorical regime change</em> documented qualitatively in §I.5. Derived feature:
 <code>drift_retorico_sexenio</code>. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n03_tokenizer_dominio.ipynb · n04_ngram_drift.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Output</td><td>tokenizer BPE propio · tabla OOV · perplexity matrix sexenio×sexenio</td></tr>
-<tr><td>Visual</td><td>heatmap de perplexity cruzada (figura candidata del paper)</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Output</td><td>custom BPE tokenizer · OOV table · sexenio×sexenio perplexity matrix</td></tr>
+<tr><td>Visual</td><td>cross-perplexity heatmap (paper figure candidate)</td></tr></table></div>
 </div>
 </div>
 
 <!-- NLP W05-06 -->
 <div class="lecture" id="nlp5">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.5 Embeddings de palabra · IV.6 Reducción y visualización</h3>
-<div class="sub">Word2Vec/GloVe, similitud semántica; PCA/t-SNE/UMAP para inspección.</div>
+<div class="wk"><span class="w">NLP · Weeks 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.5 Word embeddings · IV.6 Dimensionality reduction and visualization</h3>
+<div class="sub">Word2Vec/GloVe, semantic similarity; PCA/t-SNE/UMAP for inspection.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Los embeddings convierten la intuición "MORENA es sucesor del PRD" en geometría medible:
-si el embedding de <code>MORENA</code> post-2018 está más cerca de <code>PRD</code> pre-2018 que
-de sí mismo históricamente, el drift semántico es cuantificable. Y la visualización es la capa
-pedagógica: un mapa semántico del léxico político por época comunica más que mil tablas.</p>
-<h4>Formalismo</h4>
-<div class="formula">word2vec skip-gram: max Σ log P(contexto | w) ; analogía: v<sub>rey</sub>−v<sub>hombre</sub>+v<sub>mujer</sub> ≈ v<sub>reina</sub>
-<span class="fl">t-SNE: minimiza KL entre similitudes en d alto y 2D (no interpretar distancias globales)</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Dos usos: (a) embeddings de <strong>palabras</strong> entrenados sobre mañaneras → mapa t-SNE
-del léxico político por sexenio, mostrando migración de "pobreza", "corrupción", "transformación";
-(b) embeddings de <strong>entidades y partidos</strong> aprendidos conjuntamente con el MLP de
-III.1 — ¿el embedding de Oaxaca queda cerca de Chiapas? El artefacto tiene doble valor: feature
-(modelo) y visualización (paper). <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>Embeddings turn the intuition "MORENA is the PRD's successor" into measurable geometry: if the
+post-2018 <code>MORENA</code> embedding sits closer to pre-2018 <code>PRD</code> than to its own
+history, semantic drift is quantifiable. And visualization is the pedagogical layer: a semantic
+map of the political lexicon per era communicates more than a thousand tables.</p>
+<h4>Theoretical framework</h4>
+<p><strong>Word2Vec</strong> (Mikolov et al. 2013): skip-gram learns vectors by predicting context —
+words sharing contexts land close in R^d; the geometry supports analogies v<sub>rey</sub> −
+v<sub>hombre</sub> + v<sub>mujer</sub> ≈ v<sub>reina</sub>. <strong>GloVe</strong> (Pennington et al.
+2014) factorizes the log co-occurrence matrix instead. <strong>t-SNE</strong> (van der Maaten &amp;
+Hinton 2008): embeds high-D into 2-D by minimizing the KL divergence between neighborhood
+similarities — local structure is faithful, global distances are not interpretable.
+<strong>UMAP</strong> is a faster, better-preserving alternative. <span class="m mL">L</span></p>
+<div class="formula">skip-gram: max Σ log P(context | w) ; analogy: v<sub>a</sub>−v<sub>b</sub>+v<sub>c</sub> ≈ v<sub>d</sub>
+<span class="fl">t-SNE minimizes KL(high-D ‖ 2-D) — do not read global distances</span></div>
+<h4>Dataset binding</h4>
+<p>Two uses: (a) <strong>word</strong> embeddings trained on mañaneras → t-SNE map of the political
+lexicon per sexenio, showing the migration of "pobreza", "corrupción", "transformación";
+(b) <strong>entity and party</strong> embeddings learned jointly with the MLP (III.1) — does
+Oaxaca's embedding sit near Chiapas's? The artifact is double-valued: a feature (model) and a
+figure (paper). <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n05_embeddings_politicos.ipynb · n06_tsne_lexico.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Modelos</td><td>word2vec 100d por sexenio · extracción de embeddings del MLP III.1</td></tr>
-<tr><td>Visual</td><td>t-SNE del léxico por época · scatter de embeddings de partido/entidad del MLP</td></tr>
-<tr><td>Métrica</td><td>similitud coseno entre siglas sucesoras · correlación embedding vs distancia geográfica</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Models</td><td>word2vec 100d per sexenio · MLP (III.1) entity/party embeddings extraction</td></tr>
+<tr><td>Visual</td><td>lexicon t-SNE per era · party/entity embedding scatter</td></tr>
+<tr><td>Metric</td><td>cosine similarity between successor acronyms · embedding-vs-geographic-distance correlation</td></tr></table></div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- ============ PARTE IV — NLP W07-W12 ============ -->
+<!-- ============ PART IV — NLP W07-W12 (expanded theory) ============ -->
 <div class="part" id="p4b">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte IV (cont.)</div>
-<h2>Lectures de NLP — semanas 7 a 12</h2>
-<p>Topic modeling, clasificación, NER, CRF y la entrada a Transformers/BETO — la rama de texto
-que alimenta el modelo multimodal.</p>
+<div class="pn">Part IV (cont.)</div>
+<h2>NLP lectures — weeks 7 to 12</h2>
+<p>Topic modeling, classification, NER, CRF and the entry into Transformers/BETO — the textual
+branch feeding the multimodal model.</p>
 </div>
 
 <!-- W07 LDA -->
 <div class="lecture" id="nlp7">
 <header>
-<div class="wk"><span class="w">NLP · Semana 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.7 Topic modeling (LDA) — la agenda presidencial como variable</h3>
-<div class="sub">Latent Dirichlet Allocation, coherencia de tópicos, prevalencia temática.</div>
+<div class="wk"><span class="w">NLP · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.7 Topic modeling (LDA) — the presidential agenda as a variable</h3>
+<div class="sub">Latent Dirichlet Allocation, topic coherence, thematic prevalence.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>"De qué habla el gobierno" es una variable de estado con historia en ciencia política
-(agenda-setting). LDA convierte el corpus en K tópicos y, por cada día/semana, en una distribución
-de prevalencia temática: la serie temporal <code>share_topico_seguridad</code> es una covariable
-estructural, no un metadato.</p>
-<h4>Formalismo</h4>
-<div class="formula">P(w) = Σ<sub>k</sub> P(w|z=k) · P(z=k|d) ,
-&nbsp;&nbsp; θ<sub>d</sub> ~ Dir(α) , φ<sub>k</sub> ~ Dir(β)
-<span class="fl">θ<sub>d</sub> = prevalencia de tópicos en el documento d; el agregado temporal es la feature</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Mañaneras segmentadas por día → LDA K≈20-30 → prevalencia semanal por tópico → join con
-elecciones por fecha (últimas N semanas pre-elección). Hipótesis electoral medible: la prevalencia
-de "seguridad"/"economía" previas al voto correlaciona con outcomes — y, más importante, LDA
-produce el <em>baseline interpretable</em> que la rama BETO (IV.12) debe superar. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>"What the government talks about" is a state variable with a political-science pedigree
+(agenda-setting). Latent Dirichlet Allocation (LDA, Blei, Ng &amp; Jordan 2003) decomposes the
+corpus into K topics and, per day/week, a prevalence distribution: the series
+<code>share_topic_seguridad</code> becomes a structural covariate, not a metadata tag.</p>
+<h4>Theoretical framework</h4>
+<p>LDA is a generative probabilistic model: each document d draws a topic-mixture θ_d ~ Dir(α);
+each topic k is a word distribution φ_k ~ Dir(β); each observed word picks a topic z then a word
+from φ_z. Inference (variational Bayes or Gibbs sampling) recovers θ and φ; the Dirichlet prior
+encourages sparse, interpretable mixtures. <strong>Coherence (C_v)</strong> measures how
+semantically consistent a topic's top words are — used to select K. <span class="m mL">L</span></p>
+<div class="formula">P(w) = Σ<sub>k</sub> P(w|z=k) · P(z=k|d) ,&nbsp; θ<sub>d</sub> ~ Dir(α) , φ<sub>k</sub> ~ Dir(β)
+<span class="fl">θ_d = topic prevalence in document d; temporal aggregate → feature</span></div>
+<h4>Dataset binding</h4>
+<p>Mañaneras segmented by day → LDA K≈20–30 → weekly prevalence per topic → joined to elections by
+date (last N pre-election weeks). Measurable hypothesis: pre-vote prevalence of
+"seguridad"/"economía" correlates with outcomes — and crucially, LDA provides the
+<em>interpretable baseline</em> the BETO branch (IV.12) must beat. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n07_lda_agenda.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Corpus</td><td>mananeras_asr segmentadas por día; stopwords español + stopwords políticos propios</td></tr>
-<tr><td>Selección K</td><td>coherencia C_v sobre grid K∈{10,20,30,50}</td></tr>
-<tr><td>Outputs</td><td>serie semanal topic-share · top-10 palabras por tópico · etiquetado manual de los K tópicos</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Corpus</td><td>mananeras_asr segmented by day; Spanish stopwords + custom political stopwords</td></tr>
+<tr><td>K selection</td><td>C_v coherence over K∈{10,20,30,50}</td></tr>
+<tr><td>Outputs</td><td>weekly topic-share series · top-10 words per topic · manual K-topic labeling</td></tr></table></div>
 </div>
 </div>
 
 <!-- W08 STM -->
 <div class="lecture" id="nlp8">
 <header>
-<div class="wk"><span class="w">NLP · Semana 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
-<h3>IV.8 Structural Topic Models — tópicos condicionados por contexto</h3>
-<div class="sub">STM: prevalencia y contenido como función de covariables documentales.</div>
+<div class="wk"><span class="w">NLP · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
+<h3>IV.8 Structural Topic Models — topics conditioned on context</h3>
+<div class="sub">STM: prevalence and content as functions of document covariates.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>LDA ignora que un discurso en 2019 no es el mismo contexto que uno en 2023. STM hace la
-prevalencia temática una <em>función de covariables</em>: año de sexenio, trimestre pre-electoral,
-índice de inflación vigente. Pregunta natural: "¿la proporción de discurso sobre inseguridad
-aumenta cuando la percepción ENSU sube?" — eso es un modelo estadístico sobre texto, no solo
-clustering. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">θ<sub>d</sub> ~ LogisticNormal( Γ x<sub>d</sub> , Σ ) ,
-&nbsp;&nbsp; φ<sub>k</sub> depende también de covariables de contenido
-<span class="fl">x<sub>d</sub> = covariables del documento: semana, indicador económico, dummy pre-electoral</span></div>
-<h4>Aplicación al dataset</h4>
-<p>Covariables x<sub>d</sub> desde el canónico: <code>AÑO_SEXENIO</code>, <code>ES_INTERMEDIA</code>
-(indicador de ciclo), macro_lag correspondiente a la fecha del documento. Los efectos estimados
-Γ se reportan como coeficientes interpretables — la lectura "un punto más de inflación ↔ +Δ share
-de tópico economía" es una contribución sustantiva, no solo una feature. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>LDA ignores that a 2019 discourse is not the same context as a 2023 one. The Structural Topic
+Model (STM, Roberts, Stewart &amp; Airoldi 2016) makes thematic prevalence a <em>function of
+covariates</em>: sexenio year, pre-electoral quarter, current inflation. Natural question: "does the
+share of security discourse rise when ENSU perception rises?" — that is a statistical model on
+text, not mere clustering. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p>STM generalizes LDA: the topic-prevalence parameter is drawn from a logistic normal whose mean
+is a regression on document covariates Γ·x_d; topic content can also depend on covariates.
+Estimated Γ coefficients are directly interpretable — "one extra inflation point ↔ +Δ topic-economy
+share" is a substantive contribution, not just a feature. <span class="m mL">L</span></p>
+<div class="formula">θ<sub>d</sub> ~ LogisticNormal( Γ x<sub>d</sub> , Σ ) ,&nbsp; φ<sub>k</sub> covariate-dependent
+<span class="fl">x_d = document covariates: week, economic indicator, pre-electoral dummy</span></div>
+<h4>Dataset binding</h4>
+<p>Covariates x_d from the canonical set: <code>AÑO_SEXENIO</code>, <code>ES_INTERMEDIA</code>,
+macro_lag at the document's date. The Γ table with confidence intervals is a paper deliverable.
+<span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n08_stm_contexto.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>Nota</td><td>STM es R-nativo (<code>stm</code> package); el notebook orquesta R vía rpy2 o corre como script separado documentado</td></tr>
-<tr><td>Outputs</td><td>tabla Γ con IC · gráfico de prevalencia condicionada · comparación con LDA IV.7</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>Note</td><td>STM is R-native (<code>stm</code> package); the notebook orchestrates R via rpy2 or runs as a documented separate script</td></tr>
+<tr><td>Outputs</td><td>Γ table with CIs · conditioned-prevalence plot · comparison vs LDA IV.7</td></tr></table></div>
 </div>
 </div>
 
 <!-- W09-10 -->
 <div class="lecture" id="nlp9">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 09–10</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.9 Clasificación de texto · IV.10 NER — stance y atención territorial</h3>
-<div class="sub">Clasificación supervisada de documentos; reconocimiento de entidades nombradas.</div>
+<div class="wk"><span class="w">NLP · Weeks 09–10</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.9 Text classification · IV.10 NER — stance and territorial attention</h3>
+<div class="sub">Supervised document classification; Named Entity Recognition.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>Dos features de alto valor electoral: (a) <strong>stance del discurso</strong> — ¿el tono sobre
-la oposición/economía/seguridad es positivo, negativo, combatiendo? — y (b) <strong>atención
-territorial presidencial</strong> — conteo ponderado de menciones por entidad/municipio en el
-discurso: ¿el presidente habla más de los estados donde pierde? Esa última es una covariable
-política original que solo el corpus de mañaneras permite. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
-<div class="formula">NER sequence-labeling: argmax<sub>y</sub> Π P(y<sub>t</sub> | x, y<sub>t−1</sub>) ·
-BIO tags · Entidades: PER, ORG, LOC, GPE<span class="fl">las menciones GPE/LOC se mapean a ENTIDAD_CANONICA y GEO_KEY_2</span></div>
-<h4>Aplicación al dataset</h4>
-<p>NER fine-tuned sobre español (o BETO-ner) produce, por segmento, entidades territoriales
-normalizadas a la clave canónica. Agregado semanal por entidad → feature
-<code>atencion_presidencial_ent</code>. Stance: clasificador fine-tuned con etiquetas propias
-(positivo/negativo/neutro/combate) anotadas sobre muestra — se reporta inter-annotator o
-validación por muestra si la anotación es asistida por LLM. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+<h4>Why it exists</h4>
+<p>Two high-value electoral features: (a) <strong>discourse stance</strong> — is the tone toward
+opposition/economy/security positive, negative, combative? — and (b) <strong>presidential
+territorial attention</strong> — a weighted count of entity/municipality mentions in the discourse:
+does the president talk more about states where he loses? That last one is an original political
+covariate only the mañaneras corpus enables. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p><strong>Sequence labeling with NER</strong> (Named Entity Recognition): assign each token a
+BIO tag (Begin/Inside/Outside of an entity: PER person, ORG organization, LOC location, GPE
+geopolitical entity) maximizing P(y|x) over tag sequences. <strong>Text classification:</strong>
+a document vector → softmax over classes; fine-tuning a pre-trained encoder (IV.12) replaces the
+shallow BoW classifier. <span class="m mL">L</span></p>
+<div class="formula">NER: argmax<sub>y</sub> Π P(y<sub>t</sub> | x, y<sub>t−1</sub>) · BIO tags ·
+entities: PER, ORG, LOC, GPE<span class="fl">GPE/LOC mentions map to ENTIDAD_CANONICA and GEO_KEY_2</span></div>
+<h4>Dataset binding</h4>
+<p>Spanish fine-tuned NER (or BETO-NER) yields, per intervention, territorial entities normalized
+to the canonical key. Weekly aggregation per entity → feature
+<code>atencion_presidencial_ent</code>. Stance: fine-tuned classifier with our own labels
+(positive/negative/neutral/combat) annotated on a sample — inter-annotator agreement or LLM-assisted
+validation reported. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n09_stance_finetune.ipynb · n10_ner_atencion.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>NER</td><td>modelo es multilingüe (p. ej. <code>dccuchile/bert-base-spanish-wwm-ner</code> o XLM-R-NER); normalización a gazetteer del canónico</td></tr>
-<tr><td>Stance</td><td>muestra anotada n≥500 segmentos; métrica macro-F1 por clase</td></tr>
-<tr><td>Feature final</td><td><code>atencion_presidencial_{ent}</code> semanal → merge por fecha+entidad con canónico</td></tr></table></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>NER</td><td>Spanish/multilingual model (e.g., <code>dccuchile/bert-base-spanish-wwm-ner</code> or XLM-R-NER); gazetteer normalization against the canonical set</td></tr>
+<tr><td>Stance</td><td>annotated sample n≥500 segments; macro-F1 per class</td></tr>
+<tr><td>Final feature</td><td><code>atencion_presidencial_{ent}</code> weekly → merge by date+entity with canonical</td></tr></table></div>
 </div>
 </div>
 
 <!-- W11-12 -->
 <div class="lecture" id="nlp11">
 <header>
-<div class="wk"><span class="w">NLP · Semanas 11–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
-<h3>IV.11 CRF secuencial · IV.12 Atención y BETO — de lo interpretable al encoder</h3>
-<div class="sub">Conditional Random Fields como baseline de secuencias; self-attention y encoders españoles.</div>
+<div class="wk"><span class="w">NLP · Weeks 11–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
+<h3>IV.11 Sequential CRF · IV.12 Attention and BETO — from interpretable to encoder</h3>
+<div class="sub">Conditional Random Fields as sequence baseline; self-attention and Spanish encoders.</div>
 </header>
 <div class="body">
-<h4>Por qué existe</h4>
-<p>CRF es el baseline estructurado del sequence-labeling: su matriz de transición aprendida es
-interpretable directamente (qué tags pueden seguir a qué tags). BETO/RoBERTa-es es el encoder
-del dominio: su embedding <code>[CLS]</code> (o pool de tokens) es el vector textual que entra a la
-fusión multimodal de la Parte V. La comparación CRF-vs-transformer en NER documenta la ganancia
-del deep learning en la tarea concreta, no en abstracto. <span class="m mP">P</span></p>
-<h4>Formalismo</h4>
+<h4>Why it exists</h4>
+<p>A Conditional Random Field (CRF) is the structured sequence-labeling baseline: its learned
+transition matrix is directly interpretable (which tags may follow which). BETO
+(<code>dccuchile/bert-base-spanish-wwm-cased</code>, a BERT — Bidirectional Encoder
+Representations from Transformers — trained on Spanish text) is the domain encoder: its
+<code>[CLS]</code> token embedding (or mean pooling over tokens) is the textual vector feeding the
+multimodal fusion (Part V). The CRF-vs-transformer comparison on NER documents the concrete gain
+of deep learning on this task, not in the abstract. <span class="m mP">P</span></p>
+<h4>Theoretical framework</h4>
+<p><strong>CRF</strong> (Lafferty et al. 2001): a discriminative undirected graphical model —
+P(y|x) ∝ exp(Σ_t [ s(y_t,x,t) + A_{y_{t−1},y_t} ]) — where s scores emission and A is the learned
+transition matrix; decoding by Viterbi. <strong>BERT</strong>: a bidirectional Transformer encoder
+pre-trained with Masked Language Modeling (predict masked tokens) and next-sentence objectives;
+fine-tuning adapts it to a task with a small head. <span class="m mL">L</span></p>
 <div class="formula">CRF: P(y|x) ∝ exp( Σ<sub>t</sub> [ s(y<sub>t</sub>,x,t) + A<sub>y<sub>t−1</sub>,y<sub>t</sub></sub> ] )
-&nbsp;&nbsp;|&nbsp;&nbsp; BERT pool: h = MeanPool(Encoder(tokens))
-<span class="fl">A = matriz de transición interpretable · h ∈ R^768 = vector de entrada a la fusión</span></div>
-<h4>Aplicación al dataset</h4>
-<p>CRF: features ortográficas (capitalización, prefijos, contexto ±2) sobre los mismos datos NER —
-baseline interpretable contra BETO-NER de IV.10. BETO: fine-tuning en clasificación de stance
-(IV.9) y el mismo encoder sin fine-tune como extractor de embeddings para la fusión — se reporta
-si el fine-tune de dominio mejora el pool genérico. <span class="m mP">P</span></p>
-<h4>Spec de notebook</h4>
+&nbsp;|&nbsp; BERT pool: h = MeanPool(Encoder(tokens))
+<span class="fl">A = interpretable transition matrix · h ∈ R^768 = fusion input</span></div>
+<h4>Dataset binding</h4>
+<p>CRF: orthographic features (capitalization, prefixes, ±2 context) on the same NER data —
+interpretable baseline against BETO-NER (IV.10). BETO: fine-tune on stance classification (IV.9)
+plus the unfrozen encoder as an embedding extractor for fusion — report whether domain fine-tuning
+improves the generic pool. <span class="m mP">P</span></p>
+<h4>Notebook spec</h4>
 <div class="nbspec"><div class="nt">Notebook spec — n11_crf_baseline.ipynb · n12_beto_encoder.ipynb</div>
-<table><tr><th>Campo</th><th>Valor</th></tr>
-<tr><td>CRF</td><td><code>sklearn-crfsuite</code>; reportar matriz de transición como figura</td></tr>
-<tr><td>BETO</td><td><code>dccuchile/bert-base-spanish-wwm-cased</code>; embeddings B×768 persistidos por segmento; fine-tune stance</td></tr>
-<tr><td>Output fusión</td><td><code>texto_emb.parquet</code>: (fecha, entidad?) × 768 → input del multimodal V.1</td></tr></table></div>
-<div class="call c-data"><span class="ct">Cierre de la Parte IV</span>
-<p>La rama textual produce tres artefactos persistentes: (1) corpus ASR con timestamps, (2) features
-semanales <code>topic_share_*</code>, <code>atencion_presidencial_*</code>, <code>stance_*</code>,
-(3) embeddings BETO por segmento. Todo se une al canónico por (fecha_disponible, entidad) — la
-fecha de publicación gobierna el join, nunca la fecha de referencia. <span class="m mP">P</span></p></div>
+<table><tr><th>Field</th><th>Value</th></tr>
+<tr><td>CRF</td><td><code>sklearn-crfsuite</code>; report transition matrix as figure</td></tr>
+<tr><td>BETO</td><td><code>dccuchile/bert-base-spanish-wwm-cased</code>; B×768 embeddings persisted per intervention; stance fine-tune</td></tr>
+<tr><td>Fusion output</td><td><code>texto_emb.parquet</code>: (fecha, entidad?) × 768 → multimodal input V.1</td></tr></table></div>
+<div class="call c-data"><span class="ct">Part IV closing</span>
+<p>The textual branch produces three persistent artifacts: (1) a timestamped corpus, (2) weekly
+features <code>topic_share_*</code>, <code>atencion_presidencial_*</code>, <code>stance_*</code>,
+(3) BETO embeddings per intervention. Everything joins the canonical set by
+(publication_date, entity) — the publication date governs the join, never the referenced-event date.
+<span class="m mP">P</span></p></div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- ============ PARTE V — INTEGRACIÓN ============ -->
+<!-- ============ PART V — INTEGRATION ============ -->
 <div class="part" id="p5">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte V</div>
-<h2>Integración — capstones y diseño experimental</h2>
-<p>Los canales se combinan en late fusion; la evaluación compara honestamente cada canal contra
-persistencia y contra el modelo sin ese canal (ablación).</p>
+<div class="pn">Part V</div>
+<h2>Integration — capstones and experimental design</h2>
+<p>The channels combine by late fusion; evaluation honestly compares each channel against
+persistence and against the model without that channel (ablation).</p>
 </div>
 
-<h3 id="s51"><span class="secnum">V.1</span>Capstone C2 — arquitectura multimodal late fusion</h3>
+<h3 id="s51"><span class="secnum">V.1</span>Capstone C2 — multimodal late-fusion architecture</h3>
+<p><strong>Late fusion</strong> keeps each modality's encoder frozen and learns only the
+combination — unlike early fusion (concatenating raw features) it avoids forcing incompatible
+geometries into one space, and unlike joint end-to-end training it keeps every branch independently
+auditable. The four branches (tabular MLP, temporal LSTM, spatial GNN, textual BETO) each emit a
+fixed-length embedding; concatenation plus election/entity embeddings feeds a fusion MLP.
+<span class="m mP">P</span></p>
 <figure class="arch">
 <svg viewBox="0 0 860 260" role="img">
 <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#A51C30"/></marker></defs>
 <g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
-<!-- ramas -->
 <rect x="10" y="20" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="40" font-weight="700">MLP tabular (III.1)</text><text x="85" y="55" font-size="9">B×F → B×128</text>
+<text x="85" y="40" font-weight="700">Tabular MLP (III.1)</text><text x="85" y="55" font-size="9">B×F → B×128</text>
 <rect x="10" y="80" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="100" font-weight="700">LSTM temporal (III.9)</text><text x="85" y="115" font-size="9">B×T×D → B×64</text>
+<text x="85" y="100" font-weight="700">Temporal LSTM (III.9)</text><text x="85" y="115" font-size="9">B×T×D → B×64</text>
 <rect x="10" y="140" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="160" font-weight="700">GNN espacial (V.3)</text><text x="85" y="175" font-size="9">grafo mun. → B×64</text>
+<text x="85" y="160" font-weight="700">Spatial GNN (V.3)</text><text x="85" y="175" font-size="9">municipal graph → B×64</text>
 <rect x="10" y="200" width="150" height="46" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
-<text x="85" y="220" font-weight="700">BETO texto (IV.12)</text><text x="85" y="235" font-size="9">768 → proj B×64</text>
-<!-- concat -->
+<text x="85" y="220" font-weight="700">Text BETO (IV.12)</text><text x="85" y="235" font-size="9">768 → proj B×64</text>
 <rect x="230" y="95" width="130" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="295" y="120" font-weight="700">Concat</text>
 <text x="295" y="138" font-size="10">B×(128+64+64+64)</text>
-<text x="295" y="155" font-size="9">+ e_elección + e_geo</text>
-<!-- fusion -->
+<text x="295" y="155" font-size="9">+ e_election + e_geo</text>
 <rect x="400" y="95" width="130" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
-<text x="465" y="120" font-weight="700">MLP fusión</text>
+<text x="465" y="120" font-weight="700">Fusion MLP</text>
 <text x="465" y="138" font-size="10">256→128, GELU</text>
 <text x="465" y="155" font-size="9">Drop 0.4 · residual</text>
-<!-- heads -->
 <rect x="570" y="20" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="40" font-weight="700">shares</text><text x="635" y="55" font-size="9">softmax K · composicional</text>
+<text x="635" y="40" font-weight="700">shares</text><text x="635" y="55" font-size="9">softmax K · compositional</text>
 <rect x="570" y="80" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="100" font-weight="700">participación</text><text x="635" y="115" font-size="9">regresión σ</text>
+<text x="635" y="100" font-weight="700">turnout</text><text x="635" y="115" font-size="9">linear σ</text>
 <rect x="570" y="140" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="160" font-weight="700">ganador</text><text x="635" y="175" font-size="9">CE + Brier</text>
+<text x="635" y="160" font-weight="700">winner</text><text x="635" y="175" font-size="9">CE + Brier</text>
 <rect x="570" y="200" width="130" height="44" rx="6" fill="#E8EEF4" stroke="#3D5A80"/>
-<text x="635" y="220" font-weight="700">incertidumbre</text><text x="635" y="235" font-size="9">MC-Dropout/ensemble</text>
-<!-- ejes -->
+<text x="635" y="220" font-weight="700">uncertainty</text><text x="635" y="235" font-size="9">MC-Dropout/ensemble</text>
 <line x1="160" y1="43" x2="228" y2="110" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 <line x1="160" y1="103" x2="228" y2="125" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 <line x1="160" y1="163" x2="228" y2="140" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
@@ -1447,210 +1629,226 @@ persistencia y contra el modelo sin ese canal (ablación).</p>
 <line x1="530" y1="140" x2="568" y2="162" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 <line x1="530" y1="150" x2="568" y2="222" stroke="#A51C30" stroke-width="1.4" marker-end="url(#a5)"/>
 </g></svg>
-<figcaption><strong>Late fusion.</strong> Cada rama se entrena en su sección-lectura y se congela;
-la fusión aprende solo la combinación — las ablaciones miden qué canal aporta señal marginal.</figcaption>
+<figcaption><strong>Late fusion.</strong> Each branch is trained in its lecture section and frozen;
+fusion learns only the combination — ablations measure each channel's marginal signal.</figcaption>
 </figure>
-<p><strong>Matriz de ablación obligatoria:</strong> solo-tabular · +temporal · +espacial · +texto ·
-completo. El paper reporta el Δ de cada canal sobre el baseline — incluyendo si es negativo.
+<p><strong>Mandatory ablation matrix:</strong> tabular-only · +temporal · +spatial · +text · full.
+The paper reports each channel's Δ over baseline — including when it is negative.
 <span class="m mP">P</span></p>
 
-<h3 id="s52"><span class="secnum">V.2</span>Capstone C3 — forecasting de participación</h3>
-<p>El experimento end-to-end más simple: predecir <code>PARTICIPACION</code> del siguiente ciclo
-por unidad (participación es continua, interpretable, y no composicional — evita la complejidad
-del simplex). MLP (III.1) vs LSTM (III.9) vs persistencia. Fija el harness de evaluación para
-todos los experimentos posteriores. <strong>Sprint 1 = este notebook.</strong> <span class="m mP">P</span></p>
+<h3 id="s52"><span class="secnum">V.2</span>Capstone C3 — turnout forecasting</h3>
+<p>The simplest end-to-end experiment: predict next-cycle <code>PARTICIPACION</code> per unit
+(turnout is continuous, interpretable, non-compositional — avoiding the simplex's complexity).
+MLP (III.1) vs LSTM (III.9) vs persistence. It fixes the evaluation harness for all later
+experiments. <strong>Sprint 1 = this notebook.</strong> <span class="m mP">P</span></p>
 
-<h3 id="s53"><span class="secnum">V.3</span>Capstone C1 — GNN municipal</h3>
-<p>Municipios como nodos; aristas = adyacencia geográfica INEGI (pendiente de integrar) o similitud
-socioeconómica como fallback documentado. GCN/GraphSAGE/GAT comparados. Mensajes = shares lags +
-macro_lag + embedding latente VAE (III.6). La pregunta SQ3 es si la difusión espacial reduce el
-error en diputados locales — donde la geografía es la estructura más rica disponible. <span class="m mP">P</span></p>
-<div class="call c-risk"><span class="ct">Dependencia bloqueante</span>
-<p>Requiere shapefile/adyacencia INEGI municipal — <strong>gap abierto</strong> (VI.4). Fallback
-declarado: grafo k-NN por distancia de centroides o similitud de features.</p></div>
+<h3 id="s53"><span class="secnum">V.3</span>Capstone C1 — municipal GNN</h3>
+<p><strong>Graph Neural Networks</strong> replace a grid with an explicit adjacency graph:
+municipalities as nodes, edges = INEGI geographic adjacency (pending integration) or socioeconomic
+similarity as documented fallback. <strong>GCN</strong> (Graph Convolutional Network, Kipf &amp;
+Welling 2017) averages a node's neighborhood embedding; <strong>GraphSAGE</strong> samples and
+aggregates neighborhoods; <strong>GAT</strong> (Graph Attention, Veličković et al. 2018) weighs
+neighbors by learned attention. Messages = share lags + macro_lag + VAE latent embedding (III.6).
+SQ3 asks whether spatial diffusion reduces error in local deputies — where geography is the richest
+available structure. <span class="m mP">P</span></p>
+<div class="call c-risk"><span class="ct">Blocking dependency</span>
+<p>Requires the INEGI municipal adjacency/shapefile — <strong>open gap</strong> (VI.4). Declared
+fallback: k-NN graph by centroid distance or feature similarity.</p></div>
 
-<h3 id="s54"><span class="secnum">V.4</span>Capstone C4 — forense de anomalías electorales</h3>
-<p>Los outliers del autoencoder (III.6) + <code>FLAG_CONSISTENCIA</code> + residuos del modelo
-temporal forman un sistema de detección de anomalías electorales: municipios cuyo patrón de votación
-no se explica por su latente ni su historia. Inspirado en el análisis forense de Cantú (2014) sobre
-fraudulent fingerprinting — se reporta como <strong>hallazgo anómalo</strong>, nunca como acusación
-de fraude sin evidencia externa. Disciplina del reporte: anomalía estadística ≠ irregularidad jurídica.
+<h3 id="s54"><span class="secnum">V.4</span>Capstone C4 — electoral-anomaly forensics</h3>
+<p>Autoencoder outliers (III.6) + <code>FLAG_CONSISTENCIA</code> + temporal-model residuals form an
+electoral-anomaly detection system: municipalities whose voting pattern is explained by neither
+their latent profile nor their history. Inspired by Cantú's (2014) forensic analysis of fraudulent
+fingerprinting — reported as a <strong>statistical anomaly</strong>, never as a fraud accusation
+without external evidence. Reporting discipline: statistical anomaly ≠ legal irregularity.
 <span class="m mP">P</span></p>
 
-<h3 id="s55"><span class="secnum">V.5</span>Capstone C5 — nowcasting textual</h3>
-<p>Ventana de 90 días pre-elección: solo features textuales (IV.7, IV.9, IV.10) + macro reciente
-→ predicción del outcome. Contesta si el discurso contiene señal <em>anticipada</em> — y delimita
-qué "anticipada" significa: la mañanera del día T solo explica elecciones posteriores a T.
-<span class="m mP">P</span></p>
+<h3 id="s55"><span class="secnum">V.5</span>Capstone C5 — textual nowcasting</h3>
+<p>90-day pre-election window: textual features only (IV.7, IV.9, IV.10) + recent macro → outcome
+prediction. Answers whether discourse carries <em>anticipatory</em> signal — and delimits what
+"anticipatory" means: a mañanera of day T can only explain elections after T. <span class="m mP">P</span></p>
 
-<h3 id="s56"><span class="secnum">V.6</span>Diseño experimental maestro</h3>
+<h3 id="s56"><span class="secnum">V.6</span>Master experimental design</h3>
 <table class="compact">
-<tr><th>Elemento</th><th>Decisión</th><th>Justificación</th></tr>
-<tr><td>Split temporal</td><td>train ≤2012 · val 2015-2018 · test 2021-2024</td>
-<td>respeta regimenes; test incluye era MORENA (cambio estructural) <span class="m mP">P</span></td></tr>
-<tr><td>Split auxiliar</td><td>rolling-origin dentro de train para tuning</td>
-<td>evita leakage de hiperparámetros <span class="m mP">P</span></td></tr>
-<tr><td>Filtro</td><td><code>FLAG_CONSISTENCIA=0</code> en train/val/test</td>
-<td>anomalías se estudian aparte (C4) <span class="m mD">D</span></td></tr>
-<tr><td>Unidad panel</td><td>entidad para federales; municipio con pooling para locales</td>
-<td>secuencias cortas locales — no inventar historia <span class="m mP">P</span></td></tr>
-<tr><td>Métricas share</td><td>MAE · RMSE · top-1 winner · Brier · ECE calibración</td>
-<td>composicional: evaluar distribución, no solo ganador <span class="m mP">P</span></td></tr>
-<tr><td>Métricas aux</td><td>participación: MAE · alternancia: AUC/macro-F1</td><td>outcomes secundarios</td></tr>
-<tr><td>IC</td><td>bootstrap por unidad geográfica</td><td>unidades correlacionadas — bootstrap clásico inválido <span class="m mL">L</span></td></tr>
-<tr><td>Baseline cero</td><td>persistencia (share anterior), más regresión multinomial</td>
-<td>piso honesto — todo modelo debe justificar sobre él <span class="m mP">P</span></td></tr>
+<tr><th>Element</th><th>Decision</th><th>Justification</th></tr>
+<tr><td>Temporal split</td><td>train ≤2012 · val 2015–2018 · test 2021–2024</td>
+<td>respects regimes; test includes the MORENA era (structural break) <span class="m mP">P</span></td></tr>
+<tr><td>Auxiliary split</td><td>rolling-origin within train for tuning</td>
+<td>avoids hyperparameter leakage <span class="m mP">P</span></td></tr>
+<tr><td>Filter</td><td><code>FLAG_CONSISTENCIA=0</code> in train/val/test</td>
+<td>anomalies studied separately (C4) <span class="m mD">D</span></td></tr>
+<tr><td>Panel unit</td><td>entity for federals; municipality with pooling for locals</td>
+<td>short local sequences — never invent history <span class="m mP">P</span></td></tr>
+<tr><td>Share metrics</td><td>MAE · RMSE · top-1 winner · Brier · ECE calibration</td>
+<td>compositional: evaluate the distribution, not only the winner <span class="m mP">P</span></td></tr>
+<tr><td>Aux metrics</td><td>turnout: MAE · alternancia: AUC/macro-F1</td><td>secondary outcomes</td></tr>
+<tr><td>CI</td><td>bootstrap by geographic unit</td>
+<td>units are correlated — classical bootstrap invalid <span class="m mL">L</span></td></tr>
+<tr><td>Zero baseline</td><td>persistence (previous share), plus multinomial regression</td>
+<td>honest floor — every model must justify itself against it <span class="m mP">P</span></td></tr>
 </table>
 
-<h3 id="s57"><span class="secnum">V.7</span>Tablero de evaluación esperado</h3>
+<h3 id="s57"><span class="secnum">V.7</span>Expected evaluation board</h3>
 <table class="compact">
-<tr><th>Modelo</th><th>Canal</th><th>MAE share</th><th>Acc ganador</th><th>Brier</th><th>ECE</th><th>vs persistencia</th></tr>
-<tr><td>Persistencia</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0.000</td></tr>
-<tr><td>Reg. multinomial</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><th>Model</th><th>Channel</th><th>MAE share</th><th>Winner acc</th><th>Brier</th><th>ECE</th><th>vs persistence</th></tr>
+<tr><td>Persistence</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0.000</td></tr>
+<tr><td>Multinomial reg.</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>MLP (III.1)</td><td>tabular</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>LSTM (III.9)</td><td>+temporal</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>Transformer (III.7)</td><td>+temporal-attn</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>GNN (V.3)</td><td>+espacial</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>+BETO (IV.12)</td><td>+texto</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Multimodal (V.1)</td><td>completo</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>SSM (III.14)</td><td>ablación arq.</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>GNN (V.3)</td><td>+spatial</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>+BETO (IV.12)</td><td>+text</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Multimodal (V.1)</td><td>full</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>SSM (III.14)</td><td>arch ablation</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 </table>
-<p class="small">Tabla en blanco deliberadamente: se llena con resultados reales de los notebooks —
-ningún valor pre-llenado. <span class="m mP">P</span></p>
+<p class="small">Deliberately blank: filled with real notebook results — no pre-filled values.
+<span class="m mP">P</span></p>
 </div>
 </div>
 
-<!-- ============ PARTE VI — PAPER / EJECUCIÓN ============ -->
+<!-- ============ PART VI — PAPER / EXECUTION ============ -->
 <div class="part" id="p6">
 <div class="wrap">
 <div class="parthead">
-<div class="pn">Parte VI</div>
-<h2>Paper, amenazas a la validez y plan de ejecución</h2>
-<p>El documento maestro es el cuerpo pedagógico; el paper es su compresión científica.
-Esta parte fija la estructura, los riesgos que podrían invalidar el proyecto, y el cronograma.</p>
+<div class="pn">Part VI</div>
+<h2>Paper, validity threats and execution plan</h2>
+<p>The master document is the pedagogical body; the paper is its scientific compression.
+This part fixes the structure, the risks that could invalidate the project, and the schedule.</p>
 </div>
 
-<h3 id="s61"><span class="secnum">VI.1</span>Estructura del paper final</h3>
+<h3 id="s61"><span class="secnum">VI.1</span>Final paper structure</h3>
 <table class="compact">
-<tr><th>§ Paper</th><th>Título</th><th>Contenido proviene de</th><th>Estado</th></tr>
-<tr><td>1</td><td>Introducción y contribuciones</td><td>Parte 0 + motivación SICEE</td><td>borrador listo <span class="m mD">D</span></td></tr>
-<tr><td>2</td><td>Sistema electoral mexicano</td><td>Parte I (KB) comprimido</td><td>documentado <span class="m mD">D</span></td></tr>
-<tr><td>3</td><td>Datos: SICEE canónico + exógenas</td><td>Parte II + diccionario + QA</td><td>verificado <span class="m mD">D</span></td></tr>
-<tr><td>4</td><td>Trabajo relacionado</td><td>ANTECEDENTES.md + 16 papers Consensus</td><td>documentado <span class="m mD">D</span></td></tr>
-<tr><td>5</td><td>Métodos por canal (MLP/LSTM/CNN/VAE/GNN/BETO)</td><td>Partes III-IV</td><td>especificado <span class="m mP">P</span></td></tr>
-<tr><td>6</td><td>Diseño experimental</td><td>V.6 splits, métricas, ablaciones</td><td>especificado <span class="m mP">P</span></td></tr>
-<tr><td>7</td><td>Resultados y análisis</td><td>notebooks ejecutados — tabla V.7</td><td>pendiente <span class="m mP">P</span></td></tr>
-<tr><td>8</td><td>Interpretabilidad y mapa latente</td><td>III.6 VAE + atención III.7 + NER IV.10</td><td>pendiente <span class="m mP">P</span></td></tr>
-<tr><td>9</td><td>Anomalías y límites forenses</td><td>V.4 C4 con disciplina de reporte</td><td>pendiente <span class="m mP">P</span></td></tr>
-<tr><td>10</td><td>Amenazas a la validez</td><td>VI.2</td><td>documentado <span class="m mP">P</span></td></tr>
-<tr><td>11</td><td>Discusión y trabajo futuro</td><td>gaps VI.4 + agenda</td><td>documentado <span class="m mP">P</span></td></tr>
-<tr><td>12</td><td>Reproducibilidad</td><td>scripts + checksums + ambiente Colab</td><td>parcial <span class="m mD">D</span></td></tr>
+<tr><th>Paper §</th><th>Title</th><th>Content from</th><th>Status</th></tr>
+<tr><td>1</td><td>Introduction and contributions</td><td>Part 0 + SICEE motivation</td><td>draft ready <span class="m mD">D</span></td></tr>
+<tr><td>2</td><td>Mexican electoral system</td><td>Part I (KB) compressed</td><td>documented <span class="m mD">D</span></td></tr>
+<tr><td>3</td><td>Data: canonical SICEE + exogenous</td><td>Part II + dictionary + QA</td><td>verified <span class="m mD">D</span></td></tr>
+<tr><td>4</td><td>Related work</td><td>ANTECEDENTES.md + 16 Consensus papers</td><td>documented <span class="m mD">D</span></td></tr>
+<tr><td>5</td><td>Per-channel methods (MLP/LSTM/CNN/VAE/GNN/BETO)</td><td>Parts III–IV</td><td>specified <span class="m mP">P</span></td></tr>
+<tr><td>6</td><td>Experimental design</td><td>V.6 splits, metrics, ablations</td><td>specified <span class="m mP">P</span></td></tr>
+<tr><td>7</td><td>Results and analysis</td><td>executed notebooks — table V.7</td><td>pending <span class="m mP">P</span></td></tr>
+<tr><td>8</td><td>Interpretability and latent map</td><td>III.6 VAE + III.7 attention + IV.10 NER</td><td>pending <span class="m mP">P</span></td></tr>
+<tr><td>9</td><td>Anomalies and forensic limits</td><td>V.4 C4 with reporting discipline</td><td>pending <span class="m mP">P</span></td></tr>
+<tr><td>10</td><td>Validity threats</td><td>VI.2</td><td>documented <span class="m mP">P</span></td></tr>
+<tr><td>11</td><td>Discussion and future work</td><td>gaps VI.4 + agenda</td><td>documented <span class="m mP">P</span></td></tr>
+<tr><td>12</td><td>Reproducibility</td><td>scripts + checksums + Colab environment</td><td>partial <span class="m mD">D</span></td></tr>
 </table>
 
-<h3 id="s62"><span class="secnum">VI.2</span>Amenazas a la validez — honestidad estructural</h3>
+<h3 id="s62"><span class="secnum">VI.2</span>Validity threats — structural honesty</h3>
 <table class="compact">
-<tr><th>Amenaza</th><th>Mecanismo</th><th>Mitigación implementada/planeada</th></tr>
-<tr><td>Leakage temporal</td><td>feature del año de la elección o posterior</td>
-<td>regla <code>_LAG1</code>; fecha de publicación textual; tests del harness <span class="m mD">D</span></td></tr>
-<tr><td>Falacia ecológica</td><td>inferir comportamiento individual de agregados</td>
-<td>declaración explícita: los modelos predicen agregados, no electores <span class="m mP">P</span></td></tr>
-<tr><td>Sesgo de selección textual</td><td>mañaneras = solo el oficialismo post-2018</td>
-<td>corpus se documenta como "discurso del gobierno federal", nunca "opinión pública" <span class="m mP">P</span></td></tr>
-<tr><td>Cambio de régimen</td><td>regularidades 1991-2017 pueden no aplicar a 2018+</td>
-<td>test incluye era MORENA; ablación de ponderación temporal <span class="m mP">P</span></td></tr>
-<tr><td>n pequeño</td><td>~6-8 ciclos presidenciales por unidad</td>
-<td>pooling jerárquico, regularización fuerte, métricas con IC bootstrap <span class="m mP">P</span></td></tr>
-<tr><td>Coaliciones ambiguas</td><td>doble conteo si fuente reporta componentes+coalición</td>
-<td>FLAG_CONSISTENCIA; decisión actor-único documentada; sensibilidad alternativa <span class="m mD">D</span></td></tr>
-<tr><td>Anomalía ≠ fraude</td><td>sobre-interpretación de outliers</td>
-<td>V.4 disciplina de reporte: "patrón no explicado", jamás "irregularidad" <span class="m mP">P</span></td></tr>
+<tr><th>Threat</th><th>Mechanism</th><th>Mitigation implemented/planned</th></tr>
+<tr><td>Temporal leakage</td><td>feature from the election year or later</td>
+<td><code>_LAG1</code> rule; text publication date; harness tests <span class="m mD">D</span></td></tr>
+<tr><td>Ecological fallacy</td><td>inferring individual behavior from aggregates</td>
+<td>explicit declaration: models predict aggregates, not voters <span class="m mP">P</span></td></tr>
+<tr><td>Text selection bias</td><td>mañaneras = incumbent-only discourse post-2018</td>
+<td>corpus documented as "federal-government discourse", never "public opinion" <span class="m mP">P</span></td></tr>
+<tr><td>Regime change</td><td>1991–2017 regularities may not hold after 2018</td>
+<td>test includes the MORENA era; temporal-weighting ablation <span class="m mP">P</span></td></tr>
+<tr><td>Small n</td><td>~6–8 presidential cycles per unit</td>
+<td>hierarchical pooling, strong regularization, bootstrap CIs <span class="m mP">P</span></td></tr>
+<tr><td>Ambiguous coalitions</td><td>double counting when source reports components + coalition</td>
+<td>FLAG_CONSISTENCIA; documented single-actor decision; sensitivity alternative <span class="m mD">D</span></td></tr>
+<tr><td>Anomaly ≠ fraud</td><td>over-interpreting outliers</td>
+<td>V.4 reporting discipline: "unexplained pattern", never "irregularity" <span class="m mP">P</span></td></tr>
 </table>
 
-<h3 id="s63"><span class="secnum">VI.3</span>Plan de ejecución — 6 sprints</h3>
+<h3 id="s63"><span class="secnum">VI.3</span>Execution plan — 6 sprints</h3>
 <ol class="steps">
-<li><strong>Sprint 1 — Harness y baseline:</strong> notebooks 02 (harness), 03 (MLP), C3
-(participación). Entrega: pipeline PyTorch + primer resultado honesto vs persistencia.</li>
-<li><strong>Sprint 2 — Estructura espacial:</strong> 04 CNN (opción a), 06 VAE, C1 GNN con
-adyacencia INEGI. Entrega: mapa latente + modelo espacial.</li>
-<li><strong>Sprint 3 — Corpus textual:</strong> integración mañaneras, III.8 ASR, n01-n04 (BoW,
-LSTM, tokenizer, n-gramas). Entrega: <code>mananeras_asr.parquet</code> + baseline textual.</li>
-<li><strong>Sprint 4 — NLP profundo:</strong> n05-n12 (embeddings, t-SNE, LDA, STM, stance, NER,
-CRF, BETO). Entrega: features textuales persistidas.</li>
-<li><strong>Sprint 5 — Integración:</strong> V.1 multimodal, III.13-14 generativo/SSM, C4-C5.
-Entrega: tabla V.7 completa + ablaciones.</li>
-<li><strong>Sprint 6 — Paper:</strong> redacción sobre resultados reales, figuras finales,
-paquete de reproducibilidad. Entrega: manuscrito.</li>
+<li><strong>Sprint 1 — Harness and baseline:</strong> notebooks 02 (harness), 03 (MLP), C3
+(turnout). Deliverable: PyTorch pipeline + first honest result vs persistence.</li>
+<li><strong>Sprint 2 — Spatial structure:</strong> 04 CNN (option a), 06 VAE, C1 GNN with INEGI
+adjacency. Deliverable: latent map + spatial model.</li>
+<li><strong>Sprint 3 — Textual corpus:</strong> mañaneras integration, III.8 ASR, n01–n04
+(BoW, LSTM, tokenizer, n-grams). Deliverable: <code>mananeras_asr.parquet</code> + textual
+baseline.</li>
+<li><strong>Sprint 4 — Deep NLP:</strong> n05–n12 (embeddings, t-SNE, LDA, STM, stance, NER, CRF,
+BETO). Deliverable: persisted textual features.</li>
+<li><strong>Sprint 5 — Integration:</strong> V.1 multimodal, III.13–14 generative/SSM, C4–C5.
+Deliverable: complete V.7 table + ablations.</li>
+<li><strong>Sprint 6 — Paper:</strong> writing on real results, final figures, reproducibility
+package. Deliverable: manuscript.</li>
 </ol>
 
-<h3 id="s64"><span class="secnum">VI.4</span>Gaps abiertos</h3>
+<h3 id="s64"><span class="secnum">VI.4</span>Open gaps</h3>
 <table class="compact">
-<tr><th>ID</th><th>Gap</th><th>Bloquea a</th><th>Plan de cierre</th></tr>
-<tr><td>G1</td><td>Corpus mañaneras no integrado al repo (existe en proyecto previo)</td>
-<td>Sprints 3-5 · Parte IV · C5</td><td>migración + índice por fecha de publicación</td></tr>
-<tr><td>G2</td><td>Serie armonizada de aprobación (catálogo en VARIABLES_EXOGENAS §2.5)</td>
-<td>feature de mayor señal esperada</td><td>compilar Reforma/Mitofsky/EF; metadatos de modo y muestra</td></tr>
-<tr><td>G3</td><td>Adyacencia municipal INEGI</td><td>C1 GNN</td><td>descargar geoestadística INEGI; fallback k-NN documentado</td></tr>
-<tr><td>G4</td><td>Tratamiento de coaliciones (actor único vs redistribución)</td><td>todos los shares</td>
-<td>decisión + sensibilidad en Sprint 1</td></tr>
-<tr><td>G5</td><td>318 grupos FLAG_CONSISTENCIA requieren decisión analítica</td><td>train limpio</td>
-<td>excluidos de train; estudiados en C4</td></tr>
+<tr><th>ID</th><th>Gap</th><th>Blocks</th><th>Closure plan</th></tr>
+<tr><td>G1</td><td>Mañaneras corpus lives in a companion repo (verified: 1,611 confs · 514,909 interventions · 18.1M words)</td>
+<td>Sprints 3–5 · Part IV · C5</td><td>migrate into this repo + publication-date index</td></tr>
+<tr><td>G2</td><td>Harmonized approval series (catalog in VARIABLES_EXOGENAS §2.5)</td>
+<td>highest-expected-signal feature</td><td>compile Reforma/Mitofsky/EF; per-row mode &amp; sample metadata</td></tr>
+<tr><td>G3</td><td>INEGI municipal adjacency</td><td>C1 GNN</td><td>download INEGI geostatistics; documented k-NN fallback</td></tr>
+<tr><td>G4</td><td>Coalition treatment (single actor vs redistribution)</td><td>all shares</td>
+<td>decision + sensitivity in Sprint 1</td></tr>
+<tr><td>G5</td><td>318 FLAG_CONSISTENCIA groups need analytic disposition</td><td>clean train</td>
+<td>excluded from train; studied in C4</td></tr>
 </table>
 
-<h3 id="s65"><span class="secnum">VI.5</span>Glosario de siglas</h3>
+<h3 id="s65"><span class="secnum">VI.5</span>Acronym glossary</h3>
 <table class="compact">
-<tr><td>INE</td><td>Instituto Nacional Electoral</td>
-<td>OPLE</td><td>Organismo Público Local Electoral</td></tr>
-<tr><td>SICEE</td><td>Sistema de Consulta de la Estadística de las Elecciones</td>
+<tr><td>INE</td><td>Instituto Nacional Electoral (national electoral authority)</td>
+<td>OPLE</td><td>Organismo Público Local Electoral (state electoral institute)</td></tr>
+<tr><td>SICEE</td><td>Sistema de Consulta de la Estadística de las Elecciones (INE historical stats)</td>
 <td>TEPJF</td><td>Tribunal Electoral del Poder Judicial de la Federación</td></tr>
 <tr><td>CPEUM</td><td>Constitución Política de los Estados Unidos Mexicanos</td>
-<td>PREP</td><td>Programa de Resultados Electorales Preliminares</td></tr>
-<tr><td>MR / RP</td><td>Mayoría Relativa / Representación Proporcional</td>
-<td>NEP</td><td>Número Efectivo de Partidos (Laakso-Taagepera)</td></tr>
-<tr><td>ENCO</td><td>Encuesta Nacional sobre Confianza del Consumidor</td>
-<td>ENSU</td><td>Encuesta Nacional de Seguridad Pública Urbana</td></tr>
-<tr><td>CNR</td><td>Candidatos No Registrados</td>
+<td>PREP</td><td>Programa de Resultados Electorales Preliminares (preliminary count)</td></tr>
+<tr><td>MR / RP</td><td>Mayoría Relativa (plurality) / Representación Proporcional</td>
+<td>NEP</td><td>Número Efectivo de Partidos (Laakso–Taagepera)</td></tr>
+<tr><td>ENCO</td><td>Encuesta Nacional sobre Confianza del Consumidor (consumer-confidence survey)</td>
+<td>ENSU</td><td>Encuesta Nacional de Seguridad Pública Urbana (urban-security survey)</td></tr>
+<tr><td>CNR</td><td>Candidatos No Registrados (write-in candidates)</td>
 <td>ASR</td><td>Automatic Speech Recognition</td></tr>
+<tr><td>MLP / RNN</td><td>Multi-Layer Perceptron / Recurrent Neural Network</td>
+<td>LSTM / GRU</td><td>Long Short-Term Memory / Gated Recurrent Unit</td></tr>
+<tr><td>GELU / ReLU</td><td>Gaussian Error / Rectified Linear Unit (activation functions)</td>
+<td>CE / BCE</td><td>Cross-Entropy / Binary Cross-Entropy (losses)</td></tr>
+<tr><td>CNN</td><td>Convolutional Neural Network</td>
+<td>AE / VAE</td><td>Autoencoder / Variational Autoencoder</td></tr>
 <tr><td>LDA / STM</td><td>Latent Dirichlet Allocation / Structural Topic Model</td>
 <td>NER / CRF</td><td>Named Entity Recognition / Conditional Random Field</td></tr>
-<tr><td>VAE / AE</td><td>Variational / (deterministic) Autoencoder</td>
-<td>GNN / GCN / GAT</td><td>Graph Neural Network / Graph Conv. Net / Graph Attention</td></tr>
-<tr><td>SSM</td><td>State-Space Model (Mamba, TSMixer)</td>
-<td>ECE / Brier</td><td>Expected Calibration Error / Brier score</td></tr>
-<tr><td>RAG</td><td>Retrieval-Augmented Generation</td>
-<td>BETO</td><td>BERT en español (dccuchile)</td></tr>
+<tr><td>GNN / GCN / GAT</td><td>Graph Neural Network / Graph Conv. Net / Graph Attention Network</td>
+<td>SSM</td><td>State-Space Model (Mamba, TSMixer)</td></tr>
+<tr><td>LLM / RAG</td><td>Large Language Model / Retrieval-Augmented Generation</td>
+<td>BETO</td><td>Spanish BERT (<code>dccuchile/bert-base-spanish-wwm-cased</code>)</td></tr>
+<tr><td>ECE / Brier</td><td>Expected Calibration Error / Brier score</td>
+<td>MAE / RMSE / AUC</td><td>Mean Absolute / Root-Mean-Square Error / Area Under ROC Curve</td></tr>
+<tr><td>WER</td><td>Word Error Rate (ASR quality)</td>
+<td>ELBO</td><td>Evidence Lower Bound (VAE objective)</td></tr>
 </table>
 
-<h3 id="s66"><span class="secnum">VI.6</span>Referencias</h3>
+<h3 id="s66"><span class="secnum">VI.6</span>References</h3>
 <ol class="refs">
-<li><span class="rt rt-of">OFICIAL</span> CPEUM, arts. 52-56, 115 — composición del Congreso y municipal.</li>
-<li><span class="rt rt-of">OFICIAL</span> INE, SICEE — estadísticas electorales históricas; DECEyEC — composición de congresos locales.</li>
-<li><span class="rt rt-of">OFICIAL</span> IEEPCO — sistemas de usos y costumbres en Oaxaca.</li>
-<li><span class="rt rt-pr">PEER-REVIEWED</span> Laakso &amp; Taagepera (1979) — número efectivo de partidos.</li>
-<li><span class="rt rt-pr">PEER-REVIEWED</span> Cantú (2014) — análisis forense de elecciones mexicanas.</li>
-<li><span class="rt rt-pr">PEER-REVIEWED</span> Kennedy et al. (2017) — pooling electoral global 86 países.</li>
-<li><span class="rt rt-pr">PEER-REVIEWED</span> Li et al. (2019) — GCNN jerárquico, elecciones Australia.</li>
-<li><span class="rt rt-pr">PEER-REVIEWED</span> Mancilla et al. (2025) — ML + geostatística, Nuevo León 2021.</li>
-<li><span class="rt rt-pr">PEER-REVIEWED</span> Zolghadr et al. (2018), Brito et al. (2020), Liu et al. (2020) — ANN/SVR/redes sociales electorales.</li>
-<li><span class="rt rt-pp">PROPUESTA</span> Este documento — arquitectura multimodal, sprints, especificaciones.</li>
-<li><span class="rt rt-pp">PROPUESTA</span> Roberts, Stewart &amp; Airoldi (2016) — stm package (Structural Topic Models), implementación de referencia para IV.8.</li>
+<li><span class="rt rt-of">OFFICIAL</span> CPEUM, arts. 52–56, 115 — congressional and municipal composition.</li>
+<li><span class="rt rt-of">OFFICIAL</span> INE, SICEE — historical electoral statistics; DECEyEC — local-congress composition.</li>
+<li><span class="rt rt-of">OFFICIAL</span> IEEPCO — usos y costumbres systems in Oaxaca.</li>
+<li><span class="rt rt-of">OFFICIAL</span> NOSTRODATA (github.com/NOSTRODATA/conferencias_matutinas_amlo · _sheinbaum) + roicort/ConferenciasMatutinasAMLO — mañaneras corpus, manifest-verified.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Cybenko (1989); Hornik (1991); Eldan &amp; Shamir (2016) — universal approximation &amp; depth.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Hochreiter &amp; Schmidhuber (1997); Cho et al. (2014) — LSTM, GRU.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Vaswani et al. (2017) — Transformer / self-attention.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Kingma &amp; Welling (2013) — VAE; Goodfellow et al. (2014) — GAN; Gu &amp; Dao (2023) — Mamba.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Mikolov et al. (2013); Pennington et al. (2014); van der Maaten &amp; Hinton (2008) — embeddings &amp; t-SNE.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Blei, Ng &amp; Jordan (2003) — LDA; Roberts, Stewart &amp; Airoldi (2016) — STM; Lafferty et al. (2001) — CRF; Devlin et al. (2019) — BERT.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Kipf &amp; Welling (2017); Veličković et al. (2018) — GCN, GAT; Lewis et al. (2020) — RAG.</li>
+<li><span class="rt rt-pr">PEER-REVIEWED</span> Laakso &amp; Taagepera (1979); Cantú (2014); Kennedy et al. (2017); Li et al. (2019); Mancilla et al. (2025); Zolghadr et al. (2018); Brito et al. (2020); Liu et al. (2020) — electoral science.</li>
+<li><span class="rt rt-pp">PROPOSAL</span> This document — multimodal architecture, sprints, specifications.</li>
 </ol>
 </div>
 </div>
-<!-- ============ SELLO ============ -->
+<!-- ============ SEAL ============ -->
 <div class="seal">
 <div class="wrap">
-<h2>Sello de calidad del documento</h2>
+<h2>Document quality seal</h2>
 <div class="marks">
 <span class="mk">DATASET QA ✓</span>
-<span class="mk">PROVENIENCIA [D/K/L/P] ✓</span>
-<span class="mk">SIN JS ✓</span>
-<span class="mk">ANTI-LEAKAGE DECLARADO ✓</span>
-<span class="mk">SPEC 26 LECTURES ✓</span>
-<span class="mk">SIN RESULTADOS INVENTADOS ✓</span>
+<span class="mk">PROVENANCE [D/K/L/P] ✓</span>
+<span class="mk">NO JS ✓</span>
+<span class="mk">ANTI-LEAKAGE DECLARED ✓</span>
+<span class="mk">26 LECTURE SPECS ✓</span>
+<span class="mk">NO INVENTED RESULTS ✓</span>
 </div>
-<p>Documento maestro v1.0 · Inteligencia Electoral México · generado 2026-10-06 ·
-cifras del dataset verificadas contra <code>qa_report.json</code> ·
-ningún modelo entrenado aún — todas las predicciones son especificaciones de diseño.</p>
+<p>Master document v2.0 · Electoral Intelligence Mexico · generated 2026-10-06 ·
+dataset figures verified against <code>qa_report.json</code> and the mañaneras
+<code>MANIFIESTO_DATOS.md</code> · no model trained yet — all predictions are design
+specifications.</p>
 </div>
 </div>
 </body>

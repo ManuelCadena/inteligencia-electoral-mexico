@@ -1,0 +1,258 @@
+<!-- ======== DL 1-7 ======== -->
+
+## 1. Multilayer Perceptron (MLP)
+
+A **multilayer perceptron (MLP)** is a feed-forward neural network that transforms an input through layers of artificial neurons. Each neuron computes a weighted sum, \(z=\mathbf{w}^{T}\mathbf{x}+b\), then applies an activation function. Without nonlinear activations, stacked layers would collapse into one linear transformation. **Rectified Linear Unit (ReLU)** outputs \(\max(0,z)\), making optimization efficient. **Gaussian Error Linear Unit (GELU)** smoothly weights inputs according to their magnitude and is common in modern language models. For multiclass prediction, **softmax** converts output scores into probabilities that sum to one.
+
+Training minimizes a loss function. **Backpropagation** applies the chain rule to calculate how each weight contributed to the error; **gradient descent** then updates weights in the opposite direction of the gradient. The universal approximation theorem states that a sufficiently wide MLP can approximate any continuous function on a bounded domain, although it does not guarantee efficient learning or good generalization.[1]
+
+Analogy: an MLP resembles a sequence of committee meetings: each layer summarizes information, nonlinear decisions reshape it, and feedback identifies which judgments caused the final mistake.
+
+Key papers: Rumelhart, Hinton, and Williams (1986); Cybenko (1989).
+
+## 2. PyTorch and Automatic Differentiation
+
+**PyTorch** is a machine-learning framework in which data are represented as **tensors**: multidimensional arrays that can run efficiently on central processing units or graphics processing units. A model applies tensor operations to produce predictions, and a loss function measures prediction error.
+
+PyTorch’s **automatic differentiation (autograd)** records the operations used to compute the output. When the loss is evaluated, autograd traverses this computational graph backward and calculates derivatives with the chain rule. This removes the need to derive gradients manually. An optimizer then changes parameters using those gradients.
+
+**Stochastic gradient descent (SGD)** estimates the gradient from a randomly selected mini-batch rather than the entire dataset. This makes training faster and introduces useful noise. **Adaptive Moment Estimation (Adam)** combines momentum—an average of recent gradients—with an estimate of squared gradients, allowing each parameter to receive an individually scaled update.
+
+Analogy: tensors are ingredients, the computational graph is a recipe, autograd retraces the recipe to identify which ingredient caused an undesirable taste, and the optimizer adjusts the ingredients.
+
+A practical training cycle is: compute predictions, calculate loss, clear old gradients, backpropagate, update parameters, and repeat.
+
+Key papers: Baydin et al. (2018); Kingma and Ba (2015).
+
+## 3. Regularization
+
+**Regularization** reduces overfitting: the tendency to memorize training examples while performing poorly on new data. The **bias–variance tradeoff** describes two types of error. High bias reflects an overly simple model that misses real patterns; high variance reflects a model that reacts excessively to the particular training sample. Regularization usually accepts a little more bias to reduce variance.
+
+**L2 weight decay** adds a penalty proportional to the squared weights to the loss. Large weights are discouraged, producing smoother functions. **Dropout** randomly disables units during training, preventing the network from relying on a small group of features. At inference time, all units are used with appropriate scaling. **Early stopping** monitors validation performance and halts training when validation error begins to rise, before the model memorizes noise.
+
+Analogy: learning a campaign message from survey responses is like studying for an exam. Memorizing every practice question gives high training performance but fails on new questions; learning broad principles generalizes better. Regularization acts like an instructor who discourages memorization and stops practice at the right time.
+
+The appropriate strength depends on dataset size, noise, model capacity, and the validation design. In electoral research, regularization is especially important when many linguistic or demographic features are available relative to the number of observations.
+
+Key papers: Hoerl and Kennard (1970); Srivastava et al. (2014).
+
+## 4. Convolutional Neural Network (CNN)
+
+A **convolutional neural network (CNN)** detects local patterns and combines them into larger structures. A convolutional filter, or kernel, slides across an input and computes weighted sums of nearby values. For images, the values are pixels; for text, they may represent neighboring word or character embeddings. Each filter learns to respond to a particular pattern, such as an edge, phrase, or visual shape.
+
+**Weight sharing** means the same filter is used at every location. This greatly reduces parameters and makes detection relatively insensitive to where a pattern occurs. A neuron’s **receptive field** is the portion of the original input that can influence it. Stacking convolutions expands receptive fields, allowing the network to combine simple local patterns into complex ones.
+
+**Pooling**, such as maximum pooling, summarizes nearby activations and reduces spatial or sequential resolution. This can improve computational efficiency and modestly increase robustness to small shifts, although excessive pooling may discard important information.
+
+Analogy: a CNN is like scanning a newspaper with the same highlighter rule everywhere: first mark words, then phrases, then recurring arguments. Local evidence is gradually assembled into a document-level interpretation.
+
+For electoral text, one-dimensional CNNs can identify short expressions associated with topics, sentiment, or political frames, but their locality can limit long-range contextual understanding.
+
+Key papers: LeCun et al. (1998); LeCun, Bengio, and Hinton (2015).[2]
+
+## 5. Transfer Learning
+
+**Transfer learning** reuses knowledge learned from one task or dataset for another. During **pre-training**, a model learns general representations from a large source corpus, often through supervised prediction or self-supervised objectives. During **fine-tuning**, its parameters are adapted using the target dataset.
+
+Researchers may **freeze** some layers, meaning their parameters remain unchanged, while training only a task-specific output layer or later layers. Freezing is useful when the target dataset is small; updating more layers can help when the target task differs substantially from the source.
+
+A central difficulty is **domain shift**: the source and target data follow different distributions. For example, a model trained on international news may encounter different vocabulary, political institutions, slang, or campaign conventions in Mexican electoral discourse. Transfer is beneficial when useful structures carry over, but harmful transfer, or negative transfer, can occur when source knowledge is misleading.
+
+Analogy: a translator who already understands Spanish literature can learn campaign language faster than a beginner, but must adapt to regional idioms, political slogans, and institutional terminology.
+
+Evaluation should compare transferred models with models trained from scratch and use geographically or temporally appropriate validation splits. Fine-tuning can also inherit biases from the pre-training corpus.
+
+Key papers: Bengio (2012); Pan and Yang (2010).
+
+## 6. Autoencoder and Variational Autoencoder
+
+An **autoencoder (AE)** learns to compress an input into a lower-dimensional **bottleneck** and reconstruct it. The encoder maps an observation to a latent representation; the decoder maps that representation back to an approximation of the original. This reflects the **manifold hypothesis**: high-dimensional observations may lie near a lower-dimensional structure, such as recurring political themes underlying many text features.
+
+A **variational autoencoder (VAE)** makes the latent representation probabilistic. Instead of assigning one code, the encoder predicts a distribution—typically a Gaussian—with a mean and variance. Training balances reconstruction quality with a **Kullback–Leibler (KL) divergence** penalty that encourages the learned distribution to remain near a chosen prior, usually a standard normal distribution. The combined objective is the **evidence lower bound (ELBO)**.
+
+The **reparameterization trick** writes a latent sample as \(z=\mu+\sigma\epsilon\), where \(\epsilon\) is random noise. This separates randomness from learnable parameters, allowing gradients to pass through the sampling operation.
+
+Analogy: an AE compresses a long speech into notes and reconstructs it; a VAE learns a smooth map of possible speeches, so nearby latent points produce related outputs.
+
+VAEs are useful for representation learning, visualization, simulation, and detecting unusual observations, but generated outputs may be blurry or overly regularized.
+
+Key papers: Hinton and Salakhutdinov (2006); Kingma and Welling (2014).[3]
+
+## 7. Transformer
+
+A **Transformer** processes sequences primarily through **self-attention**. For each token, it creates a query, key, and value. **Scaled dot-product attention** compares a query with all keys, divides by the square root of the key dimension for numerical stability, applies softmax, and computes a weighted sum of values:
+
+\[
+\operatorname{Attention}(Q,K,V)=\operatorname{softmax}\left(\frac{QK^{T}}{\sqrt{d_k}}\right)V.
+\]
+
+**Multi-head attention** runs several attention mechanisms in parallel, allowing different heads to capture different relationships, such as agreement, topic connections, or long-distance dependencies. Because attention alone does not encode order, **positional encoding** supplies information about token positions. **Causal masking** prevents a token from attending to future tokens during autoregressive generation.
+
+Each attention and feed-forward sublayer is surrounded by **residual connections**, which add the input back to the transformed output, and **LayerNorm (Layer Normalization)**, which stabilizes activations and optimization.
+
+Analogy: a committee member deciding how to interpret one sentence consults every other word, giving more attention to relevant words; multiple committee members specialize in different relationships.
+
+Transformers capture long-range context more directly than CNNs, but self-attention can be computationally expensive for long sequences and may reproduce biases in training data.
+
+Key papers: Vaswani et al. (2017); Devlin et al. (2019).
+
+
+<!-- ======== DL 8-14 ======== -->
+
+## 8. Automatic Speech Recognition (ASR)
+
+**Automatic Speech Recognition (ASR)** converts spoken audio into text. First, the waveform is divided into short overlapping frames. A **Mel spectrogram** represents the energy in each frame across frequencies mapped to the Mel scale, which approximates how humans perceive pitch. This transforms a long audio signal into a two-dimensional pattern that a neural network can process. An **encoder** converts these acoustic features into hidden representations; a **decoder** then predicts the most probable sequence of characters, subwords, or words. In an encoder–decoder system, the decoder uses both its previous prediction and the encoder’s representation to produce the next token. For electoral research, ASR can transcribe rallies, interviews, debates, and citizen recordings, but accents, code-switching, noise, and names can reduce accuracy. Performance is commonly measured with **Word Error Rate (WER)**:
+
+\[
+WER=\frac{S+D+I}{N}
+\]
+
+where \(S\) is substitutions, \(D\) deletions, \(I\) insertions, and \(N\) reference words. Lower WER is better. An everyday analogy is a listener turning speech into notes while repeatedly checking the surrounding context. Key references are **Graves et al. (2006)** on connectionist temporal classification and **Chan et al. (2016)** on attention-based speech recognition.
+
+## 9. LSTM / GRU / seq2seq
+
+A **Recurrent Neural Network (RNN)** processes a sequence one element at a time while carrying information from earlier steps. This is useful for language and speech, but ordinary RNNs can lose older information because repeated multiplication causes gradients to shrink or explode. **Long Short-Term Memory (LSTM)** networks address this with gates: the forget gate removes irrelevant information, the input gate writes new information, and the output gate exposes selected memory. A **Gated Recurrent Unit (GRU)** uses a simpler update gate and reset gate, often with fewer parameters. In **sequence-to-sequence (seq2seq)** learning, an encoder summarizes an input sequence and a decoder generates an output sequence, such as turning an interview into a label sequence or translation. During training, **teacher forcing** gives the decoder the correct previous token rather than its own possibly incorrect prediction. This speeds learning but can create a train–test mismatch, because deployment requires the model to use its own outputs. The everyday analogy is a secretary who keeps a notebook, crosses out outdated facts, and decides which notes to consult before writing each sentence. Foundational references are **Hochreiter and Schmidhuber (1997)** for LSTM and **Cho et al. (2014)** for GRU and encoder–decoder learning.
+
+## 10. Large Language Models (LLM)
+
+A **Large Language Model (LLM)** learns statistical patterns in text and generates language by predicting the next **token**, where a token may be a word, word fragment, punctuation mark, or symbol. During training, the model receives a sequence such as “The candidate spoke at the” and learns to assign high probability to likely continuations such as “debate.” Repeating this objective across enormous datasets teaches grammar, factual associations, style, and some reasoning-like patterns. **Scale** refers primarily to the number of parameters, training data, and computation; increasing these often improves capability, although performance also depends on data quality, architecture, and evaluation. LLMs do not automatically verify truth. **Hallucination** occurs when a model produces fluent but unsupported or false content because it is optimizing plausible continuation rather than consulting reality. In electoral research, hallucinations can invent quotations, misidentify candidates, or confuse dates and institutions, so outputs require source checking. An everyday analogy is an exceptionally well-read autocomplete system: it can complete a sentence convincingly but may not know whether the claim is true. Important references include **Vaswani et al. (2017)**, which introduced the Transformer architecture, and **Brown et al. (2020)**, which demonstrated large-scale few-shot language modeling.
+
+## 11. Retrieval-Augmented Generation (RAG)
+
+**Retrieval-Augmented Generation (RAG)** combines a language generator with an external document-search system. Instead of asking a model to answer solely from parameters learned during training, the system first retrieves relevant passages from a collection such as electoral laws, official results, manifestos, or interview transcripts. In **dense retrieval**, a neural encoder converts both the query and documents into numerical vectors called embeddings. Similarity—often cosine similarity—selects passages whose meanings are close to the query, even when they do not share exact words. The language model then receives the retrieved passages as context and generates an answer. RAG can improve freshness, domain coverage, and traceability, but retrieval errors still matter: irrelevant, incomplete, biased, or outdated documents can lead to incorrect answers. **Faithfulness** means that the generated response is supported by the retrieved evidence rather than merely sounding plausible. An everyday analogy is asking a researcher to answer only after searching a labeled filing cabinet and citing the documents consulted. In a Mexican electoral project, each answer should preserve document identifiers, dates, page numbers, and quoted evidence where possible. The foundational paper is **Lewis et al. (2020)**, which introduced RAG, while **Karpukhin et al. (2020)** established dense passage retrieval.
+
+## 12. Agentic Workflows
+
+An **agentic workflow** is a system in which a language model plans and performs multiple steps rather than producing a single response. It may interpret a question, select a tool, execute a database query, inspect the result, revise its plan, and produce a final answer. **Tool use** means giving the model controlled access to capabilities such as search, statistical software, geographic information systems, speech transcription, or a document database. The model should not be treated as an unrestricted autonomous decision-maker: tools need permissions, validation rules, and human oversight. An **audit trail** records the input, model version, prompt, retrieved sources, tool calls, intermediate outputs, errors, and final result. This is essential in electoral research because analysts may need to reproduce a finding or explain how a classification was made. An everyday analogy is a research assistant who receives a question, consults official records, calculates statistics, asks for clarification when necessary, and keeps a work diary. Agentic systems can improve productivity but may compound errors: a mistaken early assumption can influence every later step. Relevant conceptual references include **Yao et al. (2023)** on ReAct—reasoning combined with acting—and **Schick et al. (2023)** on language models learning to use tools.
+
+## 13. Generative Adversarial Networks and Diffusion
+
+A **Generative Adversarial Network (GAN)** contains two competing models. The generator creates synthetic examples, while the discriminator tries to distinguish generated examples from real ones. Training follows a minimax objective: the generator seeks to fool the discriminator, and the discriminator seeks to classify correctly. Over time, the generator may learn to produce realistic images, audio, or tabular records. GANs can support counterfactual simulation—for example, exploring how speech or imagery might appear under altered demographic or campaign conditions—but synthetic outputs are not evidence of what actually occurred and can reproduce training-data bias. **Diffusion models** use a different process. During training, controlled noise is gradually added to real data; the model learns to reverse this process and generate a clean sample from noise. Diffusion usually offers more stable and diverse generation than GANs, though it can be computationally expensive. An everyday analogy is comparing a forger competing with an inspector (GAN) to an artist learning how to restore a photograph after progressively heavier blurring (diffusion). In electoral studies, synthetic data should be labeled clearly and validated against privacy, realism, and fairness criteria. Key references are **Goodfellow et al. (2014)** for GANs and **Ho et al. (2020)** for denoising diffusion probabilistic models.
+
+## 14. State-Space Models (SSM)
+
+A **State-Space Model (SSM)** represents a sequence through a hidden state that changes over time. In a simple linear recurrence,
+
+\[
+x_t=Ax_{t-1}+Bu_t,\qquad y_t=Cx_t,
+\]
+
+the current state \(x_t\) depends on the previous state and input \(u_t\), while \(y_t\) is the observable output. This creates a compact memory of the past. Unlike self-attention, which directly compares many pairs of positions and can require quadratic computation for long sequences, an SSM updates information through recurrence and can scale approximately linearly with sequence length. **Mamba** is a selective SSM: its parameters depend on the input, allowing it to retain important events and suppress irrelevant ones. **TSMixer**, by contrast, is an all-**Multilayer Perceptron (MLP)** architecture that mixes information across time and features; it is not itself an SSM, but it is a relevant efficient alternative for time-series forecasting. For electoral research, these models can represent polling trajectories, turnout patterns, media volume, or campaign events over time. An everyday analogy is a notebook whose current summary is updated after each day, while attention is like rereading every previous page whenever writing a new entry. Key references are **Gu et al. (2022)** on structured SSMs, **Gu and Dao (2023)** on Mamba, and **Chen et al. (2023)** on TSMixer.[1]
+
+
+<!-- ======== NLP 15-20 ======== -->
+
+## 15. Bag-of-Words (BoW) / Term Frequency–Inverse Document Frequency (TF-IDF)
+
+**Bag-of-Words (BoW)** represents a document as a vector of word counts. First, the corpus vocabulary is listed; then each document receives one numerical value per vocabulary item. Word order is discarded, so “candidate attacks policy” and “policy attacks candidate” receive the same basic representation. This makes BoW simple and interpretable for electoral texts, such as counting mentions of *security*, *corruption*, or *jobs*. **Term Frequency–Inverse Document Frequency (TF-IDF)** improves this representation by weighting words according to both their importance within a document and their rarity across the corpus. A common form is \(\mathrm{TF\text{-}IDF}(t,d)=\mathrm{TF}(t,d)\times\log(N/\mathrm{DF}(t))\), where \(N\) is the number of documents and \(\mathrm{DF}(t)\) is the number containing term \(t\). Frequent but uninformative words receive lower weights.
+
+An everyday analogy is comparing newspapers by counting their words, while giving extra attention to words that distinguish one newspaper from many others.
+
+Key papers include Salton and Buckley (1988) on term weighting and Robertson (2004) on probabilistic relevance and inverse document frequency. TF-IDF is useful for transparent baselines, but it cannot reliably capture negation, sarcasm, or word order.
+
+## 16. Text Recurrent Neural Network (RNN) / Long Short-Term Memory (LSTM) over tokens
+
+A **Recurrent Neural Network (RNN)** processes a sequence one token at a time while maintaining a hidden state: a numerical summary of what it has read. For a token sequence \(x_1,\ldots,x_T\), the model repeatedly updates \(h_t=f(x_t,h_{t-1})\). The hidden state can then classify a message, predict its next token, or estimate political sentiment. The difficulty is that ordinary RNNs may lose information over long sequences because gradients become extremely small or large during training. **Long Short-Term Memory (LSTM)** networks address this with a memory cell and gates: the input gate controls what information enters, the forget gate controls what is removed, and the output gate controls what is exposed. These mechanisms help preserve relevant evidence across a long post or speech.
+
+An everyday analogy is reading a speech with a notebook: each sentence updates your notes, while erasers and bookmarks determine what to forget and remember.
+
+Foundational papers are Bengio et al. (2003), which introduced neural probabilistic language modeling, and Hochreiter and Schmidhuber (1997), which introduced LSTM. RNNs require ordered tokens and can model context better than BoW, although modern Transformer models often outperform them.
+
+## 17. Byte-Pair Encoding (BPE) tokenizer and Out-of-Vocabulary (OOV)
+
+**Byte-Pair Encoding (BPE)** is a subword-tokenization method designed to represent both common words and rare or previously unseen forms. It begins with small units—characters or bytes—and repeatedly merges the most frequent adjacent pair until reaching a chosen vocabulary size. For example, frequent pieces such as “polít” and “ica” may become reusable subwords. A word is therefore represented as several learned units rather than requiring one vocabulary entry for the entire word. This is valuable in Mexican electoral data, where names, hashtags, abbreviations, misspellings, and Spanish morphology produce many rare forms.
+
+An **Out-of-Vocabulary (OOV)** item is a word or symbol absent from a model’s fixed vocabulary. A whole-word tokenizer may replace it with an unknown token, losing information. BPE reduces this problem because unfamiliar words can usually be decomposed into known subwords, producing an effectively open vocabulary. Its main trade-off is that segmentation can be linguistically awkward and sequences may become longer.
+
+An everyday analogy is assembling an unfamiliar long word from familiar Lego pieces instead of declaring the entire word unusable.
+
+The key paper is Sennrich, Haddow, and Birch (2016), which adapted BPE for neural machine translation of rare words. The method originates in Gage (1994) as a data-compression algorithm.
+
+## 18. N-gram language models and perplexity
+
+An **N-gram language model** estimates the probability of a token from the previous \(n-1\) tokens. A bigram model uses one previous token; a trigram uses two. Formally, it approximates \(P(w_t\mid w_1,\ldots,w_{t-1})\) with \(P(w_t\mid w_{t-n+1},\ldots,w_{t-1})\), making a limited-history or Markov assumption. Probabilities are learned from counts in a corpus. Because unseen sequences receive zero probability, practical models use smoothing, such as adding small counts or interpolating different n-gram orders.
+
+**Perplexity** measures how surprised a model is by a test sequence. It is the exponentiated average negative log probability:
+
+\[
+\mathrm{PP}(w_{1:T})=
+\exp\left(-\frac{1}{T}\sum_{t=1}^{T}\log P(w_t\mid w_{<t})\right).
+\]
+
+Lower perplexity indicates better predictive performance on comparable data, though it does not automatically mean better political interpretation or classification.
+
+An everyday analogy is predicting the next word in a conversation using only the last few words; a low perplexity means the conversation is not very surprising to you.
+
+Important papers include Shannon (1948), which established probabilistic information-theoretic approaches to language, and Katz (1987), which introduced influential smoothing for n-gram models. N-grams are computationally simple and interpretable but struggle with long-distance dependencies.
+
+## 19. Word embeddings: Word2Vec / GloVe
+
+**Word embeddings** represent words as dense numerical vectors in which geometrically similar words tend to have similar meanings. This follows the distributional hypothesis: words appearing in similar contexts tend to have related meanings. Instead of counting each word independently, an embedding model learns coordinates from context patterns.
+
+**Word2Vec**, introduced by Mikolov et al. (2013), uses a neural objective. In the Continuous Bag-of-Words model, surrounding words predict a target word; in the Skip-gram model, a target predicts nearby words. Training adjusts vectors so that useful word-context relationships become close in vector space. **Global Vectors for Word Representation (GloVe)**, proposed by Pennington et al. (2014), learns vectors from global word co-occurrence statistics while preserving important local relationships. Both methods can reveal associations among electoral terms, parties, candidates, and issues, but these associations may reflect social biases in the training corpus rather than objective facts.
+
+An everyday analogy is constructing a map from neighborhoods: places visited by similar people or activities appear near one another.
+
+Key papers are Mikolov et al. (2013) for Word2Vec and Pennington, Socher, and Manning (2014) for GloVe. Static embeddings assign one vector per word, so they cannot fully distinguish meanings that change with context.
+
+## 20. t-SNE / UMAP for visualization
+
+**t-distributed Stochastic Neighbor Embedding (t-SNE)** and **Uniform Manifold Approximation and Projection (UMAP)** are nonlinear dimensionality-reduction methods. They convert high-dimensional representations—such as document embeddings or hidden states—into two- or three-dimensional coordinates for visualization. They do not primarily create better features for prediction; they create maps that help researchers inspect clusters, outliers, and possible differences among parties, regions, or topics.
+
+t-SNE constructs probabilities representing neighborhood relationships in the original space and seeks a low-dimensional map with similar relationships, using a heavy-tailed Student-\(t\) distribution to reduce the crowding problem. It usually emphasizes local neighborhoods, but distances between separated clusters and the apparent size of clusters can be misleading. **UMAP** models a neighborhood graph using assumptions from manifold learning and optimizes a low-dimensional representation. It often preserves more global structure and scales better to large datasets, although its output depends on parameter choices and random initialization.
+
+An everyday analogy is drawing a subway map: nearby stations remain connected and legible, but geographic distances and directions may be distorted.
+
+The foundational papers are van der Maaten and Hinton (2008) for t-SNE and McInnes, Healy, and Melville (2018) for UMAP. Visual clusters should be treated as exploratory evidence, not definitive proof of ideological or semantic categories.
+
+
+<!-- ======== NLP 21-26 ======== -->
+
+## 21. Latent Dirichlet Allocation (LDA) Topic Modeling
+
+**Latent Dirichlet Allocation (LDA)** is an unsupervised probabilistic method for discovering hidden themes, or *topics*, in a collection of documents. “Latent” means unobserved, while “Dirichlet” refers to the probability distribution used to represent how strongly topics appear in documents. LDA assumes that each document contains a mixture of topics and that each topic is a probability distribution over words (Blei, Ng, and Jordan 2003). For example, a campaign speech might be 50% about security, 30% about the economy, and 20% about social programs. The model observes only words and estimates these hidden topic mixtures from recurring patterns of word co-occurrence. Researchers choose the number of topics in advance, and the resulting topics must be interpreted by examining their most probable words and representative documents. LDA is useful for exploring what Mexican electoral texts discuss, but its topics are not automatically meaningful labels and may require substantive validation.
+
+**Everyday analogy:** Imagine sorting a large box of mixed newspaper clippings without titles. By noticing which words repeatedly appear together—such as “jobs,” “wages,” and “growth”—you infer an “economy” pile, even though no pile was labeled beforehand.
+
+Key paper: **Blei, Ng, and Jordan (2003)**.
+
+## 22. Structural Topic Model (STM)
+
+The **Structural Topic Model (STM)** extends Latent Dirichlet Allocation by incorporating document-level metadata—information such as party, speaker, date, region, or platform. Like LDA, it represents each document as a mixture of topics and each topic as a distribution over words. Its distinctive feature is that metadata can help explain two aspects of text: **topic prevalence**, or how much a topic appears in a document, and **topic content**, or which words are used to express that topic (Roberts et al. 2014). For example, an STM could estimate whether immigration is discussed more frequently by one party than another, or whether the word choices associated with “security” change between government and opposition speeches. This makes STM especially useful for electoral research because it connects textual patterns to political context. However, metadata associations are generally descriptive rather than automatically causal; party affiliation may correlate with other factors, such as region or campaign period.
+
+**Everyday analogy:** LDA sorts recipes according to their ingredients. STM additionally records who cooked each recipe, when it was prepared, and for what occasion, then examines whether those details predict the ingredients or the way a dish is described.
+
+Key papers: **Roberts, Stewart, and Airoldi (2013)**; **Roberts et al. (2014)**.[1]
+
+## 23. Text Classification / Stance Detection
+
+**Text classification** assigns a document or message to predefined categories. A model learns from labeled examples in which humans have already identified the correct class—for example, whether a post concerns corruption, security, or the economy. The model converts text into measurable features, such as words, phrases, or contextual representations, and learns patterns associated with each category. **Stance detection** is a specialized classification task that identifies an author’s position toward a target, such as supporting, opposing, or remaining neutral toward a candidate, policy, or electoral claim. The target matters: a message may be positive in tone but oppose a particular politician, or criticize one proposal while supporting another. In Mexican electoral research, stance labels should therefore specify both the target and the possible positions. Performance is commonly assessed using accuracy, precision, recall, and the F1 score, but human annotation quality and political context are equally important.
+
+**Everyday analogy:** A librarian first sorts books into subjects; a stance detector goes further by marking whether a review recommends, rejects, or is undecided about a specific book.
+
+Key papers: **Matsuno and Carley (2004)** on stance classification; **Mohammad et al. (2016)** on stance detection in social media.[5]
+
+## 24. Named Entity Recognition (NER) / BIO Tags
+
+**Named Entity Recognition (NER)** identifies references to people, organizations, places, dates, parties, and other predefined entity types in text. Rather than classifying an entire document, NER labels individual tokens within a sentence. For example, in “Claudia Sheinbaum visited Puebla,” the system might label “Claudia Sheinbaum” as a person and “Puebla” as a location. **BIO tags** specify where entities begin and end: **B** means “beginning,” **I** means “inside,” and **O** means “outside” an entity. Thus, “Claudia Sheinbaum visited Puebla” could be labeled B-PERSON, I-PERSON, O, B-LOCATION. BIO tagging is important because multiword names require boundaries, and the same word can have different meanings in different contexts. In electoral research, customized entity categories may be needed for candidates, coalitions, electoral institutions, municipalities, and political programs. Evaluation usually compares predicted entity spans and types with human-labeled annotations.
+
+**Everyday analogy:** NER is like highlighting names and places in a newspaper, while BIO tags indicate exactly where each highlighted phrase starts and ends.
+
+Key papers: **Ramshaw and Marcus (1995)** introduced IOB-style tagging; **Tjong Kim Sang and De Meulder (2003)** evaluated standard NER systems.
+
+## 25. Conditional Random Field (CRF)
+
+A **Conditional Random Field (CRF)** is a supervised probabilistic model that predicts a sequence of labels while considering relationships between neighboring labels. This is valuable for tasks such as NER, where the correct label for one word depends partly on nearby words and on the labels assigned to surrounding words. For example, an I-PERSON tag should normally follow a B-PERSON or another I-PERSON tag, not an unrelated location label. A CRF estimates which complete label sequence is most probable given the observed sentence. It uses features such as the current word, capitalization, suffixes, neighboring words, and previous predicted labels. Unlike a generative model, a CRF models the conditional probability of labels given the input text, rather than modeling how both text and labels were generated. CRFs were widely used before neural language models and remain useful when labeled data are limited or when structured, valid output sequences are important.
+
+**Everyday analogy:** Instead of identifying each word independently, a proofreader checks an entire sentence: if one word begins a person’s name, the following words are more likely to continue that same name.
+
+Key paper: **Lafferty, McCallum, and Pereira (2001)**.
+
+## 26. BETO / BERT / Masked Language Modeling (MLM)
+
+**Bidirectional Encoder Representations from Transformers (BERT)** is a neural language model based on the Transformer architecture. Unlike older models that read text mainly from left to right, BERT uses attention to examine words in both directions and represent each word according to its surrounding context (Devlin et al. 2019). It is pretrained through **Masked Language Modeling (MLM)**: some input tokens are hidden, and the model learns to predict them from the remaining words. For example, in “The candidate promised better [MASK],” the model uses context to infer a plausible missing word. After pretraining, BERT can be fine-tuned for tasks such as classification, stance detection, and NER. **BETO** is a Spanish-language BERT model trained on large Spanish corpora, making it more appropriate than an English-only model for many Mexican electoral texts (Cañete et al. 2020). Nevertheless, performance depends on domain, dialect, political slang, code-switching, and the quality of task-specific labels.
+
+**Everyday analogy:** A student studies thousands of sentences with selected words covered by tape, learns to infer the missing words from context, and later applies that contextual understanding to identify names or political positions.
+
+Key papers: **Devlin et al. (2019)**; **Cañete et al. (2020)**.
+

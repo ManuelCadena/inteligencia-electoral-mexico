@@ -1890,6 +1890,20 @@ fallback); pending INEGI download</td></tr>
 <td>MAE / RMSE / AUC</td><td>Mean Absolute / Root-Mean-Square Error / Area Under ROC Curve</td></tr>
 <tr><td>WER</td><td>Word Error Rate (ASR quality)</td>
 <td>ELBO</td><td>Evidence Lower Bound (VAE objective)</td></tr>
+<tr><td>CDF</td><td>Cumulative Distribution Function</td>
+<td>MLE</td><td>Maximum Likelihood Estimation</td></tr>
+<tr><td>SGD</td><td>Stochastic Gradient Descent</td>
+<td>Adam</td><td>Adaptive Moment Estimation (optimizer)</td></tr>
+<tr><td>PCA</td><td>Principal Component Analysis</td>
+<td>UMAP</td><td>Uniform Manifold Approximation and Projection</td></tr>
+<tr><td>BPE</td><td>Byte-Pair Encoding (tokenizer)</td>
+<td>OOV</td><td>Out-Of-Vocabulary (token)</td></tr>
+<tr><td>C<sub>v</sub></td><td>Coherence score for topic models</td>
+<td>BIO</td><td>Begin-Inside-Outside (entity tagging scheme)</td></tr>
+<tr><td>MLM</td><td>Masked Language Modeling (BERT pre-training)</td>
+<td>MHA</td><td>Multi-Head Attention</td></tr>
+<tr><td>FFN</td><td>Feed-Forward Network</td>
+<td>GloVe</td><td>Global Vectors (word embeddings)</td></tr>
 </table>
 
 <h3 id="s66"><span class="secnum">VI.6</span>References</h3>
@@ -1910,6 +1924,759 @@ fallback); pending INEGI download</td></tr>
 </ol>
 </div>
 </div>
+
+<!-- ============ PART VII — MODEL RATIONALE & PEDAGOGICAL CARDS ============ -->
+<div class="part" id="p7">
+<div class="wrap">
+<div class="parthead">
+<div class="pn">Part VII</div>
+<h2>Model rationale and pedagogical cards</h2>
+<p>Every architecture used in this thesis appears below as a <strong>model card</strong>: a
+pedagogical summary that answers, before any code is written, why the model was chosen, what
+problem it solves, what it assumes, how it will be trained, how it will be evaluated, how its
+outputs should be read in an electoral context, and what can go wrong. The first use of every
+acronym inside each card is expanded. These cards are the bridge between the course syllabus and the
+notebooks of Sprints 1–5. <span class="badge b-syl">SYLLABUS-CONFIRMED</span></p>
+</div>
+
+<!-- CARD MLP -->
+<div class="lecture" id="card-mlp">
+<header>
+<div class="wk"><span class="w">Card 1</span></div>
+<h3>Multi-Layer Perceptron (MLP) — tabular baseline</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> An election, to first approximation, is a nonlinear
+function of a fixed vector of covariates: past shares, macroeconomics, marginalization,
+incumbency, and structural dummies. When there is no explicit ordering in the input, the simplest
+universal approximator is the honest baseline. The MLP's only inductive bias is smoothness and
+compositionality of functions; it does not invent spatial or temporal structure that may not exist.
+</p>
+<p><strong>What it does.</strong> An MLP maps an input vector <code>x ∈ R^F</code> through one or
+more hidden layers <code>h = σ(Wx+b)</code> to a target <code>ŷ</code>. With a softmax output it
+produces a probability distribution over parties; with a linear output it predicts a scalar such as
+turnout. The <strong>Universal Approximation Theorem</strong> (Cybenko 1989; Hornik 1991) guarantees
+that a wide enough single-hidden-layer network can approximate any continuous function on a compact
+set, while depth makes that approximation efficient (Eldan &amp; Shamir 2016).</p>
+<p><strong>Core concepts, expanded.</strong>
+A <strong>neuron</strong> computes an affine transformation <code>w·x + b</code> followed by a
+nonlinearity <code>σ</code>. <strong>ReLU</strong> (Rectified Linear Unit) returns
+<code>max(0,z)</code>; it is computationally cheap but can "die" when the input is always negative.
+<strong>GELU</strong> (Gaussian Error Linear Unit) returns <code>z·Φ(z)</code>, where Φ is the
+<strong>CDF</strong> (Cumulative Distribution Function) of the standard normal distribution — a
+smooth probabilistic gating used in Transformers. <strong>Softmax</strong> converts a real vector
+into a probability vector by exponentiating and normalizing. <strong>Cross-Entropy</strong>
+(<strong>CE</strong>) measures the disagreement between the predicted distribution and the true
+one; it is the Maximum Likelihood Estimation (<strong>MLE</strong>) loss for a categorical model.
+<strong>Backpropagation</strong> applies the chain rule of calculus layer by layer to compute how
+each weight affects the loss, so gradient descent can update it.</p>
+<p><strong>Inputs.</strong> One row per election-geography unit: lagged party shares, lagged
+macroeconomic and remittance features, structural dummies, and learned embeddings for entity, party
+and office.</p>
+<p><strong>Outputs.</strong> Party-share vector (softmax, sums to 1), scalar turnout, and a winner
+class.</p>
+<p><strong>Training procedure.</strong> Minimize CE plus L2 weight decay using
+<strong>SGD</strong> (Stochastic Gradient Descent) or Adam (Adaptive Moment Estimation, which keeps
+exponential moving averages of gradient mean and variance and rescales the learning rate per
+parameter). Early stopping is monitored on the temporal validation slice (2015–2018), never on the
+test set. The scaler is fit only on the training split to avoid leakage.</p>
+<p><strong>Evaluation.</strong> Mean Absolute Error (<strong>MAE</strong>) on party shares, top-1
+winner accuracy, Brier score (probabilistic calibration of the winner), and Expected Calibration
+Error (<strong>ECE</strong>). The mandatory comparison is against a persistence baseline
+("predict the previous election's shares").</p>
+<p><strong>Electoral interpretation.</strong> The MLP answers the research question: <em>how much
+signal lives in the table alone, with no explicit time or space model?</em> If the MLP cannot beat
+persistence, more complex models must justify every additional parameter.</p>
+<p><strong>Assumptions.</strong> (i) Conditional on the engineered features, observations are
+exchangeable — the model has no memory and no geography. (ii) The target shares lie in a
+probability simplex. (iii) Past votes and macro variables contain enough information to forecast
+the next election.</p>
+<p><strong>Limitations.</strong> It cannot exploit sequence, spatial adjacency, or text. It is
+vulnerable to overfitting when n is small (only ~6–8 presidential cycles per unit), so regularization
+is essential. Coalition labels such as <code>PAN_PRI_PRD</code> are treated as atomic tokens unless a
+separate redistribution sensitivity is run.</p>
+</div>
+</div>
+
+<!-- CARD CNN -->
+<div class="lecture" id="card-cnn">
+<header>
+<div class="wk"><span class="w">Card 2</span></div>
+<h3>Convolutional Neural Network (CNN) — spatial texture</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> The vote has local spatial texture: northern
+manufacturing belts, southern indigenous strongholds, urban corridors. A CNN learns local pattern
+detectors with shared parameters, so the same kernel that detects "opposition island" in one region
+applies everywhere. It is appropriate when the input can be arranged as a grid or a sequence with
+local neighborhoods.</p>
+<p><strong>What it does.</strong> A <strong>convolution</strong> slides a small kernel across the
+input and computes local dot products. <strong>Weight sharing</strong> means the same kernel is
+applied at every position; <strong>translation equivariance</strong> means a pattern is detected
+wherever it appears. Stacking layers grows the <strong>receptive field</strong>, so deep units see
+regional context. <strong>Pooling</strong> (max or mean) makes the representation locally invariant
+and reduces resolution.</p>
+<p><strong>Inputs.</strong> Two options are declared: (a) a year × party × entity tensor for
+federal-level analysis; (b) a true geographic grid of municipalities (requires INEGI geometry or a
+hexbin raster). Option (a) is a correlation detector, not a spatial one; option (b) is the faithful
+spatial operator.</p>
+<p><strong>Outputs.</strong> Learned feature maps, followed by a dense head for shares or winner.</p>
+<p><strong>Training procedure.</strong> Cross-entropy on party shares, with dropout after the
+global-pooling layer. The kernel size is chosen so the receptive field covers a few neighboring
+units; padding preserves border information.</p>
+<p><strong>Evaluation.</strong> MAE and winner accuracy versus the MLP baseline on the identical
+split; qualitative inspection of the first-layer kernels as spatial filters.</p>
+<p><strong>Electoral interpretation.</strong> The CNN tests whether local geographic texture adds
+predictive signal beyond tabular features. If it does not, geography may be better captured by an
+explicit graph (GNN) or by entity embeddings.</p>
+<p><strong>Assumptions.</strong> (i) Nearby positions in the input are semantically related (Tobler's
+first law). (ii) The input grid is topologically meaningful; a year×party arrangement is not a true
+map and must not be reported as spatial.</p>
+<p><strong>Limitations.</strong> Edge effects make Baja California and Yucatán boundaries special.
+Irregular municipal borders do not fit a rectangular grid; the CNN is therefore a precursor to the
+GNN, not its substitute.</p>
+</div>
+</div>
+
+<!-- CARD AE/VAE -->
+<div class="lecture" id="card-ae">
+<header>
+<div class="wk"><span class="w">Card 3</span></div>
+<h3>Autoencoder (AE) / Variational Autoencoder (VAE) — latent electoral profiles</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> There are no official labels for "electoral regions" of
+Mexico beyond coarse geographic names. An unsupervised bottleneck learns a low-dimensional
+representation of a municipality's full voting profile, revealing clusters that may match — or
+refute — the literature's typology (north, south, center, border). The VAE adds a probabilistic
+latent space suitable for simulation and anomaly detection.</p>
+<p><strong>What it does.</strong> An <strong>AE</strong> (Autoencoder) has an encoder
+<code>z = f(x)</code> and a decoder <code>x̂ = g(z)</code>; it minimizes reconstruction error
+<code>‖x − x̂‖²</code>. The bottleneck forces a compressed code. A <strong>VAE</strong>
+(Variational Autoencoder) makes the encoder output a distribution <code>q(z|x)</code> instead of a
+single point; training maximizes the <strong>ELBO</strong> (Evidence Lower Bound), which is the
+expected reconstruction log-likelihood minus the <strong>KL</strong> divergence
+(<strong>Kullback–Leibler</strong> divergence) from the posterior to a standard-normal prior. The
+<strong>reparameterization trick</strong> <code>z = μ + σ·ε</code>, with
+<code>ε ~ N(0,I)</code>, keeps sampling differentiable.</p>
+<p><strong>Inputs.</strong> Municipality-year party-share vectors from presidential elections, with
+small parties folded into an "other" category.</p>
+<p><strong>Outputs.</strong> A 2-D or 3-D latent coordinate per municipality-year; a reconstruction
+error that flags outliers for the forensic capstone.</p>
+<p><strong>Training procedure.</strong> Adam optimizer on reconstruction MSE for the AE, and on
+the negative ELBO for the VAE. β-VAE variants weight the KL term to encourage disentangled latent
+axes. Multiple random seeds test stability.</p>
+<p><strong>Evaluation.</strong> Reconstruction MAE, silhouette of latent clusters against known
+regions, and seed-stability of the resulting map.</p>
+<p><strong>Electoral interpretation.</strong> Latent dimensions may correspond to axes such as
+"north–south industrial divide" or "rural–urban". Municipalities with high reconstruction error are
+structurally anomalous — candidates for the anomaly-forensics capstone, not automatically fraudulent.</p>
+<p><strong>Assumptions.</strong> (i) High-dimensional vote profiles lie near a low-dimensional
+manifold (<strong>manifold hypothesis</strong>). (ii) The latent axes are stable enough to be
+meaningful across cycles. (iii) Mixing multiple years in one space does not confound historical
+drift with geography.</p>
+<p><strong>Limitations.</strong> Latent dimensions arrive unlabeled; naming them requires manual
+correlation with covariates. VAEs may collapse if the KL term dominates; monitoring reconstructions
+is mandatory.</p>
+</div>
+</div>
+
+<!-- CARD TRANSFORMER -->
+<div class="lecture" id="card-transformer">
+<header>
+<div class="wk"><span class="w">Card 4</span></div>
+<h3>Transformer — self-attention over electoral history</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> A recurrent network must propagate memory through every
+cycle between the present and a distant past; a Transformer accesses any past cycle directly. This
+makes it a natural tool when the research question is interpretive as well as predictive:
+<em>which past elections drive the current forecast?</em></p>
+<p><strong>What it does.</strong> A <strong>Transformer</strong> encoder builds a sequence
+representation using <strong>self-attention</strong>. Each position emits a query Q, a key K, and a
+value V; the output is a weighted sum of values, where the weight measures how much the query
+"attends" to each key. The dot products are scaled by <code>√d_k</code> so that softmax gradients do
+not vanish when dimension is large. <strong>Multi-Head Attention</strong> (<strong>MHA</strong>) runs
+several attention functions in parallel, allowing different heads to focus on different temporal
+regimes. <strong>Layer normalization</strong> stabilizes activations; residual connections let the
+network preserve raw features. <strong>Positional encoding</strong> injects order, which is
+implemented here as a learned or continuous <code>ANIO</code> embedding because electoral calendars
+are irregular. <strong>Causal masking</strong> blocks attention to future positions, preserving
+temporal causality.</p>
+<p><strong>Inputs.</strong> A sequence of cycle embeddings per unit: past party shares, lagged
+macroeconomics, structural indicators, and a time-stamp embedding.</p>
+<p><strong>Outputs.</strong> Next-cycle party shares, winner probabilities, and an attention matrix
+per head for interpretability.</p>
+<p><strong>Training procedure.</strong> Cross-entropy on the next cycle, with the same temporal split
+as the LSTM. Small d, few layers, and high dropout are used because n is small.</p>
+<p><strong>Evaluation.</strong> Same metrics as LSTM (MAE, winner accuracy, Brier). Attention maps
+are reported as a paper figure and treated as evidence, not as proof of importance.</p>
+<p><strong>Electoral interpretation.</strong> If attention concentrates on the immediately previous
+cycle, the system behaves like a smart persistence model. If it spreads across a whole sexenio, the
+model has learned longer-term regime dynamics.</p>
+<p><strong>Assumptions.</strong> (i) Past cycles are informative and the relevant ones can be
+identified by query-key similarity. (ii) Sequence length is small enough (T≈5–10) that quadratic
+attention cost is acceptable. (iii) The positional encoding captures true calendar distance.</p>
+<p><strong>Limitations.</strong> With only a handful of cycles per unit, Transformers overfit easily;
+the fair comparison is against the LSTM on the identical split. State-space models (Card 6) provide
+an efficiency alternative.</p>
+</div>
+</div>
+
+<!-- CARD LSTM/GRU -->
+<div class="lecture" id="card-lstm">
+<header>
+<div class="wk"><span class="w">Card 5</span></div>
+<h3>Long Short-Term Memory (LSTM) / Gated Recurrent Unit (GRU) — electoral memory</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Elections have memory: incumbent punishment, party
+stronghold inertia, sexenio effects. A recurrent model is the appropriate neural temporal baseline
+because it is expressive enough for these dynamics and small enough to fit our short, irregular
+panels.</p>
+<p><strong>What it does.</strong> A plain <strong>RNN</strong> (Recurrent Neural Network) updates a
+hidden state <code>h_t = f(h_{t−1}, x_t)</code>, but gradients vanish over long spans. An
+<strong>LSTM</strong> adds a cell state <code>c_t</code> and three gates: an input gate decides what
+to write, a forget gate decides what to keep, and an output gate decides what to emit. A
+<strong>GRU</strong> merges the cell and hidden state into an update gate and a reset gate, using
+fewer parameters.</p>
+<p><strong>Inputs.</strong> Same cycle sequence as the Transformer (Card 4).</p>
+<p><strong>Outputs.</strong> Next-cycle party shares and winner class.</p>
+<p><strong>Training procedure.</strong> Minimize next-cycle CE with teacher forcing during training:
+the true previous output is fed as the next decoder input. Bidirectionality is forbidden because it
+would attend to future cycles and leak information.</p>
+<p><strong>Evaluation.</strong> MAE, winner accuracy, and a direct head-to-head comparison with the
+Transformer on the same split.</p>
+<p><strong>Electoral interpretation.</strong> The forget-gate values can be inspected to see whether
+the model treats the previous election or the previous sexenio as the dominant memory. The LSTM is
+the honest recurrent counterpart to the Transformer; the delta between them is a design datum.</p>
+<p><strong>Assumptions.</strong> (i) The relevant dynamics can be summarized by a hidden state
+vector. (ii) Causality is respected (no future information). (iii) There are enough sequences to
+learn the gates reliably.</p>
+<p><strong>Limitations.</strong> For local elections, sequences may contain only 1–3 cycles per unit.
+Pooling by entity or strong regularization is required; invented history is not allowed.</p>
+</div>
+</div>
+
+<!-- CARD SSM -->
+<div class="lecture" id="card-ssm">
+<header>
+<div class="wk"><span class="w">Card 6</span></div>
+<h3>State-Space Model (SSM) — efficient sequence alternative</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Transformers cost O(T²) in sequence length. For our short
+panels the absolute cost is modest, but comparing an SSM such as Mamba or TSMixer documents whether
+linear-time recurrence sacrifices accuracy for speed — a design datum, not an assumption.</p>
+<p><strong>What it does.</strong> A linear <strong>SSM</strong> (State-Space Model) defines a
+continuous or discrete dynamical system <code>h_t = A·h_{t−1} + B·x_t</code>,
+<code>y_t = C·h_t</code>. The state is updated in O(1) per step, so the whole sequence is processed in
+O(T). Selective variants such as <strong>Mamba</strong> make A, B, and C input-dependent, recovering
+content-aware behavior without attention.</p>
+<p><strong>Inputs.</strong> Identical cycle sequence to Cards 4 and 5.</p>
+<p><strong>Outputs.</strong> Next-cycle party shares and winner class.</p>
+<p><strong>Training procedure.</strong> Same objective as the LSTM/Transformer; compare wall-clock
+time and parameter count alongside predictive error.</p>
+<p><strong>Evaluation.</strong> MAE, winner accuracy, training time per epoch, and number of
+parameters versus the Transformer.</p>
+<p><strong>Electoral interpretation.</strong> If the SSM matches the Transformer, the extra
+quadratic cost of attention is unnecessary for this dataset and the simpler recurrent structure is
+preferred.</p>
+<p><strong>Assumptions.</strong> (i) The target dynamics are approximately linear in a learned latent
+state. (ii) Input-dependent transitions add enough flexibility for electoral memory.</p>
+<p><strong>Limitations.</strong> SSM libraries for time-series are less mature than Transformers;
+if implementation does not converge, the comparison is reported as a conceptual note with the
+attempted configuration.</p>
+</div>
+</div>
+
+<!-- CARD GNN -->
+<div class="lecture" id="card-gnn">
+<header>
+<div class="wk"><span class="w">Card 7</span></div>
+<h3>Graph Neural Network (GNN) / Graph Convolutional Network (GCN) / Graph Attention Network (GAT) — real geography</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> A map is not a grid. Municipal borders are irregular and
+the relationship that matters for voting is contiguity and socioeconomic similarity. A GNN models
+municipalities as nodes and geographic or feature-based edges, letting information diffuse across
+the true topology. It replaces the CNN's artificial grid with a faithful graph operator.</p>
+<p><strong>What it does.</strong> A <strong>GNN</strong> (Graph Neural Network) updates each node's
+representation by aggregating messages from its neighbors. A <strong>GCN</strong> (Graph
+Convolutional Network) averages neighbor embeddings according to the normalized adjacency matrix. A
+<strong>GraphSAGE</strong> network samples and aggregates a fixed-size neighborhood. A
+<strong>GAT</strong> (Graph Attention Network) learns how much weight to give each neighbor, so
+some borders matter more than others. All variants share the core idea: similar connected units
+should have similar representations.</p>
+<p><strong>Inputs.</strong> Municipal graph: nodes = municipalities; edges = INEGI contiguity (or a
+documented k-NN fallback based on centroid distance or feature similarity). Node features = lagged
+shares, macro lag, VAE latent profile (Card 3).</p>
+<p><strong>Outputs.</strong> Updated node embeddings and predictions for next-cycle share/winner.</p>
+<p><strong>Training procedure.</strong> Semi-supervised: train on labeled election nodes, propagate
+through the graph via message passing. Use the same temporal split, with edges present only among
+units observed in the training period.</p>
+<p><strong>Evaluation.</strong> MAE and winner accuracy on local elections, compared with MLP and
+CNN. Ablation: GNN with contiguity edges vs. k-NN feature-similarity edges.</p>
+<p><strong>Electoral interpretation.</strong> The GNN tests whether geographic spillovers exist
+between neighboring municipalities. If the model improves, spatial diffusion is a real source of
+information; if not, geography is already captured by entity-level dummies.</p>
+<p><strong>Assumptions.</strong> (i) Adjacency is a meaningful proxy for information or behavioral
+diffusion. (ii) The graph is static or evolves slowly relative to electoral cycles. (iii) Boundary
+cases (islands, borders with other countries, disconnected municipalities) are handled explicitly.</p>
+<p><strong>Limitations.</strong> Building the adjacency requires official INEGI geometries; the
+fallback k-NN graph is an approximation and must be labeled as such. Edge definition directly
+influences results.</p>
+</div>
+</div>
+
+<!-- CARD GENERATIVE -->
+<div class="lecture" id="card-gen">
+<header>
+<div class="wk"><span class="w">Card 8</span></div>
+<h3>Generative models — simulation and counterfactual illustration</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Generative models are pedagogically valuable for asking
+"what if" questions: what would 2024 look like with 2018 inflation? They are not used as
+predictions because the conditional distributions are not validated causally.</p>
+<p><strong>What it does.</strong> A <strong>GAN</strong> (Generative Adversarial Network) pits a
+generator G against a discriminator D in a minimax game; at equilibrium, G produces samples that D
+cannot distinguish from real data. A VAE decoder can also generate samples by feeding new latent
+points. <strong>Diffusion</strong> models gradually denoise random noise toward a data sample.</p>
+<p><strong>Inputs.</strong> Latent points or noise; conditional covariates such as a synthetic macro
+scenario.</p>
+<p><strong>Outputs.</strong> Synthetic municipality-year vote profiles.</p>
+<p><strong>Training procedure.</strong> Train the VAE (Card 3) first; use its decoder to generate
+profiles under perturbed macro inputs.</p>
+<p><strong>Evaluation.</strong> Visual inspection of latent traversals and distributional checks
+(party-share marginals, turnout). No predictive metrics are reported as findings.</p>
+<p><strong>Electoral interpretation.</strong> These outputs are explicitly labeled
+<strong>ILLUSTRATIVE</strong>. They help communicate uncertainty and sensitivity, not to claim a
+forecast.</p>
+<p><strong>Assumptions.</strong> (i) The latent distribution generalizes to unseen counterfactual
+conditions. (ii) The generative process is not causal.</p>
+<p><strong>Limitations.</strong> Without causal identification, generated profiles are
+speculations. They may inherit historical biases and produce implausible coalitions.</p>
+</div>
+</div>
+
+<!-- CARD BoW -->
+<div class="lecture" id="card-bow">
+<header>
+<div class="wk"><span class="w">Card 9</span></div>
+<h3>Bag-of-Words (BoW) / Term Frequency–Inverse Document Frequency (TF-IDF) — textual floor</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Before using deep text models we must know whether simple
+word frequencies predict anything. BoW plus TF-IDF is transparent, fast, and interpretable; it sets
+the floor every neural method must beat or justify.</p>
+<p><strong>What it does.</strong> <strong>BoW</strong> represents a document as a vector of word
+counts, discarding order. <strong>TF-IDF</strong> (Term Frequency–Inverse Document Frequency)
+reweights each word by its rarity across the corpus: common words are downweighted, distinctive words
+are upweighted. The formula is
+<code>TF-IDF(w,d) = count(w,d) · log(N / df_w)</code>, where <code>N</code> is the number of
+documents and <code>df_w</code> is the number of documents containing word w.</p>
+<p><strong>Inputs.</strong> Text of presidential interventions in a 90-day pre-election window,
+aggregated per entity (locals) or nationally (federals).</p>
+<p><strong>Outputs.</strong> Sparse feature vector per window, plus a linear or logistic prediction
+head for incumbent share or alternation.</p>
+<p><strong>Training procedure.</strong> Build the vocabulary on the temporal training set only; then
+vectorize all splits. A regularized linear model (logistic or ridge) serves as the text baseline.</p>
+<p><strong>Evaluation.</strong> MAE on incumbent share and Area Under the Receiver Operating
+Characteristic Curve (<strong>AUC</strong>) for alternation; top-weighted terms for
+interpretability.</p>
+<p><strong>Electoral interpretation.</strong> BoW tells us whether the frequency of words such as
+"seguridad", "empleo", or "corrupción" in the weeks before an election carries signal. If it does
+not, the extra capacity of LSTMs and BERT may be wasted.</p>
+<p><strong>Assumptions.</strong> (i) Word order does not matter much for this task. (ii) A fixed
+pre-election window captures the relevant discourse. (iii) TF-IDF vocabulary is stable across sexenios.</p>
+<p><strong>Limitations.</strong> Negation, irony, and context are lost. Political acronyms and
+neologisms may be split by a generic tokenizer.</p>
+</div>
+</div>
+
+<!-- CARD RNN TEXT -->
+<div class="lecture" id="card-rnntext">
+<header>
+<div class="wk"><span class="w">Card 10</span></div>
+<h3>Text RNN / LSTM over political discourse</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> If word order matters — for example, "no vamos a
+permitir" versus "vamos a permitir" — a recurrent text model should improve over BoW. The text RNN
+quantifies how much lexical order adds in this domain.</p>
+<p><strong>What it does.</strong> Each token is embedded into a dense vector; an LSTM or GRU reads
+the sequence and produces a final hidden state that summarizes the discourse. A dense head maps that
+state to the target.</p>
+<p><strong>Inputs.</strong> Tokenized intervention or aggregated daily discourse, aligned to the
+pre-election window.</p>
+<p><strong>Outputs.</strong> Incumbent share, alternation probability, or stance class.</p>
+<p><strong>Training procedure.</strong> Pre-trained or randomly initialized token embeddings; LSTM
+over the sequence; cross-entropy or MSE. Dropout on the recurrent output and the embedding layer.</p>
+<p><strong>Evaluation.</strong> Same as BoW; the head-to-head delta measures the value of sequence.</p>
+<p><strong>Electoral interpretation.</strong> A significant improvement means that phrasing,
+negation, and narrative structure carry information beyond mere word counts.</p>
+<p><strong>Assumptions.</strong> (i) The relevant signal is in the order of words within an
+intervention. (ii) The corpus is large enough to learn meaningful token embeddings.</p>
+<p><strong>Limitations.</strong> Long interventions and rare tokens make training unstable. The
+model has no access to broader context beyond the single input sequence.</p>
+</div>
+</div>
+
+<!-- CARD TOKENIZER -->
+<div class="lecture" id="card-tokenizer">
+<header>
+<div class="wk"><span class="w">Card 11</span></div>
+<h3>Byte-Pair Encoding (BPE) tokenizer — domain morphology</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Mexican political Spanish contains acronyms and neologisms
+(INE, MORENA, IMSS, "chairos", "fifís", "mañanera") that a generic tokenizer may split incorrectly.
+Training a domain-specific tokenizer reduces the out-of-vocabulary rate and improves every
+downstream text model.</p>
+<p><strong>What it does.</strong> <strong>BPE</strong> (Byte-Pair Encoding) starts from characters and
+greedily merges the most frequent adjacent pair until a vocabulary of size B is reached. Frequent
+words become single tokens; rare words decompose into subwords. By construction,
+<strong>OOV</strong> (Out-Of-Vocabulary) tokens disappear, because any word can be spelled from
+subwords.</p>
+<p><strong>Inputs.</strong> The full mañaneras corpus.</p>
+<p><strong>Outputs.</strong> A vocabulary file and tokenization statistics: OOV rate against a generic
+Spanish tokenizer, mean tokens per word, acronym coverage.</p>
+<p><strong>Training procedure.</strong> Count pairs, merge, repeat; evaluate on held-out political
+interventions.</p>
+<p><strong>Evaluation.</strong> OOV rate, tokenization stability, and downstream task improvement
+(LSTM or BERT fine-tuning).</p>
+<p><strong>Electoral interpretation.</strong> A specialized tokenizer is a measurable investment:
+if political acronyms are not treated as atomic units, the model misses a core feature of Mexican
+discourse.</p>
+<p><strong>Assumptions.</strong> (i) The corpus is large and representative enough to learn stable
+merges. (ii) The vocabulary size B balances compactness and coverage.</p>
+<p><strong>Limitations.</strong> BPE is greedy and deterministic; it cannot handle new acronyms after
+training. Comparison with a pre-trained Spanish tokenizer is mandatory.</p>
+</div>
+</div>
+
+<!-- CARD NGRAM -->
+<div class="lecture" id="card-ngram">
+<header>
+<div class="wk"><span class="w">Card 12</span></div>
+<h3>N-gram language models — rhetorical regime change</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> N-grams are the simplest language model. Comparing
+cross-sexenio perplexity quantifies how much the presidential vocabulary changed from one
+administration to the next — a proxy for rhetorical regime change.</p>
+<p><strong>What it does.</strong> An n-gram model estimates the probability of a word given the
+previous n−1 words, <code>P(w_t | w_{t−n+1} … w_{t−1})</code>, from smoothed counts.
+<strong>Perplexity</strong> is the exponential of the average negative log-probability:
+<code>exp(−(1/N) Σ log P(w_t))</code>. Lower perplexity means the model finds the text more
+predictable.</p>
+<p><strong>Inputs.</strong> Tokenized corpus split by sexenio.</p>
+<p><strong>Outputs.</strong> Per-sexenio perplexity and a cross-sexenio perplexity matrix; derived
+feature <code>drift_retorico_sexenio</code>.</p>
+<p><strong>Training procedure.</strong> Estimate n-gram counts (n=2,3,4) with Kneser–Ney or Laplace
+smoothing on one sexenio; evaluate perplexity on another.</p>
+<p><strong>Evaluation.</strong> Cross-perplexity heatmap; stability against random train/test splits.</p>
+<p><strong>Electoral interpretation.</strong> If a 2024 model trained on 2018 discourse has high
+perplexity, the rhetorical regime has shifted. This is a covariate of possible electoral realignment.</p>
+<p><strong>Assumptions.</strong> (i) Vocabulary and style evolve slowly enough to model per sexenio.
+(ii) Predictability correlates with rhetorical continuity.</p>
+<p><strong>Limitations.</strong> N-grams ignore long-range syntax and semantics. Perplexity is not a
+causal predictor.</p>
+</div>
+</div>
+
+<!-- CARD EMBEDDINGS -->
+<div class="lecture" id="card-embeddings">
+<header>
+<div class="wk"><span class="w">Card 13</span></div>
+<h3>Word embeddings — semantic geometry of the political lexicon</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Embeddings turn political concepts into vectors such that
+related words are close and analogies are arithmetic. They let us measure semantic drift across
+sexenios (e.g., does "MORENA" move toward where "PRD" used to be?).</p>
+<p><strong>What it does.</strong> <strong>Word2Vec</strong> skip-gram learns vectors by predicting the
+context words around a target word; words that share contexts end up close in the embedding space.
+<strong>GloVe</strong> (Global Vectors) factorizes the log co-occurrence matrix instead. The
+geometry supports analogies such as <code>v_rey − v_hombre + v_mujer ≈ v_reina</code>.</p>
+<p><strong>Inputs.</strong> Tokenized mañaneras corpus, possibly split by sexenio.</p>
+<p><strong>Outputs.</strong> Dense vectors (e.g., 100-dimensional) for each word, and a t-SNE/UMAP map
+for visualization.</p>
+<p><strong>Training procedure.</strong> Train skip-gram with negative sampling or GloVe on the
+corpus; evaluate on word-similarity tasks for key political terms.</p>
+<p><strong>Evaluation.</strong> Cosine-similarity rankings of known related terms; visualization
+quality; downstream classification improvement over BoW.</p>
+<p><strong>Electoral interpretation.</strong> Embedding drift tracks how the political lexicon
+reorganizes between administrations. A party embedding that moves closer to "pobreza" or
+"transformación" signals a repositioning in the agenda.</p>
+<p><strong>Assumptions.</strong> (i) Context predicts meaning well enough in political speech.
+(ii) The corpus is large enough to learn stable vectors. (iii) Analogies in the political domain are
+approximately linear.</p>
+<p><strong>Limitations.</strong> Embeddings are static and do not handle polysemy or context; a
+pre-trained contextual encoder (BETO, Card 17) addresses this.</p>
+</div>
+</div>
+
+<!-- CARD TSNE -->
+<div class="lecture" id="card-tsne">
+<header>
+<div class="wk"><span class="w">Card 14</span></div>
+<h3>t-SNE / UMAP — visualizing high-dimensional semantics</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Human readers cannot inspect 100-dimensional vectors
+directly. Dimensionality reduction maps them to 2-D for visualization, with the caveat that global
+distances are distorted.</p>
+<p><strong>What it does.</strong> <strong>t-SNE</strong> (t-distributed Stochastic Neighbor Embedding)
+minimizes the <strong>KL</strong> divergence between pairwise similarity distributions in the
+original high-dimensional space and the 2-D map. <strong>UMAP</strong> (Uniform Manifold
+Approximation and Projection) assumes the data lie on a manifold and preserves both local and more
+global structure, often faster than t-SNE.</p>
+<p><strong>Inputs.</strong> Word embeddings, municipality latent profiles (Card 3), or BETO sentence
+embeddings.</p>
+<p><strong>Outputs.</strong> 2-D scatter plots colored by word type, party, sexenio, or geographic
+region.</p>
+<p><strong>Training procedure.</strong> Run t-SNE or UMAP with multiple perplexity/neighbor settings;
+report the most stable one.</p>
+<p><strong>Evaluation.</strong> Visual inspection and nearest-neighbor preservation metrics.</p>
+<p><strong>Electoral interpretation.</strong> Clusters in the map reveal conceptual neighborhoods —
+for example, economic terms, security terms, or regional references. The map is a communication
+tool, not a quantitative distance metric.</p>
+<p><strong>Assumptions.</strong> (i) Local neighborhoods in high-D are meaningful. (ii) A 2-D
+embedding preserves enough structure to be useful.</p>
+<p><strong>Limitations.</strong> Global distances in t-SNE/UMAP are not interpretable. Different
+hyperparameters produce different layouts; stability checks are required.</p>
+</div>
+</div>
+
+<!-- CARD LDA -->
+<div class="lecture" id="card-lda">
+<header>
+<div class="wk"><span class="w">Card 15</span></div>
+<h3>Latent Dirichlet Allocation (LDA) — the presidential agenda as a variable</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Agenda-setting theory says that what the government talks
+about influences what citizens think about. LDA turns the mañaneras corpus into a time series of
+topic prevalences that can be merged with the electoral data as a structural covariate.</p>
+<p><strong>What it does.</strong> LDA is a generative probabilistic topic model. Each document
+draws a topic mixture <code>θ_d ~ Dirichlet(α)</code>; each topic is a word distribution
+<code>φ_k ~ Dirichlet(β)</code>; each observed word picks a topic and then a word from that topic.
+Inference recovers the <code>θ</code> and <code>φ</code> distributions. Topic quality is measured by
+<strong>C_v coherence</strong>, which compares the semantic similarity of a topic's top words.</p>
+<p><strong>Inputs.</strong> Daily or weekly bags of words from the mañaneras corpus.</p>
+<p><strong>Outputs.</strong> K topic-word distributions and a time series of topic prevalence
+<code>share_topic_k</code> per week.</p>
+<p><strong>Training procedure.</strong> Fit LDA for K ∈ {10, 20, 30, 50} on the training corpus;
+select K by C_v coherence; apply the trained model to all windows.</p>
+<p><strong>Evaluation.</strong> C_v coherence, manual topic labels, and predictive correlation with
+incumbent support or turnout.</p>
+<p><strong>Electoral interpretation.</strong> A rising prevalence of security discourse before a
+state election may depress turnout or favor the opposition; the topic-share series makes that
+hypothesis testable.</p>
+<p><strong>Assumptions.</strong> (i) Documents are mixtures of a small number of topics. (ii) The
+Dirichlet prior is appropriate for discourse. (iii) Topics are stable across the training period.</p>
+<p><strong>Limitations.</strong> LDA is a bag-of-words model: it ignores word order and context. The
+number of topics K must be chosen by the analyst.</p>
+</div>
+</div>
+
+<!-- CARD STM -->
+<div class="lecture" id="card-stm">
+<header>
+<div class="wk"><span class="w">Card 16</span></div>
+<h3>Structural Topic Model (STM) — topics conditioned on context</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> LDA ignores document metadata. STM makes topic prevalence
+a function of covariates (sexenio, pre-electoral quarter, inflation), yielding regression
+coefficients that can be interpreted substantively: for example, "one extra inflation point
+corresponds to a Δ increase in economy-topic discourse."</p>
+<p><strong>What it does.</strong> STM generalizes LDA by drawing the topic-mixture parameter from a
+logistic-normal distribution whose mean is a linear regression Γ·x_d on document covariates. The
+Γ coefficients are directly interpretable. Topic content can also depend on covariates.</p>
+<p><strong>Inputs.</strong> Same corpus as LDA plus document-level covariates: year, sexenio,
+pre-electoral indicator, and contemporaneous macro variables.</p>
+<p><strong>Outputs.</strong> Topic prevalence series and a table of Γ coefficients with
+confidence intervals.</p>
+<p><strong>Training procedure.</strong> Fit the STM package (R) via rpy2 or a separate documented
+script; inspect convergence diagnostics.</p>
+<p><strong>Evaluation.</strong> Coherence, coefficient significance, and comparison with LDA on a
+held-out prediction task.</p>
+<p><strong>Electoral interpretation.</strong> STM turns the agenda from a black-box cluster into a
+measurable response to economic and political context. It produces coefficients, not just clusters.</p>
+<p><strong>Assumptions.</strong> (i) Topic prevalence is smoothly related to covariates. (ii) The
+logistic-normal link is appropriate. (iii) Covariates are not collinear.</p>
+<p><strong>Limitations.</strong> STM is more computationally demanding than LDA and requires
+careful covariate construction. It is fit in R, so the notebook must document the R–Python bridge.</p>
+</div>
+</div>
+
+<!-- CARD NER -->
+<div class="lecture" id="card-ner">
+<header>
+<div class="wk"><span class="w">Card 17</span></div>
+<h3>Named Entity Recognition (NER) and stance classification — territorial attention</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Two electoral questions require text understanding: (a)
+what is the president's tone toward opposition, economy, and security? and (b) which states and
+municipalities does the president mention? The latter is a unique feature enabled by the mañaneras
+corpus: presidential territorial attention.</p>
+<p><strong>What it does.</strong> <strong>NER</strong> assigns each token a
+<strong>BIO</strong> tag: B-X marks the beginning of an entity of type X, I-X its inside, and O
+means outside any entity. Entity types are typically PER (person), ORG (organization), LOC
+(location), and GPE (geopolitical entity). <strong>Stance classification</strong> assigns a document
+or span to a label such as positive, negative, neutral, or combative toward a target.</p>
+<p><strong>Inputs.</strong> Sentence-level or intervention-level text from the mañaneras corpus.</p>
+<p><strong>Outputs.</strong> Lists of normalized entity mentions per date and a stance label per
+relevant span; weekly aggregation <code>atencion_presidencial_ent</code>.</p>
+<p><strong>Training procedure.</strong> Fine-tune a Spanish/multilingual BERT-NER model on a labeled
+sample, or use an off-the-shelf Spanish NER model with a gazetteer that maps mentions to the
+canonical entity key. Stance requires an annotated sample (n≥500) with inter-annotator agreement or
+LLM-assisted validation.</p>
+<p><strong>Evaluation.</strong> Entity-level F1 for NER; macro-F1 for stance. Manual error analysis
+on the most frequent entities.</p>
+<p><strong>Electoral interpretation.</strong> If the president mentions a state more frequently in
+the months before its gubernatorial election, attention itself becomes a covariate. Stance tracks
+the tonal climate around key issues.</p>
+<p><strong>Assumptions.</strong> (i) Entity mentions can be normalized reliably to electoral
+geography. (ii) Stance labels are stable across annotators. (iii) Attention is measured by mention
+frequency, which is a coarse proxy.</p>
+<p><strong>Limitations.</strong> NER models may miss colloquial place names and abbreviations.
+Stance annotation is subjective and must be reported with agreement metrics.</p>
+</div>
+</div>
+
+<!-- CARD CRF -->
+<div class="lecture" id="card-crf">
+<header>
+<div class="wk"><span class="w">Card 18</span></div>
+<h3>Conditional Random Field (CRF) — interpretable sequence baseline</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> A CRF is the classical, interpretable baseline for NER.
+Before declaring that a deep Transformer NER is necessary, we measure whether a linear-chain CRF with
+hand-crafted features already solves most of the problem.</p>
+<p><strong>What it does.</strong> A <strong>CRF</strong> is a discriminative undirected graphical
+model over a sequence. It models <code>P(y|x) ∝ exp(Σ_t [s(y_t,x,t) + A_{y_{t−1},y_t}])</code>, where
+<code>s</code> scores the emission features of tag <code>y_t</code> at position t and
+<code>A</code> is the learned transition matrix that encodes which tags may follow which. Decoding
+uses the Viterbi algorithm.</p>
+<p><strong>Inputs.</strong> Tokens with orthographic features (capitalization, prefixes, suffixes,
+±2 word context).</p>
+<p><strong>Outputs.</strong> BIO tag sequence and the interpretable transition matrix.</p>
+<p><strong>Training procedure.</strong> Train <code>sklearn-crfsuite</code> on a labeled NER sample;
+tune regularization on a development set.</p>
+<p><strong>Evaluation.</strong> Entity-level F1 against the same test set used for the Transformer
+NER.</p>
+<p><strong>Electoral interpretation.</strong> The transition matrix itself is a deliverable: it
+shows, for example, that a location tag is unlikely to follow a person tag. This transparency is
+the reason the CRF is retained even after a deep model is trained.</p>
+<p><strong>Assumptions.</strong> (i) Tag transitions are the main source of structure. (ii) Local
+orthographic features are sufficient to identify entities.</p>
+<p><strong>Limitations.</strong> CRFs do not share parameters across words and cannot leverage
+subword or contextual semantics; hence they are expected to underperform BETO-NER on rare mentions.</p>
+</div>
+</div>
+
+<!-- CARD BETO -->
+<div class="lecture" id="card-beto">
+<header>
+<div class="wk"><span class="w">Card 19</span></div>
+<h3>BETO / BERT — contextual Spanish encoder for fusion</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> BETO is the Spanish BERT model. It produces contextual
+embeddings that capture word meaning in context and subword structure, solving many of the
+limitations of static embeddings and bag-of-words models. Its <code>[CLS]</code> token or mean-pooled
+sentence embedding feeds the multimodal fusion in Part V.</p>
+<p><strong>What it does.</strong> <strong>BERT</strong> (Bidirectional Encoder Representations from
+Transformers) is a bidirectional Transformer encoder pre-trained on Spanish text with
+<strong>MLM</strong> (Masked Language Modeling): random tokens are hidden and the model learns to
+predict them. <strong>BETO</strong> is the Spanish adaptation. Fine-tuning adds a task-specific head
+on top of the pre-trained body.</p>
+<p><strong>Inputs.</strong> Intervention text or aggregated daily discourse chunks.</p>
+<p><strong>Outputs.</strong> A 768-dimensional vector per input, optionally a classification score
+for stance or NER.</p>
+<p><strong>Training procedure.</strong> Fine-tune BETO on stance classification and/or NER with a
+small learning rate; freeze lower layers if overfitting. Persist embeddings to
+<code>texto_emb.parquet</code> for fusion.</p>
+<p><strong>Evaluation.</strong> Downstream task F1; ablation of domain fine-tuning versus generic
+BETO pool; fusion improvement in Part V.</p>
+<p><strong>Electoral interpretation.</strong> BETO embeddings encode the contextual meaning of the
+discourse at each date. They are the textual branch's contribution to the multimodal model and the
+final input for textual nowcasting.</p>
+<p><strong>Assumptions.</strong> (i) Spanish political discourse is close enough to the BETO
+pre-training distribution. (ii) Fine-tuning data are representative and not leaked.</p>
+<p><strong>Limitations.</strong> BERT is computationally expensive; embeddings are computed once and
+reused. It may struggle with highly colloquial political jargon absent from pre-training.</p>
+</div>
+</div>
+
+<!-- CARD MULTIMODAL -->
+<div class="lecture" id="card-fusion">
+<header>
+<div class="wk"><span class="w">Card 20</span></div>
+<h3>Late-fusion multimodal model — combining every channel</h3>
+</header>
+<div class="body">
+<p><strong>Selection rationale.</strong> Mexican elections are a multimodal problem: votes
+(tabular), history (temporal), geography (spatial), and discourse (text). Late fusion keeps each
+modality's encoder independent and auditable, then learns only the combination. This avoids forcing
+incompatible geometries (vectors, sequences, graphs, text) into a single early representation and
+makes ablations clean.</p>
+<p><strong>What it does.</strong> Each branch (MLP tabular, LSTM temporal, GNN spatial, BETO textual)
+is trained on its own task and then frozen. Each emits a fixed-length embedding. These are
+concatenated with election and geography embeddings and fed into a small fusion MLP. The fusion
+head predicts shares, winner, and turnout.</p>
+<p><strong>Inputs.</strong> For each target election: tabular features, the unit's past cycle
+sequence, the municipal graph context, and the pre-election textual representation.</p>
+<p><strong>Outputs.</strong> Party shares (softmax), winner class, scalar turnout, and uncertainty
+via Monte Carlo dropout or an ensemble.</p>
+<p><strong>Training procedure.</strong> Train each branch separately; freeze; train the fusion head
+with the same temporal split. Then run mandatory ablations: tabular only, +temporal, +spatial,
++text, full. Report each channel's marginal Δ over the tabular baseline.</p>
+<p><strong>Evaluation.</strong> Full metric suite (MAE, winner accuracy, Brier, ECE) per ablation.
+The key result is not the full model's absolute score but the incremental value of each channel.</p>
+<p><strong>Electoral interpretation.</strong> The fusion answers the thesis question: <em>how
+much does each mode of information — past votes, time, geography, presidential discourse — add to the
+prediction of Mexican elections?</em> A negative ablation is also a finding.</p>
+<p><strong>Assumptions.</strong> (i) Channels provide complementary, not redundant, information.
+(ii) Freezing branches preserves their individual meaning. (iii) The fusion head is small enough to
+avoid overfitting the limited panel.</p>
+<p><strong>Limitations.</strong> The model is only as good as the weakest link; missing text data or
+an approximate adjacency graph limit the full fusion. Causal interpretation is forbidden.</p>
+</div>
+</div>
+
+<!-- CARD CAPSTONES -->
+<div class="lecture" id="card-capstones">
+<header>
+<div class="wk"><span class="w">Card 21</span></div>
+<h3>Capstones — C1 GNN, C2 multimodal, C3 turnout, C4 anomaly forensics, C5 textual nowcasting</h3>
+</header>
+<div class="body">
+<p><strong>C1 — Municipal GNN.</strong> Use Card 7 to predict local elections. Tests whether
+geographic diffusion matters at the municipal level. Requires INEGI adjacency or the documented
+k-NN fallback.</p>
+<p><strong>C2 — Multimodal late fusion.</strong> Use Card 20 to combine all validated branches.
+This is the central thesis experiment.</p>
+<p><strong>C3 — Turnout forecasting.</strong> Predict <code>PARTICIPACION</code> with Cards 1 and 5.
+Turnout is continuous and avoids the complexity of compositional shares, so it is the first end-to-end
+sprint.</p>
+<p><strong>C4 — Electoral-anomaly forensics.</strong> Use reconstruction errors from Card 3 and
+residuals from Cards 1 and 5 plus <code>FLAG_CONSISTENCIA</code> to flag statistical anomalies.
+Inspired by Cantú (2014), but reported only as anomalies, never as legal fraud.</p>
+<p><strong>C5 — Textual nowcasting.</strong> Use Cards 9–19 with only pre-election text and recent
+macro to predict outcomes. Measures whether discourse carries anticipatory signal, with strict
+publication-date leakage control.</p>
+</div>
+</div>
+
+</div>
+</div>
 <!-- ============ SEAL ============ -->
 <div class="seal">
 <div class="wrap">
@@ -1920,6 +2687,7 @@ fallback); pending INEGI download</td></tr>
 <span class="mk">NO JS ✓</span>
 <span class="mk">ANTI-LEAKAGE DECLARED ✓</span>
 <span class="mk">26 LECTURE SPECS ✓</span>
+<span class="mk">21 MODEL CARDS ✓</span>
 <span class="mk">NO INVENTED RESULTS ✓</span>
 </div>
 <p>Master document v2.0 · Electoral Intelligence Mexico · generated 2026-10-06 ·

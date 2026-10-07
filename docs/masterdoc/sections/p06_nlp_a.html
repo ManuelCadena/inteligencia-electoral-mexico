@@ -34,7 +34,7 @@ tokenizer justifies a domain tokenizer.</td></tr>
 </table>
 
 <!-- NLP W01-02 -->
-<div class="lecture" id="nlp1">nlp1
+<div class="lecture" id="nlp1">
 <header>
 <div class="wk"><span class="w">NLP · Weeks 01–02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.1 Preprocessing and BoW/TF-IDF — the cheapest textual baseline · IV.2 Text RNN</h3>
@@ -72,7 +72,7 @@ IV.1 quantifies the value of lexical order in this domain. <span class="m mP">P<
 </div>
 
 <!-- NLP W03-04 -->
-<div class="lecture" id="nlp3">nlp3
+<div class="lecture" id="nlp3">
 <header>
 <div class="wk"><span class="w">NLP · Weeks 03–04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.3 Tokenization · IV.4 N-grams — the morphology of political discourse</h3>
@@ -89,7 +89,7 @@ a domain tokenizer. <span class="m mP">P</span></p>
 <p><strong>BPE</strong> (Gage 1994; Sennrich et al. 2016): start from characters, greedily merge
 the most frequent adjacent pair until the vocabulary reaches size B — frequent words become single
 tokens, rare words decompose into subwords, so OOV (out-of-vocabulary) vanishes by construction.
-<strong>N-gram LM:</strong> the Markovian model P(w_t | w_{t−n+1..t−1}) estimated by counts with
+<strong>N-gram LM:</strong> the Markovian model P(w<sub>t</sub> | w<sub>t−n+1..t−1</sub>) estimated by counts with
 smoothing; <strong>perplexity</strong> = exp(−(1/N)Σ log P) is the effective vocabulary branching —
 lower = more predictable text. <span class="m mL">L</span></p>
 <div class="formula">BPE: greedy merges of most-frequent pairs · vocab B · OOV-rate = |unknown| / |tokens|
@@ -109,7 +109,7 @@ model trained on 2018? The sexenio distance in n-gram space is a quantitative pr
 </div>
 
 <!-- NLP W05-06 -->
-<div class="lecture" id="nlp5">nlp5
+<div class="lecture" id="nlp5">
 <header>
 <div class="wk"><span class="w">NLP · Weeks 05–06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.5 Word embeddings · IV.6 Dimensionality reduction and visualization</h3>
@@ -124,7 +124,7 @@ map of the political lexicon per era communicates more than a thousand tables.</
 <h4>Theoretical framework</h4>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp19">Topic 19</a>, <a href="#tp20">Topic 20</a> — word embeddings and t-SNE/UMAP. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>Word2Vec</strong> (Mikolov et al. 2013): skip-gram learns vectors by predicting context —
-words sharing contexts land close in R^d; the geometry supports analogies v<sub>rey</sub> −
+words sharing contexts land close in R<sup>d</sup>; the geometry supports analogies v<sub>rey</sub> −
 v<sub>hombre</sub> + v<sub>mujer</sub> ≈ v<sub>reina</sub>. <strong>GloVe</strong> (Pennington et al.
 2014) factorizes the log co-occurrence matrix instead. <strong>t-SNE</strong> (van der Maaten &amp;
 Hinton 2008): embeds high-D into 2-D by minimizing the KL divergence between neighborhood

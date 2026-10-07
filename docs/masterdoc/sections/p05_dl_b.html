@@ -9,7 +9,7 @@ LLMs, RAG, agents, generative models, and state-space alternatives.</p>
 </div>
 
 <!-- W07 Transformers -->
-<div class="lecture" id="dl7">dl7
+<div class="lecture" id="dl7">
 <header>
 <div class="wk"><span class="w">DL · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.7 Transformers — attention over electoral history</h3>
@@ -25,7 +25,7 @@ predictor and an <em>interpretability instrument</em>.</p>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp7">Topic 7</a> — Transformers. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>Scaled dot-product self-attention</strong> (Vaswani et al. 2017): each position emits a
 query Q, key K and value V; the output is a weighted sum of values where weights measure
-query–key compatibility, scaled by √d_k to keep softmax gradients stable. <strong>Multi-head
+query–key compatibility, scaled by √d<sub>k</sub> to keep softmax gradients stable. <strong>Multi-head
 attention (MHA)</strong> runs h parallel attention functions on different projections — different
 heads can attend to long regime, recent shock and sexenio cycle simultaneously.
 <strong>Positional encoding</strong> injects order (sinusoidal or learned); with irregular local
@@ -35,7 +35,7 @@ attention to future positions — attending to the future is leakage by definiti
 <div class="formula">Attn(Q,K,V) = softmax( QK<sup>⊤</sup> / √d<sub>k</sub> ) · V
 <span class="fl">Q,K,V = projections of the unit's electoral-cycle sequence</span></div>
 <p>A Transformer block stacks: LayerNorm (normalizes activations per position) → MHA → residual
-connection → position-wise feed-forward (two dense layers, GELU) → residual. Complexity O(T²·d)
+connection → position-wise feed-forward (two dense layers, GELU) → residual. Complexity O(T<sup>2</sup>·d)
 in sequence length — the reason state-space alternatives exist (III.14). <span class="m mL">L</span></p>
 <h4>Architecture</h4>
 <figure class="arch">
@@ -43,9 +43,9 @@ in sequence length — the reason state-space alternatives exist (III.14). <span
 <g font-family="DM Sans,sans-serif" font-size="11" text-anchor="middle">
 <rect x="10" y="40" width="130" height="80" rx="6" fill="#F1F1EF" stroke="#A51C30"/>
 <text x="75" y="60" font-weight="700">Cycle sequence</text>
-<text x="75" y="76" font-size="10">B×T×D_in</text>
+<text x="75" y="76" font-size="10">B×T×D<sub>i</sub>n</text>
 <text x="75" y="90" font-size="9">T = elections of the unit</text>
-<text x="75" y="104" font-size="9">D_in = shares+macro+emb</text>
+<text x="75" y="104" font-size="9">D<sub>i</sub>n = shares+macro+emb</text>
 <rect x="180" y="40" width="150" height="80" rx="6" fill="#FBF3E5" stroke="#C89938"/>
 <text x="255" y="60" font-weight="700">Encoder ×2</text>
 <text x="255" y="76" font-size="10">MHA 4 heads + FFN</text>
@@ -86,7 +86,7 @@ winning.</p></div>
 </div>
 
 <!-- W08 Speech -->
-<div class="lecture" id="dl8">dl8
+<div class="lecture" id="dl8">
 <header>
 <div class="wk"><span class="w">DL · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.8 Speech processing — the ingestion stage feeding NLP</h3>
@@ -127,7 +127,7 @@ WER; verify before feeding NER.</p></div>
 </div>
 
 <!-- W09 seq2seq / LSTM -->
-<div class="lecture" id="dl9">dl9
+<div class="lecture" id="dl9">
 <header>
 <div class="wk"><span class="w">DL · Week 09</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.9 Seq2Seq and LSTM/GRU — the memory of the electoral cycle</h3>
@@ -141,12 +141,12 @@ expressive enough for the dynamics, small enough for the available n.</p>
 <h4>Theoretical framework</h4>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp9">Topic 9</a> — LSTM/GRU and seq2seq. Read that short segment first if any term below feels unfamiliar.</p>
 <p>An <strong>RNN</strong> (Recurrent Neural Network) maintains hidden state
-h_t = f(h_{t−1}, x_t); plain RNNs suffer vanishing gradients over long spans. <strong>LSTM</strong>
-(Long Short-Term Memory, Hochreiter &amp; Schmidhuber 1997) adds a cell state c_t and three gates
+h<sub>t</sub> = f(h<sub>t−1</sub>, x<sub>t</sub>); plain RNNs suffer vanishing gradients over long spans. <strong>LSTM</strong>
+(Long Short-Term Memory, Hochreiter &amp; Schmidhuber 1997) adds a cell state c<sub>t</sub> and three gates
 — input i, forget f, output o — that learn what to write, keep and emit:
-c_t = f⊙c_{t−1} + i⊙tanh(c̃). <strong>GRU</strong> (Gated Recurrent Unit, Cho et al. 2014) merges
+c<sub>t</sub> = f⊙c<sub>t−1</sub> + i⊙tanh(c̃). <strong>GRU</strong> (Gated Recurrent Unit, Cho et al. 2014) merges
 the gates (update z, reset r) for fewer parameters. <strong>Seq2seq</strong> (encoder–decoder)
-maps an input sequence to a context vector h_T, then decodes the target autoregressively;
+maps an input sequence to a context vector h<sub>T</sub>, then decodes the target autoregressively;
 <strong>teacher forcing</strong> feeds the true previous output during training. <span class="m mL">L</span></p>
 <div class="formula">c<sub>t</sub> = f<sub>t</sub>⊙c<sub>t−1</sub> + i<sub>t</sub>⊙c̃<sub>t</sub> ,
 h<sub>t</sub> = o<sub>t</sub>⊙tanh(c<sub>t</sub>)
@@ -169,7 +169,7 @@ pooling by entity or strong regularization; never invent history.</p></div>
 </div>
 
 <!-- W10-12 -->
-<div class="lecture" id="dl10">dl10
+<div class="lecture" id="dl10">
 <header>
 <div class="wk"><span class="w">DL · Weeks 10–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.10 LLMs · III.11 RAG · III.12 Agents — the knowledge layer</h3>
@@ -218,7 +218,7 @@ decider — declared scope.</p></div>
 </div>
 
 <!-- W13-14 -->
-<div class="lecture" id="dl11">dl11
+<div class="lecture" id="dl11">
 <header>
 <div class="wk"><span class="w">DL · Weeks 13–14</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.13 Generative models · III.14 Transformer replacements</h3>
@@ -235,13 +235,13 @@ is efficiency, not capacity; the ablation documents whether the complexity is wo
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp13">Topic 13</a>, <a href="#tp14">Topic 14</a> — generative and state-space models. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>GAN</strong> (Generative Adversarial Network, Goodfellow et al. 2014): a generator G and
 discriminator D play a minimax game — G synthesizes, D detects; equilibrium yields samples
-approximating p_data. <strong>SSM:</strong> a continuous linear dynamical system
-h_t = A·h_{t−1} + B·x_t, y_t = C·h_t — a recurrence linear in the state, hence O(T) instead of
-attention's O(T²); <strong>Mamba</strong> makes A,B,C input-dependent ("selective"), recovering
+approximating p<sub>d</sub>ata. <strong>SSM:</strong> a continuous linear dynamical system
+h<sub>t</sub> = A·h<sub>t−1</sub> + B·x<sub>t</sub>, y<sub>t</sub> = C·h<sub>t</sub> — a recurrence linear in the state, hence O(T) instead of
+attention's O(T<sup>2</sup>); <strong>Mamba</strong> makes A,B,C input-dependent ("selective"), recovering
 content-aware behavior. <span class="m mL">L</span></p>
 <div class="formula">SSM: h<sub>t</sub> = A h<sub>t−1</sub> + B x<sub>t</sub> , y<sub>t</sub> = C h<sub>t</sub>
 &nbsp;|&nbsp; selective: A,B,C depend on x<sub>t</sub>
-<span class="fl">linear-in-state recurrence → O(T) vs attention's O(T²)</span></div>
+<span class="fl">linear-in-state recurrence → O(T) vs attention's O(T<sup>2</sup>)</span></div>
 <h4>Dataset binding</h4>
 <p><strong>Generative (A9, <span class="badge b-ill">ILLUSTRATIVE</span>):</strong> the VAE decoder
 (III.6) perturbed by synthetic macro generates counterfactual municipal electoral profiles —

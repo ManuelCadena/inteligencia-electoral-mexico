@@ -9,7 +9,7 @@ branch feeding the multimodal model.</p>
 </div>
 
 <!-- W07 LDA -->
-<div class="lecture" id="nlp7">nlp7
+<div class="lecture" id="nlp7">
 <header>
 <div class="wk"><span class="w">NLP · Week 07</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.7 Topic modeling (LDA) — the presidential agenda as a variable</h3>
@@ -23,13 +23,13 @@ corpus into K topics and, per day/week, a prevalence distribution: the series
 <code>share_topic_seguridad</code> becomes a structural covariate, not a metadata tag.</p>
 <h4>Theoretical framework</h4>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp21">Topic 21</a> — LDA topic modeling. Read that short segment first if any term below feels unfamiliar.</p>
-<p>LDA is a generative probabilistic model: each document d draws a topic-mixture θ_d ~ Dir(α);
-each topic k is a word distribution φ_k ~ Dir(β); each observed word picks a topic z then a word
-from φ_z. Inference (variational Bayes or Gibbs sampling) recovers θ and φ; the Dirichlet prior
-encourages sparse, interpretable mixtures. <strong>Coherence (C_v)</strong> measures how
+<p>LDA is a generative probabilistic model: each document d draws a topic-mixture θ<sub>d</sub> ~ Dir(α);
+each topic k is a word distribution φ<sub>k</sub> ~ Dir(β); each observed word picks a topic z then a word
+from φ<sub>z</sub>. Inference (variational Bayes or Gibbs sampling) recovers θ and φ; the Dirichlet prior
+encourages sparse, interpretable mixtures. <strong>Coherence (C<sub>v</sub>)</strong> measures how
 semantically consistent a topic's top words are — used to select K. <span class="m mL">L</span></p>
 <div class="formula">P(w) = Σ<sub>k</sub> P(w|z=k) · P(z=k|d) ,&nbsp; θ<sub>d</sub> ~ Dir(α) , φ<sub>k</sub> ~ Dir(β)
-<span class="fl">θ_d = topic prevalence in document d; temporal aggregate → feature</span></div>
+<span class="fl">θ<sub>d</sub> = topic prevalence in document d; temporal aggregate → feature</span></div>
 <h4>Dataset binding</h4>
 <p>Mañaneras segmented by day → LDA K≈20–30 → weekly prevalence per topic → joined to elections by
 date (last N pre-election weeks). Measurable hypothesis: pre-vote prevalence of
@@ -39,13 +39,13 @@ date (last N pre-election weeks). Measurable hypothesis: pre-vote prevalence of
 <div class="nbspec"><div class="nt">Notebook spec — n07_lda_agenda.ipynb</div>
 <table><tr><th>Field</th><th>Value</th></tr>
 <tr><td>Corpus</td><td>mananeras_asr segmented by day; Spanish stopwords + custom political stopwords</td></tr>
-<tr><td>K selection</td><td>C_v coherence over K∈{10,20,30,50}</td></tr>
+<tr><td>K selection</td><td>C<sub>v</sub> coherence over K∈{10,20,30,50}</td></tr>
 <tr><td>Outputs</td><td>weekly topic-share series · top-10 words per topic · manual K-topic labeling</td></tr></table></div>
 </div>
 </div>
 
 <!-- W08 STM -->
-<div class="lecture" id="nlp8">nlp8
+<div class="lecture" id="nlp8">
 <header>
 <div class="wk"><span class="w">NLP · Week 08</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
 <h3>IV.8 Structural Topic Models — topics conditioned on context</h3>
@@ -61,13 +61,13 @@ text, not mere clustering. <span class="m mP">P</span></p>
 <h4>Theoretical framework</h4>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp22">Topic 22</a> — structural topic models. Read that short segment first if any term below feels unfamiliar.</p>
 <p>STM generalizes LDA: the topic-prevalence parameter is drawn from a logistic normal whose mean
-is a regression on document covariates Γ·x_d; topic content can also depend on covariates.
+is a regression on document covariates Γ·x<sub>d</sub>; topic content can also depend on covariates.
 Estimated Γ coefficients are directly interpretable — "one extra inflation point ↔ +Δ topic-economy
 share" is a substantive contribution, not just a feature. <span class="m mL">L</span></p>
 <div class="formula">θ<sub>d</sub> ~ LogisticNormal( Γ x<sub>d</sub> , Σ ) ,&nbsp; φ<sub>k</sub> covariate-dependent
-<span class="fl">x_d = document covariates: week, economic indicator, pre-electoral dummy</span></div>
+<span class="fl">x<sub>d</sub> = document covariates: week, economic indicator, pre-electoral dummy</span></div>
 <h4>Dataset binding</h4>
-<p>Covariates x_d from the canonical set: <code>AÑO_SEXENIO</code>, <code>ES_INTERMEDIA</code>,
+<p>Covariates x<sub>d</sub> from the canonical set: <code>AÑO_SEXENIO</code>, <code>ES_INTERMEDIA</code>,
 macro_lag at the document's date. The Γ table with confidence intervals is a paper deliverable.
 <span class="m mP">P</span></p>
 <h4>Notebook spec</h4>
@@ -79,7 +79,7 @@ macro_lag at the document's date. The Γ table with confidence intervals is a pa
 </div>
 
 <!-- W09-10 -->
-<div class="lecture" id="nlp9">nlp9
+<div class="lecture" id="nlp9">
 <header>
 <div class="wk"><span class="w">NLP · Weeks 09–10</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.9 Text classification · IV.10 NER — stance and territorial attention</h3>
@@ -117,7 +117,7 @@ validation reported. <span class="m mP">P</span></p>
 </div>
 
 <!-- W11-12 -->
-<div class="lecture" id="nlp11">nlp11
+<div class="lecture" id="nlp11">
 <header>
 <div class="wk"><span class="w">NLP · Weeks 11–12</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>IV.11 Sequential CRF · IV.12 Attention and BETO — from interpretable to encoder</h3>
@@ -135,13 +135,13 @@ of deep learning on this task, not in the abstract. <span class="m mP">P</span><
 <h4>Theoretical framework</h4>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp25">Topic 25</a>, <a href="#tp26">Topic 26</a> — CRFs and BETO/BERT. Read those short segments first if any term below feels unfamiliar.</p>
 <p><strong>CRF</strong> (Lafferty et al. 2001): a discriminative undirected graphical model —
-P(y|x) ∝ exp(Σ_t [ s(y_t,x,t) + A_{y_{t−1},y_t} ]) — where s scores emission and A is the learned
+P(y|x) ∝ exp(Σ<sub>t</sub> [ s(y<sub>t</sub>,x,t) + A<sub>y<sub>t−1</sub>,y<sub>t</sub></sub> ]) — where s scores emission and A is the learned
 transition matrix; decoding by Viterbi. <strong>BERT</strong>: a bidirectional Transformer encoder
 pre-trained with Masked Language Modeling (predict masked tokens) and next-sentence objectives;
 fine-tuning adapts it to a task with a small head. <span class="m mL">L</span></p>
 <div class="formula">CRF: P(y|x) ∝ exp( Σ<sub>t</sub> [ s(y<sub>t</sub>,x,t) + A<sub>y<sub>t−1</sub>,y<sub>t</sub></sub> ] )
 &nbsp;|&nbsp; BERT pool: h = MeanPool(Encoder(tokens))
-<span class="fl">A = interpretable transition matrix · h ∈ R^768 = fusion input</span></div>
+<span class="fl">A = interpretable transition matrix · h ∈ R<sup>768</sup> = fusion input</span></div>
 <h4>Dataset binding</h4>
 <p>CRF: orthographic features (capitalization, prefixes, ±2 context) on the same NER data —
 interpretable baseline against BETO-NER (IV.10). BETO: fine-tune on stance classification (IV.9)

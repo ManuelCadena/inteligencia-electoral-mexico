@@ -23,7 +23,7 @@ auditable and directly comparable to the rest of the neural stack.</td></tr>
 <tr><td>Ordered cycle sequence per unit (1991→2024)</td>
 <td><strong>LSTM/GRU</strong> (recurrent networks)</td>
 <td>History matters and sequences are short and irregular → gated recurrence preserves memory
-without the O(T²) cost and data hunger of attention at our sample size.</td></tr>
+without the O(T<sup>2</sup>) cost and data hunger of attention at our sample size.</td></tr>
 <tr><td>Same sequence, interpretability required</td>
 <td><strong>Transformer</strong> (self-attention)</td>
 <td>Direct access to any past cycle; attention weights answer "which past election drives the
@@ -42,14 +42,14 @@ adjacency is the faithful spatial operator.</td></tr>
 adds a probabilistic latent space usable for counterfactual simulation.</td></tr>
 <tr><td>Short sequences, efficiency check</td>
 <td><strong>SSM</strong> (State-Space Model: Mamba/TSMixer)</td>
-<td>Architectural ablation — O(T) recurrence vs O(T²) attention; the outcome is a design datum,
+<td>Architectural ablation — O(T) recurrence vs O(T<sup>2</sup>) attention; the outcome is a design datum,
 not an assumption.</td></tr>
 </table>
 <p class="small">Branches train independently and freeze before the late fusion of Part V — each
 channel must earn its place by beating the ablation without it. <span class="m mP">P</span></p>
 
 <!-- ============ W01 MLP ============ -->
-<div class="lecture" id="dl1">dl1
+<div class="lecture" id="dl1">
 <header>
 <div class="wk"><span class="w">DL · Week 01</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.1 The Multi-Layer Perceptron — the honest tabular baseline</h3>
@@ -70,15 +70,15 @@ units deep than wide; Eldan &amp; Shamir 2016). <span class="m mL">L</span></p>
 <p><strong>Activation functions, expanded:</strong> ReLU (Rectified Linear Unit) =
 <code>max(0, z)</code> — cheap, non-saturating, but can "die" at 0; GELU (Gaussian Error Linear
 Unit) = <code>x·Φ(x)</code> where Φ is the standard-normal CDF — a smooth probabilistic gating
-used by Transformers; softmax turns a real vector <code>z ∈ R^K</code> into a probability vector
-<code>exp(z_i)/Σ_j exp(z_j)</code> lying in the (K−1)-simplex.</p>
+used by Transformers; softmax turns a real vector <code>z ∈ R<sup>K</sup></code> into a probability vector
+<code>exp(z_i)/Σ<sub>j</sub> exp(z_j)</code> lying in the (K−1)-simplex.</p>
 <div class="formula">h<sup>[l]</sup> = σ( W<sup>[l]</sup> h<sup>[l−1]</sup> + b<sup>[l]</sup> ),&nbsp;
 ŷ = softmax( W<sup>[L]</sup> h<sup>[L−1]</sup> + b<sup>[L]</sup> )</div>
-<p><strong>Loss:</strong> categorical cross-entropy CE = −Σ_k y_k log ŷ_k measures the divergence
+<p><strong>Loss:</strong> categorical cross-entropy CE = −Σ<sub>k</sub> y<sub>k</sub> log ŷ<sub>k</sub> measures the divergence
 between predicted and empirical party-share distributions; it is the MLE objective for a
 categorical model and the natural metric for our compositional outcome (shares sum to 1).
-<strong>Backpropagation</strong> is the chain rule applied layer-wise — computing ∂L/∂W^[l] by
-propagating δ^[l] = (∂L/∂h^[l]) ⊙ σ′ — enabling gradient descent in O(#params) memory.
+<strong>Backpropagation</strong> is the chain rule applied layer-wise — computing ∂L/∂W<sup>[l]</sup> by
+propagating δ<sup>[l]</sup> = (∂L/∂h<sup>[l]</sup>) ⊙ σ′ — enabling gradient descent in O(#params) memory.
 <span class="m mL">L</span></p>
 <h4>Architecture</h4>
 <figure class="arch">
@@ -141,7 +141,7 @@ weight decay, early stopping on temporal val.
 </div>
 
 <!-- ============ W02 PyTorch ============ -->
-<div class="lecture" id="dl2">dl2
+<div class="lecture" id="dl2">
 <header>
 <div class="wk"><span class="w">DL · Week 02</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.2 PyTorch — the reusable experiment harness</h3>
@@ -183,7 +183,7 @@ years without a temporal embedding.</p></div>
 </div>
 
 <!-- ============ W03 Regularization ============ -->
-<div class="lecture" id="dl3">dl3
+<div class="lecture" id="dl3">
 <header>
 <div class="wk"><span class="w">DL · Week 03</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span><span class="badge b-sup">SUPPLEMENTARY</span></div>
 <h3>III.3 Regularization and AI-assisted development</h3>
@@ -197,15 +197,15 @@ go without overfitting, and how does AI assistance accelerate development withou
 integrity.</p>
 <h4>Theoretical framework</h4>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp3">Topic 3</a> — regularization. Read that short segment first if any term below feels unfamiliar.</p>
-<p><strong>Bias–variance tradeoff:</strong> expected test error decomposes into bias² + variance +
+<p><strong>Bias–variance tradeoff:</strong> expected test error decomposes into bias<sup>2</sup> + variance +
 irreducible noise; capacity raises variance. Regularization injects a prior penalty on complexity.
-<strong>L2 / weight decay</strong> adds λ‖W‖² to the loss — equivalent (for SGD) to a Gaussian
+<strong>L2 / weight decay</strong> adds λ‖W‖<sup>2</sup> to the loss — equivalent (for SGD) to a Gaussian
 prior on weights, shrinking them toward 0. <strong>Dropout</strong> (Srivastava et al. 2014) masks
 each hidden unit with probability p at train time and rescales at test — an ensemble of ~2^n
 thinned subnetworks sharing weights, discouraging co-adaptation. <strong>Early stopping</strong>
 halts when validation error stops improving — a form of implicit capacity control.
 <span class="m mL">L</span></p>
-<div class="formula">L<sub>reg</sub> = L<sub>CE</sub> + λ‖W‖² ,&nbsp;&nbsp;
+<div class="formula">L<sub>reg</sub> = L<sub>CE</sub> + λ‖W‖<sup>2</sup> ,&nbsp;&nbsp;
 Dropout: h̃ = h ⊙ Bernoulli(p) / p</div>
 <p>Early stopping is computed on the <strong>temporal validation</strong> slice (2015–2018), never a
 random split: it halts when out-of-time generalization stops improving — the only honest notion of
@@ -226,7 +226,7 @@ cherry-picking inflates the expected out-of-sample result.</p></div>
 </div>
 
 <!-- ============ W04 CNN ============ -->
-<div class="lecture" id="dl4">dl4
+<div class="lecture" id="dl4">
 <header>
 <div class="wk"><span class="w">DL · Week 04</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.4 Convolutional Neural Networks — spatial texture in the vote</h3>
@@ -270,7 +270,7 @@ special; on a real map Baja California and Yucatán boundaries need care.</p></d
 </div>
 
 <!-- ============ W05 Transfer ============ -->
-<div class="lecture" id="dl5">dl5
+<div class="lecture" id="dl5">
 <header>
 <div class="wk"><span class="w">DL · Week 05</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.5 Transfer learning — the federal panel teaches the local</h3>
@@ -311,7 +311,7 @@ pre-trained embedding.</p></div>
 </div>
 
 <!-- ============ W06 AE/VAE ============ -->
-<div class="lecture" id="dl6">dl6
+<div class="lecture" id="dl6">
 <header>
 <div class="wk"><span class="w">DL · Week 06</span><span class="badge b-syl">SYLLABUS-CONFIRMED</span></div>
 <h3>III.6 Autoencoders and VAEs — the electoral map as a latent manifold</h3>
@@ -327,7 +327,7 @@ Welling 2013) adds probabilistic structure: soft latent regions instead of hard 
 <h4>Theoretical framework</h4>
 <p class="small pedagogy-pointer"><strong>Need a gentler start?</strong> Part VIII explains the concepts behind this section from first principles (why they matter, how they work, and an everyday analogy) in <a href="#tp6">Topic 6</a> — autoencoders and VAEs. Read that short segment first if any term below feels unfamiliar.</p>
 <p><strong>AE:</strong> encoder z = f(x), decoder x̂ = g(z); trained to minimize reconstruction
-error ‖x−x̂‖², the bottleneck forces a compressed code z capturing the dominant factors of
+error ‖x−x̂‖<sup>2</sup>, the bottleneck forces a compressed code z capturing the dominant factors of
 variation. <strong>Manifold hypothesis:</strong> high-dimensional data lie near a low-dimensional
 manifold; the AE is a nonlinear generalization of PCA (Principal Component Analysis) that learns
 it. <strong>VAE:</strong> the encoder outputs a posterior q(z|x); training maximizes the

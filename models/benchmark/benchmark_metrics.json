@@ -1,0 +1,128 @@
+{
+  "horizon_macro": 6,
+  "n_origins_macro": 12,
+  "electoral_horizon": 1,
+  "electoral_origins": 3,
+  "summary": [
+    {
+      "panel": "electoral",
+      "model": "chronos_bolt_small",
+      "mae_mean": 0.13320217237605966,
+      "mae_median": 0.07404823283227316,
+      "mase_mean": 18.017160903608648,
+      "mase_median": 2.412757903326713,
+      "n": 96,
+      "secs_mean": 0.0649375
+    },
+    {
+      "panel": "electoral",
+      "model": "lstm_pooled",
+      "mae_mean": 0.2528565567027394,
+      "mae_median": 0.2744482188138896,
+      "mase_mean": 22.39361840561422,
+      "mase_median": 7.293910610527521,
+      "n": 96,
+      "secs_mean": 0.24507291666666667
+    },
+    {
+      "panel": "electoral",
+      "model": "persistence",
+      "mae_mean": 0.12405104035969038,
+      "mae_median": 0.059935906410868545,
+      "mase_mean": 17.994137924623725,
+      "mase_median": 1.4556074129109637,
+      "n": 96,
+      "secs_mean": 0.0
+    },
+    {
+      "panel": "electoral",
+      "model": "ridge_ar12",
+      "mae_mean": 0.2525566670142839,
+      "mae_median": 0.27392376402407925,
+      "mase_mean": 22.493131063560416,
+      "mase_median": 7.277067314660292,
+      "n": 96,
+      "secs_mean": 0.0025
+    },
+    {
+      "panel": "electoral",
+      "model": "seasonal_naive",
+      "mae_mean": 0.12405104035969038,
+      "mae_median": 0.059935906410868545,
+      "mase_mean": 17.994137924623725,
+      "mase_median": 1.4556074129109637,
+      "n": 96,
+      "secs_mean": 3.125e-05
+    },
+    {
+      "panel": "electoral",
+      "model": "timesfm_2p5",
+      "mae_mean": 0.21771416968196597,
+      "mae_median": 0.22688729211459605,
+      "mase_mean": 21.529294804040223,
+      "mase_median": 5.6673378486074295,
+      "n": 96,
+      "secs_mean": 0.5816354166666667
+    },
+    {
+      "panel": "macro",
+      "model": "chronos_bolt_small",
+      "mae_mean": 77.6682894629068,
+      "mae_median": 0.6099291371663398,
+      "mase_mean": 1.4135151939578214,
+      "mase_median": 1.1268041363465235,
+      "n": 48,
+      "secs_mean": 0.41454166666666664
+    },
+    {
+      "panel": "macro",
+      "model": "lstm_pooled",
+      "mae_mean": 438.2356868200848,
+      "mae_median": 31.386323907880676,
+      "mase_mean": 64.84458582429573,
+      "mase_median": 5.791325163403371,
+      "n": 48,
+      "secs_mean": 2.6412083333333336
+    },
+    {
+      "panel": "macro",
+      "model": "persistence",
+      "mae_mean": 108.49744211458331,
+      "mae_median": 1.1521250000000023,
+      "mase_mean": 2.9235077698180194,
+      "mase_median": 1.4934225348781367,
+      "n": 48,
+      "secs_mean": 0.0
+    },
+    {
+      "panel": "macro",
+      "model": "ridge_ar12",
+      "mae_mean": 113.40590884358556,
+      "mae_median": 0.6021991733954332,
+      "mase_mean": 1.8613620120670122,
+      "mase_median": 1.2106040261262287,
+      "n": 48,
+      "secs_mean": 0.1108125
+    },
+    {
+      "panel": "macro",
+      "model": "seasonal_naive",
+      "mae_mean": 65.56836661805556,
+      "mae_median": 4.521391666666666,
+      "mase_mean": 7.67080222929838,
+      "mase_median": 1.9368250004030445,
+      "n": 48,
+      "secs_mean": 0.0
+    },
+    {
+      "panel": "macro",
+      "model": "timesfm_2p5",
+      "mae_mean": 52.361678704933475,
+      "mae_median": 0.7812049153645855,
+      "mase_mean": 1.5361504976409235,
+      "mase_median": 1.0649816655743864,
+      "n": 48,
+      "secs_mean": 0.5193125
+    }
+  ]
+}

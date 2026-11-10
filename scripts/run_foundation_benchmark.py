@@ -143,29 +143,57 @@ def predict_ridge(ctx, h, n_lags=12):
     return np.array(preds)
 
 
-def predict_lstm_pooled(all_ctx, ctx, h, n_lags=12, epochs=40):
-    """Small LSTM trained across all series' windows (shared weights)."""
+def _pooled_windows(all_ctx, n_lags):
+    """Standardized lag windows pooled across series."""
+    Xs, ys = [], []
+    for v in all_ctx:
+        v = np.asarray(v, dtype=np.float64)
+        if len(v) <= n_lags + 5:
+            continue
+        z = (v - v.mean()) / (v.std() + 1e-8)
+        X = np.lib.stride_tricks.sliding_window_view(z, n_lags)
+        Xs.append(X[:-1])
+        ys.append(z[n_lags:])
+    X = np.concatenate(Xs).astype(np.float32)[..., None]
+    return X, np.concatenate(ys).astype(np.float32)
+
+
+def _train_net(net, X, y, epochs=40, lr=1e-3):
     import torch
     import torch.nn as nn
     torch.manual_seed(SEED)
     torch.set_num_threads(1)
+    opt = torch.optim.Adam(net.parameters(), lr=lr)
+    lossf = nn.MSELoss()
+    Xt, yt = torch.tensor(X), torch.tensor(y)
+    for _ in range(epochs):
+        opt.zero_grad()
+        loss = lossf(net(Xt), yt)
+        loss.backward()
+        opt.step()
+    return net
 
-    def windows(v):
-        # standardize each series individually before pooling
-        mu, sd = v.mean(), v.std() + 1e-8
-        z = (v - mu) / sd
-        X = np.lib.stride_tricks.sliding_window_view(z, n_lags)
-        return X[:-1], z[n_lags:], mu, sd
 
-    Xs, ys = [], []
-    for v in all_ctx:
-        if len(v) > n_lags + 5:
-            a, b, _, _ = windows(v)
-            Xs.append(a)
-            ys.append(b)
-    X = np.concatenate(Xs).astype(np.float32)[..., None]
-    y = np.concatenate(ys).astype(np.float32)
+def _rollout(net, ctx, h, n_lags, seq=True):
+    import torch
     mu, sd = ctx.mean(), ctx.std() + 1e-8
+    hist = list((ctx - mu) / sd)
+    preds = []
+    with torch.no_grad():
+        for _ in range(h):
+            w = np.array(hist[-n_lags:], dtype=np.float32)
+            x = torch.tensor(
+                w[None, :, None] if seq else w[None, :])
+            p = float(net(x).item())
+            preds.append(p * sd + mu)
+            hist.append(p)
+    return np.array(preds)
+
+
+def predict_lstm_pooled(all_ctx, ctx, h, n_lags=12, epochs=40):
+    """Small LSTM trained across all series' windows (shared weights)."""
+    import torch.nn as nn
+    X, y = _pooled_windows(all_ctx, n_lags)
 
     class L(nn.Module):
         def __init__(self):
@@ -177,26 +205,52 @@ def predict_lstm_pooled(all_ctx, ctx, h, n_lags=12, epochs=40):
             o, _ = self.rnn(x)
             return self.head(o[:, -1]).squeeze(-1)
 
-    net = L()
-    opt = torch.optim.Adam(net.parameters(), lr=1e-3)
-    lossf = nn.MSELoss()
-    Xt, yt = torch.tensor(X), torch.tensor(y)
-    for _ in range(epochs):
-        opt.zero_grad()
-        loss = lossf(net(Xt), yt)
-        loss.backward()
-        opt.step()
+    net = _train_net(L(), X, y, epochs)
+    return _rollout(net, ctx, h, n_lags)
 
-    hist = list((ctx - mu) / sd)
-    preds = []
-    with torch.no_grad():
-        for _ in range(h):
-            x = torch.tensor(
-                np.array(hist[-n_lags:], dtype=np.float32)[None, :, None])
-            p = float(net(x).item())
-            preds.append(p * sd + mu)
-            hist.append(p)
-    return np.array(preds)
+
+def predict_mlp_pooled(all_ctx, ctx, h, n_lags=12, epochs=40):
+    """Flat MLP on the lag window — simplest trained NN baseline."""
+    import torch.nn as nn
+    X, y = _pooled_windows(all_ctx, n_lags)
+
+    class M(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.net = nn.Sequential(
+                nn.Flatten(), nn.Linear(n_lags, 64), nn.ReLU(),
+                nn.Linear(64, 32), nn.ReLU(), nn.Linear(32, 1))
+
+        def forward(self, x):
+            return self.net(x).squeeze(-1)
+
+    net = _train_net(M(), X, y, epochs)
+    return _rollout(net, ctx, h, n_lags, seq=False)
+
+
+def predict_transformer_pooled(all_ctx, ctx, h, n_lags=12, epochs=40):
+    """Tiny Transformer encoder (2 layers, 2 heads) + linear head."""
+    import torch
+    import torch.nn as nn
+    X, y = _pooled_windows(all_ctx, n_lags)
+
+    class T(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.proj = nn.Linear(1, 32)
+            self.pos = nn.Parameter(torch.randn(1, n_lags, 32) * 0.02)
+            enc = nn.TransformerEncoderLayer(
+                d_model=32, nhead=2, dim_feedforward=64,
+                batch_first=True, dropout=0.0)
+            self.enc = nn.TransformerEncoder(enc, num_layers=2)
+            self.head = nn.Linear(32, 1)
+
+        def forward(self, x):
+            z = self.enc(self.proj(x) + self.pos)
+            return self.head(z[:, -1]).squeeze(-1)
+
+    net = _train_net(T(), X, y, epochs, lr=5e-4)
+    return _rollout(net, ctx, h, n_lags)
 
 
 # ---------- foundation models ----------
@@ -304,9 +358,14 @@ def main():
         "chronos_bolt_small": predict_chronos,
         "timesfm_2p5": predict_timesfm,
     }
-    # pooled LSTM needs all series contexts
-    models["lstm_pooled"] = lambda ctx, h: predict_lstm_pooled(
-        [v for _, v in macro.values()], ctx, h)
+    # pooled trained baselines need all series contexts
+    macro_all = [v for _, v in macro.values()]
+    models["lstm_pooled"] = lambda c, h: predict_lstm_pooled(
+        macro_all, c, h)
+    models["mlp_pooled"] = lambda c, h: predict_mlp_pooled(
+        macro_all, c, h)
+    models["transformer_pooled"] = lambda c, h: predict_transformer_pooled(
+        macro_all, c, h)
 
     rows = []
     rows += run_panel("macro", macro, HORIZON_MACRO, N_ORIGINS, models)
@@ -315,6 +374,12 @@ def main():
         ctx, h, season=1)
     e_models["lstm_pooled"] = lambda ctx, h: predict_lstm_pooled(
         [v for _, v in electoral.values()], ctx, h, n_lags=3, epochs=40)
+    e_models["mlp_pooled"] = lambda ctx, h: predict_mlp_pooled(
+        [v for _, v in electoral.values()], ctx, h, n_lags=3, epochs=40)
+    e_models["transformer_pooled"] = lambda ctx, h: (
+        predict_transformer_pooled(
+            [v for _, v in electoral.values()], ctx, h,
+            n_lags=3, epochs=40))
     e_models["ridge_ar12"] = lambda ctx, h: predict_ridge(ctx, h, n_lags=3)
     rows += run_panel("electoral", electoral, 1, 3, e_models)
 
